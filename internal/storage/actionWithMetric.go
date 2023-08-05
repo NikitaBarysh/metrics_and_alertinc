@@ -1,7 +1,6 @@
 package storage
 
 import (
-	"fmt"
 	"sync"
 )
 
@@ -30,7 +29,6 @@ func (m *MemStorage) Get() []string {
 	for metricName, _ := range m.gauge {
 		metricNameSlice = append(metricNameSlice, metricName)
 	}
-	fmt.Println(metricNameSlice)
 	return metricNameSlice
 }
 
