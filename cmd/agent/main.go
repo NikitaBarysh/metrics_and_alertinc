@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
@@ -25,6 +24,4 @@ func main() {
 	go MemStorageAction.Run(ctx)
 
 	sig := <-termSignal
-	fmt.Println("  the end")
-	fmt.Println(sig.String())
 }
