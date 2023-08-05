@@ -1,7 +1,6 @@
 package server
 
 import (
-	"context"
 	"fmt"
 	"math/rand"
 	"net/http"
@@ -25,35 +24,31 @@ type MemStorageAction struct {
 	MemStorage *storage.MemStorage
 }
 
-func (m *MemStorageAction) Run(ctx context.Context) {
+func (m *MemStorageAction) Run() {
 	var wg sync.WaitGroup
 	wg.Add(3)
 
 	go func() {
 		defer wg.Done()
-		m.Collect(ctx)
+		m.Collect()
 	}()
 
 	go func() {
 		defer wg.Done()
-		m.SendGauge(ctx)
+		m.SendGauge()
 	}()
 
 	go func() {
 		defer wg.Done()
-		SendCounter(ctx)
+		SendCounter()
 	}()
 
 	wg.Wait()
 }
 
-func (m *MemStorageAction) Collect(ctx context.Context) {
+func (m *MemStorageAction) Collect() {
 	memStats := runtime.MemStats{}
 	for {
-		if ctx.Err() != nil {
-			fmt.Println("exit #1")
-			return
-		}
 		runtime.ReadMemStats(&memStats)
 		m.MemStorage.Put("Alloc", float64(memStats.Alloc))
 		m.MemStorage.Put("BuckHashSys", float64(memStats.BuckHashSys))
@@ -88,12 +83,8 @@ func (m *MemStorageAction) Collect(ctx context.Context) {
 	}
 }
 
-func (m *MemStorageAction) SendGauge(ctx context.Context) {
+func (m *MemStorageAction) SendGauge() {
 	for {
-		if ctx.Err() != nil {
-			fmt.Println("exit #2")
-			return
-		}
 		for _, metricName := range m.MemStorage.Get() {
 			if metricValue, ok := m.MemStorage.Read(metricName); ok {
 				url := "http://localhost:8080/update/gauge" + metricName + fmt.Sprintf("%f", metricValue)
@@ -108,12 +99,8 @@ func (m *MemStorageAction) SendGauge(ctx context.Context) {
 	}
 }
 
-func SendCounter(ctx context.Context) {
+func SendCounter() {
 	for {
-		if ctx.Err() != nil {
-			fmt.Println("exit #2")
-			return
-		}
 		for metricName, metricValue := range counter {
 			url := "http://localhost:8080/update/counter/" + metricName + fmt.Sprintf("%d", metricValue)
 			request, err := http.NewRequest(http.MethodPost, url, nil)
