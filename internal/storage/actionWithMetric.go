@@ -3,7 +3,6 @@ package storage
 import (
 	"fmt"
 	"sync"
-	"time"
 )
 
 func CreateMemStorage() *MemStorage {
@@ -22,11 +21,9 @@ func (m *MemStorage) Put(key string, value float64) {
 	m.mu.Unlock()
 	m.gauge[key] = value
 	return
-
 }
 
 func (m *MemStorage) Get() []string {
-	time.Sleep(time.Second * 8)
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	metricNameSlice := make([]string, 0, 30)

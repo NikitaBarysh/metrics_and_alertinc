@@ -23,8 +23,8 @@ func main() {
 	CreateMemStorage := storage.CreateMemStorage()
 	MemStorageAction := server.MemStorageAction{CreateMemStorage}
 	go MemStorageAction.Run(ctx)
-	
+
 	sig := <-termSignal
-	fmt.Println("end")
+	fmt.Println("  the end")
 	fmt.Println(sig.String())
 }

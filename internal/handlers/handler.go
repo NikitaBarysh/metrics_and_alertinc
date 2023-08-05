@@ -58,6 +58,6 @@ func post(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rw.Header().Set("Content-Type", "text/plain")
+	rw.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	rw.WriteHeader(http.StatusOK)
 }

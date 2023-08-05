@@ -83,8 +83,8 @@ func (m *MemStorageAction) Collect(ctx context.Context) {
 		m.MemStorage.Put("Sys", float64(memStats.Sys))
 		m.MemStorage.Put("TotalAlloc", float64(memStats.TotalAlloc))
 		m.MemStorage.Put("RandomValue", rand.Float64())
-		counter["PollCount"] += 1
 		time.Sleep(poolInterval)
+		counter["PollCount"]++
 	}
 }
 
