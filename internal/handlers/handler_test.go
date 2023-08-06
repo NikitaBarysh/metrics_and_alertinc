@@ -66,7 +66,7 @@ func Test_post(t *testing.T) {
 			post(rw, r)
 
 			res := rw.Result()
-			defer r.Body.Close()
+			res.Body.Close()
 			assert.Equal(t, res.StatusCode, tt.want.code)
 
 		})
