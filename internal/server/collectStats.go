@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"fmt"
 	"math/rand"
 	"net/http"
@@ -11,10 +12,6 @@ import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
 )
 
-var counter = map[string]int64{
-	"PollCount": 0,
-}
-
 const (
 	poolInterval   = time.Second * 2
 	reportInterval = time.Second * 10
@@ -24,31 +21,40 @@ type MemStorageAction struct {
 	MemStorage *storage.MemStorage
 }
 
-func (m *MemStorageAction) Run() {
+func (m *MemStorageAction) Run(ctx context.Context) {
 	var wg sync.WaitGroup
 	wg.Add(3)
 
 	go func() {
 		defer wg.Done()
-		m.Collect()
+		m.CollectMetric(ctx)
 	}()
 
 	go func() {
 		defer wg.Done()
-		m.SendGauge()
+		m.SendMetric(ctx)
 	}()
 
-	go func() {
-		defer wg.Done()
-		SendCounter()
-	}()
+	//go func() {
+	//	defer wg.Done()
+	//	m.SendGauge(ctx)
+	//}()
+	//
+	//go func() {
+	//	defer wg.Done()
+	//	SendCounter(ctx)
+	//}()
 
 	wg.Wait()
 }
 
-func (m *MemStorageAction) Collect() {
+func (m *MemStorageAction) CollectMetric(ctx context.Context) {
 	memStats := runtime.MemStats{}
 	for {
+		if ctx.Err() != nil {
+			fmt.Println("err in func CollectMetric")
+			return
+		}
 		runtime.ReadMemStats(&memStats)
 		m.MemStorage.Put("Alloc", float64(memStats.Alloc))
 		m.MemStorage.Put("BuckHashSys", float64(memStats.BuckHashSys))
@@ -79,35 +85,67 @@ func (m *MemStorageAction) Collect() {
 		m.MemStorage.Put("TotalAlloc", float64(memStats.TotalAlloc))
 		m.MemStorage.Put("RandomValue", rand.Float64())
 		time.Sleep(poolInterval)
-		counter["PollCount"]++
+		m.MemStorage.Put("PollCount", int64(+1))
 	}
 }
 
-func (m *MemStorageAction) SendGauge() {
+//func (m *MemStorageAction) SendGauge(ctx context.Context) {
+//	for {
+//		for _, metricName := range m.MemStorage.Get() {
+//			if metricValue, ok := m.MemStorage.Read(metricName); ok {
+//				fmt.Println(metricValue, metricName)
+//				url := "http://localhost:8080/update/gauge" + metricName + fmt.Sprintf("%f", metricValue)
+//				request, err := http.NewRequest(http.MethodPost, url, nil)
+//				if err != nil {
+//					panic(err)
+//				}
+//				request.Header.Set(`Content-Type`, "text/plain")
+//			}
+//		}
+//		time.Sleep(reportInterval)
+//	}
+//}
+//
+//func SendCounter(ctx context.Context) {
+//	for {
+//		for metricName, metricValue := range counter {
+//			fmt.Println(metricValue, metricName)
+//			url := "http://localhost:8080/update/counter/" + metricName + fmt.Sprintf("%d", metricValue)
+//			request, err := http.NewRequest(http.MethodPost, url, nil)
+//			if err != nil {
+//				panic(err)
+//			}
+//			request.Header.Set(`Content-Type`, "text/plain")
+//		}
+//		time.Sleep(reportInterval)
+//	}
+//}
+
+func (m *MemStorageAction) SendMetric(ctx context.Context) {
 	for {
+		if ctx.Err() != nil {
+			fmt.Println("err in func SendMetric")
+			return
+		}
 		for _, metricName := range m.MemStorage.Get() {
 			if metricValue, ok := m.MemStorage.Read(metricName); ok {
-				url := "http://localhost:8080/update/gauge" + metricName + fmt.Sprintf("%f", metricValue)
-				request, err := http.NewRequest(http.MethodPost, url, nil)
-				if err != nil {
-					panic(err)
+				if metricName == "PollCount" {
+					url := "http://localhost:8080/update/counter/" + metricName + fmt.Sprintf("%d", metricValue)
+					request, err := http.NewRequest(http.MethodPost, url, nil)
+					if err != nil {
+						panic(err)
+					}
+					request.Header.Set(`Content-Type`, "text/plain")
+				} else {
+					url := "http://localhost:8080/update/gauge" + metricName + fmt.Sprintf("%f", metricValue)
+					request, err := http.NewRequest(http.MethodPost, url, nil)
+					if err != nil {
+						panic(err)
+					}
+					request.Header.Set(`Content-Type`, "text/plain")
 				}
-				request.Header.Set(`Content-Type`, "text/plain")
+				fmt.Println(metricValue, metricName)
 			}
-		}
-		time.Sleep(reportInterval)
-	}
-}
-
-func SendCounter() {
-	for {
-		for metricName, metricValue := range counter {
-			url := "http://localhost:8080/update/counter/" + metricName + fmt.Sprintf("%d", metricValue)
-			request, err := http.NewRequest(http.MethodPost, url, nil)
-			if err != nil {
-				panic(err)
-			}
-			request.Header.Set(`Content-Type`, "text/plain")
 		}
 		time.Sleep(reportInterval)
 	}

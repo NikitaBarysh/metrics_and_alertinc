@@ -6,19 +6,19 @@ import (
 
 func CreateMemStorage() *MemStorage {
 	return &MemStorage{
-		gauge: make(map[string]float64),
+		storage: make(map[string]interface{}),
 	}
 }
 
 type MemStorage struct {
-	gauge map[string]float64
-	mu    sync.RWMutex
+	storage map[string]interface{}
+	mu      sync.RWMutex
 }
 
-func (m *MemStorage) Put(key string, value float64) {
+func (m *MemStorage) Put(key string, value interface{}) {
 	m.mu.Lock()
 	m.mu.Unlock()
-	m.gauge[key] = value
+	m.storage[key] = value
 	return
 }
 
@@ -26,7 +26,7 @@ func (m *MemStorage) Get() []string {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	metricNameSlice := make([]string, 0, 30)
-	for metricName, _ := range m.gauge {
+	for metricName, _ := range m.storage {
 		metricNameSlice = append(metricNameSlice, metricName)
 	}
 	return metricNameSlice
@@ -35,6 +35,6 @@ func (m *MemStorage) Get() []string {
 func (m *MemStorage) Read(key string) (interface{}, bool) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
-	value, ok := m.gauge[key]
+	value, ok := m.storage[key]
 	return value, ok
 }
