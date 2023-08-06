@@ -17,7 +17,7 @@ type MemStorage struct {
 
 func (m *MemStorage) Put(key string, value interface{}) {
 	m.mu.Lock()
-	m.mu.Unlock()
+	defer m.mu.Unlock()
 	m.storage[key] = value
 	return
 }
