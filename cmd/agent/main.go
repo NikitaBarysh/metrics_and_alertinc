@@ -19,7 +19,7 @@ func main() {
 	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 
 	createMemStorage := storage.CreateMemStorage()
-	memStorageAction := server.MemStorageAction{createMemStorage}
+	memStorageAction := server.MemStorageAction{MemStorage: createMemStorage}
 	go memStorageAction.Run(ctx)
 
 	sig := <-termSignal
