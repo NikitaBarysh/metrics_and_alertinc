@@ -7,11 +7,13 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/server"
 )
 
 func main() {
+	time.Sleep(time.Second * 1)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
