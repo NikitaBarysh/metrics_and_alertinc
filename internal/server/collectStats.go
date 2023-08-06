@@ -144,7 +144,6 @@ func (m *MemStorageAction) SendMetric(ctx context.Context) {
 					}
 					request.Header.Set(`Content-Type`, "text/plain")
 				}
-				fmt.Println(metricValue, metricName)
 			}
 		}
 		time.Sleep(reportInterval)
