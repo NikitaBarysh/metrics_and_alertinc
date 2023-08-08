@@ -15,14 +15,14 @@ type MemStorage struct {
 	mu      sync.RWMutex
 }
 
-func (m *MemStorage) Put(key string, value interface{}) {
+func (m *MemStorage) PutMetric(key string, value interface{}) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	m.storage[key] = value
 	return
 }
 
-func (m *MemStorage) Get() []string {
+func (m *MemStorage) GetMetric() []string {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	metricNameSlice := make([]string, 0, 30)
@@ -32,7 +32,7 @@ func (m *MemStorage) Get() []string {
 	return metricNameSlice
 }
 
-func (m *MemStorage) Read(key string) (interface{}, bool) {
+func (m *MemStorage) ReadMetric(key string) (interface{}, bool) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	value, ok := m.storage[key]

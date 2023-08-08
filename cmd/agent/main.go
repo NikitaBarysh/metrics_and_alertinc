@@ -3,17 +3,15 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
-
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/server"
 )
 
 func main() {
-	time.Sleep(time.Second * 1)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -22,6 +20,7 @@ func main() {
 
 	createMemStorage := storage.CreateMemStorage()
 	memStorageAction := server.MemStorageAction{MemStorage: createMemStorage}
+	time.Sleep(time.Second * 1)
 	go memStorageAction.Run(ctx)
 
 	sig := <-termSignal
