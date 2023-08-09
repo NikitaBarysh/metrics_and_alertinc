@@ -86,43 +86,34 @@ func (m *MemStorageAction) SendMetric(ctx context.Context) {
 			return
 		}
 		for metricName, metricValue := range m.MemStorage.ReadGaugeMetric() {
-			url := "http://localhost:8080/update/gauge/" + metricName + "/" + fmt.Sprintf("%f", metricValue)
-			//url := fmt.Sprintf("")
+			url := fmt.Sprintf("http://localhost:8080/update/gauge/%s/%f", metricName, metricValue)
 			request, err := http.NewRequest(http.MethodPost, url, nil)
 			if err != nil {
 				panic(err)
 			}
 			request.Header.Set(`Content-Type`, "text/plain")
 			client := &http.Client{}
-			_, err = client.Do(request)
+			res, err := client.Do(request)
 			if err != nil {
 				fmt.Println(err)
 			}
+			res.Body.Close()
+
 		}
 		for metricName, metricValue := range m.MemStorage.ReadCounterMetric() {
-			url := "http://localhost:8080/update/counter/" + metricName + "/" + fmt.Sprintf("%d", metricValue)
-			//url := fmt.Sprintf("")
+			url := fmt.Sprintf("http://localhost:8080/update/counter/%s/%d", metricName, metricValue)
 			request, err := http.NewRequest(http.MethodPost, url, nil)
 			if err != nil {
 				panic(err)
 			}
 			request.Header.Set(`Content-Type`, "text/plain")
 			client := &http.Client{}
-			client.Do(request)
+			res, err := client.Do(request)
+			if err != nil {
+				fmt.Println(err)
+			}
+			res.Body.Close()
 		}
-		//for _, metricName := range m.MemStorage.GetMetric() {
-		//	if metricValue, ok := m.MemStorage.ReadMetric(metricName); ok {
-		//		url := "http://localhost:8080/update/gauge" + metricName + fmt.Sprintf("%f", metricValue)
-		//		if metricName == "PollCount" {
-		//			url = "http://localhost:8080/update/counter/" + metricName + fmt.Sprintf("%d", metricValue)
-		//		}
-		//		request, err := http.Post(url, "text/plain; charset=UTF-8", nil)
-		//		if err != nil {
-		//			panic(err)
-		//		}
-		//		request.Header.Set(`Content-Type`, "text/plain")
-		//	}
-		//}
 		time.Sleep(reportInterval)
 	}
 }

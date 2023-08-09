@@ -8,11 +8,9 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 )
 
 func main() {
-	time.Sleep(time.Second * 4)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
