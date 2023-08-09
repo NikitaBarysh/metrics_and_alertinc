@@ -86,7 +86,7 @@ func (m *MemStorageAction) SendMetric(ctx context.Context) {
 			return
 		}
 		for metricName, metricValue := range m.MemStorage.ReadGaugeMetric() {
-			url := "http://localhost:8088/update/gauge/" + metricName + "/" + fmt.Sprintf("%f", metricValue)
+			url := "http://localhost:8080/update/gauge/" + metricName + "/" + fmt.Sprintf("%f", metricValue)
 			//url := fmt.Sprintf("")
 			request, err := http.NewRequest(http.MethodPost, url, nil)
 			if err != nil {
@@ -100,7 +100,7 @@ func (m *MemStorageAction) SendMetric(ctx context.Context) {
 			}
 		}
 		for metricName, metricValue := range m.MemStorage.ReadCounterMetric() {
-			url := "http://localhost:8088/update/counter/" + metricName + "/" + fmt.Sprintf("%d", metricValue)
+			url := "http://localhost:8080/update/counter/" + metricName + "/" + fmt.Sprintf("%d", metricValue)
 			//url := fmt.Sprintf("")
 			request, err := http.NewRequest(http.MethodPost, url, nil)
 			if err != nil {

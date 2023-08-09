@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	err := http.ListenAndServe(`:8088`, http.HandlerFunc(handlers.Router))
+	err := http.ListenAndServe(`:8080`, http.HandlerFunc(handlers.Router))
 	if err != nil {
 		panic(err)
 	}
