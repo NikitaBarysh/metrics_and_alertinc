@@ -35,16 +35,6 @@ func (m *MemStorageAction) Run(ctx context.Context) {
 		m.SendMetric(ctx)
 	}()
 
-	//go func() {
-	//	defer wg.Done()
-	//	m.SendGauge(ctx)
-	//}()
-	//
-	//go func() {
-	//	defer wg.Done()
-	//	SendCounter(ctx)
-	//}()
-
 	wg.Wait()
 }
 
@@ -56,70 +46,38 @@ func (m *MemStorageAction) CollectMetric(ctx context.Context) {
 			return
 		}
 		runtime.ReadMemStats(&memStats)
-		m.MemStorage.PutMetric("Alloc", float64(memStats.Alloc))
-		m.MemStorage.PutMetric("BuckHashSys", float64(memStats.BuckHashSys))
-		m.MemStorage.PutMetric("Frees", float64(memStats.Frees))
-		m.MemStorage.PutMetric("GCCPUFraction", memStats.GCCPUFraction)
-		m.MemStorage.PutMetric("GCSys", float64(memStats.GCSys))
-		m.MemStorage.PutMetric("HeapAlloc", float64(memStats.HeapAlloc))
-		m.MemStorage.PutMetric("HeapIdle", float64(memStats.HeapIdle))
-		m.MemStorage.PutMetric("HeapInuse", float64(memStats.HeapInuse))
-		m.MemStorage.PutMetric("HeapObjects", float64(memStats.HeapObjects))
-		m.MemStorage.PutMetric("HeapReleased", float64(memStats.HeapReleased))
-		m.MemStorage.PutMetric("HeapSys", float64(memStats.HeapSys))
-		m.MemStorage.PutMetric("LastGC", float64(memStats.LastGC))
-		m.MemStorage.PutMetric("Lookups", float64(memStats.Lookups))
-		m.MemStorage.PutMetric("MCacheInuse", float64(memStats.MCacheInuse))
-		m.MemStorage.PutMetric("MCacheSys", float64(memStats.MCacheSys))
-		m.MemStorage.PutMetric("MSpanInuse", float64(memStats.MSpanInuse))
-		m.MemStorage.PutMetric("MSpanSys", float64(memStats.MSpanSys))
-		m.MemStorage.PutMetric("Mallocs", float64(memStats.Mallocs))
-		m.MemStorage.PutMetric("NextGC", float64(memStats.NextGC))
-		m.MemStorage.PutMetric("NumForcedGC", float64(memStats.NumForcedGC))
-		m.MemStorage.PutMetric("NumGC", float64(memStats.NumGC))
-		m.MemStorage.PutMetric("OtherSys", float64(memStats.OtherSys))
-		m.MemStorage.PutMetric("PauseTotalNs", float64(memStats.PauseTotalNs))
-		m.MemStorage.PutMetric("StackInuse", float64(memStats.StackInuse))
-		m.MemStorage.PutMetric("StackSys", float64(memStats.StackSys))
-		m.MemStorage.PutMetric("Sys", float64(memStats.Sys))
-		m.MemStorage.PutMetric("TotalAlloc", float64(memStats.TotalAlloc))
-		m.MemStorage.PutMetric("RandomValue", rand.Float64())
+		m.MemStorage.UpdateGaugeMetric("Alloc", float64(memStats.Alloc))
+		m.MemStorage.UpdateGaugeMetric("BuckHashSys", float64(memStats.BuckHashSys))
+		m.MemStorage.UpdateGaugeMetric("Frees", float64(memStats.Frees))
+		m.MemStorage.UpdateGaugeMetric("GCCPUFraction", memStats.GCCPUFraction)
+		m.MemStorage.UpdateGaugeMetric("GCSys", float64(memStats.GCSys))
+		m.MemStorage.UpdateGaugeMetric("HeapAlloc", float64(memStats.HeapAlloc))
+		m.MemStorage.UpdateGaugeMetric("HeapIdle", float64(memStats.HeapIdle))
+		m.MemStorage.UpdateGaugeMetric("HeapInuse", float64(memStats.HeapInuse))
+		m.MemStorage.UpdateGaugeMetric("HeapObjects", float64(memStats.HeapObjects))
+		m.MemStorage.UpdateGaugeMetric("HeapReleased", float64(memStats.HeapReleased))
+		m.MemStorage.UpdateGaugeMetric("HeapSys", float64(memStats.HeapSys))
+		m.MemStorage.UpdateGaugeMetric("LastGC", float64(memStats.LastGC))
+		m.MemStorage.UpdateGaugeMetric("Lookups", float64(memStats.Lookups))
+		m.MemStorage.UpdateGaugeMetric("MCacheInuse", float64(memStats.MCacheInuse))
+		m.MemStorage.UpdateGaugeMetric("MCacheSys", float64(memStats.MCacheSys))
+		m.MemStorage.UpdateGaugeMetric("MSpanInuse", float64(memStats.MSpanInuse))
+		m.MemStorage.UpdateGaugeMetric("MSpanSys", float64(memStats.MSpanSys))
+		m.MemStorage.UpdateGaugeMetric("Mallocs", float64(memStats.Mallocs))
+		m.MemStorage.UpdateGaugeMetric("NextGC", float64(memStats.NextGC))
+		m.MemStorage.UpdateGaugeMetric("NumForcedGC", float64(memStats.NumForcedGC))
+		m.MemStorage.UpdateGaugeMetric("NumGC", float64(memStats.NumGC))
+		m.MemStorage.UpdateGaugeMetric("OtherSys", float64(memStats.OtherSys))
+		m.MemStorage.UpdateGaugeMetric("PauseTotalNs", float64(memStats.PauseTotalNs))
+		m.MemStorage.UpdateGaugeMetric("StackInuse", float64(memStats.StackInuse))
+		m.MemStorage.UpdateGaugeMetric("StackSys", float64(memStats.StackSys))
+		m.MemStorage.UpdateGaugeMetric("Sys", float64(memStats.Sys))
+		m.MemStorage.UpdateGaugeMetric("TotalAlloc", float64(memStats.TotalAlloc))
+		m.MemStorage.UpdateGaugeMetric("RandomValue", rand.Float64())
+		m.MemStorage.UpdateCounterMetric("PollCount", int64(1))
 		time.Sleep(poolInterval)
-		m.MemStorage.PutMetric("PollCount", int64(+1))
 	}
 }
-
-//func (m *MemStorageAction) SendGauge(ctx context.Context) {
-//	for {
-//		for _, metricName := range m.MemStorage.GetMetric() {
-//			if metricValue, ok := m.MemStorage.ReadMetric(metricName); ok {
-//				fmt.Println(metricValue, metricName)
-//				url := "http://localhost:8080/update/gauge" + metricName + fmt.Sprintf("%f", metricValue)
-//				request, err := http.NewRequest(http.MethodPost, url, nil)
-//				if err != nil {
-//					panic(err)
-//				}
-//				request.Header.Set(`Content-Type`, "text/plain")
-//			}
-//		}
-//		time.Sleep(reportInterval)
-//	}
-//}
-//
-//func SendCounter(ctx context.Context) {
-//	for {
-//		for metricName, metricValue := range counter {
-//			fmt.Println(metricValue, metricName)
-//			url := "http://localhost:8080/update/counter/" + metricName + fmt.Sprintf("%d", metricValue)
-//			request, err := http.NewRequest(http.MethodPost, url, nil)
-//			if err != nil {
-//				panic(err)
-//			}
-//			request.Header.Set(`Content-Type`, "text/plain")
-//		}
-//		time.Sleep(reportInterval)
-//	}
-//}
 
 func (m *MemStorageAction) SendMetric(ctx context.Context) {
 	for {
@@ -127,25 +85,44 @@ func (m *MemStorageAction) SendMetric(ctx context.Context) {
 			fmt.Println("err in func SendMetric")
 			return
 		}
-		for _, metricName := range m.MemStorage.GetMetric() {
-			if metricValue, ok := m.MemStorage.ReadMetric(metricName); ok {
-				if metricName == "PollCount" {
-					url := "http://localhost:8080/update/counter/" + metricName + fmt.Sprintf("%d", metricValue)
-					request, err := http.NewRequest(http.MethodPost, url, nil)
-					if err != nil {
-						panic(err)
-					}
-					request.Header.Set(`Content-Type`, "text/plain")
-				} else {
-					url := "http://localhost:8080/update/gauge" + metricName + fmt.Sprintf("%f", metricValue)
-					request, err := http.NewRequest(http.MethodPost, url, nil)
-					if err != nil {
-						panic(err)
-					}
-					request.Header.Set(`Content-Type`, "text/plain")
-				}
+		for metricName, metricValue := range m.MemStorage.ReadGaugeMetric() {
+			url := "http://localhost:8088/update/gauge/" + metricName + "/" + fmt.Sprintf("%f", metricValue)
+			//url := fmt.Sprintf("")
+			request, err := http.NewRequest(http.MethodPost, url, nil)
+			if err != nil {
+				panic(err)
+			}
+			request.Header.Set(`Content-Type`, "text/plain")
+			client := &http.Client{}
+			_, err = client.Do(request)
+			if err != nil {
+				fmt.Println(err)
 			}
 		}
+		for metricName, metricValue := range m.MemStorage.ReadCounterMetric() {
+			url := "http://localhost:8088/update/counter/" + metricName + "/" + fmt.Sprintf("%d", metricValue)
+			//url := fmt.Sprintf("")
+			request, err := http.NewRequest(http.MethodPost, url, nil)
+			if err != nil {
+				panic(err)
+			}
+			request.Header.Set(`Content-Type`, "text/plain")
+			client := &http.Client{}
+			client.Do(request)
+		}
+		//for _, metricName := range m.MemStorage.GetMetric() {
+		//	if metricValue, ok := m.MemStorage.ReadMetric(metricName); ok {
+		//		url := "http://localhost:8080/update/gauge" + metricName + fmt.Sprintf("%f", metricValue)
+		//		if metricName == "PollCount" {
+		//			url = "http://localhost:8080/update/counter/" + metricName + fmt.Sprintf("%d", metricValue)
+		//		}
+		//		request, err := http.Post(url, "text/plain; charset=UTF-8", nil)
+		//		if err != nil {
+		//			panic(err)
+		//		}
+		//		request.Header.Set(`Content-Type`, "text/plain")
+		//	}
+		//}
 		time.Sleep(reportInterval)
 	}
 }

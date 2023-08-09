@@ -6,35 +6,60 @@ import (
 
 func CreateMemStorage() *MemStorage {
 	return &MemStorage{
-		storage: make(map[string]interface{}),
+		gauge:   make(map[string]float64),
+		counter: make(map[string]int64),
 	}
 }
 
 type MemStorage struct {
-	storage map[string]interface{}
+	gauge   map[string]float64
+	counter map[string]int64
 	mu      sync.RWMutex
 }
 
-func (m *MemStorage) PutMetric(key string, value interface{}) {
+func (m *MemStorage) UpdateGaugeMetric(key string, value float64) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	m.storage[key] = value
+	m.gauge[key] = value
 	return
 }
 
-func (m *MemStorage) GetMetric() []string {
-	m.mu.RLock()
-	defer m.mu.RUnlock()
-	metricNameSlice := make([]string, 0, 30)
-	for metricName, _ := range m.storage {
-		metricNameSlice = append(metricNameSlice, metricName)
-	}
-	return metricNameSlice
+func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	m.counter[key] += value
+	return
 }
 
-func (m *MemStorage) ReadMetric(key string) (interface{}, bool) {
+//func (m *MemStorage) GetGaugeMetric() []string {
+//	m.mu.RLock()
+//	defer m.mu.RUnlock()
+//	metricNameSlice := make([]string, 0, 30)
+//	for metricName, _ := range m.gauge {
+//		metricNameSlice = append(metricNameSlice, metricName)
+//	}
+//	return metricNameSlice
+//}
+//
+//func (m *MemStorage) GetCounterMetric() []string {
+//	m.mu.RLock()
+//	defer m.mu.RUnlock()
+//	metricNameSlice := make([]string, 0, 30)
+//	for metricName, _ := range m.counter {
+//		metricNameSlice = append(metricNameSlice, metricName)
+//	}
+//	return metricNameSlice
+//}
+
+func (m *MemStorage) ReadGaugeMetric() map[string]float64 {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
-	value, ok := m.storage[key]
-	return value, ok
+	// TODO copymap
+	return m.gauge
+}
+
+func (m *MemStorage) ReadCounterMetric() map[string]int64 {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+	return m.counter
 }

@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+	time.Sleep(time.Second * 4)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -20,7 +21,6 @@ func main() {
 
 	createMemStorage := storage.CreateMemStorage()
 	memStorageAction := server.MemStorageAction{MemStorage: createMemStorage}
-	time.Sleep(time.Second * 1)
 	go memStorageAction.Run(ctx)
 
 	sig := <-termSignal

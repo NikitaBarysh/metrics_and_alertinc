@@ -15,7 +15,10 @@ func Router(rw http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
 		post(rw, r)
+	case http.MethodGet:
+		get(rw, r)
 	}
+
 }
 
 func post(rw http.ResponseWriter, r *http.Request) {
@@ -60,4 +63,8 @@ func post(rw http.ResponseWriter, r *http.Request) {
 
 	rw.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	rw.WriteHeader(http.StatusOK)
+}
+
+func get(rw http.ResponseWriter, r *http.Request) {
+
 }
