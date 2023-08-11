@@ -27,21 +27,7 @@ func NewHandler(storage storage) *Handler {
 	}
 }
 
-func (h *Handler) Router() *chi.Mux {
-	r := chi.NewRouter()
-	r.Post("/{update}/{type}/{name}/{value}", h.Safe)
-	r.Get("/{value}/{type}/{name}", h.Get)
-	r.Get("/", h.GetAll)
-	return r
-}
-
 func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
-	res := strings.Split(r.URL.Path, "/")
-
-	if len(res) < 5 {
-		http.Error(rw, "wrong request", http.StatusNotFound)
-		return
-	}
 
 	update := chi.URLParam(r, "update")
 	if update != "update" {
@@ -82,11 +68,6 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
-	res := strings.Split(r.URL.Path, "/")
-
-	if len(res) < 3 {
-		http.Error(rw, "wrong request", http.StatusBadRequest)
-	}
 
 	metricMethod := chi.URLParam(r, "value")
 	if metricMethod != "value" {

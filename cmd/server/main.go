@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/router"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 	"github.com/go-chi/chi/v5"
 	"net/http"
@@ -13,10 +14,10 @@ func main() {
 
 	memStorage := repositories.NewMemStorage()
 	handler := handlers.NewHandler(memStorage)
-	//router := router.NewRouter(handler)
+	router := router.NewRouter(handler)
 	chiRouter := chi.NewRouter()
-	chiRouter.Mount("/", handler.Router())
-	err := http.ListenAndServe(url, chiRouter)
+	chiRouter.Mount("/", router.Register())
+	err := http.ListenAndServe(`:8080`, chiRouter)
 	if err != nil {
 		panic(err)
 	}

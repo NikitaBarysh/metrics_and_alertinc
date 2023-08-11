@@ -7,7 +7,7 @@ import (
 )
 
 type Options struct {
-	url            string
+	flagRunAddr    string
 	pollInterval   int64
 	reportInterval int64
 }
@@ -15,14 +15,14 @@ type Options struct {
 var options Options
 
 func parseFlags() {
-	flag.StringVar(&options.url, "a", "http://localhost:8080", "server address and port")
+	flag.StringVar(&options.flagRunAddr, "a", ":8080", "address and port to run server")
 	flag.Int64Var(&options.pollInterval, "p", 2, "poll interval")
 	flag.Int64Var(&options.reportInterval, "r", 10, "report interval")
 
 	flag.Parse()
 
 	if addr, ok := os.LookupEnv("ADDRESS"); ok {
-		options.url = addr
+		options.flagRunAddr = addr
 	}
 
 	if interval, ok := os.LookupEnv("REPORT_INTERVAL"); ok {
