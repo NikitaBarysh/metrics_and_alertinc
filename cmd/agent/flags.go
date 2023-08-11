@@ -2,6 +2,8 @@ package main
 
 import (
 	"flag"
+	"os"
+	"strconv"
 )
 
 type Options struct {
@@ -19,4 +21,19 @@ func parseFlags() {
 
 	flag.Parse()
 
+	if addr, ok := os.LookupEnv("ADDRESS"); ok {
+		options.url = addr
+	}
+
+	if interval, ok := os.LookupEnv("REPORT_INTERVAL"); ok {
+		if value, err := strconv.ParseInt(interval, 10, 64); err == nil {
+			options.reportInterval = value
+		}
+	}
+
+	if interval, ok := os.LookupEnv("POLL_INTERVAL"); ok {
+		if value, err := strconv.ParseInt(interval, 10, 64); err == nil {
+			options.pollInterval = value
+		}
+	}
 }
