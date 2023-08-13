@@ -2,6 +2,7 @@ package storage
 
 import (
 	"context"
+	sender2 "github.com/NikitaBarysh/metrics_and_alertinc/internal/sender"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -40,10 +41,14 @@ func TestMetricAction(t *testing.T) {
 		args   args
 	}{
 		{
-			name: "success",
+			name: "success gauge metric",
 			args: args{
 				ctx: context.Background(),
-				url: "http://localhost:8080/update/gauge/Alloc/134.00",
+				url: "http://localhost:8080/update/gauge/Alloc/134",
+			},
+			fields: fields{
+				MemStorage: repositories.NewMemStorage(),
+				sender:     sender2.NewSender(),
 			},
 		},
 	}
