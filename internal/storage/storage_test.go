@@ -9,20 +9,20 @@ import (
 )
 
 type senderMock struct {
-	t           *testing.T
-	expectedUrl string
+	t   *testing.T
+	url string
 }
 
 func (s *senderMock) SendPost(ctx context.Context, url string) {
-	if url != s.expectedUrl {
-		assert.Fail(s.t, "expectedUrl not equal")
+	if url != s.url {
+		assert.Fail(s.t, "url not equal")
 	}
 }
 
 func newSenderMock(t *testing.T, expectedUrl string) *senderMock {
 	return &senderMock{
-		t:           t,
-		expectedUrl: expectedUrl,
+		t:   t,
+		url: expectedUrl,
 	}
 }
 
