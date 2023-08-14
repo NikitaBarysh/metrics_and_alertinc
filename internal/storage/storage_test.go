@@ -15,7 +15,7 @@ type senderMock struct {
 
 func (s *senderMock) SendPost(ctx context.Context, url string) {
 	if url != s.expectedUrl {
-		assert.Fail(s.t, "url not equal")
+		assert.Fail(s.t, "expectedUrl not equal")
 	}
 }
 
@@ -32,8 +32,8 @@ func TestMetricAction(t *testing.T) {
 		sender     sender
 	}
 	type args struct {
-		ctx context.Context
-		url string
+		ctx         context.Context
+		expectedUrl string
 	}
 	tests := []struct {
 		name   string
@@ -43,8 +43,8 @@ func TestMetricAction(t *testing.T) {
 		{
 			name: "success gauge metric",
 			args: args{
-				ctx: context.Background(),
-				url: "http://localhost:8080/update/gauge/Alloc/134",
+				ctx:         context.Background(),
+				expectedUrl: "http://localhost:8080/update/gauge/Alloc/134",
 			},
 			fields: fields{
 				MemStorage: repositories.NewMemStorage(),
@@ -56,7 +56,7 @@ func TestMetricAction(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			m := &MetricAction{
 				MemStorage: tt.fields.MemStorage,
-				sender:     newSenderMock(t, tt.args.url),
+				sender:     newSenderMock(t, tt.args.expectedUrl),
 			}
 			m.SendMetric(tt.args.ctx)
 		})
