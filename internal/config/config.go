@@ -18,7 +18,7 @@ func NewFlagNames() *FlagNames {
 }
 
 func (f *FlagNames) ParseFlags() {
-	flag.StringVar(&f.flagRunAddr, "a", "http://localhost:8080", "address and port to run server")
+	flag.StringVar(&f.flagRunAddr, "a", "localhost:8080", "address and port to run server")
 	flag.Int64Var(&f.pollInterval, "p", 2, "poll interval")
 	flag.Int64Var(&f.reportInterval, "r", 10, "report interval")
 
