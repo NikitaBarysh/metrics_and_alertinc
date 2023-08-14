@@ -14,7 +14,7 @@ const (
 )
 
 type sender interface {
-	SendPost(ctx context.Context, url string)
+	SendPost(url string)
 }
 
 func (m *MetricAction) Run(ctx context.Context) {
@@ -32,7 +32,7 @@ func (m *MetricAction) Run(ctx context.Context) {
 		case <-collectTicker.C:
 			m.CollectMetric()
 		case <-sendTicker.C:
-			m.SendMetric(ctx)
+			m.SendMetric()
 		}
 	}
 }
@@ -71,13 +71,13 @@ func (m *MetricAction) CollectMetric() {
 	m.MemStorage.UpdateCounterMetric("PollCount", int64(1))
 }
 
-func (m *MetricAction) SendMetric(ctx context.Context) {
+func (m *MetricAction) SendMetric() {
 	for metricName, metricValue := range m.MemStorage.ReadGaugeMetric() {
 		url := fmt.Sprintf("http://localhost:8080/update/gauge/%s/%2f", metricName, metricValue)
-		m.sender.SendPost(ctx, url)
+		m.sender.SendPost(url)
 	}
 	for metricName, metricValue := range m.MemStorage.ReadCounterMetric() {
 		url := fmt.Sprintf("http://localhost:8080/update/counter/%s/%d", metricName, metricValue)
-		m.sender.SendPost(ctx, url)
+		m.sender.SendPost(url)
 	}
 }
