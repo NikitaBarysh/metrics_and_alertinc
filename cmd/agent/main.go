@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/config"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/sender"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
@@ -12,7 +13,8 @@ import (
 )
 
 func main() {
-	parseFlags()
+	flags := config.NewFlagNames()
+	flags.ParseFlags()
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()

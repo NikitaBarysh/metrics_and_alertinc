@@ -41,8 +41,6 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 
 	metricValue := chi.URLParam(r, "value")
 
-	fmt.Println(metricName, metricValue)
-
 	switch metricType {
 	case "counter":
 		value, err := strconv.ParseInt(metricValue, 10, 64)
@@ -84,20 +82,16 @@ func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 			rw.WriteHeader(http.StatusOK)
 			rw.Write([]byte(fmt.Sprintf("%v", value)))
 			return
-		} else {
-			http.Error(rw, "wrong type", http.StatusNotFound)
-			return
 		}
+		http.Error(rw, "wrong type", http.StatusNotFound)
 	case "counter":
 		metricValue := h.storage.ReadCounterMetric()
 		if value, ok := metricValue[metricName]; ok {
 			rw.WriteHeader(http.StatusOK)
 			rw.Write([]byte(fmt.Sprintf("%v", value)))
 			return
-		} else {
-			http.Error(rw, "wrong type", http.StatusNotFound)
-			return
 		}
+		http.Error(rw, "wrong type", http.StatusNotFound)
 	default:
 		http.Error(rw, "unknown metric type", http.StatusNotFound)
 		return

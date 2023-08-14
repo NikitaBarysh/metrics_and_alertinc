@@ -23,6 +23,7 @@ func (s *Sender) SendPost(ctx context.Context, url string) {
 	res, err := client.Do(request)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 	res.Body.Close()
 }
