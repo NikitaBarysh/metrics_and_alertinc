@@ -4,6 +4,7 @@ import (
 	"flag"
 	"os"
 	"strconv"
+	"strings"
 )
 
 type FlagNames struct {
@@ -37,5 +38,9 @@ func (f *FlagNames) ParseFlags() {
 		if value, err := strconv.ParseInt(interval, 10, 64); err == nil {
 			f.pollInterval = value
 		}
+	}
+
+	if !strings.HasPrefix(f.flagRunAddr, "http") && !strings.HasPrefix(f.flagRunAddr, "https") {
+		f.flagRunAddr = "http://" + f.flagRunAddr
 	}
 }
