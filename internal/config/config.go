@@ -4,13 +4,12 @@ import (
 	"flag"
 	"os"
 	"strconv"
-	"strings"
 )
 
 type FlagNames struct {
-	flagRunAddr    string
-	pollInterval   int64
-	reportInterval int64
+	FlagRunAddr    string
+	PollInterval   int64
+	ReportInterval int64
 }
 
 func NewFlagNames() *FlagNames {
@@ -18,29 +17,29 @@ func NewFlagNames() *FlagNames {
 }
 
 func (f *FlagNames) ParseFlags() {
-	flag.StringVar(&f.flagRunAddr, "a", "localhost:8080", "address and port to run server")
-	flag.Int64Var(&f.pollInterval, "p", 2, "poll interval")
-	flag.Int64Var(&f.reportInterval, "r", 10, "report interval")
+	flag.StringVar(&f.FlagRunAddr, "a", "http://localhost:8080", "address and port to run server")
+	flag.Int64Var(&f.PollInterval, "p", 2, "poll interval")
+	flag.Int64Var(&f.ReportInterval, "r", 10, "report interval")
 
 	flag.Parse()
 
 	if addr, ok := os.LookupEnv("ADDRESS"); ok {
-		f.flagRunAddr = addr
+		f.FlagRunAddr = addr
 	}
 
 	if interval, ok := os.LookupEnv("REPORT_INTERVAL"); ok {
 		if value, err := strconv.ParseInt(interval, 10, 64); err == nil {
-			f.reportInterval = value
+			f.ReportInterval = value
 		}
 	}
 
 	if interval, ok := os.LookupEnv("POLL_INTERVAL"); ok {
 		if value, err := strconv.ParseInt(interval, 10, 64); err == nil {
-			f.pollInterval = value
+			f.PollInterval = value
 		}
 	}
 
-	if !strings.HasPrefix(f.flagRunAddr, "http") && !strings.HasPrefix(f.flagRunAddr, "https") {
-		f.flagRunAddr = "http://" + f.flagRunAddr
-	}
+	//if !strings.HasPrefix(f.FlagRunAddr, "http") && !strings.HasPrefix(f.FlagRunAddr, "https") {
+	//	f.FlagRunAddr = "http://" + f.FlagRunAddr
+	//}
 }

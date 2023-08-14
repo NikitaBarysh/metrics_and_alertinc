@@ -19,7 +19,7 @@ func main() {
 	router := router.NewRouter(handler)
 	chiRouter := chi.NewRouter()
 	chiRouter.Mount("/", router.Register())
-	err := http.ListenAndServe(`:8080`, chiRouter)
+	err := http.ListenAndServe(flags.FlagRunAddr, chiRouter)
 	if err != nil {
 		panic(err)
 	}
