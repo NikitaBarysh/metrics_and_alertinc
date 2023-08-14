@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/config"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/sender"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
@@ -13,8 +12,8 @@ import (
 )
 
 func main() {
-	flags := config.NewFlagNames()
-	flags.ParseFlags()
+
+	parseFlags()
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -25,7 +24,7 @@ func main() {
 	memStorage := repositories.NewMemStorage()
 	sender := sender.NewSender()
 	newMetricAction := storage.NewMetricAction(memStorage, sender)
-	go newMetricAction.Run(ctx)
+	go newMetricAction.Run(ctx, flagsName.PollInterval, flagsName.ReportInterval, flagsName.FlagRunAddr)
 
 	sig := <-termSignal
 	fmt.Println(sig.String())

@@ -8,21 +8,16 @@ import (
 	"time"
 )
 
-const (
-	poolInterval   = time.Second * 2
-	reportInterval = time.Second * 10
-)
-
 type sender interface {
 	SendPost(ctx context.Context, url string)
 }
 
-func (m *MetricAction) Run(ctx context.Context) {
+func (m *MetricAction) Run(ctx context.Context, pollInterval int64, reportInterval int64, flagRunAddr string) {
 
-	collectTicker := time.NewTicker(poolInterval)
+	collectTicker := time.NewTicker(time.Second * time.Duration(pollInterval))
 	defer collectTicker.Stop()
 
-	sendTicker := time.NewTicker(reportInterval)
+	sendTicker := time.NewTicker(time.Second * time.Duration(reportInterval))
 	defer sendTicker.Stop()
 
 	for {
@@ -32,7 +27,7 @@ func (m *MetricAction) Run(ctx context.Context) {
 		case <-collectTicker.C:
 			m.CollectMetric()
 		case <-sendTicker.C:
-			m.SendMetric(ctx)
+			m.SendMetric(ctx, flagRunAddr)
 		}
 	}
 }
@@ -71,13 +66,15 @@ func (m *MetricAction) CollectMetric() {
 	m.MemStorage.UpdateCounterMetric("PollCount", int64(1))
 }
 
-func (m *MetricAction) SendMetric(ctx context.Context) {
+func (m *MetricAction) SendMetric(ctx context.Context, flagRunAddr string) {
 	for metricName, metricValue := range m.MemStorage.ReadGaugeMetric() {
-		url := fmt.Sprintf("http://localhost:8080/update/gauge/%s/%2f", metricName, metricValue)
+		url := fmt.Sprintf("http://localhost%s/update/gauge/%s/%.2f", flagRunAddr, metricName, metricValue)
+		//fmt.Println("SendMetric Gauge:", url)
 		m.sender.SendPost(ctx, url)
 	}
 	for metricName, metricValue := range m.MemStorage.ReadCounterMetric() {
-		url := fmt.Sprintf("http://localhost:8080/update/counter/%s/%d", metricName, metricValue)
+		url := fmt.Sprintf("http://localhost%s/update/counter/%s/%d", flagRunAddr, metricName, metricValue)
+		//fmt.Println("SendMetric Counter:", url)
 		m.sender.SendPost(ctx, url)
 	}
 }

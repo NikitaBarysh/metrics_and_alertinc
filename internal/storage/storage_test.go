@@ -58,7 +58,7 @@ func TestMetricAction(t *testing.T) {
 				MemStorage: tt.fields.MemStorage,
 				sender:     newSenderMock(t, tt.args.url),
 			}
-			m.SendMetric(tt.args.ctx)
+			m.SendMetric(tt.args.ctx, ":8080")
 		})
 	}
 }

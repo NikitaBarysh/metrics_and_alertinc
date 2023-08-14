@@ -21,8 +21,10 @@ func (s *Sender) SendPost(ctx context.Context, url string) {
 		panic(err)
 	}
 	request.Header.Set(`Content-Type`, "text/plain")
+	fmt.Println(request)
 	client := &http.Client{}
 	res, err := client.Do(request)
+	fmt.Println(res)
 	if err != nil {
 		fmt.Println(err)
 		return
