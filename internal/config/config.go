@@ -41,6 +41,6 @@ func (f *FlagNames) ParseFlags() {
 	}
 
 	if !strings.HasPrefix(f.flagRunAddr, "http") && !strings.HasPrefix(f.flagRunAddr, "https") {
-		f.flagRunAddr = "http:/" + f.flagRunAddr
+		f.flagRunAddr = "http://" + f.flagRunAddr
 	}
 }
