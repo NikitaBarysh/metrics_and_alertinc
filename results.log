@@ -10,9 +10,9 @@
 === RUN   TestIteration1/TestUnknownHandlers
 === RUN   TestIteration1/TestUnknownHandlers/update_invalid_type
 === RUN   TestIteration1/TestUnknownHandlers/update_invalid_method
---- PASS: TestIteration1 (0.12s)
-    --- PASS: TestIteration1/TestCounterHandlers (0.01s)
-        --- PASS: TestIteration1/TestCounterHandlers/update (0.01s)
+--- PASS: TestIteration1 (0.14s)
+    --- PASS: TestIteration1/TestCounterHandlers (0.02s)
+        --- PASS: TestIteration1/TestCounterHandlers/update (0.02s)
         --- PASS: TestIteration1/TestCounterHandlers/without_id (0.00s)
         --- PASS: TestIteration1/TestCounterHandlers/invalid_value (0.00s)
     --- PASS: TestIteration1/TestGaugeHandlers (0.00s)
@@ -28,17 +28,17 @@
 === NAME  TestIteration2A
     iteration2a_test.go:80: Получен STDOUT лог процесса:
         
-        Post "http://localhost:8080/update/gauge/Mallocs/582.000000": read tcp [::1]:61927->[::1]:8080: read: connection reset by peer
+        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.000000": read tcp [::1]:63187->[::1]:8080: read: connection reset by peer
         interrupt
---- PASS: TestIteration2A (10.01s)
+--- PASS: TestIteration2A (10.03s)
     --- PASS: TestIteration2A/TestAgent (0.00s)
         --- PASS: TestIteration2A/TestAgent/receive_data_from_agent (0.00s)
 === RUN   TestIteration2B
 === RUN   TestIteration2B/TestFilesPresence
 === RUN   TestIteration2B/TestServerCoverage
---- PASS: TestIteration2B (0.70s)
+--- PASS: TestIteration2B (0.91s)
     --- PASS: TestIteration2B/TestFilesPresence (0.00s)
-    --- PASS: TestIteration2B/TestServerCoverage (0.70s)
+    --- PASS: TestIteration2B/TestServerCoverage (0.91s)
 === RUN   TestIteration3A
 === RUN   TestIteration3A/TestFrameworkUsage
 --- PASS: TestIteration3A (0.00s)
@@ -51,7 +51,7 @@
 === RUN   TestIteration3B/TestGauge/update_sequence
 === RUN   TestIteration3B/TestGauge/get_unknown
 --- PASS: TestIteration3B (0.11s)
-    --- PASS: TestIteration3B/TestCounter (0.00s)
+    --- PASS: TestIteration3B/TestCounter (0.01s)
         --- PASS: TestIteration3B/TestCounter/update_sequence (0.00s)
         --- PASS: TestIteration3B/TestCounter/get_unknown (0.00s)
     --- PASS: TestIteration3B/TestGauge (0.00s)
@@ -67,32 +67,35 @@
 === NAME  TestIteration4
     iteration4_test.go:166: Получен STDOUT лог процесса:
         
-        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.000000": read tcp [::1]:62177->[::1]:8080: read: connection reset by peer
-        Post "http://localhost:8080/update/gauge/StackInuse/360448.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackSys/360448.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCSys/2787656.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapReleased/3153920.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapSys/3833856.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Alloc/162608.000000": EOF
+        Post "http://localhost:8080/update/gauge/HeapSys/3866624.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanSys/48960.000000": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/NextGC/4194304.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumForcedGC/0.000000": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/NumGC/0.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Frees/9.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/RandomValue/0.422228": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/TotalAlloc/163416.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapInuse/647168.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapObjects/580.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheSys/15600.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MSpanInuse/33600.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Mallocs/589.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/OtherSys/751180.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapAlloc/163416.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/LastGC/0.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Lookups/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.000000": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/Sys/7801872.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Alloc/163416.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/BuckHashSys/4172.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapAlloc/162608.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapInuse/647168.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/LastGC/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackInuse/327680.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/TotalAlloc/162608.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCSys/2787656.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapIdle/3219456.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapReleased/3186688.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Lookups/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheSys/15600.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Mallocs/586.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackSys/327680.000000": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/GCCPUFraction/0.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapIdle/3186688.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanInuse/33600.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/RandomValue/0.125334": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/BuckHashSys/4172.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Frees/9.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapObjects/577.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/OtherSys/751180.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
         interrupt
 --- PASS: TestIteration4 (10.13s)
     --- PASS: TestIteration4/TestCounter (0.00s)
@@ -111,37 +114,30 @@
 === NAME  TestIteration5
     iteration5_test.go:151: Получен STDOUT лог процесса:
         
-        Post "http://localhost:8080/update/gauge/Alloc/162536.000000": read tcp [::1]:62449->[::1]:8080: read: connection reset by peer
-        Post "http://localhost:8080/update/gauge/MSpanInuse/33760.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackInuse/327680.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/TotalAlloc/162536.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapReleased/3244032.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/OtherSys/1019492.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Mallocs/586.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NextGC/4194304.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Sys/8064016.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/BuckHashSys/4172.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapSys/3866624.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapObjects/576.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/LastGC/0.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCSys/2781488.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCSys/2781488.000000": read tcp [::1]:63716->[::1]:8080: read: connection reset by peer
+        Post "http://localhost:8080/update/gauge/TotalAlloc/162880.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapSys/3833856.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheSys/15600.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/OtherSys/757348.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/RandomValue/0.428383": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/Lookups/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackSys/360448.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Alloc/162880.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanInuse/33760.000000": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/NumForcedGC/0.000000": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/NumGC/0.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackSys/327680.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapAlloc/162536.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapInuse/589824.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapIdle/3276800.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/RandomValue/0.576006": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MSpanSys/48960.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Frees/10.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheSys/15600.000000": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NextGC/4194304.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Sys/7801872.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Frees/9.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapInuse/720896.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapReleased/3080192.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Mallocs/589.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackInuse/360448.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/BuckHashSys/4172.000000": dial tcp [::1]:8080: connect: connection refused
         interrupt
---- PASS: TestIteration5 (10.13s)
+--- PASS: TestIteration5 (10.12s)
     --- PASS: TestIteration5/TestCounter (0.00s)
         --- PASS: TestIteration5/TestCounter/update_sequence (0.00s)
         --- PASS: TestIteration5/TestCounter/get_unknown (0.00s)
@@ -151,7 +147,501 @@
 === RUN   TestIteration6
 === RUN   TestIteration6/TestLoggerUsage
     iteration6_test.go:45: Не найдено использование хотя бы одного известного логгера по пути .
---- FAIL: TestIteration6 (0.01s)
+--- FAIL: TestIteration6 (0.00s)
     --- FAIL: TestIteration6/TestLoggerUsage (0.00s)
 === RUN   TestIteration7
 === RUN   TestIteration7/TestCollectAgentMetrics
+=== RUN   TestIteration7/TestCollectAgentMetrics/counter/PollCount
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/counter/PollCount
+        	Messages:   	Отсутствует изменение метрики: PollCount, тип: counter
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/RandomValue
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/RandomValue
+        	Messages:   	Отсутствует изменение метрики: RandomValue, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Alloc
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/Alloc
+        	Messages:   	Отсутствует изменение метрики: Alloc, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/BuckHashSys
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/BuckHashSys
+        	Messages:   	Отсутствует изменение метрики: BuckHashSys, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Frees
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/Frees
+        	Messages:   	Отсутствует изменение метрики: Frees, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/GCCPUFraction
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/GCCPUFraction
+        	Messages:   	Отсутствует изменение метрики: GCCPUFraction, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/GCSys
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/GCSys
+        	Messages:   	Отсутствует изменение метрики: GCSys, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapAlloc
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/HeapAlloc
+        	Messages:   	Отсутствует изменение метрики: HeapAlloc, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapIdle
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/HeapIdle
+        	Messages:   	Отсутствует изменение метрики: HeapIdle, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapInuse
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/HeapInuse
+        	Messages:   	Отсутствует изменение метрики: HeapInuse, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapObjects
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/HeapObjects
+        	Messages:   	Отсутствует изменение метрики: HeapObjects, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapReleased
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/HeapReleased
+        	Messages:   	Отсутствует изменение метрики: HeapReleased, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapSys
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/HeapSys
+        	Messages:   	Отсутствует изменение метрики: HeapSys, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/LastGC
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/LastGC
+        	Messages:   	Отсутствует изменение метрики: LastGC, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Lookups
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/Lookups
+        	Messages:   	Отсутствует изменение метрики: Lookups, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/MCacheInuse
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/MCacheInuse
+        	Messages:   	Отсутствует изменение метрики: MCacheInuse, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/MCacheSys
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/MCacheSys
+        	Messages:   	Отсутствует изменение метрики: MCacheSys, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/MSpanInuse
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/MSpanInuse
+        	Messages:   	Отсутствует изменение метрики: MSpanInuse, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/MSpanSys
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/MSpanSys
+        	Messages:   	Отсутствует изменение метрики: MSpanSys, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Mallocs
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/Mallocs
+        	Messages:   	Отсутствует изменение метрики: Mallocs, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/NextGC
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/NextGC
+        	Messages:   	Отсутствует изменение метрики: NextGC, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/NumForcedGC
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/NumForcedGC
+        	Messages:   	Отсутствует изменение метрики: NumForcedGC, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/NumGC
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/NumGC
+        	Messages:   	Отсутствует изменение метрики: NumGC, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/OtherSys
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/OtherSys
+        	Messages:   	Отсутствует изменение метрики: OtherSys, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/PauseTotalNs
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/PauseTotalNs
+        	Messages:   	Отсутствует изменение метрики: PauseTotalNs, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/StackInuse
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/StackInuse
+        	Messages:   	Отсутствует изменение метрики: StackInuse, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/StackSys
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/StackSys
+        	Messages:   	Отсутствует изменение метрики: StackSys, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Sys
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/Sys
+        	Messages:   	Отсутствует изменение метрики: Sys, тип: gauge
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/TotalAlloc
+    iteration7_test.go:449: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:449
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Should be true
+        	Test:       	TestIteration7/TestCollectAgentMetrics/gauge/TotalAlloc
+        	Messages:   	Отсутствует изменение метрики: TotalAlloc, тип: gauge
+=== RUN   TestIteration7/TestCounterHandlers
+=== RUN   TestIteration7/TestCounterHandlers/update
+    iteration7_test.go:227: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:227
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 404
+        	Test:       	TestIteration7/TestCounterHandlers/update
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере "POST": "http://localhost:8080/update/" 
+    iteration7_test.go:263: Оригинальный запрос:
+        
+        POST /value/ HTTP/1.1
+        Host: localhost:8080
+        Accept: application/json
+        Content-Type: application/json
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration7_test.go:265: Оригинальный ответ:
+        
+=== RUN   TestIteration7/TestEncoderUsage
+    iteration7_test.go:173: Не найдено использование известных библиотек кодирования JSON .
+=== RUN   TestIteration7/TestGaugeHandlers
+=== RUN   TestIteration7/TestGaugeHandlers/update
+    iteration7_test.go:289: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration7_test.go:289
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 404
+        	Test:       	TestIteration7/TestGaugeHandlers/update
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере "POST": "http://localhost:8080/update/" 
+    iteration7_test.go:314: Оригинальный запрос:
+        
+        POST /value/ HTTP/1.1
+        Host: localhost:8080
+        Accept: application/json
+        Content-Type: application/json
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration7_test.go:316: Оригинальный ответ:
+        
+=== NAME  TestIteration7
+    iteration7_test.go:162: Получен STDOUT лог процесса:
+        
+        Post "http://localhost:8080/update/gauge/OtherSys/1013324.000000": read tcp [::1]:63986->[::1]:8080: read: connection reset by peer
+        Post "http://localhost:8080/update/gauge/Sys/8064016.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapObjects/578.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheSys/15600.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanSys/48960.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumForcedGC/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapReleased/3227648.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapSys/3866624.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Frees/10.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapInuse/606208.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapAlloc/163072.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NextGC/4194304.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanInuse/33760.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumGC/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/TotalAlloc/163072.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/BuckHashSys/4172.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Lookups/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Mallocs/588.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackInuse/327680.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackSys/327680.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapIdle/3260416.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/LastGC/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCSys/2787656.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Alloc/163072.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/RandomValue/0.182146": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
+        interrupt
+--- FAIL: TestIteration7 (72.09s)
+    --- FAIL: TestIteration7/TestCollectAgentMetrics (61.95s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/counter/PollCount (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/RandomValue (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/Alloc (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/BuckHashSys (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/Frees (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/GCCPUFraction (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/GCSys (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/HeapAlloc (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/HeapIdle (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/HeapInuse (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/HeapObjects (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/HeapReleased (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/HeapSys (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/LastGC (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/Lookups (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/MCacheInuse (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/MCacheSys (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/MSpanInuse (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/MSpanSys (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/Mallocs (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/NextGC (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/NumForcedGC (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/NumGC (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/OtherSys (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/PauseTotalNs (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/StackInuse (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/StackSys (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/Sys (0.00s)
+        --- FAIL: TestIteration7/TestCollectAgentMetrics/gauge/TotalAlloc (0.00s)
+    --- FAIL: TestIteration7/TestCounterHandlers (0.00s)
+        --- FAIL: TestIteration7/TestCounterHandlers/update (0.00s)
+    --- FAIL: TestIteration7/TestEncoderUsage (0.01s)
+    --- FAIL: TestIteration7/TestGaugeHandlers (0.00s)
+        --- FAIL: TestIteration7/TestGaugeHandlers/update (0.00s)
+=== RUN   TestIteration8
+=== RUN   TestIteration8/TestCounterGzipHandlers
+=== RUN   TestIteration8/TestCounterGzipHandlers/update
+    iteration8_test.go:205: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration8_test.go:205
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 404
+        	Test:       	TestIteration8/TestCounterGzipHandlers/update
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере "POST": "http://localhost:8080/update/" 
+    iteration8_test.go:246: Оригинальный запрос:
+        
+        POST /value/ HTTP/1.1
+        Host: localhost:8080
+        Accept: application/json
+        Accept-Encoding: gzip
+        Content-Type: application/json
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration8_test.go:248: Оригинальный ответ:
+        
+        HTTP/1.1 404 Not Found
+        Content-Length: 19
+        Content-Type: text/plain; charset=utf-8
+        Date: Mon, 14 Aug 2023 18:05:48 GMT
+        X-Content-Type-Options: nosniff
+        
+        404 page not found
+=== RUN   TestIteration8/TestGaugeGzipHandlers
+=== RUN   TestIteration8/TestGaugeGzipHandlers/update
+    iteration8_test.go:273: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration8_test.go:273
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 404
+        	Test:       	TestIteration8/TestGaugeGzipHandlers/update
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере "POST": "http://localhost:8080/update/" 
+    iteration8_test.go:301: Оригинальный запрос:
+        
+        POST /value/ HTTP/1.1
+        Host: localhost:8080
+        Accept: application/json
+        Accept-Encoding: gzip
+        Content-Type: application/json
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration8_test.go:303: Оригинальный ответ:
+        
+        HTTP/1.1 404 Not Found
+        Content-Length: 19
+        Content-Type: text/plain; charset=utf-8
+        Date: Mon, 14 Aug 2023 18:05:48 GMT
+        X-Content-Type-Options: nosniff
+        
+        404 page not found
+=== RUN   TestIteration8/TestGetGzipHandlers
+=== RUN   TestIteration8/TestGetGzipHandlers/get_info_page
+    iteration8_test.go:324: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration8_test.go:324
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	"text/plain; charset=utf-8" does not contain "text/html"
+        	Test:       	TestIteration8/TestGetGzipHandlers/get_info_page
+        	Messages:   	Заголовок ответа Content-Type содержит несоответствующее значение
+    iteration8_test.go:332: Оригинальный запрос:
+        
+        GET / HTTP/1.1
+        Host: localhost:8080
+        Accept: html/text
+        Accept-Encoding: gzip
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration8_test.go:334: Оригинальный ответ:
+        
+        HTTP/1.1 200 OK
+        Content-Length: 106
+        Content-Type: text/plain; charset=utf-8
+        Date: Mon, 14 Aug 2023 18:05:48 GMT
+        
+        Frees = 9.000000,MCacheInuse = 9600.000000,OtherSys = 1013324.000000,PauseTotalNs = 0.000000,PollCount = 5
+=== NAME  TestIteration8
+    iteration8_test.go:152: Получен STDOUT лог процесса:
+        
+        Post "http://localhost:8080/update/gauge/HeapSys/3833856.000000": read tcp [::1]:49180->[::1]:8080: read: connection reset by peer
+        Post "http://localhost:8080/update/gauge/MSpanInuse/44000.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackInuse/360448.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Sys/8064016.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapReleased/3031040.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/LastGC/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheSys/15600.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/TotalAlloc/164632.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapInuse/737280.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumForcedGC/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Alloc/164632.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Mallocs/590.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCSys/2787656.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Lookups/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapAlloc/164632.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumGC/0.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackSys/360448.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/RandomValue/0.924668": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/BuckHashSys/4172.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapIdle/3096576.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapObjects/581.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanSys/48960.000000": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NextGC/4194304.000000": dial tcp [::1]:8080: connect: connection refused
+        interrupt
+--- FAIL: TestIteration8 (10.14s)
+    --- FAIL: TestIteration8/TestCounterGzipHandlers (0.01s)
+        --- FAIL: TestIteration8/TestCounterGzipHandlers/update (0.01s)
+    --- FAIL: TestIteration8/TestGaugeGzipHandlers (0.00s)
+        --- FAIL: TestIteration8/TestGaugeGzipHandlers/update (0.00s)
+    --- FAIL: TestIteration8/TestGetGzipHandlers (0.00s)
+        --- FAIL: TestIteration8/TestGetGzipHandlers/get_info_page (0.00s)
+=== RUN   TestIteration9
+    iteration9_test.go:37: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration9_test.go:37
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/main_test.go:57
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration9
+        	Messages:   	-file-storage-path non-empty flag required
+--- FAIL: TestIteration9 (0.00s)
+=== RUN   TestIteration10A
+    iteration10a_test.go:34: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration10a_test.go:34
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/main_test.go:61
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration10A
+        	Messages:   	-database-dsn non-empty flag required
+--- FAIL: TestIteration10A (0.00s)
+=== RUN   TestIteration10B
+    iteration10b_test.go:33: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration10b_test.go:33
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/main_test.go:65
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration10B
+        	Messages:   	-database-dsn non-empty flag required
+--- FAIL: TestIteration10B (0.00s)
+=== RUN   TestIteration11
+    iteration11_test.go:41: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration11_test.go:41
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/main_test.go:69
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration11
+        	Messages:   	-database-dsn non-empty flag required
+--- FAIL: TestIteration11 (0.00s)
+=== RUN   TestIteration12
+    iteration12_test.go:40: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration12_test.go:40
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/main_test.go:73
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration12
+        	Messages:   	-database-dsn non-empty flag required
+--- FAIL: TestIteration12 (0.00s)
+=== RUN   TestIteration13
+    iteration13_test.go:36: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration13_test.go:36
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/main_test.go:77
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration13
+        	Messages:   	-database-dsn non-empty flag required
+--- FAIL: TestIteration13 (0.00s)
+=== RUN   TestIteration14
+    iteration14_test.go:39: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration14_test.go:39
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/main_test.go:81
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration14
+        	Messages:   	-key non-empty flag required
+--- FAIL: TestIteration14 (0.00s)
+FAIL
