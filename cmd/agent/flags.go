@@ -27,7 +27,7 @@ func parseFlags() {
 
 	if envRunAddr := os.Getenv("ADDRESS"); envRunAddr != "" {
 		//fmt.Println("Addr 1 : ", envRunAddr)
-		envRunAddr = flagsName.FlagRunAddr
+		flagsName.FlagRunAddr = envRunAddr
 		//fmt.Println("Addr 2 : ", flagsName.FlagRunAddr)
 	}
 
