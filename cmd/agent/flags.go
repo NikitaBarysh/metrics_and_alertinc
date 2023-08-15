@@ -4,6 +4,7 @@ import (
 	"flag"
 	"os"
 	"strconv"
+	"strings"
 )
 
 type FlagNames struct {
@@ -46,7 +47,8 @@ func parseFlags() {
 		}
 	}
 
-	//if !strings.HasPrefix(flagsName.FlagRunAddr, "http") && !strings.HasPrefix(flagsName.FlagRunAddr, "https") {
-	//	flagsName.FlagRunAddr = "http://" + flagsName.FlagRunAddr
-	//}
+	if !strings.HasPrefix(flagsName.FlagRunAddr, "http") &&
+		!strings.HasPrefix(flagsName.FlagRunAddr, "https") && !strings.HasPrefix(flagsName.FlagRunAddr, "localhost") {
+		flagsName.FlagRunAddr = "http://localhost" + flagsName.FlagRunAddr
+	}
 }

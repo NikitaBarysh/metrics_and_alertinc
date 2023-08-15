@@ -2,56 +2,220 @@
     iteration1_test.go:43: Невозможно запустить процесс командой cmd/server/ser: fork/exec cmd/server/ser: no such file or directory. Переменные окружения: [DATAGRIP_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/datagrip.vmoptions PATH=/usr/local/go/bin:/Users/nikitabar/go/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin PYCHARM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/pycharm.vmoptions WEBSTORM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/webstorm.vmoptions CLION_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/clion.vmoptions JETBRAINSCLIENT_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/jetbrainsclient.vmoptions TERM=xterm-256color FIG_JETBRAINS_SHELL_INTEGRATION=1 GATEWAY_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/gateway.vmoptions COMMAND_MODE=unix2003 GOLAND_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/goland.vmoptions IDEA_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/idea.vmoptions RIDER_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/rider.vmoptions RUBYMINE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/rubymine.vmoptions JETBRAINS_CLIENT_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/jetbrains_client.vmoptions DEVECOSTUDIO_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/devecostudio.vmoptions LOGNAME=nikitabar STUDIO_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/studio.vmoptions XPC_SERVICE_NAME=0 __CFBundleIdentifier=com.jetbrains.goland SHELL=/bin/zsh APPCODE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/appcode.vmoptions GOPATH=/Users/nikitabar/go USER=nikitabar GOROOT=/usr/local/go TMPDIR=/var/folders/84/lzqlk4f168v1_zvxb2jmrx280000gn/T/ TERMINAL_EMULATOR=JetBrains-JediTerm GO111MODULE=on DATASPELL_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/dataspell.vmoptions SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.BLdHtSXQuX/Listeners XPC_FLAGS=0x0 WEBIDE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/webide.vmoptions TERM_SESSION_ID=99213953-e7d4-4e0c-9f3e-e22aca3cc469 __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0 PHPSTORM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/phpstorm.vmoptions LC_CTYPE=UTF-8 HOME=/Users/nikitabar SHLVL=1 PWD=/Users/nikitabar/Dev/test_metric/metrics_and_alertinc OLDPWD=/Users/nikitabar/Dev/test_metric HOMEBREW_PREFIX=/opt/homebrew HOMEBREW_CELLAR=/opt/homebrew/Cellar HOMEBREW_REPOSITORY=/opt/homebrew MANPATH=/opt/homebrew/share/man:: INFOPATH=/opt/homebrew/share/info: _=/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/./metricstest RESTORE=false]
 === RUN   TestIteration1/TestCounterHandlers
 === RUN   TestIteration1/TestCounterHandlers/update
+    iteration1_test.go:150: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:150
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/counter/testCounter/100": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration1/TestCounterHandlers/update
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением counter
+    iteration1_test.go:153: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:153
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration1/TestCounterHandlers/update
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/counter/testCounter/100'
+    iteration1_test.go:158: Оригинальный запрос:
+        
+        POST /update/counter/testCounter/100 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration1/TestCounterHandlers/without_id
+    iteration1_test.go:166: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:166
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/counter/": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration1/TestCounterHandlers/without_id
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением counter
+    iteration1_test.go:169: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:169
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 404
+        	            	actual  : 0
+        	Test:       	TestIteration1/TestCounterHandlers/without_id
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/counter/'
+    iteration1_test.go:174: Оригинальный запрос:
+        
+        POST /update/counter/ HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration1/TestCounterHandlers/invalid_value
+    iteration1_test.go:182: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:182
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/counter/testCounter/none": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration1/TestCounterHandlers/invalid_value
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением counter
+    iteration1_test.go:185: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:185
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 400
+        	            	actual  : 0
+        	Test:       	TestIteration1/TestCounterHandlers/invalid_value
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/counter/testCounter/none'
+    iteration1_test.go:190: Оригинальный запрос:
+        
+        POST /update/counter/testCounter/none HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration1/TestGaugeHandlers
 === RUN   TestIteration1/TestGaugeHandlers/update
+    iteration1_test.go:98: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:98
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/gauge/testGauge/100": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration1/TestGaugeHandlers/update
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration1_test.go:101: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:101
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration1/TestGaugeHandlers/update
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testGauge/100'
+    iteration1_test.go:106: Оригинальный запрос:
+        
+        POST /update/gauge/testGauge/100 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration1/TestGaugeHandlers/without_id
+    iteration1_test.go:114: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:114
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/gauge/": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration1/TestGaugeHandlers/without_id
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration1_test.go:117: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:117
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 404
+        	            	actual  : 0
+        	Test:       	TestIteration1/TestGaugeHandlers/without_id
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/'
+    iteration1_test.go:122: Оригинальный запрос:
+        
+        POST /update/gauge/ HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration1/TestGaugeHandlers/invalid_value
+    iteration1_test.go:130: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:130
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/gauge/testGauge/none": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration1/TestGaugeHandlers/invalid_value
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration1_test.go:133: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:133
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 400
+        	            	actual  : 0
+        	Test:       	TestIteration1/TestGaugeHandlers/invalid_value
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testGauge/none'
+    iteration1_test.go:138: Оригинальный запрос:
+        
+        POST /update/gauge/testGauge/none HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration1/TestUnknownHandlers
 === RUN   TestIteration1/TestUnknownHandlers/update_invalid_type
+    iteration1_test.go:202: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:202
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/unknown/testCounter/100": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration1/TestUnknownHandlers/update_invalid_type
+        	Messages:   	Ошибка при попытке сделать запрос с не корректным типом метрики
+    iteration1_test.go:205: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:205
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	[]int{400, 501} does not contain 0
+        	Test:       	TestIteration1/TestUnknownHandlers/update_invalid_type
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/unknown/testCounter/100'
+    iteration1_test.go:210: Оригинальный запрос:
+        
+        POST /update/unknown/testCounter/100 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration1/TestUnknownHandlers/update_invalid_method
+    iteration1_test.go:218: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:218
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/updater/counter/testCounter/100": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration1/TestUnknownHandlers/update_invalid_method
+        	Messages:   	Ошибка при попытке сделать запрос с не корректным типом метрики
+    iteration1_test.go:221: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:221
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	[]int{400, 404} does not contain 0
+        	Test:       	TestIteration1/TestUnknownHandlers/update_invalid_method
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/updater/counter/testCounter/100'
+    iteration1_test.go:226: Оригинальный запрос:
+        
+        POST /updater/counter/testCounter/100 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === NAME  TestIteration1
     suite.go:77: test panicked: runtime error: invalid memory address or nil pointer dereference
-        goroutine 18 [running]:
+        goroutine 6 [running]:
         runtime/debug.Stack()
         	/usr/local/go/src/runtime/debug/stack.go:24 +0x64
-        github.com/stretchr/testify/suite.failOnPanic(0x140000831e0, {0x104edc800, 0x1053cad40})
+        github.com/stretchr/testify/suite.failOnPanic(0x14000003d40, {0x100b68800, 0x101056d40})
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:77 +0x34
         github.com/stretchr/testify/suite.recoverAndFailOnPanic(0x2d?)
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:72 +0x3c
-        panic({0x104edc800, 0x1053cad40})
+        panic({0x100b68800, 0x101056d40})
         	/usr/local/go/src/runtime/panic.go:884 +0x204
-        os.(*Process).signal(0x96?, {0x104f85218?, 0x104e644f0?})
+        os.(*Process).signal(0x96?, {0x100c11218?, 0x100af04f0?})
         	/usr/local/go/src/os/exec_unix.go:63 +0x2c
         os.(*Process).Signal(...)
         	/usr/local/go/src/os/exec.go:138
-        github.com/Yandex-Practicum/go-autotests/internal/fork.(*BackgroundProcess).Stop(0x14000189cb0, {0x140000ddca0?, 0x2, 0x104e81f9f?})
+        github.com/Yandex-Practicum/go-autotests/internal/fork.(*BackgroundProcess).Stop(0x140001cbcb0, {0x14000131ca0?, 0x2, 0x100b0df9f?})
         	/__w/go-autotests/go-autotests/internal/fork/process.go:130 +0x84
-        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration1Suite).TearDownSuite(0x14000095810)
+        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration1Suite).TearDownSuite(0x1400007b810)
         	/__w/go-autotests/go-autotests/cmd/metricstest/iteration1_test.go:60 +0x78
         github.com/stretchr/testify/suite.Run.func2()
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:183 +0x5c
-        github.com/stretchr/testify/suite.Run(0x140000831e0, {0x104f839b8, 0x14000095810})
+        github.com/stretchr/testify/suite.Run(0x14000003d40, {0x100c0f9b8, 0x1400007b810})
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:194 +0x618
         github.com/Yandex-Practicum/go-autotests/cmd/metricstest.TestIteration1(0x0?)
         	/__w/go-autotests/go-autotests/cmd/metricstest/main_test.go:17 +0x3c
-        testing.tRunner(0x140000831e0, 0x104f7e718)
+        testing.tRunner(0x14000003d40, 0x100c0a718)
         	/usr/local/go/src/testing/testing.go:1576 +0x10c
         created by testing.(*T).Run
         	/usr/local/go/src/testing/testing.go:1629 +0x368
---- FAIL: TestIteration1 (0.02s)
-    --- PASS: TestIteration1/TestCounterHandlers (0.01s)
-        --- PASS: TestIteration1/TestCounterHandlers/update (0.01s)
-        --- PASS: TestIteration1/TestCounterHandlers/without_id (0.00s)
-        --- PASS: TestIteration1/TestCounterHandlers/invalid_value (0.00s)
-    --- PASS: TestIteration1/TestGaugeHandlers (0.00s)
-        --- PASS: TestIteration1/TestGaugeHandlers/update (0.00s)
-        --- PASS: TestIteration1/TestGaugeHandlers/without_id (0.00s)
-        --- PASS: TestIteration1/TestGaugeHandlers/invalid_value (0.00s)
-    --- PASS: TestIteration1/TestUnknownHandlers (0.00s)
-        --- PASS: TestIteration1/TestUnknownHandlers/update_invalid_type (0.00s)
-        --- PASS: TestIteration1/TestUnknownHandlers/update_invalid_method (0.00s)
+--- FAIL: TestIteration1 (0.01s)
+    --- FAIL: TestIteration1/TestCounterHandlers (0.01s)
+        --- FAIL: TestIteration1/TestCounterHandlers/update (0.00s)
+        --- FAIL: TestIteration1/TestCounterHandlers/without_id (0.00s)
+        --- FAIL: TestIteration1/TestCounterHandlers/invalid_value (0.00s)
+    --- FAIL: TestIteration1/TestGaugeHandlers (0.00s)
+        --- FAIL: TestIteration1/TestGaugeHandlers/update (0.00s)
+        --- FAIL: TestIteration1/TestGaugeHandlers/without_id (0.00s)
+        --- FAIL: TestIteration1/TestGaugeHandlers/invalid_value (0.00s)
+    --- FAIL: TestIteration1/TestUnknownHandlers (0.00s)
+        --- FAIL: TestIteration1/TestUnknownHandlers/update_invalid_type (0.00s)
+        --- FAIL: TestIteration1/TestUnknownHandlers/update_invalid_method (0.00s)
 === RUN   TestIteration2A
     iteration2a_test.go:47: Не удалось дождаться пока на порт 8080 начнут поступать данные: context deadline exceeded
 === RUN   TestIteration2A/TestAgent
@@ -59,25 +223,32 @@
 === NAME  TestIteration2A
     iteration2a_test.go:80: Получен STDOUT лог процесса:
         
-        &{POST http://localhostlocalhost:8080/update/gauge/HeapObjects/572.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false localhostlocalhost:8080 map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a8018}
+        Addr:  localhost:8080
+        pol:  2
+        rep:  10
+        SendMetric Gauge: localhost:8080/update/gauge/TotalAlloc/163384.00
+        &{POST localhost:8080/update/gauge/TotalAlloc/163384.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400010e008}
         <nil>
-        Post "http://localhostlocalhost:8080/update/gauge/HeapObjects/572.00": dial tcp: lookup localhostlocalhost: no such host
-        &{POST http://localhostlocalhost:8080/update/gauge/MSpanInuse/44000.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false localhostlocalhost:8080 map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a8018}
+        Post "localhost:8080/update/gauge/TotalAlloc/163384.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/Frees/10.00
+        &{POST localhost:8080/update/gauge/Frees/10.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400010e008}
         <nil>
-        Post "http://localhostlocalhost:8080/update/gauge/MSpanInuse/44000.00": dial tcp: lookup localhostlocalhost: no such host
-        &{POST http://localhostlocalhost:8080/update/gauge/PauseTotalNs/0.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false localhostlocalhost:8080 map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a8018}
+        Post "localhost:8080/update/gauge/Frees/10.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/MSpanInuse/33760.00
+        &{POST localhost:8080/update/gauge/MSpanInuse/33760.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400010e008}
         <nil>
-        Post "http://localhostlocalhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp: lookup localhostlocalhost: no such host
+        Post "localhost:8080/update/gauge/MSpanInuse/33760.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/NextGC/4194304.00
         interrupt
---- FAIL: TestIteration2A (20.01s)
+--- FAIL: TestIteration2A (20.00s)
     --- PASS: TestIteration2A/TestAgent (0.00s)
         --- PASS: TestIteration2A/TestAgent/receive_data_from_agent (0.00s)
 === RUN   TestIteration2B
 === RUN   TestIteration2B/TestFilesPresence
 === RUN   TestIteration2B/TestServerCoverage
---- PASS: TestIteration2B (0.76s)
+--- PASS: TestIteration2B (0.83s)
     --- PASS: TestIteration2B/TestFilesPresence (0.00s)
-    --- PASS: TestIteration2B/TestServerCoverage (0.76s)
+    --- PASS: TestIteration2B/TestServerCoverage (0.83s)
 === RUN   TestIteration3A
 === RUN   TestIteration3A/TestFrameworkUsage
 --- PASS: TestIteration3A (0.00s)
@@ -86,179 +257,1159 @@
     iteration3b_test.go:46: Невозможно запустить процесс командой cmd/server/ser: fork/exec cmd/server/ser: no such file or directory. Переменные окружения: [DATAGRIP_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/datagrip.vmoptions PATH=/usr/local/go/bin:/Users/nikitabar/go/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin PYCHARM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/pycharm.vmoptions WEBSTORM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/webstorm.vmoptions CLION_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/clion.vmoptions JETBRAINSCLIENT_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/jetbrainsclient.vmoptions TERM=xterm-256color FIG_JETBRAINS_SHELL_INTEGRATION=1 GATEWAY_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/gateway.vmoptions COMMAND_MODE=unix2003 GOLAND_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/goland.vmoptions IDEA_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/idea.vmoptions RIDER_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/rider.vmoptions RUBYMINE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/rubymine.vmoptions JETBRAINS_CLIENT_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/jetbrains_client.vmoptions DEVECOSTUDIO_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/devecostudio.vmoptions LOGNAME=nikitabar STUDIO_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/studio.vmoptions XPC_SERVICE_NAME=0 __CFBundleIdentifier=com.jetbrains.goland SHELL=/bin/zsh APPCODE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/appcode.vmoptions GOPATH=/Users/nikitabar/go USER=nikitabar GOROOT=/usr/local/go TMPDIR=/var/folders/84/lzqlk4f168v1_zvxb2jmrx280000gn/T/ TERMINAL_EMULATOR=JetBrains-JediTerm GO111MODULE=on DATASPELL_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/dataspell.vmoptions SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.BLdHtSXQuX/Listeners XPC_FLAGS=0x0 WEBIDE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/webide.vmoptions TERM_SESSION_ID=99213953-e7d4-4e0c-9f3e-e22aca3cc469 __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0 PHPSTORM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/phpstorm.vmoptions LC_CTYPE=UTF-8 HOME=/Users/nikitabar SHLVL=1 PWD=/Users/nikitabar/Dev/test_metric/metrics_and_alertinc OLDPWD=/Users/nikitabar/Dev/test_metric HOMEBREW_PREFIX=/opt/homebrew HOMEBREW_CELLAR=/opt/homebrew/Cellar HOMEBREW_REPOSITORY=/opt/homebrew MANPATH=/opt/homebrew/share/man:: INFOPATH=/opt/homebrew/share/info: _=/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/./metricstest RESTORE=false]
 === RUN   TestIteration3B/TestCounter
 === RUN   TestIteration3B/TestCounter/update_sequence
+    iteration3b_test.go:157: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:157
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/counter/testSetGet45": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration3B/TestCounter/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения counter
+    iteration3b_test.go:162: Оригинальный запрос:
+        
+        GET /value/counter/testSetGet45 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration3B/TestCounter/get_unknown
+    iteration3b_test.go:203: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:203
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/counter/testUnknown201": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration3B/TestCounter/get_unknown
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения counter
+    iteration3b_test.go:204: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:204
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 404
+        	            	actual  : 0
+        	Test:       	TestIteration3B/TestCounter/get_unknown
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/counter/testUnknown201'
+    iteration3b_test.go:209: Оригинальный запрос:
+        
+        GET /value/counter/testUnknown201 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration3B/TestGauge
 === RUN   TestIteration3B/TestGauge/update_sequence
+    iteration3b_test.go:103: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:103
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/gauge/testSetGet44/48434.126": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration3b_test.go:106: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:106
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testSetGet44/48434.126'
+    iteration3b_test.go:111: Оригинальный запрос:
+        
+        POST /update/gauge/testSetGet44/48434.126 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration3b_test.go:115: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:115
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/gauge/testSetGet44": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
+    iteration3b_test.go:117: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:117
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testSetGet44'
+    iteration3b_test.go:119: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:119
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: "48434.126"
+        	            	actual  : ""
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-48434.126
+        	            	+
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Несоответствие отправленного значения gauge (48434.126) полученному от сервера (), 'GET http://localhost:8080/value/gauge/testSetGet44'
+    iteration3b_test.go:124: Оригинальный запрос:
+        
+        GET /value/gauge/testSetGet44 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration3b_test.go:103: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:103
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/gauge/testSetGet44/230993.767": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration3b_test.go:106: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:106
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testSetGet44/230993.767'
+    iteration3b_test.go:111: Оригинальный запрос:
+        
+        POST /update/gauge/testSetGet44/230993.767 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration3b_test.go:115: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:115
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/gauge/testSetGet44": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
+    iteration3b_test.go:117: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:117
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testSetGet44'
+    iteration3b_test.go:119: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:119
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: "230993.767"
+        	            	actual  : ""
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-230993.767
+        	            	+
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Несоответствие отправленного значения gauge (230993.767) полученному от сервера (), 'GET http://localhost:8080/value/gauge/testSetGet44'
+    iteration3b_test.go:124: Оригинальный запрос:
+        
+        GET /value/gauge/testSetGet44 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration3b_test.go:103: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:103
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/gauge/testSetGet44/262920.271": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration3b_test.go:106: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:106
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testSetGet44/262920.271'
+    iteration3b_test.go:111: Оригинальный запрос:
+        
+        POST /update/gauge/testSetGet44/262920.271 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration3b_test.go:115: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:115
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/gauge/testSetGet44": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
+    iteration3b_test.go:117: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:117
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testSetGet44'
+    iteration3b_test.go:119: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:119
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: "262920.271"
+        	            	actual  : ""
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-262920.271
+        	            	+
+        	Test:       	TestIteration3B/TestGauge/update_sequence
+        	Messages:   	Несоответствие отправленного значения gauge (262920.271) полученному от сервера (), 'GET http://localhost:8080/value/gauge/testSetGet44'
+    iteration3b_test.go:124: Оригинальный запрос:
+        
+        GET /value/gauge/testSetGet44 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration3B/TestGauge/get_unknown
+    iteration3b_test.go:133: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:133
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/gauge/testUnknown199": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration3B/TestGauge/get_unknown
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
+    iteration3b_test.go:135: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:135
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 404
+        	            	actual  : 0
+        	Test:       	TestIteration3B/TestGauge/get_unknown
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testUnknown199'
+    iteration3b_test.go:140: Оригинальный запрос:
+        
+        GET /value/gauge/testUnknown199 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === NAME  TestIteration3B
     suite.go:77: test panicked: runtime error: invalid memory address or nil pointer dereference
-        goroutine 67 [running]:
+        goroutine 101 [running]:
         runtime/debug.Stack()
         	/usr/local/go/src/runtime/debug/stack.go:24 +0x64
-        github.com/stretchr/testify/suite.failOnPanic(0x14000428340, {0x104edc800, 0x1053cad40})
+        github.com/stretchr/testify/suite.failOnPanic(0x14000197ba0, {0x100b68800, 0x101056d40})
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:77 +0x34
-        github.com/stretchr/testify/suite.recoverAndFailOnPanic(0x140000dd9d8?)
+        github.com/stretchr/testify/suite.recoverAndFailOnPanic(0x24?)
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:72 +0x3c
-        panic({0x104edc800, 0x1053cad40})
+        panic({0x100b68800, 0x101056d40})
         	/usr/local/go/src/runtime/panic.go:884 +0x204
-        os.(*Process).signal(0x95?, {0x104f85218?, 0x104e644f0?})
+        os.(*Process).signal(0x95?, {0x100c11218?, 0x100af04f0?})
         	/usr/local/go/src/os/exec_unix.go:63 +0x2c
         os.(*Process).Signal(...)
         	/usr/local/go/src/os/exec.go:138
-        github.com/Yandex-Practicum/go-autotests/internal/fork.(*BackgroundProcess).Stop(0x140004ea7e0, {0x140000ddca0?, 0x2, 0x104e81f9f?})
+        github.com/Yandex-Practicum/go-autotests/internal/fork.(*BackgroundProcess).Stop(0x14000491950, {0x14000131ca0?, 0x2, 0x100b0df9f?})
         	/__w/go-autotests/go-autotests/internal/fork/process.go:130 +0x84
-        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration3BSuite).TearDownSuite(0x14000465bd0)
+        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration3BSuite).TearDownSuite(0x140002539f0)
         	/__w/go-autotests/go-autotests/cmd/metricstest/iteration3b_test.go:63 +0x78
         github.com/stretchr/testify/suite.Run.func2()
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:183 +0x5c
-        github.com/stretchr/testify/suite.Run(0x14000428340, {0x104f83a58, 0x14000465bd0})
+        github.com/stretchr/testify/suite.Run(0x14000197ba0, {0x100c0fa58, 0x140002539f0})
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:194 +0x618
         github.com/Yandex-Practicum/go-autotests/cmd/metricstest.TestIteration3B(0x0?)
         	/__w/go-autotests/go-autotests/cmd/metricstest/main_test.go:33 +0x3c
-        testing.tRunner(0x14000428340, 0x104f7e738)
+        testing.tRunner(0x14000197ba0, 0x100c0a738)
         	/usr/local/go/src/testing/testing.go:1576 +0x10c
         created by testing.(*T).Run
         	/usr/local/go/src/testing/testing.go:1629 +0x368
 --- FAIL: TestIteration3B (0.01s)
-    --- PASS: TestIteration3B/TestCounter (0.00s)
-        --- PASS: TestIteration3B/TestCounter/update_sequence (0.00s)
-        --- PASS: TestIteration3B/TestCounter/get_unknown (0.00s)
-    --- PASS: TestIteration3B/TestGauge (0.00s)
-        --- PASS: TestIteration3B/TestGauge/update_sequence (0.00s)
-        --- PASS: TestIteration3B/TestGauge/get_unknown (0.00s)
+    --- FAIL: TestIteration3B/TestCounter (0.00s)
+        --- FAIL: TestIteration3B/TestCounter/update_sequence (0.00s)
+        --- FAIL: TestIteration3B/TestCounter/get_unknown (0.00s)
+    --- FAIL: TestIteration3B/TestGauge (0.00s)
+        --- FAIL: TestIteration3B/TestGauge/update_sequence (0.00s)
+        --- FAIL: TestIteration3B/TestGauge/get_unknown (0.00s)
 === RUN   TestIteration4
     iteration4_test.go:98: Не удалось дождаться пока на порт 8080 начнут поступать данные: context deadline exceeded
     iteration4_test.go:73: Невозможно запустить процесс командой "cmd/server/ser -a=localhost:8080": context deadline exceeded. Переменные окружения: [DATAGRIP_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/datagrip.vmoptions PATH=/usr/local/go/bin:/Users/nikitabar/go/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin PYCHARM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/pycharm.vmoptions WEBSTORM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/webstorm.vmoptions CLION_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/clion.vmoptions JETBRAINSCLIENT_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/jetbrainsclient.vmoptions TERM=xterm-256color FIG_JETBRAINS_SHELL_INTEGRATION=1 GATEWAY_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/gateway.vmoptions COMMAND_MODE=unix2003 GOLAND_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/goland.vmoptions IDEA_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/idea.vmoptions RIDER_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/rider.vmoptions RUBYMINE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/rubymine.vmoptions JETBRAINS_CLIENT_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/jetbrains_client.vmoptions DEVECOSTUDIO_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/devecostudio.vmoptions LOGNAME=nikitabar STUDIO_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/studio.vmoptions XPC_SERVICE_NAME=0 __CFBundleIdentifier=com.jetbrains.goland SHELL=/bin/zsh APPCODE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/appcode.vmoptions GOPATH=/Users/nikitabar/go USER=nikitabar GOROOT=/usr/local/go TMPDIR=/var/folders/84/lzqlk4f168v1_zvxb2jmrx280000gn/T/ TERMINAL_EMULATOR=JetBrains-JediTerm GO111MODULE=on DATASPELL_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/dataspell.vmoptions SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.BLdHtSXQuX/Listeners XPC_FLAGS=0x0 WEBIDE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/webide.vmoptions TERM_SESSION_ID=99213953-e7d4-4e0c-9f3e-e22aca3cc469 __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0 PHPSTORM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/phpstorm.vmoptions LC_CTYPE=UTF-8 HOME=/Users/nikitabar SHLVL=1 PWD=/Users/nikitabar/Dev/test_metric/metrics_and_alertinc OLDPWD=/Users/nikitabar/Dev/test_metric HOMEBREW_PREFIX=/opt/homebrew HOMEBREW_CELLAR=/opt/homebrew/Cellar HOMEBREW_REPOSITORY=/opt/homebrew MANPATH=/opt/homebrew/share/man:: INFOPATH=/opt/homebrew/share/info: _=/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/./metricstest RESTORE=false], флаги командной строки: [-a=localhost:8080]
 === RUN   TestIteration4/TestCounter
 === RUN   TestIteration4/TestCounter/update_sequence
+    iteration4_test.go:238: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:238
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/counter/testSetGet227": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration4/TestCounter/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения counter
+    iteration4_test.go:243: Оригинальный запрос:
+        
+        GET /value/counter/testSetGet227 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration4/TestCounter/get_unknown
+    iteration4_test.go:284: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:284
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/counter/testUnknown134": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration4/TestCounter/get_unknown
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения counter
+    iteration4_test.go:285: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:285
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 404
+        	            	actual  : 0
+        	Test:       	TestIteration4/TestCounter/get_unknown
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/counter/testUnknown134'
+    iteration4_test.go:290: Оригинальный запрос:
+        
+        GET /value/counter/testUnknown134 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration4/TestGauge
 === RUN   TestIteration4/TestGauge/update_sequence
+    iteration4_test.go:184: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:184
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/gauge/testSetGet97/153785.767": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration4_test.go:187: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:187
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testSetGet97/153785.767'
+    iteration4_test.go:192: Оригинальный запрос:
+        
+        POST /update/gauge/testSetGet97/153785.767 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration4_test.go:196: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:196
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/gauge/testSetGet97": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
+    iteration4_test.go:198: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:198
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testSetGet97'
+    iteration4_test.go:200: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:200
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: "153785.767"
+        	            	actual  : ""
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-153785.767
+        	            	+
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Несоответствие отправленного значения gauge (153785.767) полученному от сервера (), 'GET http://localhost:8080/value/gauge/testSetGet97'
+    iteration4_test.go:205: Оригинальный запрос:
+        
+        GET /value/gauge/testSetGet97 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration4_test.go:184: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:184
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/gauge/testSetGet97/334165.233": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration4_test.go:187: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:187
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testSetGet97/334165.233'
+    iteration4_test.go:192: Оригинальный запрос:
+        
+        POST /update/gauge/testSetGet97/334165.233 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration4_test.go:196: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:196
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/gauge/testSetGet97": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
+    iteration4_test.go:198: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:198
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testSetGet97'
+    iteration4_test.go:200: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:200
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: "334165.233"
+        	            	actual  : ""
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-334165.233
+        	            	+
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Несоответствие отправленного значения gauge (334165.233) полученному от сервера (), 'GET http://localhost:8080/value/gauge/testSetGet97'
+    iteration4_test.go:205: Оригинальный запрос:
+        
+        GET /value/gauge/testSetGet97 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration4_test.go:184: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:184
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/gauge/testSetGet97/95565.964": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration4_test.go:187: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:187
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testSetGet97/95565.964'
+    iteration4_test.go:192: Оригинальный запрос:
+        
+        POST /update/gauge/testSetGet97/95565.964 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration4_test.go:196: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:196
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/gauge/testSetGet97": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
+    iteration4_test.go:198: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:198
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testSetGet97'
+    iteration4_test.go:200: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:200
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: "95565.964"
+        	            	actual  : ""
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-95565.964
+        	            	+
+        	Test:       	TestIteration4/TestGauge/update_sequence
+        	Messages:   	Несоответствие отправленного значения gauge (95565.964) полученному от сервера (), 'GET http://localhost:8080/value/gauge/testSetGet97'
+    iteration4_test.go:205: Оригинальный запрос:
+        
+        GET /value/gauge/testSetGet97 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration4/TestGauge/get_unknown
+    iteration4_test.go:214: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:214
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/gauge/testUnknown181": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration4/TestGauge/get_unknown
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
+    iteration4_test.go:216: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:216
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 404
+        	            	actual  : 0
+        	Test:       	TestIteration4/TestGauge/get_unknown
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testUnknown181'
+    iteration4_test.go:221: Оригинальный запрос:
+        
+        GET /value/gauge/testUnknown181 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === NAME  TestIteration4
     iteration4_test.go:166: Получен STDOUT лог процесса:
         
-        &{POST http://localhostlocalhost:8080/update/gauge/Lookups/0.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false localhostlocalhost:8080 map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400001e0a0}
+        Addr:  localhost:8080
+        pol:  1
+        rep:  2
+        SendMetric Gauge: localhost:8080/update/gauge/HeapIdle/3178496.00
+        &{POST localhost:8080/update/gauge/HeapIdle/3178496.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a6018}
         <nil>
-        Post "http://localhostlocalhost:8080/update/gauge/Lookups/0.00": dial tcp: lookup localhostlocalhost: no such host
-        &{POST http://localhostlocalhost:8080/update/gauge/MSpanInuse/33600.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false localhostlocalhost:8080 map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400001e0a0}
+        Post "localhost:8080/update/gauge/HeapIdle/3178496.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/MSpanInuse/33600.00
+        &{POST localhost:8080/update/gauge/MSpanInuse/33600.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a6018}
         <nil>
-        Post "http://localhostlocalhost:8080/update/gauge/MSpanInuse/33600.00": dial tcp: lookup localhostlocalhost: no such host
-        &{POST http://localhostlocalhost:8080/update/gauge/StackInuse/327680.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false localhostlocalhost:8080 map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400001e0a0}
+        Post "localhost:8080/update/gauge/MSpanInuse/33600.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/NextGC/4194304.00
+        &{POST localhost:8080/update/gauge/NextGC/4194304.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a6018}
         <nil>
-        Post "http://localhostlocalhost:8080/update/gauge/StackInuse/327680.00": dial tcp: lookup localhostlocalhost: no such host
-        &{POST http://localhostlocalhost:8080/update/gauge/NumGC/0.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false localhostlocalhost:8080 map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400001e0a0}
+        Post "localhost:8080/update/gauge/NextGC/4194304.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/Alloc/164152.00
+        &{POST localhost:8080/update/gauge/Alloc/164152.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a6018}
         <nil>
-        Post "http://localhostlocalhost:8080/update/gauge/NumGC/0.00": dial tcp: lookup localhostlocalhost: no such host
-        &{POST http://localhostlocalhost:8080/update/gauge/OtherSys/1007156.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false localhostlocalhost:8080 map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400001e0a0}
+        Post "localhost:8080/update/gauge/Alloc/164152.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/NumForcedGC/0.00
+        &{POST localhost:8080/update/gauge/NumForcedGC/0.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a6018}
         <nil>
-        Post "http://localhostlocalhost:8080/update/gauge/OtherSys/1007156.00": dial tcp: lookup localhostlocalhost: no such host
+        Post "localhost:8080/update/gauge/NumForcedGC/0.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/HeapReleased/3145728.00
+        &{POST localhost:8080/update/gauge/HeapReleased/3145728.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a6018}
+        <nil>
+        Post "localhost:8080/update/gauge/HeapReleased/3145728.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/HeapSys/3833856.00
         interrupt
     suite.go:77: test panicked: runtime error: invalid memory address or nil pointer dereference
-        goroutine 93 [running]:
+        goroutine 160 [running]:
         runtime/debug.Stack()
         	/usr/local/go/src/runtime/debug/stack.go:24 +0x64
-        github.com/stretchr/testify/suite.failOnPanic(0x14000429380, {0x104edc800, 0x1053cad40})
+        github.com/stretchr/testify/suite.failOnPanic(0x14000503040, {0x100b68800, 0x101056d40})
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:77 +0x34
-        github.com/stretchr/testify/suite.recoverAndFailOnPanic(0x140002ac000?)
+        github.com/stretchr/testify/suite.recoverAndFailOnPanic(0x140002000d0?)
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:72 +0x3c
-        panic({0x104edc800, 0x1053cad40})
+        panic({0x100b68800, 0x101056d40})
         	/usr/local/go/src/runtime/panic.go:884 +0x204
-        os.(*Process).signal(0x0?, {0x104f85218?, 0x104e644f0?})
+        os.(*Process).signal(0x0?, {0x100c11218?, 0x100af04f0?})
         	/usr/local/go/src/os/exec_unix.go:63 +0x2c
         os.(*Process).Signal(...)
         	/usr/local/go/src/os/exec.go:138
-        github.com/Yandex-Practicum/go-autotests/internal/fork.(*BackgroundProcess).Stop(0x140001885d0, {0x140000ddc80?, 0x2, 0x140000ddc70?})
+        github.com/Yandex-Practicum/go-autotests/internal/fork.(*BackgroundProcess).Stop(0x140001caa20, {0x14000131c80?, 0x2, 0x14000131c70?})
         	/__w/go-autotests/go-autotests/internal/fork/process.go:130 +0x84
-        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration4Suite).serverShutdown(0x14000406370)
+        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration4Suite).serverShutdown(0x140000d8420)
         	/__w/go-autotests/go-autotests/cmd/metricstest/iteration4_test.go:113 +0x78
-        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration4Suite).TearDownSuite(0x140000ddd48?)
+        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration4Suite).TearDownSuite(0x14000131d48?)
         	/__w/go-autotests/go-autotests/cmd/metricstest/iteration4_test.go:105 +0x28
         github.com/stretchr/testify/suite.Run.func2()
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:183 +0x5c
-        github.com/stretchr/testify/suite.Run(0x14000429380, {0x104f83a80, 0x14000406370})
+        github.com/stretchr/testify/suite.Run(0x14000503040, {0x100c0fa80, 0x140000d8420})
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:194 +0x618
         github.com/Yandex-Practicum/go-autotests/cmd/metricstest.TestIteration4(0x0?)
         	/__w/go-autotests/go-autotests/cmd/metricstest/main_test.go:37 +0x3c
-        testing.tRunner(0x14000429380, 0x104f7e740)
+        testing.tRunner(0x14000503040, 0x100c0a740)
         	/usr/local/go/src/testing/testing.go:1576 +0x10c
         created by testing.(*T).Run
         	/usr/local/go/src/testing/testing.go:1629 +0x368
 --- FAIL: TestIteration4 (20.01s)
-    --- PASS: TestIteration4/TestCounter (0.01s)
-        --- PASS: TestIteration4/TestCounter/update_sequence (0.00s)
-        --- PASS: TestIteration4/TestCounter/get_unknown (0.00s)
-    --- PASS: TestIteration4/TestGauge (0.00s)
-        --- PASS: TestIteration4/TestGauge/update_sequence (0.00s)
-        --- PASS: TestIteration4/TestGauge/get_unknown (0.00s)
+    --- FAIL: TestIteration4/TestCounter (0.00s)
+        --- FAIL: TestIteration4/TestCounter/update_sequence (0.00s)
+        --- FAIL: TestIteration4/TestCounter/get_unknown (0.00s)
+    --- FAIL: TestIteration4/TestGauge (0.01s)
+        --- FAIL: TestIteration4/TestGauge/update_sequence (0.01s)
+        --- FAIL: TestIteration4/TestGauge/get_unknown (0.00s)
 === RUN   TestIteration5
     iteration5_test.go:83: Не удалось дождаться пока на порт 8080 начнут поступать данные: context deadline exceeded
     iteration5_test.go:59: Невозможно запустить процесс командой "cmd/server/ser": context deadline exceeded. Переменные окружения: [DATAGRIP_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/datagrip.vmoptions PATH=/usr/local/go/bin:/Users/nikitabar/go/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin PYCHARM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/pycharm.vmoptions WEBSTORM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/webstorm.vmoptions CLION_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/clion.vmoptions JETBRAINSCLIENT_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/jetbrainsclient.vmoptions TERM=xterm-256color FIG_JETBRAINS_SHELL_INTEGRATION=1 GATEWAY_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/gateway.vmoptions COMMAND_MODE=unix2003 GOLAND_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/goland.vmoptions IDEA_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/idea.vmoptions RIDER_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/rider.vmoptions RUBYMINE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/rubymine.vmoptions JETBRAINS_CLIENT_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/jetbrains_client.vmoptions DEVECOSTUDIO_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/devecostudio.vmoptions LOGNAME=nikitabar STUDIO_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/studio.vmoptions XPC_SERVICE_NAME=0 __CFBundleIdentifier=com.jetbrains.goland SHELL=/bin/zsh APPCODE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/appcode.vmoptions GOPATH=/Users/nikitabar/go USER=nikitabar GOROOT=/usr/local/go TMPDIR=/var/folders/84/lzqlk4f168v1_zvxb2jmrx280000gn/T/ TERMINAL_EMULATOR=JetBrains-JediTerm GO111MODULE=on DATASPELL_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/dataspell.vmoptions SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.BLdHtSXQuX/Listeners XPC_FLAGS=0x0 WEBIDE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/webide.vmoptions TERM_SESSION_ID=99213953-e7d4-4e0c-9f3e-e22aca3cc469 __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0 PHPSTORM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/phpstorm.vmoptions LC_CTYPE=UTF-8 HOME=/Users/nikitabar SHLVL=1 PWD=/Users/nikitabar/Dev/test_metric/metrics_and_alertinc OLDPWD=/Users/nikitabar/Dev/test_metric HOMEBREW_PREFIX=/opt/homebrew HOMEBREW_CELLAR=/opt/homebrew/Cellar HOMEBREW_REPOSITORY=/opt/homebrew MANPATH=/opt/homebrew/share/man:: INFOPATH=/opt/homebrew/share/info: _=/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/./metricstest ADDRESS=localhost:8080 REPORT_INTERVAL=5 POLL_INTERVAL=1 RESTORE=false]
 === RUN   TestIteration5/TestCounter
 === RUN   TestIteration5/TestCounter/update_sequence
+    iteration5_test.go:223: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:223
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/counter/testSetGet38": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration5/TestCounter/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения counter
+    iteration5_test.go:228: Оригинальный запрос:
+        
+        GET /value/counter/testSetGet38 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration5/TestCounter/get_unknown
+    iteration5_test.go:269: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:269
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/counter/testUnknown161": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration5/TestCounter/get_unknown
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения counter
+    iteration5_test.go:270: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:270
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 404
+        	            	actual  : 0
+        	Test:       	TestIteration5/TestCounter/get_unknown
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/counter/testUnknown161'
+    iteration5_test.go:275: Оригинальный запрос:
+        
+        GET /value/counter/testUnknown161 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration5/TestGauge
 === RUN   TestIteration5/TestGauge/update_sequence
+    iteration5_test.go:169: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:169
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/gauge/testSetGet107/218682.733": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration5_test.go:172: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:172
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testSetGet107/218682.733'
+    iteration5_test.go:177: Оригинальный запрос:
+        
+        POST /update/gauge/testSetGet107/218682.733 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration5_test.go:181: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:181
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/gauge/testSetGet107": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
+    iteration5_test.go:183: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:183
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testSetGet107'
+    iteration5_test.go:185: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:185
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: "218682.733"
+        	            	actual  : ""
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-218682.733
+        	            	+
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Несоответствие отправленного значения gauge (218682.733) полученному от сервера (), 'GET http://localhost:8080/value/gauge/testSetGet107'
+    iteration5_test.go:190: Оригинальный запрос:
+        
+        GET /value/gauge/testSetGet107 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration5_test.go:169: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:169
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/gauge/testSetGet107/72315.891": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration5_test.go:172: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:172
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testSetGet107/72315.891'
+    iteration5_test.go:177: Оригинальный запрос:
+        
+        POST /update/gauge/testSetGet107/72315.891 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration5_test.go:181: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:181
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/gauge/testSetGet107": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
+    iteration5_test.go:183: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:183
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testSetGet107'
+    iteration5_test.go:185: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:185
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: "72315.891"
+        	            	actual  : ""
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-72315.891
+        	            	+
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Несоответствие отправленного значения gauge (72315.891) полученному от сервера (), 'GET http://localhost:8080/value/gauge/testSetGet107'
+    iteration5_test.go:190: Оригинальный запрос:
+        
+        GET /value/gauge/testSetGet107 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration5_test.go:169: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:169
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/gauge/testSetGet107/940186.23": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration5_test.go:172: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:172
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testSetGet107/940186.23'
+    iteration5_test.go:177: Оригинальный запрос:
+        
+        POST /update/gauge/testSetGet107/940186.23 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration5_test.go:181: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:181
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/gauge/testSetGet107": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
+    iteration5_test.go:183: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:183
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 0
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testSetGet107'
+    iteration5_test.go:185: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:185
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: "940186.23"
+        	            	actual  : ""
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-940186.23
+        	            	+
+        	Test:       	TestIteration5/TestGauge/update_sequence
+        	Messages:   	Несоответствие отправленного значения gauge (940186.23) полученному от сервера (), 'GET http://localhost:8080/value/gauge/testSetGet107'
+    iteration5_test.go:190: Оригинальный запрос:
+        
+        GET /value/gauge/testSetGet107 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === RUN   TestIteration5/TestGauge/get_unknown
+    iteration5_test.go:199: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:199
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/value/gauge/testUnknown229": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration5/TestGauge/get_unknown
+        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
+    iteration5_test.go:201: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:201
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 404
+        	            	actual  : 0
+        	Test:       	TestIteration5/TestGauge/get_unknown
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testUnknown229'
+    iteration5_test.go:206: Оригинальный запрос:
+        
+        GET /value/gauge/testUnknown229 HTTP/1.1
+        Host: localhost:8080
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
 === NAME  TestIteration5
     iteration5_test.go:151: Получен STDOUT лог процесса:
         
-        &{POST http://localhostlocalhost:8080/update/gauge/MSpanInuse/44000.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false localhostlocalhost:8080 map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a6018}
+        Addr:  localhost:8080
+        pol:  2
+        rep:  10
+        SendMetric Gauge: localhost:8080/update/gauge/Frees/10.00
+        &{POST localhost:8080/update/gauge/Frees/10.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400001e0b0}
         <nil>
-        Post "http://localhostlocalhost:8080/update/gauge/MSpanInuse/44000.00": dial tcp: lookup localhostlocalhost: no such host
-        &{POST http://localhostlocalhost:8080/update/gauge/Mallocs/589.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false localhostlocalhost:8080 map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a6018}
+        Post "localhost:8080/update/gauge/Frees/10.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/NextGC/4194304.00
+        &{POST localhost:8080/update/gauge/NextGC/4194304.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400001e0b0}
         <nil>
-        Post "http://localhostlocalhost:8080/update/gauge/Mallocs/589.00": dial tcp: lookup localhostlocalhost: no such host
-        &{POST http://localhostlocalhost:8080/update/gauge/NumForcedGC/0.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false localhostlocalhost:8080 map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a6018}
+        Post "localhost:8080/update/gauge/NextGC/4194304.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/NumGC/0.00
+        &{POST localhost:8080/update/gauge/NumGC/0.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400001e0b0}
         <nil>
-        Post "http://localhostlocalhost:8080/update/gauge/NumForcedGC/0.00": dial tcp: lookup localhostlocalhost: no such host
-        &{POST http://localhostlocalhost:8080/update/gauge/StackSys/360448.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false localhostlocalhost:8080 map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a6018}
+        Post "localhost:8080/update/gauge/NumGC/0.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/PauseTotalNs/0.00
+        &{POST localhost:8080/update/gauge/PauseTotalNs/0.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400001e0b0}
         <nil>
-        Post "http://localhostlocalhost:8080/update/gauge/StackSys/360448.00": dial tcp: lookup localhostlocalhost: no such host
+        Post "localhost:8080/update/gauge/PauseTotalNs/0.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/RandomValue/0.62
+        &{POST localhost:8080/update/gauge/RandomValue/0.62 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400001e0b0}
+        <nil>
+        Post "localhost:8080/update/gauge/RandomValue/0.62": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/GCSys/2787656.00
         interrupt
     suite.go:77: test panicked: runtime error: invalid memory address or nil pointer dereference
-        goroutine 110 [running]:
+        goroutine 251 [running]:
         runtime/debug.Stack()
         	/usr/local/go/src/runtime/debug/stack.go:24 +0x64
-        github.com/stretchr/testify/suite.failOnPanic(0x140001bf380, {0x104edc800, 0x1053cad40})
+        github.com/stretchr/testify/suite.failOnPanic(0x14000083520, {0x100b68800, 0x101056d40})
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:77 +0x34
-        github.com/stretchr/testify/suite.recoverAndFailOnPanic(0x140000ad040?)
+        github.com/stretchr/testify/suite.recoverAndFailOnPanic(0x1400009e000?)
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:72 +0x3c
-        panic({0x104edc800, 0x1053cad40})
+        panic({0x100b68800, 0x101056d40})
         	/usr/local/go/src/runtime/panic.go:884 +0x204
-        os.(*Process).signal(0x0?, {0x104f85218?, 0x104e644f0?})
+        os.(*Process).signal(0x0?, {0x100c11218?, 0x100af04f0?})
         	/usr/local/go/src/os/exec_unix.go:63 +0x2c
         os.(*Process).Signal(...)
         	/usr/local/go/src/os/exec.go:138
-        github.com/Yandex-Practicum/go-autotests/internal/fork.(*BackgroundProcess).Stop(0x140003ad950, {0x140000ddc80?, 0x2, 0x140000ddc70?})
+        github.com/Yandex-Practicum/go-autotests/internal/fork.(*BackgroundProcess).Stop(0x14000264540, {0x14000321c80?, 0x2, 0x1400045ec70?})
         	/__w/go-autotests/go-autotests/internal/fork/process.go:130 +0x84
-        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration5Suite).serverShutdown(0x140001926e0)
+        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration5Suite).serverShutdown(0x140001d5540)
         	/__w/go-autotests/go-autotests/cmd/metricstest/iteration5_test.go:98 +0x78
-        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration5Suite).TearDownSuite(0x140000ddd48?)
+        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration5Suite).TearDownSuite(0x14000131d48?)
         	/__w/go-autotests/go-autotests/cmd/metricstest/iteration5_test.go:90 +0x28
         github.com/stretchr/testify/suite.Run.func2()
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:183 +0x5c
-        github.com/stretchr/testify/suite.Run(0x140001bf380, {0x104f83aa8, 0x140001926e0})
+        github.com/stretchr/testify/suite.Run(0x14000083520, {0x100c0faa8, 0x140001d5540})
         	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:194 +0x618
-        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.TestIteration5(0x104f833a0?)
+        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.TestIteration5(0x0?)
         	/__w/go-autotests/go-autotests/cmd/metricstest/main_test.go:41 +0x3c
-        testing.tRunner(0x140001bf380, 0x104f7e748)
+        testing.tRunner(0x14000083520, 0x100c0a748)
         	/usr/local/go/src/testing/testing.go:1576 +0x10c
         created by testing.(*T).Run
         	/usr/local/go/src/testing/testing.go:1629 +0x368
 --- FAIL: TestIteration5 (20.01s)
-    --- PASS: TestIteration5/TestCounter (0.01s)
-        --- PASS: TestIteration5/TestCounter/update_sequence (0.00s)
-        --- PASS: TestIteration5/TestCounter/get_unknown (0.00s)
-    --- PASS: TestIteration5/TestGauge (0.00s)
-        --- PASS: TestIteration5/TestGauge/update_sequence (0.00s)
-        --- PASS: TestIteration5/TestGauge/get_unknown (0.00s)
+    --- FAIL: TestIteration5/TestCounter (0.00s)
+        --- FAIL: TestIteration5/TestCounter/update_sequence (0.00s)
+        --- FAIL: TestIteration5/TestCounter/get_unknown (0.00s)
+    --- FAIL: TestIteration5/TestGauge (0.00s)
+        --- FAIL: TestIteration5/TestGauge/update_sequence (0.00s)
+        --- FAIL: TestIteration5/TestGauge/get_unknown (0.00s)
 === RUN   TestIteration6
 === RUN   TestIteration6/TestLoggerUsage
     iteration6_test.go:45: Не найдено использование хотя бы одного известного логгера по пути .
---- FAIL: TestIteration6 (0.01s)
+--- FAIL: TestIteration6 (0.00s)
     --- FAIL: TestIteration6/TestLoggerUsage (0.00s)
 === RUN   TestIteration7
     iteration7_test.go:94: Не удалось дождаться пока на порт 8080 начнут поступать данные: context deadline exceeded
     iteration7_test.go:70: Невозможно запустить процесс командой cmd/server/ser: context deadline exceeded. Переменные окружения: [DATAGRIP_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/datagrip.vmoptions PATH=/usr/local/go/bin:/Users/nikitabar/go/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin PYCHARM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/pycharm.vmoptions WEBSTORM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/webstorm.vmoptions CLION_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/clion.vmoptions JETBRAINSCLIENT_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/jetbrainsclient.vmoptions TERM=xterm-256color FIG_JETBRAINS_SHELL_INTEGRATION=1 GATEWAY_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/gateway.vmoptions COMMAND_MODE=unix2003 GOLAND_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/goland.vmoptions IDEA_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/idea.vmoptions RIDER_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/rider.vmoptions RUBYMINE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/rubymine.vmoptions JETBRAINS_CLIENT_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/jetbrains_client.vmoptions DEVECOSTUDIO_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/devecostudio.vmoptions LOGNAME=nikitabar STUDIO_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/studio.vmoptions XPC_SERVICE_NAME=0 __CFBundleIdentifier=com.jetbrains.goland SHELL=/bin/zsh APPCODE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/appcode.vmoptions GOPATH=/Users/nikitabar/go USER=nikitabar GOROOT=/usr/local/go TMPDIR=/var/folders/84/lzqlk4f168v1_zvxb2jmrx280000gn/T/ TERMINAL_EMULATOR=JetBrains-JediTerm GO111MODULE=on DATASPELL_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/dataspell.vmoptions SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.BLdHtSXQuX/Listeners XPC_FLAGS=0x0 WEBIDE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/webide.vmoptions TERM_SESSION_ID=99213953-e7d4-4e0c-9f3e-e22aca3cc469 __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0 PHPSTORM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/phpstorm.vmoptions LC_CTYPE=UTF-8 HOME=/Users/nikitabar SHLVL=1 PWD=/Users/nikitabar/Dev/test_metric/metrics_and_alertinc OLDPWD=/Users/nikitabar/Dev/test_metric HOMEBREW_PREFIX=/opt/homebrew HOMEBREW_CELLAR=/opt/homebrew/Cellar HOMEBREW_REPOSITORY=/opt/homebrew MANPATH=/opt/homebrew/share/man:: INFOPATH=/opt/homebrew/share/info: _=/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/./metricstest RESTORE=false]
 === RUN   TestIteration7/TestCollectAgentMetrics
+    iteration7_test.go:395: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration7_test.go:395
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/value/": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration7/TestCollectAgentMetrics
+        	Messages:   	Ошибка при попытке сделать запрос с получением значения PollCount
+    iteration7_test.go:421: Оригинальный запрос:
+        
+        POST /value/ HTTP/1.1
+        Host: localhost:8080
+        Accept: application/json
+        Content-Type: application/json
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration7_test.go:423: Оригинальный ответ:
+        
+=== RUN   TestIteration7/TestCounterHandlers
+=== RUN   TestIteration7/TestCounterHandlers/update
+    iteration7_test.go:199: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration7_test.go:199
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/value/": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration7/TestCounterHandlers/update
+        	Messages:   	Ошибка при попытке сделать запрос с получением значения counter
+    iteration7_test.go:214: Несоответствие статус кода 0 ответа ожидаемому http.StatusNotFound или http.StatusOK в хендлере "POST": "http://localhost:8080/value/"
+=== RUN   TestIteration7/TestEncoderUsage
+    iteration7_test.go:173: Не найдено использование известных библиотек кодирования JSON .
+=== RUN   TestIteration7/TestGaugeHandlers
+=== RUN   TestIteration7/TestGaugeHandlers/update
+    iteration7_test.go:287: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration7_test.go:287
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration7/TestGaugeHandlers/update
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration7_test.go:314: Оригинальный запрос:
+        
+        POST /value/ HTTP/1.1
+        Host: localhost:8080
+        Accept: application/json
+        Content-Type: application/json
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration7_test.go:316: Оригинальный ответ:
+        
+=== NAME  TestIteration7
+    iteration7_test.go:162: Получен STDOUT лог процесса:
+        
+        Addr:  localhost:8080
+        pol:  2
+        rep:  10
+        SendMetric Gauge: localhost:8080/update/gauge/Alloc/163176.00
+        &{POST localhost:8080/update/gauge/Alloc/163176.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400001e0a0}
+        <nil>
+        Post "localhost:8080/update/gauge/Alloc/163176.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/HeapIdle/3170304.00
+        &{POST localhost:8080/update/gauge/HeapIdle/3170304.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400001e0a0}
+        <nil>
+        Post "localhost:8080/update/gauge/HeapIdle/3170304.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/StackInuse/360448.00
+        &{POST localhost:8080/update/gauge/StackInuse/360448.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x1400001e0a0}
+        <nil>
+        Post "localhost:8080/update/gauge/StackInuse/360448.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/HeapSys/3833856.00
+        interrupt
+    suite.go:77: test panicked: runtime error: invalid memory address or nil pointer dereference
+        goroutine 318 [running]:
+        runtime/debug.Stack()
+        	/usr/local/go/src/runtime/debug/stack.go:24 +0x64
+        github.com/stretchr/testify/suite.failOnPanic(0x1400037ab60, {0x100b68800, 0x101056d40})
+        	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:77 +0x34
+        github.com/stretchr/testify/suite.recoverAndFailOnPanic(0x140002a60d0?)
+        	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:72 +0x3c
+        panic({0x100b68800, 0x101056d40})
+        	/usr/local/go/src/runtime/panic.go:884 +0x204
+        os.(*Process).signal(0x0?, {0x100c11218?, 0x100af04f0?})
+        	/usr/local/go/src/os/exec_unix.go:63 +0x2c
+        os.(*Process).Signal(...)
+        	/usr/local/go/src/os/exec.go:138
+        github.com/Yandex-Practicum/go-autotests/internal/fork.(*BackgroundProcess).Stop(0x14000265050, {0x14000321c80?, 0x2, 0x14000321c70?})
+        	/__w/go-autotests/go-autotests/internal/fork/process.go:130 +0x84
+        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration7Suite).serverShutdown(0x140001e3b20)
+        	/__w/go-autotests/go-autotests/cmd/metricstest/iteration7_test.go:109 +0x78
+        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration7Suite).TearDownSuite(0x14000321d48?)
+        	/__w/go-autotests/go-autotests/cmd/metricstest/iteration7_test.go:101 +0x28
+        github.com/stretchr/testify/suite.Run.func2()
+        	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:183 +0x5c
+        github.com/stretchr/testify/suite.Run(0x1400037ab60, {0x100c0faf8, 0x140001e3b20})
+        	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:194 +0x618
+        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.TestIteration7(0x0?)
+        	/__w/go-autotests/go-autotests/cmd/metricstest/main_test.go:49 +0x3c
+        testing.tRunner(0x1400037ab60, 0x100c0a758)
+        	/usr/local/go/src/testing/testing.go:1576 +0x10c
+        created by testing.(*T).Run
+        	/usr/local/go/src/testing/testing.go:1629 +0x368
+--- FAIL: TestIteration7 (20.12s)
+    --- FAIL: TestIteration7/TestCollectAgentMetrics (0.11s)
+    --- FAIL: TestIteration7/TestCounterHandlers (0.00s)
+        --- FAIL: TestIteration7/TestCounterHandlers/update (0.00s)
+    --- FAIL: TestIteration7/TestEncoderUsage (0.00s)
+    --- FAIL: TestIteration7/TestGaugeHandlers (0.00s)
+        --- FAIL: TestIteration7/TestGaugeHandlers/update (0.00s)
+=== RUN   TestIteration8
+    iteration8_test.go:84: Не удалось дождаться пока на порт 8080 начнут поступать данные: context deadline exceeded
+    iteration8_test.go:60: Невозможно запустить процесс командой "cmd/server/ser": context deadline exceeded. Переменные окружения: [DATAGRIP_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/datagrip.vmoptions PATH=/usr/local/go/bin:/Users/nikitabar/go/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin PYCHARM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/pycharm.vmoptions WEBSTORM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/webstorm.vmoptions CLION_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/clion.vmoptions JETBRAINSCLIENT_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/jetbrainsclient.vmoptions TERM=xterm-256color FIG_JETBRAINS_SHELL_INTEGRATION=1 GATEWAY_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/gateway.vmoptions COMMAND_MODE=unix2003 GOLAND_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/goland.vmoptions IDEA_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/idea.vmoptions RIDER_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/rider.vmoptions RUBYMINE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/rubymine.vmoptions JETBRAINS_CLIENT_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/jetbrains_client.vmoptions DEVECOSTUDIO_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/devecostudio.vmoptions LOGNAME=nikitabar STUDIO_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/studio.vmoptions XPC_SERVICE_NAME=0 __CFBundleIdentifier=com.jetbrains.goland SHELL=/bin/zsh APPCODE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/appcode.vmoptions GOPATH=/Users/nikitabar/go USER=nikitabar GOROOT=/usr/local/go TMPDIR=/var/folders/84/lzqlk4f168v1_zvxb2jmrx280000gn/T/ TERMINAL_EMULATOR=JetBrains-JediTerm GO111MODULE=on DATASPELL_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/dataspell.vmoptions SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.BLdHtSXQuX/Listeners XPC_FLAGS=0x0 WEBIDE_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/webide.vmoptions TERM_SESSION_ID=99213953-e7d4-4e0c-9f3e-e22aca3cc469 __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0 PHPSTORM_VM_OPTIONS=/Library/Application Support/jetLicense//vmoptions/phpstorm.vmoptions LC_CTYPE=UTF-8 HOME=/Users/nikitabar SHLVL=1 PWD=/Users/nikitabar/Dev/test_metric/metrics_and_alertinc OLDPWD=/Users/nikitabar/Dev/test_metric HOMEBREW_PREFIX=/opt/homebrew HOMEBREW_CELLAR=/opt/homebrew/Cellar HOMEBREW_REPOSITORY=/opt/homebrew MANPATH=/opt/homebrew/share/man:: INFOPATH=/opt/homebrew/share/info: _=/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/./metricstest ADDRESS=localhost:8080 RESTORE=true]
+=== RUN   TestIteration8/TestCounterGzipHandlers
+=== RUN   TestIteration8/TestCounterGzipHandlers/update
+    iteration8_test.go:176: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration8_test.go:176
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/value/": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration8/TestCounterGzipHandlers/update
+        	Messages:   	Ошибка при попытке сделать запрос с получением значения counter
+    iteration8_test.go:191: Несоответствие статус кода 0 ответа ожидаемому http.StatusNotFound или http.StatusOK в хендлере "POST": "http://localhost:8080/value/"
+=== RUN   TestIteration8/TestGaugeGzipHandlers
+=== RUN   TestIteration8/TestGaugeGzipHandlers/update
+    iteration8_test.go:271: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration8_test.go:271
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Post "http://localhost:8080/update/": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration8/TestGaugeGzipHandlers/update
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
+    iteration8_test.go:301: Оригинальный запрос:
+        
+        POST /value/ HTTP/1.1
+        Host: localhost:8080
+        Accept: application/json
+        Accept-Encoding: gzip
+        Content-Type: application/json
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration8_test.go:303: Оригинальный ответ:
+        
+=== RUN   TestIteration8/TestGetGzipHandlers
+=== RUN   TestIteration8/TestGetGzipHandlers/get_info_page
+    iteration8_test.go:320: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration8_test.go:320
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	Get "http://localhost:8080/": dial tcp [::1]:8080: connect: connection refused
+        	Test:       	TestIteration8/TestGetGzipHandlers/get_info_page
+        	Messages:   	Ошибка при попытке сделать запрос с получением значения информационной страницы
+    iteration8_test.go:332: Оригинальный запрос:
+        
+        GET / HTTP/1.1
+        Host: localhost:8080
+        Accept: html/text
+        Accept-Encoding: gzip
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration8_test.go:334: Оригинальный ответ:
+        
+=== NAME  TestIteration8
+    iteration8_test.go:152: Получен STDOUT лог процесса:
+        
+        Addr:  localhost:8080
+        pol:  2
+        rep:  10
+        SendMetric Gauge: localhost:8080/update/gauge/GCSys/2793824.00
+        &{POST localhost:8080/update/gauge/GCSys/2793824.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a6018}
+        <nil>
+        Post "localhost:8080/update/gauge/GCSys/2793824.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/NumGC/0.00
+        &{POST localhost:8080/update/gauge/NumGC/0.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a6018}
+        <nil>
+        Post "localhost:8080/update/gauge/NumGC/0.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/PauseTotalNs/0.00
+        &{POST localhost:8080/update/gauge/PauseTotalNs/0.00 HTTP/1.1 1 1 map[Content-Type:[text/plain]] <nil> <nil> 0 [] false  map[] map[] <nil> map[]   <nil> <nil> <nil> 0x140000a6018}
+        <nil>
+        Post "localhost:8080/update/gauge/PauseTotalNs/0.00": unsupported protocol scheme "localhost"
+        SendMetric Gauge: localhost:8080/update/gauge/Frees/10.00
+        interrupt
+    suite.go:77: test panicked: runtime error: invalid memory address or nil pointer dereference
+        goroutine 373 [running]:
+        runtime/debug.Stack()
+        	/usr/local/go/src/runtime/debug/stack.go:24 +0x64
+        github.com/stretchr/testify/suite.failOnPanic(0x14000502d00, {0x100b68800, 0x101056d40})
+        	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:77 +0x34
+        github.com/stretchr/testify/suite.recoverAndFailOnPanic(0x140002000d0?)
+        	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:72 +0x3c
+        panic({0x100b68800, 0x101056d40})
+        	/usr/local/go/src/runtime/panic.go:884 +0x204
+        os.(*Process).signal(0x0?, {0x100c11218?, 0x100af04f0?})
+        	/usr/local/go/src/os/exec_unix.go:63 +0x2c
+        os.(*Process).Signal(...)
+        	/usr/local/go/src/os/exec.go:138
+        github.com/Yandex-Practicum/go-autotests/internal/fork.(*BackgroundProcess).Stop(0x14000425080, {0x14000321c80?, 0x2, 0x14000321c70?})
+        	/__w/go-autotests/go-autotests/internal/fork/process.go:130 +0x84
+        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration8Suite).serverShutdown(0x140003ca310)
+        	/__w/go-autotests/go-autotests/cmd/metricstest/iteration8_test.go:99 +0x78
+        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.(*Iteration8Suite).TearDownSuite(0x14000321d48?)
+        	/__w/go-autotests/go-autotests/cmd/metricstest/iteration8_test.go:91 +0x28
+        github.com/stretchr/testify/suite.Run.func2()
+        	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:183 +0x5c
+        github.com/stretchr/testify/suite.Run(0x14000502d00, {0x100c0fb20, 0x140003ca310})
+        	/go/pkg/mod/github.com/stretchr/testify@v1.8.0/suite/suite.go:194 +0x618
+        github.com/Yandex-Practicum/go-autotests/cmd/metricstest.TestIteration8(0x140005137a8?)
+        	/__w/go-autotests/go-autotests/cmd/metricstest/main_test.go:53 +0x3c
+        testing.tRunner(0x14000502d00, 0x100c0a760)
+        	/usr/local/go/src/testing/testing.go:1576 +0x10c
+        created by testing.(*T).Run
+        	/usr/local/go/src/testing/testing.go:1629 +0x368
+--- FAIL: TestIteration8 (20.01s)
+    --- FAIL: TestIteration8/TestCounterGzipHandlers (0.00s)
+        --- FAIL: TestIteration8/TestCounterGzipHandlers/update (0.00s)
+    --- FAIL: TestIteration8/TestGaugeGzipHandlers (0.00s)
+        --- FAIL: TestIteration8/TestGaugeGzipHandlers/update (0.00s)
+    --- FAIL: TestIteration8/TestGetGzipHandlers (0.00s)
+        --- FAIL: TestIteration8/TestGetGzipHandlers/get_info_page (0.00s)
+=== RUN   TestIteration9
+    iteration9_test.go:37: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration9_test.go:37
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:57
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration9
+        	Messages:   	-file-storage-path non-empty flag required
+--- FAIL: TestIteration9 (0.00s)
+=== RUN   TestIteration10A
+    iteration10a_test.go:34: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration10a_test.go:34
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:61
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration10A
+        	Messages:   	-database-dsn non-empty flag required
+--- FAIL: TestIteration10A (0.00s)
+=== RUN   TestIteration10B
+    iteration10b_test.go:33: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration10b_test.go:33
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:65
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration10B
+        	Messages:   	-database-dsn non-empty flag required
+--- FAIL: TestIteration10B (0.00s)
+=== RUN   TestIteration11
+    iteration11_test.go:41: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration11_test.go:41
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:69
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration11
+        	Messages:   	-database-dsn non-empty flag required
+--- FAIL: TestIteration11 (0.00s)
+=== RUN   TestIteration12
+    iteration12_test.go:40: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration12_test.go:40
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:73
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration12
+        	Messages:   	-database-dsn non-empty flag required
+--- FAIL: TestIteration12 (0.00s)
+=== RUN   TestIteration13
+    iteration13_test.go:36: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration13_test.go:36
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:77
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration13
+        	Messages:   	-database-dsn non-empty flag required
+--- FAIL: TestIteration13 (0.00s)
+=== RUN   TestIteration14
+    iteration14_test.go:39: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration14_test.go:39
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:81
+        	Error:      	Should NOT be empty, but was 
+        	Test:       	TestIteration14
+        	Messages:   	-key non-empty flag required
+--- FAIL: TestIteration14 (0.00s)
+FAIL

@@ -68,12 +68,12 @@ func (m *MetricAction) CollectMetric() {
 
 func (m *MetricAction) SendMetric(ctx context.Context, flagRunAddr string) {
 	for metricName, metricValue := range m.MemStorage.ReadGaugeMetric() {
-		url := fmt.Sprintf("http://localhost%s/update/gauge/%s/%.2f", flagRunAddr, metricName, metricValue)
-		//fmt.Println("SendMetric Gauge:", url)
+		url := fmt.Sprintf("%s/update/gauge/%s/%.2f", flagRunAddr, metricName, metricValue)
+		fmt.Println("SendMetric Gauge:", url)
 		m.sender.SendPost(ctx, url)
 	}
 	for metricName, metricValue := range m.MemStorage.ReadCounterMetric() {
-		url := fmt.Sprintf("http://localhost%s/update/counter/%s/%d", flagRunAddr, metricName, metricValue)
+		url := fmt.Sprintf("%s/update/counter/%s/%d", flagRunAddr, metricName, metricValue)
 		//fmt.Println("SendMetric Counter:", url)
 		m.sender.SendPost(ctx, url)
 	}
