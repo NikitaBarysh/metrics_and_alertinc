@@ -3,6 +3,8 @@ package storage
 import (
 	"context"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
+	"go.uber.org/zap"
 	"math/rand"
 	"runtime"
 	"time"
@@ -13,6 +15,7 @@ type sender interface {
 }
 
 func (m *MetricAction) Run(ctx context.Context, pollInterval int64, reportInterval int64, flagRunAddr string) {
+	logger.Log.Info("Running agent", zap.String("address", flagRunAddr))
 
 	collectTicker := time.NewTicker(time.Second * time.Duration(pollInterval))
 	defer collectTicker.Stop()

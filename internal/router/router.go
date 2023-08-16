@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -17,8 +18,11 @@ func NewRouter(handler *handlers.Handler) *Router {
 
 func (rt *Router) Register() *chi.Mux {
 	r := chi.NewRouter()
+	r.Use(logger.WithLogging)
+
 	r.Post("/{update}/{type}/{name}/{value}", rt.metricHandler.Safe)
 	r.Get("/{value}/{type}/{name}", rt.metricHandler.Get)
 	r.Get("/", rt.metricHandler.GetAll)
+
 	return r
 }
