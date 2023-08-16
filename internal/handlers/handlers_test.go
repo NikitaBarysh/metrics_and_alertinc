@@ -2,12 +2,13 @@ package handlers
 
 import (
 	"context"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
-	"github.com/go-chi/chi/v5"
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
+	"github.com/go-chi/chi/v5"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestHandler_Safe(t *testing.T) {

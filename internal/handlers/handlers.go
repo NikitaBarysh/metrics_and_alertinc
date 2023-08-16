@@ -2,11 +2,12 @@ package handlers
 
 import (
 	"fmt"
-	"github.com/go-chi/chi/v5"
 	"io"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/go-chi/chi/v5"
 )
 
 type storage interface {

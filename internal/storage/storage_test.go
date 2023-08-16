@@ -2,10 +2,11 @@ package storage
 
 import (
 	"context"
+	"testing"
+
 	sender2 "github.com/NikitaBarysh/metrics_and_alertinc/internal/sender"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 type senderMock struct {

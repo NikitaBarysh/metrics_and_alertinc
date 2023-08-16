@@ -6,7 +6,7 @@ import (
 )
 
 type Router struct {
-	metricHandler *handlers.Handler // TODO interface metricHandler
+	metricHandler *handlers.Handler
 }
 
 func NewRouter(handler *handlers.Handler) *Router {

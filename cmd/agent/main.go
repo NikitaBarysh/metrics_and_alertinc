@@ -3,12 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/sender"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/sender"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 )
 
 func main() {
