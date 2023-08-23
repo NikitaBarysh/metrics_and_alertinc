@@ -69,13 +69,24 @@ func (m *MetricAction) CollectMetric() {
 	m.MemStorage.UpdateCounterMetric("PollCount", int64(1))
 }
 
-func (m *MetricAction) SendMetric(ctx context.Context, flagRunAddr string) {
+func (m *MetricAction) SendMetric(ctx context.Context, flagRunAddr string) error {
+	//buf := new(bytes.Buffer)
 	for metricName, metricValue := range m.MemStorage.ReadGaugeMetric() {
 		url := fmt.Sprintf("http://%s/update/gauge/%s/%.2f", flagRunAddr, metricName, metricValue)
+		//metricJSON := models.NewMetric(metricName, "gauge", nil, &metricValue)
+		//if err := json.NewEncoder(buf).Encode(metricJSON); err != nil {
+		//	return fmt.Errorf("err encoding metric %w", err)
+		//}
 		m.sender.SendPost(ctx, url)
 	}
 	for metricName, metricValue := range m.MemStorage.ReadCounterMetric() {
 		url := fmt.Sprintf("http://%s/update/counter/%s/%d", flagRunAddr, metricName, metricValue)
+		//models.NewMetric(metricName, "gauge", &metricValue, nil)
+		//metricJSON := models.NewMetric(metricName, "counter", &metricValue, nil)
+		//if err := json.NewEncoder(buf).Encode(metricJSON); err != nil {
+		//	return fmt.Errorf("err encoding metric %w", err)
+		//}
 		m.sender.SendPost(ctx, url)
 	}
+	return nil
 }

@@ -42,10 +42,6 @@ func TestHandler_Safe(t *testing.T) {
 			want{http.StatusBadRequest, "/update/gauge/someMetric/wrong"},
 			map[string]any{"update": "update", "type": "gauge", "name": "someMetric", "value": "wrong"},
 		},
-		{"Test#6, not update in url",
-			want{http.StatusNotFound, "/notupdate/gauge/someMetric/527"},
-			map[string]any{"update": "notupdate", "type": "gauge", "name": "someMetric", "value": "527"},
-		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

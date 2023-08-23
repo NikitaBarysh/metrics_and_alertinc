@@ -20,9 +20,11 @@ func (rt *Router) Register() *chi.Mux {
 	r := chi.NewRouter()
 	r.Use(logger.WithLogging)
 
-	r.Post("/{update}/{type}/{name}/{value}", rt.metricHandler.Safe)
-	r.Get("/{value}/{type}/{name}", rt.metricHandler.Get)
+	r.Post("/update/", rt.metricHandler.SafeJSON)
+	r.Post("/update/{type}/{name}/{value}", rt.metricHandler.Safe)
+	r.Get("/value/{type}/{name}", rt.metricHandler.Get)
 	r.Get("/", rt.metricHandler.GetAll)
+	r.Post("/value/", rt.metricHandler.GetJson)
 
 	return r
 }

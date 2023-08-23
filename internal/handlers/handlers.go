@@ -1,7 +1,11 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/models"
+	"go.uber.org/zap"
 	"io"
 	"net/http"
 	"strconv"
@@ -29,12 +33,6 @@ func NewHandler(storage storage) *Handler {
 }
 
 func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
-
-	update := chi.URLParam(r, "update")
-	if update != "update" {
-		http.Error(rw, "not update", http.StatusNotFound)
-		return
-	}
 
 	metricType := chi.URLParam(r, "type")
 
@@ -68,11 +66,6 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 
-	metricMethod := chi.URLParam(r, "value")
-	if metricMethod != "value" {
-		http.Error(rw, "unknown method", http.StatusNotFound)
-	}
-
 	metricType := chi.URLParam(r, "type")
 	metricName := chi.URLParam(r, "name")
 
@@ -102,4 +95,70 @@ func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 func (h *Handler) GetAll(rw http.ResponseWriter, _ *http.Request) {
 	list := h.storage.GetAllMetric()
 	io.WriteString(rw, strings.Join(list, ","))
+}
+
+func (h *Handler) GetJson(rw http.ResponseWriter, r *http.Request) {
+	var req models.Metrics
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		logger.Log.Debug("error decode getJSON", zap.Error(err))
+		rw.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	switch req.MType {
+	case "gauge":
+		metricValue := h.storage.ReadGaugeMetric()
+		if value, ok := metricValue[req.ID]; ok {
+			req.NewMetricValue(value)
+		} else {
+			rw.WriteHeader(http.StatusNotFound)
+		}
+	case "counter":
+		metricValue := h.storage.ReadCounterMetric()
+		if value, ok := metricValue[req.ID]; ok {
+			req.NewMetricDelta(value)
+		} else {
+			rw.WriteHeader(http.StatusNotFound)
+		}
+	default:
+		rw.WriteHeader(http.StatusNotFound)
+		return
+	}
+
+	rw.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(rw).Encode(req); err != nil {
+		logger.Log.Debug("error encoding getJSON", zap.Error(err))
+	}
+}
+
+func (h *Handler) SafeJSON(rw http.ResponseWriter, r *http.Request) {
+	var req models.Metrics
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		logger.Log.Debug("error  decode safeJSON", zap.Error(err))
+		rw.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	switch req.MType {
+	case "gauge":
+		if req.Value == nil {
+			rw.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		h.storage.UpdateGaugeMetric(req.ID, *req.Value)
+	case "counter":
+		if req.Delta == nil {
+			rw.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		h.storage.UpdateCounterMetric(req.ID, *req.Delta)
+	default:
+		rw.WriteHeader(http.StatusNotImplemented)
+		return
+	}
+
+	rw.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(rw).Encode(req); err != nil {
+		logger.Log.Debug("error encoding safeJSON", zap.Error(err))
+	}
 }
