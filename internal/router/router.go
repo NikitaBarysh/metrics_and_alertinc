@@ -24,7 +24,7 @@ func (rt *Router) Register() *chi.Mux {
 	r.Post("/update/{type}/{name}/{value}", rt.metricHandler.Safe)
 	r.Get("/value/{type}/{name}", rt.metricHandler.Get)
 	r.Get("/", rt.metricHandler.GetAll)
-	r.Post("/value/", rt.metricHandler.GetJson)
+	r.Post("/value/", rt.metricHandler.GetJSON)
 
 	return r
 }

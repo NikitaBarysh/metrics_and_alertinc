@@ -97,7 +97,7 @@ func (h *Handler) GetAll(rw http.ResponseWriter, _ *http.Request) {
 	io.WriteString(rw, strings.Join(list, ","))
 }
 
-func (h *Handler) GetJson(rw http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetJSON(rw http.ResponseWriter, r *http.Request) {
 	var req models.Metrics
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		logger.Log.Debug("error decode getJSON", zap.Error(err))
