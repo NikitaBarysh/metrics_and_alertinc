@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 	"go.uber.org/zap"
 	"math/rand"
 	"runtime"
@@ -11,10 +12,10 @@ import (
 )
 
 type sender interface {
-	SendPost(ctx context.Context, url string)
+	SendPost(ctx context.Context, url string, storage repositories.MemStorageStruct)
 }
 
-func (m *MetricAction) Run(ctx context.Context, pollInterval int64, reportInterval int64, flagRunAddr string) {
+func (m *MetricAction) Run(ctx context.Context, pollInterval int64, reportInterval int64, flagRunAddr string) error {
 	logger.Log.Info("Running agent", zap.String("address", flagRunAddr))
 
 	collectTicker := time.NewTicker(time.Second * time.Duration(pollInterval))
@@ -26,7 +27,7 @@ func (m *MetricAction) Run(ctx context.Context, pollInterval int64, reportInterv
 	for {
 		select {
 		case <-ctx.Done():
-			return
+			return nil
 		case <-collectTicker.C:
 			m.CollectMetric()
 		case <-sendTicker.C:
@@ -70,23 +71,16 @@ func (m *MetricAction) CollectMetric() {
 }
 
 func (m *MetricAction) SendMetric(ctx context.Context, flagRunAddr string) error {
-	//buf := new(bytes.Buffer)
-	for metricName, metricValue := range m.MemStorage.ReadGaugeMetric() {
-		url := fmt.Sprintf("http://%s/update/gauge/%s/%.2f", flagRunAddr, metricName, metricValue)
-		//metricJSON := models.NewMetric(metricName, "gauge", nil, &metricValue)
-		//if err := json.NewEncoder(buf).Encode(metricJSON); err != nil {
-		//	return fmt.Errorf("err encoding metric %w", err)
-		//}
-		m.sender.SendPost(ctx, url)
-	}
-	for metricName, metricValue := range m.MemStorage.ReadCounterMetric() {
-		url := fmt.Sprintf("http://%s/update/counter/%s/%d", flagRunAddr, metricName, metricValue)
-		//models.NewMetric(metricName, "gauge", &metricValue, nil)
-		//metricJSON := models.NewMetric(metricName, "counter", &metricValue, nil)
-		//if err := json.NewEncoder(buf).Encode(metricJSON); err != nil {
-		//	return fmt.Errorf("err encoding metric %w", err)
-		//}
-		m.sender.SendPost(ctx, url)
+	for metricName, metricValue := range m.MemStorage.ReadMetric() {
+		metricType := m.MemStorage.MemStorageMap[metricName].MType
+		switch metricType {
+		case "gauge":
+			url := fmt.Sprintf("http://%s/update/%s/%s/%.2f", flagRunAddr, metricType, metricName, metricValue.Delta)
+			m.sender.SendPost(ctx, url, metricValue)
+		case "counter":
+			url := fmt.Sprintf("http://%s/update/%s/%s/%d", flagRunAddr, metricType, metricName, metricValue.Value)
+			m.sender.SendPost(ctx, url, metricValue)
+		}
 	}
 	return nil
 }

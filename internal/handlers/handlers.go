@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/models"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 	"go.uber.org/zap"
 	"io"
 	"net/http"
@@ -17,8 +18,7 @@ import (
 type storage interface {
 	UpdateGaugeMetric(key string, value float64)
 	UpdateCounterMetric(key string, value int64)
-	ReadGaugeMetric() map[string]float64
-	ReadCounterMetric() map[string]int64
+	ReadMetric() map[string]repositories.MemStorageStruct
 	GetAllMetric() []string
 }
 
@@ -71,18 +71,18 @@ func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 
 	switch metricType {
 	case "gauge":
-		metricValue := h.storage.ReadGaugeMetric()
+		metricValue := h.storage.ReadMetric()
 		if value, ok := metricValue[metricName]; ok {
 			rw.WriteHeader(http.StatusOK)
-			rw.Write([]byte(fmt.Sprintf("%v", value)))
+			rw.Write([]byte(fmt.Sprintf("%v", value.Value)))
 			return
 		}
 		http.Error(rw, "wrong type", http.StatusNotFound)
 	case "counter":
-		metricValue := h.storage.ReadCounterMetric()
+		metricValue := h.storage.ReadMetric()
 		if value, ok := metricValue[metricName]; ok {
 			rw.WriteHeader(http.StatusOK)
-			rw.Write([]byte(fmt.Sprintf("%v", value)))
+			rw.Write([]byte(fmt.Sprintf("%v", value.Delta)))
 			return
 		}
 		http.Error(rw, "wrong type", http.StatusNotFound)
@@ -107,16 +107,16 @@ func (h *Handler) GetJSON(rw http.ResponseWriter, r *http.Request) {
 
 	switch req.MType {
 	case "gauge":
-		metricValue := h.storage.ReadGaugeMetric()
+		metricValue := h.storage.ReadMetric()
 		if value, ok := metricValue[req.ID]; ok {
-			req.NewMetricValue(value)
+			req.NewMetricValue(value.Value)
 		} else {
 			rw.WriteHeader(http.StatusNotFound)
 		}
 	case "counter":
-		metricValue := h.storage.ReadCounterMetric()
+		metricValue := h.storage.ReadMetric()
 		if value, ok := metricValue[req.ID]; ok {
-			req.NewMetricDelta(value)
+			req.NewMetricDelta(value.Delta)
 		} else {
 			rw.WriteHeader(http.StatusNotFound)
 		}

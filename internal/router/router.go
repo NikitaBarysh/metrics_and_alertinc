@@ -1,6 +1,7 @@
 package router
 
 import (
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/compress"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
 	"github.com/go-chi/chi/v5"
@@ -19,6 +20,7 @@ func NewRouter(handler *handlers.Handler) *Router {
 func (rt *Router) Register() *chi.Mux {
 	r := chi.NewRouter()
 	r.Use(logger.WithLogging)
+	r.Use(compress.GzipMiddleware)
 
 	r.Post("/update/", rt.metricHandler.SafeJSON)
 	r.Post("/update/{type}/{name}/{value}", rt.metricHandler.Safe)

@@ -1,819 +1,233 @@
-=== RUN   TestIteration1
-=== RUN   TestIteration1/TestCounterHandlers
-=== RUN   TestIteration1/TestCounterHandlers/update
-=== RUN   TestIteration1/TestCounterHandlers/without_id
-=== RUN   TestIteration1/TestCounterHandlers/invalid_value
-=== RUN   TestIteration1/TestGaugeHandlers
-=== RUN   TestIteration1/TestGaugeHandlers/update
-=== RUN   TestIteration1/TestGaugeHandlers/without_id
-=== RUN   TestIteration1/TestGaugeHandlers/invalid_value
-=== RUN   TestIteration1/TestUnknownHandlers
-=== RUN   TestIteration1/TestUnknownHandlers/update_invalid_type
-=== RUN   TestIteration1/TestUnknownHandlers/update_invalid_method
-=== NAME  TestIteration1
-    iteration1_test.go:82: Получен STDOUT лог процесса:
-        
-        {"level":"info","ts":1692813284.99556,"caller":"server/main.go:24","msg":"Running server","address":"localhost:8080"}
-        {"level":"info","ts":1692813285.093312,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/testCounter/100","method":"POST","status":200,"duration":0.0000055,"size":0}
-        {"level":"info","ts":1692813285.0941088,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/","method":"POST","status":404,"duration":0.000008833,"size":19}
-        {"level":"info","ts":1692813285.094375,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/testCounter/none","method":"POST","status":400,"duration":0.000004083,"size":19}
-        {"level":"info","ts":1692813285.095513,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/testGauge/100","method":"POST","status":200,"duration":0.000021584,"size":0}
-        {"level":"info","ts":1692813285.09571,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/","method":"POST","status":404,"duration":0.000002458,"size":19}
-        {"level":"info","ts":1692813285.095995,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/testGauge/none","method":"POST","status":400,"duration":0.000014459,"size":17}
-        {"level":"info","ts":1692813285.0969129,"caller":"logger/logger.go:50","msg":"","uri":"/update/unknown/testCounter/100","method":"POST","status":501,"duration":0.000020417,"size":20}
-        {"level":"info","ts":1692813285.0971441,"caller":"logger/logger.go:50","msg":"","uri":"/updater/counter/testCounter/100","method":"POST","status":404,"duration":0.000002,"size":19}
---- PASS: TestIteration1 (0.12s)
-    --- PASS: TestIteration1/TestCounterHandlers (0.01s)
-        --- PASS: TestIteration1/TestCounterHandlers/update (0.01s)
-        --- PASS: TestIteration1/TestCounterHandlers/without_id (0.00s)
-        --- PASS: TestIteration1/TestCounterHandlers/invalid_value (0.00s)
-    --- PASS: TestIteration1/TestGaugeHandlers (0.00s)
-        --- PASS: TestIteration1/TestGaugeHandlers/update (0.00s)
-        --- PASS: TestIteration1/TestGaugeHandlers/without_id (0.00s)
-        --- PASS: TestIteration1/TestGaugeHandlers/invalid_value (0.00s)
-    --- PASS: TestIteration1/TestUnknownHandlers (0.00s)
-        --- PASS: TestIteration1/TestUnknownHandlers/update_invalid_type (0.00s)
-        --- PASS: TestIteration1/TestUnknownHandlers/update_invalid_method (0.00s)
-=== RUN   TestIteration2A
-=== RUN   TestIteration2A/TestAgent
-=== RUN   TestIteration2A/TestAgent/receive_data_from_agent
-=== NAME  TestIteration2A
-    iteration2a_test.go:80: Получен STDOUT лог процесса:
-        
-        Post "http://localhost:8080/update/gauge/HeapIdle/3170304.00": EOF
-        interrupt
---- PASS: TestIteration2A (10.03s)
-    --- PASS: TestIteration2A/TestAgent (0.00s)
-        --- PASS: TestIteration2A/TestAgent/receive_data_from_agent (0.00s)
-=== RUN   TestIteration2B
-=== RUN   TestIteration2B/TestFilesPresence
-=== RUN   TestIteration2B/TestServerCoverage
---- PASS: TestIteration2B (0.71s)
-    --- PASS: TestIteration2B/TestFilesPresence (0.00s)
-    --- PASS: TestIteration2B/TestServerCoverage (0.71s)
-=== RUN   TestIteration3A
-=== RUN   TestIteration3A/TestFrameworkUsage
---- PASS: TestIteration3A (0.00s)
-    --- PASS: TestIteration3A/TestFrameworkUsage (0.00s)
-=== RUN   TestIteration3B
-=== RUN   TestIteration3B/TestCounter
-=== RUN   TestIteration3B/TestCounter/update_sequence
-=== RUN   TestIteration3B/TestCounter/get_unknown
-=== RUN   TestIteration3B/TestGauge
-=== RUN   TestIteration3B/TestGauge/update_sequence
-=== RUN   TestIteration3B/TestGauge/get_unknown
-=== NAME  TestIteration3B
-    iteration3b_test.go:85: Получен STDOUT лог процесса:
-        
-        {"level":"info","ts":1692813295.8556428,"caller":"server/main.go:24","msg":"Running server","address":"localhost:8080"}
-        {"level":"info","ts":1692813295.948373,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testSetGet126","method":"GET","status":404,"duration":0.000011,"size":11}
-        {"level":"info","ts":1692813295.949406,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/testSetGet126/206","method":"POST","status":200,"duration":0.000008417,"size":0}
-        {"level":"info","ts":1692813295.949622,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testSetGet126","method":"GET","status":200,"duration":0.000018667,"size":3}
-        {"level":"info","ts":1692813295.9498172,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/testSetGet126/1017","method":"POST","status":200,"duration":0.000001625,"size":0}
-        {"level":"info","ts":1692813295.949932,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testSetGet126","method":"GET","status":200,"duration":0.000001459,"size":4}
-        {"level":"info","ts":1692813295.9500659,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/testSetGet126/424","method":"POST","status":200,"duration":0.0000015,"size":0}
-        {"level":"info","ts":1692813295.950189,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testSetGet126","method":"GET","status":200,"duration":0.000002208,"size":4}
-        {"level":"info","ts":1692813295.950387,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testUnknown201","method":"GET","status":404,"duration":0.000002292,"size":11}
-        {"level":"info","ts":1692813295.951197,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/testSetGet15/293580.428","method":"POST","status":200,"duration":0.000015958,"size":0}
-        {"level":"info","ts":1692813295.951304,"caller":"logger/logger.go:50","msg":"","uri":"/value/gauge/testSetGet15","method":"GET","status":200,"duration":0.000003041,"size":10}
-        {"level":"info","ts":1692813295.951443,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/testSetGet15/845481.666","method":"POST","status":200,"duration":0.000002166,"size":0}
-        {"level":"info","ts":1692813295.951545,"caller":"logger/logger.go:50","msg":"","uri":"/value/gauge/testSetGet15","method":"GET","status":200,"duration":0.000001666,"size":10}
-        {"level":"info","ts":1692813295.951652,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/testSetGet15/803361.635","method":"POST","status":200,"duration":0.000001458,"size":0}
-        {"level":"info","ts":1692813295.951741,"caller":"logger/logger.go:50","msg":"","uri":"/value/gauge/testSetGet15","method":"GET","status":200,"duration":0.00000125,"size":10}
-        {"level":"info","ts":1692813295.9518862,"caller":"logger/logger.go:50","msg":"","uri":"/value/gauge/testUnknown68","method":"GET","status":404,"duration":0.000001666,"size":11}
---- PASS: TestIteration3B (0.11s)
-    --- PASS: TestIteration3B/TestCounter (0.00s)
-        --- PASS: TestIteration3B/TestCounter/update_sequence (0.00s)
-        --- PASS: TestIteration3B/TestCounter/get_unknown (0.00s)
-    --- PASS: TestIteration3B/TestGauge (0.00s)
-        --- PASS: TestIteration3B/TestGauge/update_sequence (0.00s)
-        --- PASS: TestIteration3B/TestGauge/get_unknown (0.00s)
-=== RUN   TestIteration4
-=== RUN   TestIteration4/TestCounter
-=== RUN   TestIteration4/TestCounter/update_sequence
-=== RUN   TestIteration4/TestCounter/get_unknown
-=== RUN   TestIteration4/TestGauge
-=== RUN   TestIteration4/TestGauge/update_sequence
-=== RUN   TestIteration4/TestGauge/get_unknown
-=== NAME  TestIteration4
-    iteration4_test.go:166: Получен STDOUT лог процесса:
-        
-        Post "http://localhost:8080/update/gauge/Frees/10.00": EOF
-        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/BuckHashSys/4181.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapAlloc/166920.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Mallocs/660.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCSys/2793824.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/OtherSys/1007147.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackInuse/327680.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapSys/3866624.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MSpanInuse/33600.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackSys/327680.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Sys/8064016.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/TotalAlloc/166920.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapObjects/650.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapIdle/3137536.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        interrupt
-    iteration4_test.go:135: Получен STDOUT лог процесса:
-        
-        {"level":"info","ts":1692813297.9733171,"caller":"server/main.go:24","msg":"Running server","address":"localhost:8080"}
-        {"level":"info","ts":1692813297.976765,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/NextGC/4194304.00","method":"POST","status":200,"duration":0.000009916,"size":0}
-        {"level":"info","ts":1692813297.977131,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/GCCPUFraction/0.00","method":"POST","status":200,"duration":0.000010083,"size":0}
-        {"level":"info","ts":1692813297.97734,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/RandomValue/0.13","method":"POST","status":200,"duration":0.000002917,"size":0}
-        {"level":"info","ts":1692813297.9775271,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/Alloc/166920.00","method":"POST","status":200,"duration":0.00000275,"size":0}
-        {"level":"info","ts":1692813297.97771,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapReleased/3072000.00","method":"POST","status":200,"duration":0.000002791,"size":0}
-        {"level":"info","ts":1692813297.977878,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/MSpanSys/48960.00","method":"POST","status":200,"duration":0.000002459,"size":0}
-        {"level":"info","ts":1692813297.978119,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapInuse/729088.00","method":"POST","status":200,"duration":0.000010792,"size":0}
-        {"level":"info","ts":1692813297.978297,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/PollCount/2","method":"POST","status":200,"duration":0.000002833,"size":0}
-        {"level":"info","ts":1692813298.072404,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testSetGet225","method":"GET","status":404,"duration":0.000049708,"size":11}
-        {"level":"info","ts":1692813298.07279,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/testSetGet225/795","method":"POST","status":200,"duration":0.000006375,"size":0}
-        {"level":"info","ts":1692813298.072992,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testSetGet225","method":"GET","status":200,"duration":0.000006583,"size":3}
-        {"level":"info","ts":1692813298.07318,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/testSetGet225/474","method":"POST","status":200,"duration":0.000003666,"size":0}
-        {"level":"info","ts":1692813298.073356,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testSetGet225","method":"GET","status":200,"duration":0.000004459,"size":4}
-        {"level":"info","ts":1692813298.073526,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/testSetGet225/384","method":"POST","status":200,"duration":0.000002708,"size":0}
-        {"level":"info","ts":1692813298.073676,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testSetGet225","method":"GET","status":200,"duration":0.000002833,"size":4}
-        {"level":"info","ts":1692813298.074036,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testUnknown107","method":"GET","status":404,"duration":0.000004958,"size":11}
-        {"level":"info","ts":1692813298.075205,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/testSetGet145/893269.675","method":"POST","status":200,"duration":0.000028833,"size":0}
-        {"level":"info","ts":1692813298.075407,"caller":"logger/logger.go:50","msg":"","uri":"/value/gauge/testSetGet145","method":"GET","status":200,"duration":0.000007916,"size":10}
-        {"level":"info","ts":1692813298.0755851,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/testSetGet145/750803.524","method":"POST","status":200,"duration":0.000003958,"size":0}
-        {"level":"info","ts":1692813298.075716,"caller":"logger/logger.go:50","msg":"","uri":"/value/gauge/testSetGet145","method":"GET","status":200,"duration":0.000003959,"size":10}
-        {"level":"info","ts":1692813298.07603,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/testSetGet145/205035.399","method":"POST","status":200,"duration":0.000004708,"size":0}
-        {"level":"info","ts":1692813298.076349,"caller":"logger/logger.go:50","msg":"","uri":"/value/gauge/testSetGet145","method":"GET","status":200,"duration":0.000006458,"size":10}
-        {"level":"info","ts":1692813298.076757,"caller":"logger/logger.go:50","msg":"","uri":"/value/gauge/testUnknown249","method":"GET","status":404,"duration":0.000006375,"size":11}
---- PASS: TestIteration4 (2.13s)
-    --- PASS: TestIteration4/TestCounter (0.00s)
-        --- PASS: TestIteration4/TestCounter/update_sequence (0.00s)
-        --- PASS: TestIteration4/TestCounter/get_unknown (0.00s)
-    --- PASS: TestIteration4/TestGauge (0.00s)
-        --- PASS: TestIteration4/TestGauge/update_sequence (0.00s)
-        --- PASS: TestIteration4/TestGauge/get_unknown (0.00s)
-=== RUN   TestIteration5
-=== RUN   TestIteration5/TestCounter
-=== RUN   TestIteration5/TestCounter/update_sequence
-=== RUN   TestIteration5/TestCounter/get_unknown
-=== RUN   TestIteration5/TestGauge
-=== RUN   TestIteration5/TestGauge/update_sequence
-=== RUN   TestIteration5/TestGauge/get_unknown
-=== NAME  TestIteration5
-    iteration5_test.go:151: Получен STDOUT лог процесса:
-        
-        Post "http://localhost:8080/update/gauge/LastGC/0.00": read tcp [::1]:51846->[::1]:8080: read: connection reset by peer
-        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapAlloc/166632.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapIdle/3178496.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapInuse/655360.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Alloc/166632.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapReleased/3145728.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/TotalAlloc/166632.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCSys/2787656.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Mallocs/659.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Sys/8064016.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MSpanInuse/33760.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/RandomValue/0.27": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapSys/3833856.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackSys/360448.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/OtherSys/1013315.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/BuckHashSys/4181.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Frees/10.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapObjects/649.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MSpanSys/48960.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
-        interrupt
-    iteration5_test.go:120: Получен STDOUT лог процесса:
-        
-        {"level":"info","ts":1692813303.112586,"caller":"server/main.go:24","msg":"Running server","address":"localhost:8080"}
-        {"level":"info","ts":1692813303.207231,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testSetGet224","method":"GET","status":404,"duration":0.000033666,"size":11}
-        {"level":"info","ts":1692813303.2078578,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/testSetGet224/274","method":"POST","status":200,"duration":0.000020333,"size":0}
-        {"level":"info","ts":1692813303.2081358,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testSetGet224","method":"GET","status":200,"duration":0.0000095,"size":3}
-        {"level":"info","ts":1692813303.2083788,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/testSetGet224/948","method":"POST","status":200,"duration":0.000005708,"size":0}
-        {"level":"info","ts":1692813303.2086039,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testSetGet224","method":"GET","status":200,"duration":0.000003791,"size":4}
-        {"level":"info","ts":1692813303.2088451,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/testSetGet224/579","method":"POST","status":200,"duration":0.000004,"size":0}
-        {"level":"info","ts":1692813303.209127,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testSetGet224","method":"GET","status":200,"duration":0.000012625,"size":4}
-        {"level":"info","ts":1692813303.209878,"caller":"logger/logger.go:50","msg":"","uri":"/value/counter/testUnknown213","method":"GET","status":404,"duration":0.000004334,"size":11}
-        {"level":"info","ts":1692813303.2112682,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/testSetGet130/130568.376","method":"POST","status":200,"duration":0.000041042,"size":0}
-        {"level":"info","ts":1692813303.2114172,"caller":"logger/logger.go:50","msg":"","uri":"/value/gauge/testSetGet130","method":"GET","status":200,"duration":0.000005792,"size":10}
-        {"level":"info","ts":1692813303.21156,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/testSetGet130/870243.442","method":"POST","status":200,"duration":0.000003209,"size":0}
-        {"level":"info","ts":1692813303.211699,"caller":"logger/logger.go:50","msg":"","uri":"/value/gauge/testSetGet130","method":"GET","status":200,"duration":0.000002958,"size":10}
-        {"level":"info","ts":1692813303.2123,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/testSetGet130/37698.608","method":"POST","status":200,"duration":0.000003083,"size":0}
-        {"level":"info","ts":1692813303.2124531,"caller":"logger/logger.go:50","msg":"","uri":"/value/gauge/testSetGet130","method":"GET","status":200,"duration":0.000002709,"size":9}
-        {"level":"info","ts":1692813303.212901,"caller":"logger/logger.go:50","msg":"","uri":"/value/gauge/testUnknown231","method":"GET","status":404,"duration":0.000009542,"size":11}
---- PASS: TestIteration5 (5.14s)
-    --- PASS: TestIteration5/TestCounter (0.01s)
-        --- PASS: TestIteration5/TestCounter/update_sequence (0.00s)
-        --- PASS: TestIteration5/TestCounter/get_unknown (0.00s)
-    --- PASS: TestIteration5/TestGauge (0.00s)
-        --- PASS: TestIteration5/TestGauge/update_sequence (0.00s)
-        --- PASS: TestIteration5/TestGauge/get_unknown (0.00s)
-=== RUN   TestIteration6
-=== RUN   TestIteration6/TestLoggerUsage
---- PASS: TestIteration6 (0.00s)
-    --- PASS: TestIteration6/TestLoggerUsage (0.00s)
 === RUN   TestIteration7
 === RUN   TestIteration7/TestCollectAgentMetrics
-    iteration7_test.go:432: get gauge: "HeapReleased", value: 2555904.000000
-    iteration7_test.go:432: get gauge: "HeapSys", value: 3801088.000000
-    iteration7_test.go:432: get gauge: "LastGC", value: 0.000000
-    iteration7_test.go:432: get gauge: "Lookups", value: 0.000000
-    iteration7_test.go:432: get gauge: "MCacheInuse", value: 9600.000000
-    iteration7_test.go:432: get gauge: "MCacheSys", value: 15600.000000
-    iteration7_test.go:432: get gauge: "MSpanInuse", value: 44000.000000
-    iteration7_test.go:432: get gauge: "MSpanSys", value: 48960.000000
-    iteration7_test.go:432: get gauge: "NextGC", value: 4194304.000000
-    iteration7_test.go:432: get gauge: "NumForcedGC", value: 0.000000
-    iteration7_test.go:432: get gauge: "NumGC", value: 0.000000
-    iteration7_test.go:432: get gauge: "OtherSys", value: 1189107.000000
-    iteration7_test.go:432: get gauge: "PauseTotalNs", value: 0.000000
-    iteration7_test.go:432: get gauge: "StackInuse", value: 393216.000000
-    iteration7_test.go:432: get gauge: "StackSys", value: 393216.000000
-    iteration7_test.go:432: get gauge: "Sys", value: 8326160.000000
-    iteration7_test.go:432: get gauge: "BuckHashSys", value: 4181.000000
-    iteration7_test.go:432: get gauge: "GCCPUFraction", value: 0.000000
-    iteration7_test.go:432: get gauge: "GCSys", value: 2874008.000000
-    iteration7_test.go:432: get gauge: "HeapInuse", value: 1204224.000000
-    iteration7_test.go:432: get gauge: "HeapObjects", value: 5415.000000
-    iteration7_test.go:432: get gauge: "Mallocs", value: 5598.000000
-    iteration7_test.go:432: get gauge: "TotalAlloc", value: 535344.000000
-    iteration7_test.go:439: get counter: "PollCount", value: 25
-    iteration7_test.go:432: get gauge: "RandomValue", value: 0.400000
-    iteration7_test.go:432: get gauge: "Alloc", value: 535344.000000
-    iteration7_test.go:432: get gauge: "Frees", value: 183.000000
-    iteration7_test.go:432: get gauge: "HeapAlloc", value: 535344.000000
-    iteration7_test.go:432: get gauge: "HeapIdle", value: 2531328.000000
-=== RUN   TestIteration7/TestCollectAgentMetrics/counter/PollCount
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/RandomValue
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Alloc
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/BuckHashSys
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Frees
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/GCCPUFraction
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/GCSys
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapAlloc
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapIdle
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapInuse
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapObjects
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapReleased
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapSys
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/LastGC
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Lookups
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/MCacheInuse
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/MCacheSys
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/MSpanInuse
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/MSpanSys
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Mallocs
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/NextGC
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/NumForcedGC
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/NumGC
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/OtherSys
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/PauseTotalNs
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/StackInuse
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/StackSys
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Sys
-=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/TotalAlloc
+    iteration7_test.go:395: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration7_test.go:395
+        	Error:      	Received unexpected error:
+        	            	invalid character '\x1f' looking for beginning of value
+        	Test:       	TestIteration7/TestCollectAgentMetrics
+        	Messages:   	Ошибка при попытке сделать запрос с получением значения HeapInuse
+    iteration7_test.go:421: Оригинальный запрос:
+        
+        POST /value/ HTTP/1.1
+        Host: localhost:8080
+        Accept: application/json
+        Content-Type: application/json
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration7_test.go:423: Оригинальный ответ:
+        
 === RUN   TestIteration7/TestCounterHandlers
 === RUN   TestIteration7/TestCounterHandlers/update
+    iteration7_test.go:225: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration7_test.go:225
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	invalid character '\x1f' looking for beginning of value
+        	Test:       	TestIteration7/TestCounterHandlers/update
+        	Messages:   	Ошибка при попытке сделать запрос с обновлением counter
+    iteration7_test.go:263: Оригинальный запрос:
+        
+        POST /value/ HTTP/1.1
+        Host: localhost:8080
+        Accept: application/json
+        Content-Type: application/json
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration7_test.go:265: Оригинальный ответ:
+        
 === RUN   TestIteration7/TestEncoderUsage
 === RUN   TestIteration7/TestGaugeHandlers
 === RUN   TestIteration7/TestGaugeHandlers/update
+    iteration7_test.go:301: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration7_test.go:301
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Received unexpected error:
+        	            	invalid character '\x1f' looking for beginning of value
+        	Test:       	TestIteration7/TestGaugeHandlers/update
+        	Messages:   	Ошибка при попытке сделать запрос с получением значения gauge
+    iteration7_test.go:314: Оригинальный запрос:
+        
+        POST /value/ HTTP/1.1
+        Host: localhost:8080
+        Accept: application/json
+        Content-Type: application/json
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration7_test.go:316: Оригинальный ответ:
+        
 === NAME  TestIteration7
     iteration7_test.go:162: Получен STDOUT лог процесса:
         
-        Post "http://localhost:8080/update/gauge/HeapAlloc/167720.00": EOF
-        Post "http://localhost:8080/update/gauge/HeapInuse/630784.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapObjects/647.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MSpanSys/48960.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/OtherSys/1269291.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/TotalAlloc/167720.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapReleased/3137536.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MSpanInuse/44000.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackSys/360448.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapSys/3833856.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/LastGC/0.00": read tcp [::1]:51682->[::1]:8080: read: connection reset by peer
         Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/BuckHashSys/4181.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCSys/2793824.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Sys/8326160.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Alloc/167720.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Frees/10.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Mallocs/657.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/RandomValue/0.89": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapIdle/3203072.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
-        interrupt
-    iteration7_test.go:131: Получен STDOUT лог процесса:
-        
-        {"level":"info","ts":1692813313.2588658,"caller":"server/main.go:24","msg":"Running server","address":"localhost:8080"}
-        {"level":"info","ts":1692813313.448944,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.002462166,"size":36}
-        {"level":"info","ts":1692813313.55116,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000052167,"size":36}
-        {"level":"info","ts":1692813313.6529338,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000042166,"size":30}
-        {"level":"info","ts":1692813313.754851,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000107166,"size":36}
-        {"level":"info","ts":1692813313.856724,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000083291,"size":30}
-        {"level":"info","ts":1692813313.958736,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000083875,"size":38}
-        {"level":"info","ts":1692813314.060695,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000069916,"size":30}
-        {"level":"info","ts":1692813314.1627169,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000087917,"size":34}
-        {"level":"info","ts":1692813314.264897,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000081,"size":33}
-        {"level":"info","ts":1692813314.366837,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000058042,"size":34}
-        {"level":"info","ts":1692813314.4688482,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000091208,"size":36}
-        {"level":"info","ts":1692813314.5709949,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000090792,"size":37}
-        {"level":"info","ts":1692813314.673132,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000088667,"size":32}
-        {"level":"info","ts":1692813314.775135,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000080916,"size":31}
-        {"level":"info","ts":1692813314.877016,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000078416,"size":32}
-        {"level":"info","ts":1692813314.9792068,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000078375,"size":36}
-        {"level":"info","ts":1692813315.0805728,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00008675,"size":34}
-        {"level":"info","ts":1692813315.182106,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000090042,"size":35}
-        {"level":"info","ts":1692813315.287081,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000086375,"size":33}
-        {"level":"info","ts":1692813315.3889952,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000086834,"size":32}
-        {"level":"info","ts":1692813315.491194,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000099625,"size":31}
-        {"level":"info","ts":1692813315.5930738,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000054625,"size":36}
-        {"level":"info","ts":1692813315.6950688,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00008675,"size":30}
-        {"level":"info","ts":1692813315.797044,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000081791,"size":33}
-        {"level":"info","ts":1692813315.8993301,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000089958,"size":37}
-        {"level":"info","ts":1692813316.001458,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000083166,"size":35}
-        {"level":"info","ts":1692813316.103227,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000133583,"size":33}
-        {"level":"info","ts":1692813316.20815,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000078208,"size":28}
-        {"level":"info","ts":1692813316.3106282,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00009025,"size":35}
-        {"level":"info","ts":1692813316.4127512,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000068958,"size":36}
-        {"level":"info","ts":1692813316.515006,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000111792,"size":36}
-        {"level":"info","ts":1692813316.617114,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000086708,"size":30}
-        {"level":"info","ts":1692813316.719139,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000078209,"size":36}
-        {"level":"info","ts":1692813316.8213298,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000099625,"size":30}
-        {"level":"info","ts":1692813316.923189,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000049625,"size":38}
-        {"level":"info","ts":1692813317.025287,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000093166,"size":30}
-        {"level":"info","ts":1692813317.127137,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000049459,"size":34}
-        {"level":"info","ts":1692813317.228841,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000048208,"size":33}
-        {"level":"info","ts":1692813317.3304489,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000087917,"size":34}
-        {"level":"info","ts":1692813317.431743,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000036708,"size":36}
-        {"level":"info","ts":1692813317.533482,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000095292,"size":37}
-        {"level":"info","ts":1692813317.635224,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000044458,"size":32}
-        {"level":"info","ts":1692813317.736964,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000067417,"size":31}
-        {"level":"info","ts":1692813317.8387609,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000060875,"size":32}
-        {"level":"info","ts":1692813317.9404988,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000039334,"size":36}
-        {"level":"info","ts":1692813318.0422451,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000065667,"size":34}
-        {"level":"info","ts":1692813318.143954,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000043875,"size":35}
-        {"level":"info","ts":1692813318.245749,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000095375,"size":33}
-        {"level":"info","ts":1692813318.347661,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000083708,"size":32}
-        {"level":"info","ts":1692813318.4493551,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000038291,"size":31}
-        {"level":"info","ts":1692813318.551074,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000056542,"size":36}
-        {"level":"info","ts":1692813318.652797,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000065291,"size":30}
-        {"level":"info","ts":1692813318.753994,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000040125,"size":33}
-        {"level":"info","ts":1692813318.855639,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000069083,"size":37}
-        {"level":"info","ts":1692813318.956602,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00003625,"size":35}
-        {"level":"info","ts":1692813319.058325,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000084917,"size":33}
-        {"level":"info","ts":1692813319.160001,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000043667,"size":28}
-        {"level":"info","ts":1692813319.2618382,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000076833,"size":35}
-        {"level":"info","ts":1692813319.363786,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000076875,"size":36}
-        {"level":"info","ts":1692813319.4651752,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000033209,"size":36}
-        {"level":"info","ts":1692813319.566935,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000051917,"size":30}
-        {"level":"info","ts":1692813319.668708,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000076041,"size":36}
-        {"level":"info","ts":1692813319.770675,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000049125,"size":30}
-        {"level":"info","ts":1692813319.87258,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00005375,"size":38}
-        {"level":"info","ts":1692813319.976085,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000090166,"size":30}
-        {"level":"info","ts":1692813320.0780191,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000069167,"size":34}
-        {"level":"info","ts":1692813320.179708,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000040542,"size":33}
-        {"level":"info","ts":1692813320.281612,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000069042,"size":34}
-        {"level":"info","ts":1692813320.3836741,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000094417,"size":36}
-        {"level":"info","ts":1692813320.484763,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000072625,"size":37}
-        {"level":"info","ts":1692813320.586807,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000077792,"size":32}
-        {"level":"info","ts":1692813320.688958,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.0000905,"size":31}
-        {"level":"info","ts":1692813320.791192,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00008525,"size":32}
-        {"level":"info","ts":1692813320.893132,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000044375,"size":36}
-        {"level":"info","ts":1692813320.994672,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000031,"size":34}
-        {"level":"info","ts":1692813321.096098,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000026334,"size":35}
-        {"level":"info","ts":1692813321.197952,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000048708,"size":33}
-        {"level":"info","ts":1692813321.299572,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000044667,"size":32}
-        {"level":"info","ts":1692813321.401155,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000044792,"size":31}
-        {"level":"info","ts":1692813321.5027761,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000042667,"size":36}
-        {"level":"info","ts":1692813321.604463,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000056541,"size":30}
-        {"level":"info","ts":1692813321.706199,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000046083,"size":33}
-        {"level":"info","ts":1692813321.808735,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00005975,"size":37}
-        {"level":"info","ts":1692813321.9105852,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000090375,"size":35}
-        {"level":"info","ts":1692813322.013858,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000077083,"size":33}
-        {"level":"info","ts":1692813322.1167848,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00003925,"size":28}
-        {"level":"info","ts":1692813322.218246,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000025583,"size":35}
-        {"level":"info","ts":1692813322.319839,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000052083,"size":36}
-        {"level":"info","ts":1692813322.42147,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000077625,"size":36}
-        {"level":"info","ts":1692813322.5230432,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00005025,"size":30}
-        {"level":"info","ts":1692813322.625427,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000084167,"size":36}
-        {"level":"info","ts":1692813322.7274182,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000047667,"size":30}
-        {"level":"info","ts":1692813322.829322,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000072208,"size":38}
-        {"level":"info","ts":1692813322.931512,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000085833,"size":30}
-        {"level":"info","ts":1692813323.0337548,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000118458,"size":34}
-        {"level":"info","ts":1692813323.135703,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000060709,"size":33}
-        {"level":"info","ts":1692813323.228399,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/NextGC/4194304.00","method":"POST","status":200,"duration":0.000027375,"size":0}
-        {"level":"info","ts":1692813323.228665,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/NumGC/0.00","method":"POST","status":200,"duration":0.000004584,"size":0}
-        {"level":"info","ts":1692813323.228908,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/Alloc/406584.00","method":"POST","status":200,"duration":0.000008,"size":0}
-        {"level":"info","ts":1692813323.2290392,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/Frees/155.00","method":"POST","status":200,"duration":0.0000025,"size":0}
-        {"level":"info","ts":1692813323.229172,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/Mallocs/4193.00","method":"POST","status":200,"duration":0.000003042,"size":0}
-        {"level":"info","ts":1692813323.229291,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/RandomValue/0.51","method":"POST","status":200,"duration":0.000003292,"size":0}
-        {"level":"info","ts":1692813323.229426,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapIdle/2719744.00","method":"POST","status":200,"duration":0.000002709,"size":0}
-        {"level":"info","ts":1692813323.2296162,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapAlloc/406584.00","method":"POST","status":200,"duration":0.000003417,"size":0}
-        {"level":"info","ts":1692813323.2297401,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapInuse/1081344.00","method":"POST","status":200,"duration":0.000003916,"size":0}
-        {"level":"info","ts":1692813323.229871,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapObjects/4038.00","method":"POST","status":200,"duration":0.0000025,"size":0}
-        {"level":"info","ts":1692813323.229989,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/TotalAlloc/406584.00","method":"POST","status":200,"duration":0.000003833,"size":0}
-        {"level":"info","ts":1692813323.230124,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/LastGC/0.00","method":"POST","status":200,"duration":0.000013709,"size":0}
-        {"level":"info","ts":1692813323.230314,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/MSpanSys/48960.00","method":"POST","status":200,"duration":0.000002459,"size":0}
-        {"level":"info","ts":1692813323.2304761,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/OtherSys/1189107.00","method":"POST","status":200,"duration":0.000014417,"size":0}
-        {"level":"info","ts":1692813323.230626,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/PauseTotalNs/0.00","method":"POST","status":200,"duration":0.000002625,"size":0}
-        {"level":"info","ts":1692813323.2307699,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/StackSys/393216.00","method":"POST","status":200,"duration":0.000003625,"size":0}
-        {"level":"info","ts":1692813323.230907,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/GCCPUFraction/0.00","method":"POST","status":200,"duration":0.0000025,"size":0}
-        {"level":"info","ts":1692813323.231052,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapReleased/2555904.00","method":"POST","status":200,"duration":0.000002875,"size":0}
-        {"level":"info","ts":1692813323.231182,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/MSpanInuse/44000.00","method":"POST","status":200,"duration":0.000005083,"size":0}
-        {"level":"info","ts":1692813323.231298,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapSys/3801088.00","method":"POST","status":200,"duration":0.000002958,"size":0}
-        {"level":"info","ts":1692813323.231424,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/MCacheInuse/9600.00","method":"POST","status":200,"duration":0.000002459,"size":0}
-        {"level":"info","ts":1692813323.231554,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/NumForcedGC/0.00","method":"POST","status":200,"duration":0.000002541,"size":0}
-        {"level":"info","ts":1692813323.2317429,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/MCacheSys/15600.00","method":"POST","status":200,"duration":0.000002375,"size":0}
-        {"level":"info","ts":1692813323.231852,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/StackInuse/393216.00","method":"POST","status":200,"duration":0.000002833,"size":0}
-        {"level":"info","ts":1692813323.231976,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/Sys/8326160.00","method":"POST","status":200,"duration":0.000003,"size":0}
-        {"level":"info","ts":1692813323.232085,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/BuckHashSys/4181.00","method":"POST","status":200,"duration":0.000002292,"size":0}
-        {"level":"info","ts":1692813323.232206,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/GCSys/2874008.00","method":"POST","status":200,"duration":0.000005416,"size":0}
-        {"level":"info","ts":1692813323.2323241,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/Lookups/0.00","method":"POST","status":200,"duration":0.000002917,"size":0}
-        {"level":"info","ts":1692813323.232439,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/PollCount/10","method":"POST","status":200,"duration":0.000003417,"size":0}
-        {"level":"info","ts":1692813323.23678,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000030084,"size":50}
-        {"level":"info","ts":1692813323.3387048,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00004175,"size":49}
-        {"level":"info","ts":1692813323.440406,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000054459,"size":53}
-        {"level":"info","ts":1692813323.54323,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.0000545,"size":48}
-        {"level":"info","ts":1692813323.644829,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.0000435,"size":41}
-        {"level":"info","ts":1692813323.746439,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.0000445,"size":42}
-        {"level":"info","ts":1692813323.848423,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000044959,"size":49}
-        {"level":"info","ts":1692813323.950315,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000076125,"size":48}
-        {"level":"info","ts":1692813324.052681,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000164917,"size":49}
-        {"level":"info","ts":1692813324.155423,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000101458,"size":47}
-        {"level":"info","ts":1692813324.257466,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000048541,"size":45}
-        {"level":"info","ts":1692813324.3596191,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000046791,"size":47}
-        {"level":"info","ts":1692813324.460601,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000045584,"size":46}
-        {"level":"info","ts":1692813324.56267,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000036084,"size":40}
-        {"level":"info","ts":1692813324.664261,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000045875,"size":49}
-        {"level":"info","ts":1692813324.766075,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000066458,"size":47}
-        {"level":"info","ts":1692813324.868006,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000103791,"size":50}
-        {"level":"info","ts":1692813324.970277,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000086292,"size":48}
-        {"level":"info","ts":1692813325.072217,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000060583,"size":44}
-        {"level":"info","ts":1692813325.17392,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00008625,"size":50}
-        {"level":"info","ts":1692813325.275639,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000049917,"size":47}
-        {"level":"info","ts":1692813325.376828,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000042625,"size":49}
-        {"level":"info","ts":1692813325.478496,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000045375,"size":45}
-        {"level":"info","ts":1692813325.5800152,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000038083,"size":49}
-        {"level":"info","ts":1692813325.6809149,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000039292,"size":42}
-        {"level":"info","ts":1692813325.782453,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000039917,"size":48}
-        {"level":"info","ts":1692813325.884056,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000044791,"size":46}
-        {"level":"info","ts":1692813325.985609,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000036958,"size":49}
-        {"level":"info","ts":1692813326.087092,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000039166,"size":49}
-        {"level":"info","ts":1692813326.18882,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000078083,"size":50}
-        {"level":"info","ts":1692813326.28986,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000041666,"size":49}
-        {"level":"info","ts":1692813326.391197,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000059458,"size":45}
-        {"level":"info","ts":1692813326.492198,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000068125,"size":50}
-        {"level":"info","ts":1692813326.5940611,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000078667,"size":47}
-        {"level":"info","ts":1692813326.695911,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000091667,"size":49}
-        {"level":"info","ts":1692813326.798035,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000098125,"size":45}
-        {"level":"info","ts":1692813326.900222,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000092125,"size":42}
-        {"level":"info","ts":1692813327.00239,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000101583,"size":49}
-        {"level":"info","ts":1692813327.106462,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000057,"size":49}
-        {"level":"info","ts":1692813327.207468,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000064458,"size":50}
-        {"level":"info","ts":1692813327.30941,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000106208,"size":49}
-        {"level":"info","ts":1692813327.4112158,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000039875,"size":45}
-        {"level":"info","ts":1692813327.5116868,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000024041,"size":50}
-        {"level":"info","ts":1692813327.613346,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000062791,"size":47}
-        {"level":"info","ts":1692813327.715211,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000071042,"size":49}
-        {"level":"info","ts":1692813327.817178,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000094625,"size":45}
-        {"level":"info","ts":1692813327.919362,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000135542,"size":42}
-        {"level":"info","ts":1692813328.021472,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000052084,"size":49}
-        {"level":"info","ts":1692813328.123181,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000088667,"size":49}
-        {"level":"info","ts":1692813328.224947,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00005625,"size":50}
-        {"level":"info","ts":1692813328.3270772,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000104417,"size":49}
-        {"level":"info","ts":1692813328.428808,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000041042,"size":45}
-        {"level":"info","ts":1692813328.529435,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000045292,"size":50}
-        {"level":"info","ts":1692813328.630645,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000082084,"size":47}
-        {"level":"info","ts":1692813328.732491,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00007525,"size":49}
-        {"level":"info","ts":1692813328.8346748,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000101583,"size":45}
-        {"level":"info","ts":1692813328.9368498,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000090584,"size":42}
-        {"level":"info","ts":1692813329.038503,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000109584,"size":49}
-        {"level":"info","ts":1692813329.140576,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000076583,"size":49}
-        {"level":"info","ts":1692813329.242825,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000105916,"size":50}
-        {"level":"info","ts":1692813329.3449442,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000082625,"size":49}
-        {"level":"info","ts":1692813329.446622,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000038666,"size":45}
-        {"level":"info","ts":1692813329.5486028,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000103,"size":50}
-        {"level":"info","ts":1692813329.6502452,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000091959,"size":47}
-        {"level":"info","ts":1692813329.752311,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000081958,"size":49}
-        {"level":"info","ts":1692813329.85424,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000084291,"size":45}
-        {"level":"info","ts":1692813329.955555,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000127875,"size":42}
-        {"level":"info","ts":1692813330.057986,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000133417,"size":49}
-        {"level":"info","ts":1692813330.159596,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00012325,"size":49}
-        {"level":"info","ts":1692813330.261821,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000081209,"size":50}
-        {"level":"info","ts":1692813330.363635,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000044291,"size":49}
-        {"level":"info","ts":1692813330.4654531,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000054792,"size":45}
-        {"level":"info","ts":1692813330.5675352,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000260625,"size":50}
-        {"level":"info","ts":1692813330.669926,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000090917,"size":47}
-        {"level":"info","ts":1692813330.771766,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00004825,"size":49}
-        {"level":"info","ts":1692813330.873868,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000122167,"size":45}
-        {"level":"info","ts":1692813330.9761658,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000105625,"size":42}
-        {"level":"info","ts":1692813331.078099,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000067333,"size":49}
-        {"level":"info","ts":1692813331.180157,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000088917,"size":49}
-        {"level":"info","ts":1692813331.281746,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000047917,"size":50}
-        {"level":"info","ts":1692813331.383341,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000044875,"size":49}
-        {"level":"info","ts":1692813331.48519,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000096542,"size":45}
-        {"level":"info","ts":1692813331.5873542,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000082292,"size":50}
-        {"level":"info","ts":1692813331.689572,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000112667,"size":47}
-        {"level":"info","ts":1692813331.791657,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000083292,"size":49}
-        {"level":"info","ts":1692813331.893734,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000103,"size":45}
-        {"level":"info","ts":1692813331.995958,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000085917,"size":42}
-        {"level":"info","ts":1692813332.09814,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000112333,"size":49}
-        {"level":"info","ts":1692813332.2005,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000113666,"size":49}
-        {"level":"info","ts":1692813332.302927,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000111584,"size":50}
-        {"level":"info","ts":1692813332.403928,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00004425,"size":49}
-        {"level":"info","ts":1692813332.505524,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000043792,"size":45}
-        {"level":"info","ts":1692813332.608022,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000099041,"size":50}
-        {"level":"info","ts":1692813332.710351,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000084833,"size":47}
-        {"level":"info","ts":1692813332.812435,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000104041,"size":49}
-        {"level":"info","ts":1692813332.9146318,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000139417,"size":45}
-        {"level":"info","ts":1692813333.015877,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000066875,"size":42}
-        {"level":"info","ts":1692813333.118027,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000107083,"size":49}
-        {"level":"info","ts":1692813333.220376,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000114959,"size":49}
-        {"level":"info","ts":1692813333.227433,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/NumForcedGC/0.00","method":"POST","status":200,"duration":0.00002025,"size":0}
-        {"level":"info","ts":1692813333.227894,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapSys/3735552.00","method":"POST","status":200,"duration":0.000006458,"size":0}
-        {"level":"info","ts":1692813333.228204,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/MCacheInuse/9600.00","method":"POST","status":200,"duration":0.000007667,"size":0}
-        {"level":"info","ts":1692813333.22862,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/Lookups/0.00","method":"POST","status":200,"duration":0.000006667,"size":0}
-        {"level":"info","ts":1692813333.2289019,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/MCacheSys/15600.00","method":"POST","status":200,"duration":0.000008792,"size":0}
-        {"level":"info","ts":1692813333.229217,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/StackInuse/458752.00","method":"POST","status":200,"duration":0.000011833,"size":0}
-        {"level":"info","ts":1692813333.229569,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/Sys/8326160.00","method":"POST","status":200,"duration":0.000006542,"size":0}
-        {"level":"info","ts":1692813333.229816,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/BuckHashSys/4181.00","method":"POST","status":200,"duration":0.000005167,"size":0}
-        {"level":"info","ts":1692813333.23007,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/GCSys/2892512.00","method":"POST","status":200,"duration":0.00000475,"size":0}
-        {"level":"info","ts":1692813333.230322,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/Mallocs/5598.00","method":"POST","status":200,"duration":0.00000475,"size":0}
-        {"level":"info","ts":1692813333.230616,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/NextGC/4194304.00","method":"POST","status":200,"duration":0.000007875,"size":0}
-        {"level":"info","ts":1692813333.2308638,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/NumGC/0.00","method":"POST","status":200,"duration":0.0000065,"size":0}
-        {"level":"info","ts":1692813333.231116,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/Alloc/535344.00","method":"POST","status":200,"duration":0.000006625,"size":0}
-        {"level":"info","ts":1692813333.231377,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/Frees/183.00","method":"POST","status":200,"duration":0.000017125,"size":0}
-        {"level":"info","ts":1692813333.23163,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/RandomValue/0.40","method":"POST","status":200,"duration":0.000006291,"size":0}
-        {"level":"info","ts":1692813333.23187,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapIdle/2531328.00","method":"POST","status":200,"duration":0.000006167,"size":0}
-        {"level":"info","ts":1692813333.232116,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapObjects/5415.00","method":"POST","status":200,"duration":0.000005709,"size":0}
-        {"level":"info","ts":1692813333.2323961,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapAlloc/535344.00","method":"POST","status":200,"duration":0.000006208,"size":0}
-        {"level":"info","ts":1692813333.232664,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapInuse/1204224.00","method":"POST","status":200,"duration":0.000004959,"size":0}
-        {"level":"info","ts":1692813333.23296,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/OtherSys/1170603.00","method":"POST","status":200,"duration":0.000005208,"size":0}
-        {"level":"info","ts":1692813333.233253,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/TotalAlloc/535344.00","method":"POST","status":200,"duration":0.000004959,"size":0}
-        {"level":"info","ts":1692813333.233525,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/LastGC/0.00","method":"POST","status":200,"duration":0.000006541,"size":0}
-        {"level":"info","ts":1692813333.233802,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/MSpanSys/48960.00","method":"POST","status":200,"duration":0.000005542,"size":0}
-        {"level":"info","ts":1692813333.2341602,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/MSpanInuse/44000.00","method":"POST","status":200,"duration":0.000003834,"size":0}
-        {"level":"info","ts":1692813333.234485,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/PauseTotalNs/0.00","method":"POST","status":200,"duration":0.000004833,"size":0}
-        {"level":"info","ts":1692813333.234714,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/StackSys/458752.00","method":"POST","status":200,"duration":0.000007083,"size":0}
-        {"level":"info","ts":1692813333.234967,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/GCCPUFraction/0.00","method":"POST","status":200,"duration":0.000003875,"size":0}
-        {"level":"info","ts":1692813333.235216,"caller":"logger/logger.go:50","msg":"","uri":"/update/gauge/HeapReleased/2334720.00","method":"POST","status":200,"duration":0.000004292,"size":0}
-        {"level":"info","ts":1692813333.235483,"caller":"logger/logger.go:50","msg":"","uri":"/update/counter/PollCount/15","method":"POST","status":200,"duration":0.000004709,"size":0}
-        {"level":"info","ts":1692813333.3226721,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000142958,"size":50}
-        {"level":"info","ts":1692813333.4256482,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000097417,"size":49}
-        {"level":"info","ts":1692813333.528119,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000086959,"size":45}
-        {"level":"info","ts":1692813333.630456,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000093541,"size":50}
-        {"level":"info","ts":1692813333.732769,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000085708,"size":47}
-        {"level":"info","ts":1692813333.834938,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00005575,"size":48}
-        {"level":"info","ts":1692813333.936926,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00007,"size":45}
-        {"level":"info","ts":1692813334.039232,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000092458,"size":42}
-        {"level":"info","ts":1692813334.1414888,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000085042,"size":49}
-        {"level":"info","ts":1692813334.24384,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000099041,"size":49}
-        {"level":"info","ts":1692813334.25071,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000095708,"size":36}
-        {"level":"info","ts":1692813334.251204,"caller":"logger/logger.go:50","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.000046584,"size":55}
-        {"level":"info","ts":1692813334.25163,"caller":"logger/logger.go:50","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.000037208,"size":52}
-        {"level":"info","ts":1692813334.251977,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000023625,"size":55}
-        {"level":"info","ts":1692813334.259983,"caller":"logger/logger.go:50","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.000538167,"size":59}
-        {"level":"info","ts":1692813334.260276,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000046208,"size":59}
---- PASS: TestIteration7 (31.05s)
-    --- PASS: TestIteration7/TestCollectAgentMetrics (20.91s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/counter/PollCount (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/RandomValue (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/Alloc (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/BuckHashSys (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/Frees (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/GCCPUFraction (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/GCSys (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/HeapAlloc (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/HeapIdle (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/HeapInuse (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/HeapObjects (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/HeapReleased (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/HeapSys (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/LastGC (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/Lookups (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/MCacheInuse (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/MCacheSys (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/MSpanInuse (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/MSpanSys (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/Mallocs (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/NextGC (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/NumForcedGC (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/NumGC (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/OtherSys (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/PauseTotalNs (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/StackInuse (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/StackSys (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/Sys (0.00s)
-        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/TotalAlloc (0.00s)
-    --- PASS: TestIteration7/TestCounterHandlers (0.00s)
-        --- PASS: TestIteration7/TestCounterHandlers/update (0.00s)
-    --- PASS: TestIteration7/TestEncoderUsage (0.01s)
-    --- PASS: TestIteration7/TestGaugeHandlers (0.00s)
-        --- PASS: TestIteration7/TestGaugeHandlers/update (0.00s)
-=== RUN   TestIteration8
-=== RUN   TestIteration8/TestCounterGzipHandlers
-=== RUN   TestIteration8/TestCounterGzipHandlers/update
-    iteration8_test.go:236: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration8_test.go:236
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	"" does not contain "gzip"
-        	Test:       	TestIteration8/TestCounterGzipHandlers/update
-        	Messages:   	Заголовок ответа Content-Encoding содержит несоответствующее значение
-    iteration8_test.go:246: Оригинальный запрос:
-        
-        POST /value/ HTTP/1.1
-        Host: localhost:8080
-        Accept: application/json
-        Accept-Encoding: gzip
-        Content-Type: application/json
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
-    iteration8_test.go:248: Оригинальный ответ:
-        
-        HTTP/1.1 200 OK
-        Content-Length: 58
-        Content-Type: application/json
-        Date: Wed, 23 Aug 2023 17:55:44 GMT
-        
-        {"id":"GetSetZip246","type":"counter","delta":1714932249}
-=== RUN   TestIteration8/TestGaugeGzipHandlers
-=== RUN   TestIteration8/TestGaugeGzipHandlers/update
-    iteration8_test.go:291: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration8_test.go:291
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	"" does not contain "gzip"
-        	Test:       	TestIteration8/TestGaugeGzipHandlers/update
-        	Messages:   	Заголовок ответа Content-Encoding содержит несоответствующее значение
-    iteration8_test.go:301: Оригинальный запрос:
-        
-        POST /value/ HTTP/1.1
-        Host: localhost:8080
-        Accept: application/json
-        Accept-Encoding: gzip
-        Content-Type: application/json
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
-    iteration8_test.go:303: Оригинальный ответ:
-        
-        HTTP/1.1 200 OK
-        Content-Length: 63
-        Content-Type: application/json
-        Date: Wed, 23 Aug 2023 17:55:44 GMT
-        
-        {"id":"GetSetZip250","type":"gauge","value":450655.3460723178}
-=== RUN   TestIteration8/TestGetGzipHandlers
-=== RUN   TestIteration8/TestGetGzipHandlers/get_info_page
-    iteration8_test.go:324: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration8_test.go:324
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	"text/plain; charset=utf-8" does not contain "text/html"
-        	Test:       	TestIteration8/TestGetGzipHandlers/get_info_page
-        	Messages:   	Заголовок ответа Content-Type содержит несоответствующее значение
-    iteration8_test.go:332: Оригинальный запрос:
-        
-        GET / HTTP/1.1
-        Host: localhost:8080
-        Accept: html/text
-        Accept-Encoding: gzip
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
-    iteration8_test.go:334: Оригинальный ответ:
-        
-        HTTP/1.1 200 OK
-        Content-Length: 54
-        Content-Type: text/plain; charset=utf-8
-        Date: Wed, 23 Aug 2023 17:55:44 GMT
-        
-        GetSetZip250 = 450655.346072,GetSetZip246 = 1714932249
-=== NAME  TestIteration8
-    iteration8_test.go:152: Получен STDOUT лог процесса:
-        
-        Post "http://localhost:8080/update/gauge/Frees/10.00": EOF
-        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Sys/8064016.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/RandomValue/0.98": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/BuckHashSys/4181.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapIdle/3317760.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/MSpanInuse/33760.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/TotalAlloc/166592.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MSpanSys/48960.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/OtherSys/1000979.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Alloc/166592.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Mallocs/659.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackSys/327680.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCSys/2799992.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/BuckHashSys/4181.00": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/HeapSys/3866624.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapInuse/548864.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapReleased/3284992.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/OtherSys/1007147.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapAlloc/166360.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapReleased/3063808.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackSys/327680.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapObjects/649.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapAlloc/166592.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Sys/8064016.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Alloc/166360.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapObjects/647.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/TotalAlloc/166360.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapIdle/3096576.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapInuse/770048.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Frees/10.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCSys/2793824.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanSys/48960.00": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/StackInuse/327680.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/RandomValue/0.81": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Mallocs/657.00": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
-        interrupt
-    iteration8_test.go:121: Получен STDOUT лог процесса:
+        interrupt garaceful
+    iteration7_test.go:131: Получен STDOUT лог процесса:
         
-        {"level":"info","ts":1692813344.304397,"caller":"server/main.go:24","msg":"Running server","address":"localhost:8080"}
-        {"level":"info","ts":1692813344.398405,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000258917,"size":39}
-        {"level":"info","ts":1692813344.399256,"caller":"logger/logger.go:50","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.000041792,"size":57}
-        {"level":"info","ts":1692813344.3997571,"caller":"logger/logger.go:50","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.000048333,"size":58}
-        {"level":"info","ts":1692813344.4000142,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000014292,"size":58}
-        {"level":"info","ts":1692813344.40374,"caller":"logger/logger.go:50","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.000080625,"size":63}
-        {"level":"info","ts":1692813344.404004,"caller":"logger/logger.go:50","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000016417,"size":63}
-        {"level":"info","ts":1692813344.405395,"caller":"logger/logger.go:50","msg":"","uri":"/","method":"GET","status":0,"duration":0.000036208,"size":54}
---- FAIL: TestIteration8 (10.14s)
-    --- FAIL: TestIteration8/TestCounterGzipHandlers (0.01s)
-        --- FAIL: TestIteration8/TestCounterGzipHandlers/update (0.01s)
-    --- FAIL: TestIteration8/TestGaugeGzipHandlers (0.00s)
-        --- FAIL: TestIteration8/TestGaugeGzipHandlers/update (0.00s)
-    --- FAIL: TestIteration8/TestGetGzipHandlers (0.00s)
-        --- FAIL: TestIteration8/TestGetGzipHandlers/get_info_page (0.00s)
-=== RUN   TestIteration9
-    iteration9_test.go:37: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration9_test.go:37
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:57
-        	Error:      	Should NOT be empty, but was 
-        	Test:       	TestIteration9
-        	Messages:   	-file-storage-path non-empty flag required
---- FAIL: TestIteration9 (0.00s)
-=== RUN   TestIteration10A
-    iteration10a_test.go:34: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration10a_test.go:34
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:61
-        	Error:      	Should NOT be empty, but was 
-        	Test:       	TestIteration10A
-        	Messages:   	-database-dsn non-empty flag required
---- FAIL: TestIteration10A (0.00s)
-=== RUN   TestIteration10B
-    iteration10b_test.go:33: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration10b_test.go:33
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:65
-        	Error:      	Should NOT be empty, but was 
-        	Test:       	TestIteration10B
-        	Messages:   	-database-dsn non-empty flag required
---- FAIL: TestIteration10B (0.00s)
-=== RUN   TestIteration11
-    iteration11_test.go:41: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration11_test.go:41
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:69
-        	Error:      	Should NOT be empty, but was 
-        	Test:       	TestIteration11
-        	Messages:   	-database-dsn non-empty flag required
---- FAIL: TestIteration11 (0.00s)
-=== RUN   TestIteration12
-    iteration12_test.go:40: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration12_test.go:40
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:73
-        	Error:      	Should NOT be empty, but was 
-        	Test:       	TestIteration12
-        	Messages:   	-database-dsn non-empty flag required
---- FAIL: TestIteration12 (0.00s)
-=== RUN   TestIteration13
-    iteration13_test.go:36: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration13_test.go:36
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:77
-        	Error:      	Should NOT be empty, but was 
-        	Test:       	TestIteration13
-        	Messages:   	-database-dsn non-empty flag required
---- FAIL: TestIteration13 (0.00s)
-=== RUN   TestIteration14
-    iteration14_test.go:39: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration14_test.go:39
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:81
-        	Error:      	Should NOT be empty, but was 
-        	Test:       	TestIteration14
-        	Messages:   	-key non-empty flag required
---- FAIL: TestIteration14 (0.00s)
+        {"level":"info","ts":1692965202.362012,"caller":"server/main.go:24","msg":"Running server","address":"localhost:8080"}
+        {"level":"info","ts":1692965202.5446131,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.001065208,"size":58}
+        {"level":"info","ts":1692965202.648066,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000540208,"size":60}
+        {"level":"info","ts":1692965202.750557,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000576083,"size":54}
+        {"level":"info","ts":1692965202.853994,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.001712417,"size":60}
+        {"level":"info","ts":1692965202.957269,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000364667,"size":54}
+        {"level":"info","ts":1692965203.06021,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000381875,"size":62}
+        {"level":"info","ts":1692965203.162046,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00059925,"size":54}
+        {"level":"info","ts":1692965203.264586,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000570334,"size":58}
+        {"level":"info","ts":1692965203.3670468,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000415208,"size":57}
+        {"level":"info","ts":1692965203.470079,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.001090209,"size":58}
+        {"level":"info","ts":1692965203.572201,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000223375,"size":60}
+        {"level":"info","ts":1692965203.674357,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000298709,"size":61}
+        {"level":"info","ts":1692965203.777357,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.001132667,"size":56}
+        {"level":"info","ts":1692965203.879599,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000311916,"size":55}
+        {"level":"info","ts":1692965203.9818969,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000392917,"size":56}
+        {"level":"info","ts":1692965204.083957,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000944333,"size":60}
+        {"level":"info","ts":1692965204.1865642,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000362875,"size":58}
+        {"level":"info","ts":1692965204.289183,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000504458,"size":59}
+        {"level":"info","ts":1692965204.391189,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000810333,"size":57}
+        {"level":"info","ts":1692965204.492946,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000351042,"size":56}
+        {"level":"info","ts":1692965204.5955021,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000255834,"size":55}
+        {"level":"info","ts":1692965204.697588,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000968333,"size":60}
+        {"level":"info","ts":1692965204.79982,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000342,"size":54}
+        {"level":"info","ts":1692965204.9017558,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000176042,"size":57}
+        {"level":"info","ts":1692965205.004658,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000875708,"size":61}
+        {"level":"info","ts":1692965205.1063008,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00020825,"size":59}
+        {"level":"info","ts":1692965205.2083552,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000212916,"size":57}
+        {"level":"info","ts":1692965205.310787,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000892333,"size":52}
+        {"level":"info","ts":1692965205.412786,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000206792,"size":59}
+        {"level":"info","ts":1692965205.514883,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000334917,"size":58}
+        {"level":"info","ts":1692965205.617263,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000673834,"size":60}
+        {"level":"info","ts":1692965205.719588,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.0003235,"size":54}
+        {"level":"info","ts":1692965205.821304,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000340542,"size":60}
+        {"level":"info","ts":1692965205.923577,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000655458,"size":54}
+        {"level":"info","ts":1692965206.025248,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000174583,"size":62}
+        {"level":"info","ts":1692965206.126985,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000183083,"size":54}
+        {"level":"info","ts":1692965206.228854,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000395708,"size":58}
+        {"level":"info","ts":1692965206.331004,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000290208,"size":57}
+        {"level":"info","ts":1692965206.433129,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00019,"size":58}
+        {"level":"info","ts":1692965206.535784,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000851584,"size":60}
+        {"level":"info","ts":1692965206.638272,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000280292,"size":61}
+        {"level":"info","ts":1692965206.740479,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000235166,"size":56}
+        {"level":"info","ts":1692965206.842855,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000661834,"size":55}
+        {"level":"info","ts":1692965206.944038,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000196875,"size":56}
+        {"level":"info","ts":1692965207.045832,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000176208,"size":60}
+        {"level":"info","ts":1692965207.147702,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00040325,"size":58}
+        {"level":"info","ts":1692965207.249433,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000103083,"size":59}
+        {"level":"info","ts":1692965207.350327,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000085167,"size":57}
+        {"level":"info","ts":1692965207.452393,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00056225,"size":56}
+        {"level":"info","ts":1692965207.553934,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000076375,"size":55}
+        {"level":"info","ts":1692965207.655306,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000074417,"size":60}
+        {"level":"info","ts":1692965207.7568882,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000344458,"size":54}
+        {"level":"info","ts":1692965207.858316,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000110292,"size":57}
+        {"level":"info","ts":1692965207.959775,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000124875,"size":61}
+        {"level":"info","ts":1692965208.061701,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000463041,"size":59}
+        {"level":"info","ts":1692965208.1636531,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000228708,"size":57}
+        {"level":"info","ts":1692965208.26519,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000097583,"size":52}
+        {"level":"info","ts":1692965208.366901,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00041875,"size":59}
+        {"level":"info","ts":1692965208.469324,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000190334,"size":58}
+        {"level":"info","ts":1692965208.571428,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00031175,"size":60}
+        {"level":"info","ts":1692965208.674314,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000957375,"size":54}
+        {"level":"info","ts":1692965208.776578,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000367375,"size":60}
+        {"level":"info","ts":1692965208.87827,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000364,"size":54}
+        {"level":"info","ts":1692965208.980343,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000449334,"size":62}
+        {"level":"info","ts":1692965209.0826821,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000295,"size":54}
+        {"level":"info","ts":1692965209.18501,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000334,"size":58}
+        {"level":"info","ts":1692965209.287383,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000679459,"size":57}
+        {"level":"info","ts":1692965209.389479,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000318,"size":58}
+        {"level":"info","ts":1692965209.49108,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000073875,"size":60}
+        {"level":"info","ts":1692965209.592761,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00035,"size":61}
+        {"level":"info","ts":1692965209.694145,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.0000725,"size":56}
+        {"level":"info","ts":1692965209.795648,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000092875,"size":55}
+        {"level":"info","ts":1692965209.897642,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.00057925,"size":56}
+        {"level":"info","ts":1692965209.999729,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000331417,"size":60}
+        {"level":"info","ts":1692965210.101665,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000245833,"size":58}
+        {"level":"info","ts":1692965210.2047281,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.001110041,"size":59}
+        {"level":"info","ts":1692965210.307041,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000236125,"size":57}
+        {"level":"info","ts":1692965210.4088361,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000219042,"size":56}
+        {"level":"info","ts":1692965210.511765,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.001086708,"size":55}
+        {"level":"info","ts":1692965210.613687,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000193208,"size":60}
+        {"level":"info","ts":1692965210.71563,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000319666,"size":54}
+        {"level":"info","ts":1692965210.8190012,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.001546833,"size":57}
+        {"level":"info","ts":1692965210.9209752,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000158584,"size":61}
+        {"level":"info","ts":1692965211.023231,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000391834,"size":59}
+        {"level":"info","ts":1692965211.125516,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000487625,"size":57}
+        {"level":"info","ts":1692965211.227145,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000180667,"size":52}
+        {"level":"info","ts":1692965211.329324,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000374334,"size":59}
+        {"level":"info","ts":1692965211.431679,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000635,"size":58}
+        {"level":"info","ts":1692965211.53519,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000216042,"size":60}
+        {"level":"info","ts":1692965211.636572,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000237875,"size":54}
+        {"level":"info","ts":1692965211.73943,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.001131333,"size":60}
+        {"level":"info","ts":1692965211.841645,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000346084,"size":54}
+        {"level":"info","ts":1692965211.9434361,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000170542,"size":62}
+        {"level":"info","ts":1692965212.0460632,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000984083,"size":54}
+        {"level":"info","ts":1692965212.148345,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000378417,"size":58}
+        {"level":"info","ts":1692965212.2505212,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000328958,"size":57}
+        {"level":"info","ts":1692965212.317781,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Mallocs/4219.00","method":"POST","status":200,"duration":0.00062925,"size":23}
+        {"level":"info","ts":1692965212.3196108,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/NumGC/0.00","method":"POST","status":200,"duration":0.000131708,"size":23}
+        {"level":"info","ts":1692965212.321362,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/RandomValue/0.07","method":"POST","status":200,"duration":0.000178792,"size":23}
+        {"level":"info","ts":1692965212.322721,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/GCCPUFraction/0.00","method":"POST","status":200,"duration":0.000402375,"size":23}
+        {"level":"info","ts":1692965212.323822,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapSys/3801088.00","method":"POST","status":200,"duration":0.000121666,"size":23}
+        {"level":"info","ts":1692965212.324807,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/LastGC/0.00","method":"POST","status":200,"duration":0.000133,"size":23}
+        {"level":"info","ts":1692965212.326215,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MCacheInuse/9600.00","method":"POST","status":200,"duration":0.00044325,"size":23}
+        {"level":"info","ts":1692965212.3272,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MCacheSys/15600.00","method":"POST","status":200,"duration":0.000113458,"size":23}
+        {"level":"info","ts":1692965212.32815,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MSpanInuse/33760.00","method":"POST","status":200,"duration":0.000122417,"size":23}
+        {"level":"info","ts":1692965212.329372,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/BuckHashSys/4181.00","method":"POST","status":200,"duration":0.000390458,"size":23}
+        {"level":"info","ts":1692965212.3304021,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapReleased/2621440.00","method":"POST","status":200,"duration":0.000121666,"size":23}
+        {"level":"info","ts":1692965212.3314,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/OtherSys/914627.00","method":"POST","status":200,"duration":0.000111083,"size":23}
+        {"level":"info","ts":1692965212.33252,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapAlloc/408296.00","method":"POST","status":200,"duration":0.000439292,"size":23}
+        {"level":"info","ts":1692965212.333348,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/StackSys/393216.00","method":"POST","status":200,"duration":0.000097,"size":23}
+        {"level":"info","ts":1692965212.334173,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/NextGC/4194304.00","method":"POST","status":200,"duration":0.000102208,"size":23}
+        {"level":"info","ts":1692965212.335476,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapObjects/4059.00","method":"POST","status":200,"duration":0.000586834,"size":23}
+        {"level":"info","ts":1692965212.3362792,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Lookups/0.00","method":"POST","status":200,"duration":0.000093791,"size":23}
+        {"level":"info","ts":1692965212.337116,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/NumForcedGC/0.00","method":"POST","status":200,"duration":0.000107541,"size":23}
+        {"level":"info","ts":1692965212.3383412,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Sys/8064016.00","method":"POST","status":200,"duration":0.0003285,"size":23}
+        {"level":"info","ts":1692965212.339333,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Alloc/408296.00","method":"POST","status":200,"duration":0.000094625,"size":23}
+        {"level":"info","ts":1692965212.340169,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/TotalAlloc/408296.00","method":"POST","status":200,"duration":0.00009425,"size":23}
+        {"level":"info","ts":1692965212.3412611,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/PauseTotalNs/0.00","method":"POST","status":200,"duration":0.000393583,"size":23}
+        {"level":"info","ts":1692965212.3420749,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/GCSys/2886344.00","method":"POST","status":200,"duration":0.000093791,"size":23}
+        {"level":"info","ts":1692965212.3428411,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapIdle/2719744.00","method":"POST","status":200,"duration":0.000098792,"size":23}
+        {"level":"info","ts":1692965212.343832,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapInuse/1081344.00","method":"POST","status":200,"duration":0.000286125,"size":23}
+        {"level":"info","ts":1692965212.34455,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Frees/160.00","method":"POST","status":200,"duration":0.000081833,"size":23}
+        {"level":"info","ts":1692965212.345247,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/StackInuse/393216.00","method":"POST","status":200,"duration":0.000083709,"size":23}
+        {"level":"info","ts":1692965212.3461728,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MSpanSys/48960.00","method":"POST","status":200,"duration":0.000300125,"size":23}
+        {"level":"info","ts":1692965212.3469288,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/PollCount/10","method":"POST","status":200,"duration":0.000081291,"size":23}
+        {"level":"info","ts":1692965212.351729,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000128416,"size":72}
+        {"level":"info","ts":1692965212.3564858,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":404,"duration":0.000315083,"size":60}
+        {"level":"info","ts":1692965212.356831,"caller":"logger/logger.go:48","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.000102791,"size":77}
+        {"level":"info","ts":1692965212.357592,"caller":"logger/logger.go:48","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.000106709,"size":79}
+        {"level":"info","ts":1692965212.358049,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00027925,"size":79}
+        {"level":"info","ts":1692965212.362525,"caller":"logger/logger.go:48","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.00010325,"size":85}
+        {"level":"info","ts":1692965212.362954,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000087792,"size":85}
+--- FAIL: TestIteration7 (20.07s)
+    --- FAIL: TestIteration7/TestCollectAgentMetrics (9.92s)
+    --- FAIL: TestIteration7/TestCounterHandlers (0.00s)
+        --- FAIL: TestIteration7/TestCounterHandlers/update (0.00s)
+    --- PASS: TestIteration7/TestEncoderUsage (0.00s)
+    --- FAIL: TestIteration7/TestGaugeHandlers (0.00s)
+        --- FAIL: TestIteration7/TestGaugeHandlers/update (0.00s)
 FAIL
