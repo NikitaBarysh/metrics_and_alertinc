@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-func Compress(data []byte) ([]byte, error) {
+func Compress(data []byte) (*bytes.Buffer, error) {
 	var b bytes.Buffer
 
 	rw := gzip.NewWriter(&b)
@@ -21,5 +21,5 @@ func Compress(data []byte) ([]byte, error) {
 		return nil, fmt.Errorf("failed close compress writer: %w", err)
 	}
 
-	return b.Bytes(), nil
+	return &b, nil
 }

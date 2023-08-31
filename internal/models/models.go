@@ -1,5 +1,9 @@
 package models
 
+import "errors"
+
+var ErrNotFound = errors.New("not found metric struct")
+
 type Metrics struct {
 	ID    string   `json:"id"`              // имя метрики
 	MType string   `json:"type"`            // параметр, принимающий значение gauge или counter

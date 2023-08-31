@@ -15,7 +15,7 @@ func NewSender() *Sender {
 	return &Sender{}
 }
 
-func (s *Sender) SendPost(ctx context.Context, url string) {
+func (s *Sender) SendPost(ctx context.Context, url string, storage repositories.MemStorageStruct) {
 	request, err := http.NewRequest(http.MethodPost, url, nil)
 	request = request.WithContext(ctx)
 	if err != nil {
@@ -31,13 +31,16 @@ func (s *Sender) SendPost(ctx context.Context, url string) {
 	res.Body.Close()
 }
 
-func (s *Sender) SendPostCompress(ctx context.Context, url string, storage repositories.MemStorageStruct) {
+func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage repositories.MemStorageStruct) {
 	data, err := json.Marshal(storage)
 	if err != nil {
 		panic(err)
 	}
-	compress.Compress(data)
-	request, err := http.NewRequest(http.MethodPost, url, data)
+	buf, err := compress.Compress(data)
+	if err != nil {
+		panic(err)
+	}
+	request, err := http.NewRequest(http.MethodPost, url, buf)
 	request = request.WithContext(ctx)
 	if err != nil {
 		panic(err)

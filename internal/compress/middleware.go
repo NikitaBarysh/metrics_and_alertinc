@@ -5,17 +5,33 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"sync"
 )
 
 type compressWriter struct {
 	rw http.ResponseWriter
 	zw *gzip.Writer
+
+	once         sync.Once
+	isCompressed bool
+}
+
+func (c *compressWriter) checkContentType() bool {
+	c.once.Do(func() {
+		for _, v := range c.rw.Header()["Content-Type"] {
+			if v == "text/html" || v == "application/json" {
+				c.rw.Header().Set("Content-Encoding", "gzip")
+				c.isCompressed = true
+			}
+		}
+	})
+	return c.isCompressed
 }
 
 func newCompressWriter(rw http.ResponseWriter) *compressWriter {
 	return &compressWriter{
 		rw: rw,
-		zw: gzip.NewWriter(rw), // TODO
+		zw: gzip.NewWriter(rw),
 	}
 }
 
@@ -24,7 +40,10 @@ func (c *compressWriter) Header() http.Header {
 }
 
 func (c *compressWriter) Write(p []byte) (int, error) {
-	return c.zw.Write(p)
+	if c.checkContentType() {
+		return c.zw.Write(p)
+	}
+	return c.rw.Write(p)
 }
 
 func (c *compressWriter) WriteHeader(statusCode int) {
@@ -35,7 +54,10 @@ func (c *compressWriter) WriteHeader(statusCode int) {
 }
 
 func (c *compressWriter) Close() error {
-	return c.zw.Close()
+	if c.checkContentType() {
+		return c.zw.Close()
+	}
+	return nil
 }
 
 type compressReader struct {

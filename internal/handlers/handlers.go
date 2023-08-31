@@ -20,6 +20,7 @@ type storage interface {
 	UpdateCounterMetric(key string, value int64)
 	ReadMetric() map[string]repositories.MemStorageStruct
 	GetAllMetric() []string
+	ReadDefinitelyMetric(key string) (repositories.MemStorageStruct, error)
 }
 
 type Handler struct {
@@ -65,27 +66,27 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
-
 	metricType := chi.URLParam(r, "type")
+
 	metricName := chi.URLParam(r, "name")
+
+	metricValueStruct, err := h.storage.ReadDefinitelyMetric(metricName)
+	if err != nil {
+		http.Error(rw, err.Error(), http.StatusNotFound)
+		return
+	}
 
 	switch metricType {
 	case "gauge":
-		metricValue := h.storage.ReadMetric()
-		if value, ok := metricValue[metricName]; ok {
-			rw.WriteHeader(http.StatusOK)
-			rw.Write([]byte(fmt.Sprintf("%v", value.Value)))
-			return
-		}
-		http.Error(rw, "wrong type", http.StatusNotFound)
+		metricValue := metricValueStruct.Value
+		rw.WriteHeader(http.StatusOK)
+		rw.Write([]byte(fmt.Sprintf("%v", metricValue)))
+		return
 	case "counter":
-		metricValue := h.storage.ReadMetric()
-		if value, ok := metricValue[metricName]; ok {
-			rw.WriteHeader(http.StatusOK)
-			rw.Write([]byte(fmt.Sprintf("%v", value.Delta)))
-			return
-		}
-		http.Error(rw, "wrong type", http.StatusNotFound)
+		metricValue := metricValueStruct.Delta
+		rw.WriteHeader(http.StatusOK)
+		rw.Write([]byte(fmt.Sprintf("%v", metricValue)))
+		return
 	default:
 		http.Error(rw, "unknown metric type", http.StatusNotFound)
 		return
@@ -94,17 +95,18 @@ func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) GetAll(rw http.ResponseWriter, _ *http.Request) {
 	list := h.storage.GetAllMetric()
+	rw.Header().Set("Content-Type", "text/html")
 	io.WriteString(rw, strings.Join(list, ","))
 }
 
 func (h *Handler) GetJSON(rw http.ResponseWriter, r *http.Request) {
 	var req models.Metrics
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		logger.Log.Debug("error decode getJSON", zap.Error(err))
+		fmt.Println("ddecoder: ", err)
+		logger.Log.Fatal("error decode getJSON", zap.Error(err))
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
 	switch req.MType {
 	case "gauge":
 		metricValue := h.storage.ReadMetric()
@@ -124,10 +126,10 @@ func (h *Handler) GetJSON(rw http.ResponseWriter, r *http.Request) {
 		rw.WriteHeader(http.StatusNotFound)
 		return
 	}
-
 	rw.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(rw).Encode(req); err != nil {
-		logger.Log.Debug("error encoding getJSON", zap.Error(err))
+		fmt.Println("encoder: ", err)
+		logger.Log.Fatal("error encoding getJSON", zap.Error(err))
 	}
 }
 

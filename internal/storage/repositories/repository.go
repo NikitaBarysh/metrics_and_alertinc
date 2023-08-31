@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/models"
 	"sync"
 )
 
@@ -35,22 +36,27 @@ type MemStorage struct {
 func (m *MemStorage) UpdateGaugeMetric(key string, value float64) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	metricType := m.MemStorageMap[key].MType
-	if metricType == "gauge" {
-		m.MemStorageMap[key] = MemStorageStruct{ID: key, MType: "gauge", Value: value}
-	}
+	m.MemStorageMap[key] = MemStorageStruct{ID: key, MType: "gauge", Value: value}
 }
 
 func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	metricType := m.MemStorageMap[key].MType
 	metricValue := m.MemStorageMap[key].Delta
-	if metricType == "counter" {
-		metricValue = value + 1
-		m.MemStorageMap[key] = MemStorageStruct{ID: key, MType: "counter", Delta: metricValue}
-	}
+	metricValue += value
+	m.MemStorageMap[key] = MemStorageStruct{ID: key, MType: "counter", Delta: metricValue}
 }
+
+func (m *MemStorage) ReadDefinitelyMetric(key string) (MemStorageStruct, error) {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+	metricStruct, ok := m.MemStorageMap[key]
+	if ok {
+		return metricStruct, nil
+	}
+	return MemStorageStruct{}, models.ErrNotFound
+}
+
 func (m *MemStorage) ReadMetric() map[string]MemStorageStruct {
 	m.mu.RLock()
 	defer m.mu.RUnlock()

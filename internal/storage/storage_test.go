@@ -14,7 +14,7 @@ type senderMock struct {
 	url string
 }
 
-func (s *senderMock) SendPost(ctx context.Context, url string) {
+func (s *senderMock) SendPost(ctx context.Context, url string, storage repositories.MemStorageStruct) {
 	if url != s.url {
 		assert.Fail(s.t, "url not equal")
 	}

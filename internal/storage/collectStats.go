@@ -16,7 +16,7 @@ type sender interface {
 }
 
 func (m *MetricAction) Run(ctx context.Context, pollInterval int64, reportInterval int64, flagRunAddr string) error {
-	logger.Log.Info("Running agent", zap.String("address", flagRunAddr))
+	logger.Log.Info("Running agentConfig", zap.String("address", flagRunAddr))
 
 	collectTicker := time.NewTicker(time.Second * time.Duration(pollInterval))
 	defer collectTicker.Stop()
@@ -75,10 +75,10 @@ func (m *MetricAction) SendMetric(ctx context.Context, flagRunAddr string) error
 		metricType := m.MemStorage.MemStorageMap[metricName].MType
 		switch metricType {
 		case "gauge":
-			url := fmt.Sprintf("http://%s/update/%s/%s/%.2f", flagRunAddr, metricType, metricName, metricValue.Delta)
+			url := fmt.Sprintf("http://%s/update/%s/%s/%.2f", flagRunAddr, metricType, metricName, metricValue.Value)
 			m.sender.SendPost(ctx, url, metricValue)
 		case "counter":
-			url := fmt.Sprintf("http://%s/update/%s/%s/%d", flagRunAddr, metricType, metricName, metricValue.Value)
+			url := fmt.Sprintf("http://%s/update/%s/%s/%d", flagRunAddr, metricType, metricName, metricValue.Delta)
 			m.sender.SendPost(ctx, url, metricValue)
 		}
 	}
