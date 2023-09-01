@@ -252,8 +252,7 @@ jobs:
           github.head_ref == 'iter13' ||
           github.head_ref == 'iter14'
         run: |
-          SERVER_PORT=$(ra
-          ndom unused-port)
+          SERVER_PORT=$(random unused-port)
           ADDRESS="localhost:${SERVER_PORT}"
           TEMP_FILE=$(random tempfile)
           metricstest -test.v -test.run=^TestIteration9$ \
