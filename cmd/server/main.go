@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/config/serverConfig"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/flusher"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/restorer"
@@ -17,7 +17,7 @@ import (
 )
 
 func main() {
-	cfg, configError := serverConfig.ParseServerConfig()
+	cfg, configError := server.ParseServerConfig()
 	if configError != nil {
 		log.Fatalf("config err: %s\n", configError)
 	}
@@ -44,7 +44,7 @@ func main() {
 	router := router.NewRouter(handler)
 	chiRouter := chi.NewRouter()
 	chiRouter.Mount("/", router.Register())
-	logger.Log.Info("Running serverConfig", zap.String("address", cfg.RunAddr))
+	logger.Log.Info("Running server", zap.String("address", cfg.RunAddr))
 	err := http.ListenAndServe(cfg.RunAddr, chiRouter)
 	if err != nil {
 		panic(err)

@@ -92,17 +92,6 @@ func (m *MemStorage) GetAllMetric() []string {
 	return metricSlice
 }
 
-func (m *MemStorage) GetAllMetricSlice() []MemStorageStruct {
-	m.mu.RLock()
-	defer m.mu.RUnlock()
-	metricSlice := make([]MemStorageStruct, 0, len(m.MemStorageMap))
-	for metricName, _ := range m.MemStorageMap {
-		metricSlice = append(metricSlice, m.MemStorageMap[metricName])
-
-	}
-	return metricSlice
-}
-
 func (m *MemStorage) PutMetricMap(data map[string]MemStorageStruct) {
 	m.mu.Lock()
 	defer m.mu.Unlock()

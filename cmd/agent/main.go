@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/config/agentConfig"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/config/agent"
 	"log"
 	"os"
 	"os/signal"
@@ -16,7 +16,7 @@ import (
 
 func main() {
 
-	cfg, err := agentConfig.ParseAgentFlags()
+	cfg, err := agent.ParseAgentFlags()
 	if err != nil {
 		log.Fatalf("config err : %s\n", err)
 	}

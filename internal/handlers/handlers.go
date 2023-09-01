@@ -111,13 +111,13 @@ func (h *Handler) GetJSON(rw http.ResponseWriter, r *http.Request) {
 	case "gauge":
 		metricValue, err := h.storage.ReadDefinitelyMetric(req.ID)
 		if err != nil {
-			fmt.Errorf("get json gauge error: %w", err)
+			http.Error(rw, "get json gauge error", http.StatusNotFound)
 		}
 		req.NewMetricValue(metricValue.Value)
 	case "counter":
 		metricValue, err := h.storage.ReadDefinitelyMetric(req.ID)
 		if err != nil {
-			fmt.Errorf("get json counter error: %w", err)
+			http.Error(rw, "get json counter error", http.StatusNotFound)
 		}
 		req.NewMetricDelta(metricValue.Delta)
 	default:

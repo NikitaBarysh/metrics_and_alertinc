@@ -16,7 +16,7 @@ type sender interface {
 }
 
 func (m *MetricAction) Run(ctx context.Context, pollInterval int64, reportInterval int64, flagRunAddr string) error {
-	logger.Log.Info("Running agentConfig", zap.String("address", flagRunAddr))
+	logger.Log.Info("Running agent", zap.String("address", flagRunAddr))
 
 	collectTicker := time.NewTicker(time.Second * time.Duration(pollInterval))
 	defer collectTicker.Stop()

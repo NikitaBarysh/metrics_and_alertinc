@@ -1,4 +1,4 @@
-package agentConfig
+package agent
 
 import (
 	"flag"
@@ -15,7 +15,7 @@ type Config struct {
 
 func ParseAgentFlags() (*Config, error) {
 	cfg := new(Config)
-	flag.StringVar(&cfg.URL, "a", "localhost:8080", "address and port to run serverConfig")
+	flag.StringVar(&cfg.URL, "a", "localhost:8080", "address and port to run server")
 	flag.Int64Var(&cfg.PollInterval, "p", 2, "poll interval")
 	flag.Int64Var(&cfg.ReportInterval, "r", 10, "report interval")
 
