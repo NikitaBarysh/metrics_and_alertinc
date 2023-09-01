@@ -109,19 +109,17 @@ func (h *Handler) GetJSON(rw http.ResponseWriter, r *http.Request) {
 	}
 	switch req.MType {
 	case "gauge":
-		metricValue := h.storage.ReadMetric()
-		if value, ok := metricValue[req.ID]; ok {
-			req.NewMetricValue(value.Value)
-		} else {
-			rw.WriteHeader(http.StatusNotFound)
+		metricValue, err := h.storage.ReadDefinitelyMetric(req.ID)
+		if err != nil {
+			fmt.Errorf("get json gauge error: %w", err)
 		}
+		req.NewMetricValue(metricValue.Value)
 	case "counter":
-		metricValue := h.storage.ReadMetric()
-		if value, ok := metricValue[req.ID]; ok {
-			req.NewMetricDelta(value.Delta)
-		} else {
-			rw.WriteHeader(http.StatusNotFound)
+		metricValue, err := h.storage.ReadDefinitelyMetric(req.ID)
+		if err != nil {
+			fmt.Errorf("get json counter error: %w", err)
 		}
+		req.NewMetricDelta(metricValue.Delta)
 	default:
 		rw.WriteHeader(http.StatusNotFound)
 		return

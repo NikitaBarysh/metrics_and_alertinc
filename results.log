@@ -1,571 +1,593 @@
 === RUN   TestIteration1
-    iteration1_test.go:50: Не удалось дождаться пока порт 8080 станет доступен для запроса: context deadline exceeded
 === RUN   TestIteration1/TestCounterHandlers
 === RUN   TestIteration1/TestCounterHandlers/update
-    iteration1_test.go:150: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:150
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/update/counter/testCounter/100": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration1/TestCounterHandlers/update
-        	Messages:   	Ошибка при попытке сделать запрос с обновлением counter
-    iteration1_test.go:153: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:153
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 200
-        	            	actual  : 0
-        	Test:       	TestIteration1/TestCounterHandlers/update
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/counter/testCounter/100'
-    iteration1_test.go:158: Оригинальный запрос:
-        
-        POST /update/counter/testCounter/100 HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
 === RUN   TestIteration1/TestCounterHandlers/without_id
-    iteration1_test.go:166: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:166
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/update/counter/": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration1/TestCounterHandlers/without_id
-        	Messages:   	Ошибка при попытке сделать запрос с обновлением counter
-    iteration1_test.go:169: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:169
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 404
-        	            	actual  : 0
-        	Test:       	TestIteration1/TestCounterHandlers/without_id
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/counter/'
-    iteration1_test.go:174: Оригинальный запрос:
-        
-        POST /update/counter/ HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
 === RUN   TestIteration1/TestCounterHandlers/invalid_value
-    iteration1_test.go:182: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:182
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/update/counter/testCounter/none": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration1/TestCounterHandlers/invalid_value
-        	Messages:   	Ошибка при попытке сделать запрос с обновлением counter
-    iteration1_test.go:185: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:185
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 400
-        	            	actual  : 0
-        	Test:       	TestIteration1/TestCounterHandlers/invalid_value
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/counter/testCounter/none'
-    iteration1_test.go:190: Оригинальный запрос:
-        
-        POST /update/counter/testCounter/none HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
 === RUN   TestIteration1/TestGaugeHandlers
 === RUN   TestIteration1/TestGaugeHandlers/update
-    iteration1_test.go:98: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:98
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/update/gauge/testGauge/100": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration1/TestGaugeHandlers/update
-        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
-    iteration1_test.go:101: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:101
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 200
-        	            	actual  : 0
-        	Test:       	TestIteration1/TestGaugeHandlers/update
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testGauge/100'
-    iteration1_test.go:106: Оригинальный запрос:
-        
-        POST /update/gauge/testGauge/100 HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
 === RUN   TestIteration1/TestGaugeHandlers/without_id
-    iteration1_test.go:114: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:114
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/update/gauge/": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration1/TestGaugeHandlers/without_id
-        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
-    iteration1_test.go:117: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:117
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 404
-        	            	actual  : 0
-        	Test:       	TestIteration1/TestGaugeHandlers/without_id
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/'
-    iteration1_test.go:122: Оригинальный запрос:
-        
-        POST /update/gauge/ HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
 === RUN   TestIteration1/TestGaugeHandlers/invalid_value
-    iteration1_test.go:130: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:130
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/update/gauge/testGauge/none": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration1/TestGaugeHandlers/invalid_value
-        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
-    iteration1_test.go:133: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:133
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 400
-        	            	actual  : 0
-        	Test:       	TestIteration1/TestGaugeHandlers/invalid_value
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testGauge/none'
-    iteration1_test.go:138: Оригинальный запрос:
-        
-        POST /update/gauge/testGauge/none HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
 === RUN   TestIteration1/TestUnknownHandlers
 === RUN   TestIteration1/TestUnknownHandlers/update_invalid_type
-    iteration1_test.go:202: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:202
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/update/unknown/testCounter/100": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration1/TestUnknownHandlers/update_invalid_type
-        	Messages:   	Ошибка при попытке сделать запрос с не корректным типом метрики
-    iteration1_test.go:205: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:205
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	[]int{400, 501} does not contain 0
-        	Test:       	TestIteration1/TestUnknownHandlers/update_invalid_type
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/unknown/testCounter/100'
-    iteration1_test.go:210: Оригинальный запрос:
-        
-        POST /update/unknown/testCounter/100 HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
 === RUN   TestIteration1/TestUnknownHandlers/update_invalid_method
-    iteration1_test.go:218: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:218
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/updater/counter/testCounter/100": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration1/TestUnknownHandlers/update_invalid_method
-        	Messages:   	Ошибка при попытке сделать запрос с не корректным типом метрики
-    iteration1_test.go:221: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration1_test.go:221
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	[]int{400, 404} does not contain 0
-        	Test:       	TestIteration1/TestUnknownHandlers/update_invalid_method
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/updater/counter/testCounter/100'
-    iteration1_test.go:226: Оригинальный запрос:
-        
-        POST /updater/counter/testCounter/100 HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
 === NAME  TestIteration1
-    iteration1_test.go:70: Процесс завершился с не нулевым статусом 2
     iteration1_test.go:82: Получен STDOUT лог процесса:
         
-        cmd/server/server flag redefined: a
-        panic: cmd/server/server flag redefined: a
-        
-        goroutine 1 [running]:
-        flag.(*FlagSet).Var(0x1400006e180, {0x104ede098, 0x14000078120}, {0x104dd8667, 0x1}, {0x104dda368, 0xa})
-        	/usr/local/go/src/flag/flag.go:982 +0x2a4
-        flag.StringVar(...)
-        	/usr/local/go/src/flag/flag.go:853
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/config/serverConfig.ParseServerConfig()
-        	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/internal/config/serverConfig/config.go:53 +0x1dc
-        main.main()
-        	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/cmd/server/main.go:17 +0x20
---- FAIL: TestIteration1 (20.04s)
-    --- FAIL: TestIteration1/TestCounterHandlers (0.03s)
-        --- FAIL: TestIteration1/TestCounterHandlers/update (0.03s)
-        --- FAIL: TestIteration1/TestCounterHandlers/without_id (0.00s)
-        --- FAIL: TestIteration1/TestCounterHandlers/invalid_value (0.00s)
-    --- FAIL: TestIteration1/TestGaugeHandlers (0.00s)
-        --- FAIL: TestIteration1/TestGaugeHandlers/update (0.00s)
-        --- FAIL: TestIteration1/TestGaugeHandlers/without_id (0.00s)
-        --- FAIL: TestIteration1/TestGaugeHandlers/invalid_value (0.00s)
-    --- FAIL: TestIteration1/TestUnknownHandlers (0.00s)
-        --- FAIL: TestIteration1/TestUnknownHandlers/update_invalid_type (0.00s)
-        --- FAIL: TestIteration1/TestUnknownHandlers/update_invalid_method (0.00s)
+        {"level":"info","ts":1693567310.4042041,"caller":"server/main.go:47","msg":"Running serverConfig","address":"localhost:8080"}
+        {"level":"info","ts":1693567310.507613,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/testCounter/100","method":"POST","status":200,"duration":0.000007417,"size":0}
+        {"level":"info","ts":1693567310.509105,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/","method":"POST","status":404,"duration":0.000010125,"size":19}
+        {"level":"info","ts":1693567310.5092611,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/testCounter/none","method":"POST","status":400,"duration":0.000003541,"size":19}
+        {"level":"info","ts":1693567310.509832,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/testGauge/100","method":"POST","status":200,"duration":0.000035916,"size":0}
+        {"level":"info","ts":1693567310.510153,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/","method":"POST","status":404,"duration":0.000006917,"size":19}
+        {"level":"info","ts":1693567310.510297,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/testGauge/none","method":"POST","status":400,"duration":0.000002834,"size":17}
+        {"level":"info","ts":1693567310.5108218,"caller":"logger/logger.go:48","msg":"","uri":"/update/unknown/testCounter/100","method":"POST","status":501,"duration":0.000010292,"size":20}
+        {"level":"info","ts":1693567310.510983,"caller":"logger/logger.go:48","msg":"","uri":"/updater/counter/testCounter/100","method":"POST","status":404,"duration":0.000001542,"size":19}
+--- PASS: TestIteration1 (0.12s)
+    --- PASS: TestIteration1/TestCounterHandlers (0.01s)
+        --- PASS: TestIteration1/TestCounterHandlers/update (0.01s)
+        --- PASS: TestIteration1/TestCounterHandlers/without_id (0.00s)
+        --- PASS: TestIteration1/TestCounterHandlers/invalid_value (0.00s)
+    --- PASS: TestIteration1/TestGaugeHandlers (0.00s)
+        --- PASS: TestIteration1/TestGaugeHandlers/update (0.00s)
+        --- PASS: TestIteration1/TestGaugeHandlers/without_id (0.00s)
+        --- PASS: TestIteration1/TestGaugeHandlers/invalid_value (0.00s)
+    --- PASS: TestIteration1/TestUnknownHandlers (0.00s)
+        --- PASS: TestIteration1/TestUnknownHandlers/update_invalid_type (0.00s)
+        --- PASS: TestIteration1/TestUnknownHandlers/update_invalid_method (0.00s)
 === RUN   TestIteration2A
 === RUN   TestIteration2A/TestAgent
 === RUN   TestIteration2A/TestAgent/receive_data_from_agent
 === NAME  TestIteration2A
     iteration2a_test.go:80: Получен STDOUT лог процесса:
         
-        Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": read tcp [::1]:58192->[::1]:8080: read: connection reset by peer
-        Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapReleased/3072000.00": EOF
         interrupt
---- PASS: TestIteration2A (10.04s)
+--- PASS: TestIteration2A (10.03s)
     --- PASS: TestIteration2A/TestAgent (0.00s)
         --- PASS: TestIteration2A/TestAgent/receive_data_from_agent (0.00s)
 === RUN   TestIteration2B
 === RUN   TestIteration2B/TestFilesPresence
 === RUN   TestIteration2B/TestServerCoverage
-    iteration2b_test.go:87: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration2b_test.go:87
-        	Error:      	Received unexpected error:
-        	            	exit status 1
-        	Test:       	TestIteration2B/TestServerCoverage
-        	Messages:   	Невозможно получить результат выполнения команды: /usr/local/go/bin/go test -cover ./.... Вывод:
-        	            	
-        	            	 # github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories
-        	            	internal/storage/repositories/repository.go:74:38: fmt.Sprintf format %2f has arg metricValue.Delta of wrong type int64
-        	            	internal/storage/repositories/repository.go:76:38: fmt.Sprintf format %d has arg metricValue.Value of wrong type float64
-        	            	?   	github.com/NikitaBarysh/metrics_and_alertinc/cmd/agent	[no test files]
-        	            	?   	github.com/NikitaBarysh/metrics_and_alertinc/cmd/server	[no test files]
-        	            	?   	github.com/NikitaBarysh/metrics_and_alertinc/internal/config/agentConfig	[no test files]
-        	            	?   	github.com/NikitaBarysh/metrics_and_alertinc/internal/config/serverConfig	[no test files]
-        	            	ok  	github.com/NikitaBarysh/metrics_and_alertinc/internal/compress	(cached)	coverage: 0.0% of statements [no tests to run]
-        	            	ok  	github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers	(cached)	coverage: 45.6% of statements
-        	            	ok  	github.com/NikitaBarysh/metrics_and_alertinc/internal/logger	(cached)	coverage: 0.0% of statements [no tests to run]
-        	            	ok  	github.com/NikitaBarysh/metrics_and_alertinc/internal/models	(cached)	coverage: 0.0% of statements [no tests to run]
-        	            	ok  	github.com/NikitaBarysh/metrics_and_alertinc/internal/router	(cached)	coverage: 0.0% of statements [no tests to run]
-        	            	ok  	github.com/NikitaBarysh/metrics_and_alertinc/internal/sender	(cached)	coverage: 0.0% of statements [no tests to run]
-        	            	ok  	github.com/NikitaBarysh/metrics_and_alertinc/internal/storage	(cached)	coverage: 4.0% of statements
-        	            	FAIL
---- FAIL: TestIteration2B (0.89s)
+--- PASS: TestIteration2B (0.74s)
     --- PASS: TestIteration2B/TestFilesPresence (0.00s)
-    --- FAIL: TestIteration2B/TestServerCoverage (0.88s)
+    --- PASS: TestIteration2B/TestServerCoverage (0.74s)
 === RUN   TestIteration3A
 === RUN   TestIteration3A/TestFrameworkUsage
 --- PASS: TestIteration3A (0.00s)
     --- PASS: TestIteration3A/TestFrameworkUsage (0.00s)
 === RUN   TestIteration3B
-    iteration3b_test.go:53: Не удалось дождаться пока порт 8080 станет доступен для запроса: context deadline exceeded
 === RUN   TestIteration3B/TestCounter
 === RUN   TestIteration3B/TestCounter/update_sequence
-    iteration3b_test.go:157: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:157
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Get "http://localhost:8080/value/counter/testSetGet18": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration3B/TestCounter/update_sequence
-        	Messages:   	Ошибка при попытке сделать запрос для получения значения counter
-    iteration3b_test.go:162: Оригинальный запрос:
-        
-        GET /value/counter/testSetGet18 HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
 === RUN   TestIteration3B/TestCounter/get_unknown
-    iteration3b_test.go:203: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:203
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Get "http://localhost:8080/value/counter/testUnknown119": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration3B/TestCounter/get_unknown
-        	Messages:   	Ошибка при попытке сделать запрос для получения значения counter
-    iteration3b_test.go:204: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:204
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 404
-        	            	actual  : 0
-        	Test:       	TestIteration3B/TestCounter/get_unknown
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/counter/testUnknown119'
-    iteration3b_test.go:209: Оригинальный запрос:
-        
-        GET /value/counter/testUnknown119 HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
 === RUN   TestIteration3B/TestGauge
 === RUN   TestIteration3B/TestGauge/update_sequence
-    iteration3b_test.go:103: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:103
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/update/gauge/testSetGet90/760981.624": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
-    iteration3b_test.go:106: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:106
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 200
-        	            	actual  : 0
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testSetGet90/760981.624'
-    iteration3b_test.go:111: Оригинальный запрос:
-        
-        POST /update/gauge/testSetGet90/760981.624 HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
-    iteration3b_test.go:115: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:115
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Get "http://localhost:8080/value/gauge/testSetGet90": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
-    iteration3b_test.go:117: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:117
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 200
-        	            	actual  : 0
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testSetGet90'
-    iteration3b_test.go:119: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:119
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: "760981.624"
-        	            	actual  : ""
-        	            	
-        	            	Diff:
-        	            	--- Expected
-        	            	+++ Actual
-        	            	@@ -1 +1 @@
-        	            	-760981.624
-        	            	+
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Несоответствие отправленного значения gauge (760981.624) полученному от сервера (), 'GET http://localhost:8080/value/gauge/testSetGet90'
-    iteration3b_test.go:124: Оригинальный запрос:
-        
-        GET /value/gauge/testSetGet90 HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
-    iteration3b_test.go:103: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:103
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/update/gauge/testSetGet90/486888.172": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
-    iteration3b_test.go:106: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:106
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 200
-        	            	actual  : 0
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testSetGet90/486888.172'
-    iteration3b_test.go:111: Оригинальный запрос:
-        
-        POST /update/gauge/testSetGet90/486888.172 HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
-    iteration3b_test.go:115: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:115
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Get "http://localhost:8080/value/gauge/testSetGet90": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
-    iteration3b_test.go:117: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:117
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 200
-        	            	actual  : 0
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testSetGet90'
-    iteration3b_test.go:119: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:119
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: "486888.172"
-        	            	actual  : ""
-        	            	
-        	            	Diff:
-        	            	--- Expected
-        	            	+++ Actual
-        	            	@@ -1 +1 @@
-        	            	-486888.172
-        	            	+
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Несоответствие отправленного значения gauge (486888.172) полученному от сервера (), 'GET http://localhost:8080/value/gauge/testSetGet90'
-    iteration3b_test.go:124: Оригинальный запрос:
-        
-        GET /value/gauge/testSetGet90 HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
-    iteration3b_test.go:103: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:103
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/update/gauge/testSetGet90/226578.357": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
-    iteration3b_test.go:106: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:106
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 200
-        	            	actual  : 0
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'POST http://localhost:8080/update/gauge/testSetGet90/226578.357'
-    iteration3b_test.go:111: Оригинальный запрос:
-        
-        POST /update/gauge/testSetGet90/226578.357 HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
-    iteration3b_test.go:115: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:115
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Get "http://localhost:8080/value/gauge/testSetGet90": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
-    iteration3b_test.go:117: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:117
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 200
-        	            	actual  : 0
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testSetGet90'
-    iteration3b_test.go:119: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:119
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: "226578.357"
-        	            	actual  : ""
-        	            	
-        	            	Diff:
-        	            	--- Expected
-        	            	+++ Actual
-        	            	@@ -1 +1 @@
-        	            	-226578.357
-        	            	+
-        	Test:       	TestIteration3B/TestGauge/update_sequence
-        	Messages:   	Несоответствие отправленного значения gauge (226578.357) полученному от сервера (), 'GET http://localhost:8080/value/gauge/testSetGet90'
-    iteration3b_test.go:124: Оригинальный запрос:
-        
-        GET /value/gauge/testSetGet90 HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
 === RUN   TestIteration3B/TestGauge/get_unknown
-    iteration3b_test.go:133: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:133
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Get "http://localhost:8080/value/gauge/testUnknown247": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration3B/TestGauge/get_unknown
-        	Messages:   	Ошибка при попытке сделать запрос для получения значения gauge
-    iteration3b_test.go:135: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration3b_test.go:135
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Not equal: 
-        	            	expected: 404
-        	            	actual  : 0
-        	Test:       	TestIteration3B/TestGauge/get_unknown
-        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере 'GET http://localhost:8080/value/gauge/testUnknown247'
-    iteration3b_test.go:140: Оригинальный запрос:
-        
-        GET /value/gauge/testUnknown247 HTTP/1.1
-        Host: localhost:8080
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
 === NAME  TestIteration3B
-    iteration3b_test.go:73: Процесс завершился с не нулевым статусом 2
     iteration3b_test.go:85: Получен STDOUT лог процесса:
         
-        cmd/server/server flag redefined: a
-        panic: cmd/server/server flag redefined: a
-        
-        goroutine 1 [running]:
-        flag.(*FlagSet).Var(0x1400006e180, {0x102f5a098, 0x14000078120}, {0x102e54667, 0x1}, {0x102e56368, 0xa})
-        	/usr/local/go/src/flag/flag.go:982 +0x2a4
-        flag.StringVar(...)
-        	/usr/local/go/src/flag/flag.go:853
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/config/serverConfig.ParseServerConfig()
-        	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/internal/config/serverConfig/config.go:53 +0x1dc
-        main.main()
-        	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/cmd/server/main.go:17 +0x20
---- FAIL: TestIteration3B (20.02s)
-    --- FAIL: TestIteration3B/TestCounter (0.01s)
-        --- FAIL: TestIteration3B/TestCounter/update_sequence (0.00s)
-        --- FAIL: TestIteration3B/TestCounter/get_unknown (0.00s)
-    --- FAIL: TestIteration3B/TestGauge (0.01s)
-        --- FAIL: TestIteration3B/TestGauge/update_sequence (0.01s)
-        --- FAIL: TestIteration3B/TestGauge/get_unknown (0.00s)
+        {"level":"info","ts":1693567321.297345,"caller":"server/main.go:47","msg":"Running serverConfig","address":"localhost:8080"}
+        {"level":"info","ts":1693567321.391053,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testSetGet89","method":"GET","status":404,"duration":0.000009,"size":24}
+        {"level":"info","ts":1693567321.3913321,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/testSetGet89/377","method":"POST","status":200,"duration":0.000004792,"size":0}
+        {"level":"info","ts":1693567321.391582,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testSetGet89","method":"GET","status":200,"duration":0.000007625,"size":3}
+        {"level":"info","ts":1693567321.391723,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/testSetGet89/275","method":"POST","status":200,"duration":0.000002334,"size":0}
+        {"level":"info","ts":1693567321.391865,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testSetGet89","method":"GET","status":200,"duration":0.0000025,"size":3}
+        {"level":"info","ts":1693567321.3920078,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/testSetGet89/983","method":"POST","status":200,"duration":0.0000025,"size":0}
+        {"level":"info","ts":1693567321.3921258,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testSetGet89","method":"GET","status":200,"duration":0.000002,"size":4}
+        {"level":"info","ts":1693567321.392368,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testUnknown245","method":"GET","status":404,"duration":0.000006834,"size":24}
+        {"level":"info","ts":1693567321.393142,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/testSetGet170/511602.204","method":"POST","status":200,"duration":0.000051125,"size":0}
+        {"level":"info","ts":1693567321.393276,"caller":"logger/logger.go:48","msg":"","uri":"/value/gauge/testSetGet170","method":"GET","status":200,"duration":0.000002834,"size":10}
+        {"level":"info","ts":1693567321.393406,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/testSetGet170/518267.797","method":"POST","status":200,"duration":0.000002125,"size":0}
+        {"level":"info","ts":1693567321.393527,"caller":"logger/logger.go:48","msg":"","uri":"/value/gauge/testSetGet170","method":"GET","status":200,"duration":0.000001708,"size":10}
+        {"level":"info","ts":1693567321.3936489,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/testSetGet170/506932.911","method":"POST","status":200,"duration":0.000001959,"size":0}
+        {"level":"info","ts":1693567321.393766,"caller":"logger/logger.go:48","msg":"","uri":"/value/gauge/testSetGet170","method":"GET","status":200,"duration":0.000001667,"size":10}
+        {"level":"info","ts":1693567321.393934,"caller":"logger/logger.go:48","msg":"","uri":"/value/gauge/testUnknown229","method":"GET","status":404,"duration":0.000002041,"size":24}
+--- PASS: TestIteration3B (0.11s)
+    --- PASS: TestIteration3B/TestCounter (0.00s)
+        --- PASS: TestIteration3B/TestCounter/update_sequence (0.00s)
+        --- PASS: TestIteration3B/TestCounter/get_unknown (0.00s)
+    --- PASS: TestIteration3B/TestGauge (0.00s)
+        --- PASS: TestIteration3B/TestGauge/update_sequence (0.00s)
+        --- PASS: TestIteration3B/TestGauge/get_unknown (0.00s)
 === RUN   TestIteration4
-    iteration4_test.go:38: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration4_test.go:38
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:37
-        	Error:      	Should NOT be empty, but was 
-        	Test:       	TestIteration4
-        	Messages:   	-server-port non-empty flag required
---- FAIL: TestIteration4 (0.00s)
+=== RUN   TestIteration4/TestCounter
+=== RUN   TestIteration4/TestCounter/update_sequence
+=== RUN   TestIteration4/TestCounter/get_unknown
+=== RUN   TestIteration4/TestGauge
+=== RUN   TestIteration4/TestGauge/update_sequence
+=== RUN   TestIteration4/TestGauge/get_unknown
+=== NAME  TestIteration4
+    iteration4_test.go:166: Получен STDOUT лог процесса:
+        
+        Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": EOF
+        Post "http://localhost:8080/update/gauge/Sys/8064016.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/BuckHashSys/4181.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapIdle/3211264.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapAlloc/172360.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/OtherSys/994811.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapObjects/649.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapReleased/3145728.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanInuse/33600.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Alloc/172360.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Frees/10.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapInuse/655360.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanSys/48960.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackSys/327680.00": dial tcp [::1]:8080: connect: connection refused
+        interrupt
+    iteration4_test.go:135: Получен STDOUT лог процесса:
+        
+        {"level":"info","ts":1693567323.4167309,"caller":"server/main.go:47","msg":"Running serverConfig","address":"localhost:8080"}
+        {"level":"info","ts":1693567323.420612,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/StackInuse/327680.00","method":"POST","status":200,"duration":0.000011459,"size":0}
+        {"level":"info","ts":1693567323.420958,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/TotalAlloc/172360.00","method":"POST","status":200,"duration":0.00001,"size":0}
+        {"level":"info","ts":1693567323.4212701,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/RandomValue/0.56","method":"POST","status":200,"duration":0.00001075,"size":0}
+        {"level":"info","ts":1693567323.421521,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/GCCPUFraction/0.00","method":"POST","status":200,"duration":0.000006167,"size":0}
+        {"level":"info","ts":1693567323.421779,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/GCSys/2806160.00","method":"POST","status":200,"duration":0.000004459,"size":0}
+        {"level":"info","ts":1693567323.421955,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MCacheInuse/9600.00","method":"POST","status":200,"duration":0.000004333,"size":0}
+        {"level":"info","ts":1693567323.4221098,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MCacheSys/15600.00","method":"POST","status":200,"duration":0.000004042,"size":0}
+        {"level":"info","ts":1693567323.422291,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapSys/3866624.00","method":"POST","status":200,"duration":0.000003791,"size":0}
+        {"level":"info","ts":1693567323.422483,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Mallocs/659.00","method":"POST","status":200,"duration":0.000005583,"size":0}
+        {"level":"info","ts":1693567323.422692,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/PollCount/2","method":"POST","status":200,"duration":0.000016041,"size":0}
+        {"level":"info","ts":1693567323.513502,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testSetGet86","method":"GET","status":404,"duration":0.000046125,"size":24}
+        {"level":"info","ts":1693567323.513786,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/testSetGet86/817","method":"POST","status":200,"duration":0.000005833,"size":0}
+        {"level":"info","ts":1693567323.514006,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testSetGet86","method":"GET","status":200,"duration":0.000005709,"size":3}
+        {"level":"info","ts":1693567323.514163,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/testSetGet86/226","method":"POST","status":200,"duration":0.000006875,"size":0}
+        {"level":"info","ts":1693567323.514297,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testSetGet86","method":"GET","status":200,"duration":0.000003125,"size":4}
+        {"level":"info","ts":1693567323.514442,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/testSetGet86/15","method":"POST","status":200,"duration":0.000003667,"size":0}
+        {"level":"info","ts":1693567323.5145679,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testSetGet86","method":"GET","status":200,"duration":0.000002625,"size":4}
+        {"level":"info","ts":1693567323.514893,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testUnknown76","method":"GET","status":404,"duration":0.000004417,"size":24}
+        {"level":"info","ts":1693567323.516056,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/testSetGet19/93232.086","method":"POST","status":200,"duration":0.00003425,"size":0}
+        {"level":"info","ts":1693567323.516254,"caller":"logger/logger.go:48","msg":"","uri":"/value/gauge/testSetGet19","method":"GET","status":200,"duration":0.00000625,"size":9}
+        {"level":"info","ts":1693567323.516452,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/testSetGet19/934660.49","method":"POST","status":200,"duration":0.000006084,"size":0}
+        {"level":"info","ts":1693567323.516643,"caller":"logger/logger.go:48","msg":"","uri":"/value/gauge/testSetGet19","method":"GET","status":200,"duration":0.00000425,"size":9}
+        {"level":"info","ts":1693567323.5168052,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/testSetGet19/907250.799","method":"POST","status":200,"duration":0.00000325,"size":0}
+        {"level":"info","ts":1693567323.5169332,"caller":"logger/logger.go:48","msg":"","uri":"/value/gauge/testSetGet19","method":"GET","status":200,"duration":0.000004209,"size":10}
+        {"level":"info","ts":1693567323.5171998,"caller":"logger/logger.go:48","msg":"","uri":"/value/gauge/testUnknown145","method":"GET","status":404,"duration":0.00000425,"size":24}
+--- PASS: TestIteration4 (2.13s)
+    --- PASS: TestIteration4/TestCounter (0.00s)
+        --- PASS: TestIteration4/TestCounter/update_sequence (0.00s)
+        --- PASS: TestIteration4/TestCounter/get_unknown (0.00s)
+    --- PASS: TestIteration4/TestGauge (0.00s)
+        --- PASS: TestIteration4/TestGauge/update_sequence (0.00s)
+        --- PASS: TestIteration4/TestGauge/get_unknown (0.00s)
 === RUN   TestIteration5
-    iteration5_test.go:33: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration5_test.go:33
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:41
-        	Error:      	Should NOT be empty, but was 
-        	Test:       	TestIteration5
-        	Messages:   	-server-port non-empty flag required
---- FAIL: TestIteration5 (0.00s)
+=== RUN   TestIteration5/TestCounter
+=== RUN   TestIteration5/TestCounter/update_sequence
+=== RUN   TestIteration5/TestCounter/get_unknown
+=== RUN   TestIteration5/TestGauge
+=== RUN   TestIteration5/TestGauge/update_sequence
+=== RUN   TestIteration5/TestGauge/get_unknown
+=== NAME  TestIteration5
+    iteration5_test.go:151: Получен STDOUT лог процесса:
+        
+        Post "http://localhost:8080/update/gauge/MSpanSys/48960.00": EOF
+        Post "http://localhost:8080/update/gauge/TotalAlloc/173992.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapAlloc/173992.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapObjects/652.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanInuse/44000.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/RandomValue/0.73": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Alloc/173992.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Mallocs/662.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Sys/8064016.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapIdle/3047424.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapInuse/786432.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/OtherSys/1000979.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/BuckHashSys/4181.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Frees/10.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapSys/3833856.00": dial tcp [::1]:8080: connect: connection refused
+        interrupt
+    iteration5_test.go:120: Получен STDOUT лог процесса:
+        
+        {"level":"info","ts":1693567328.551036,"caller":"server/main.go:47","msg":"Running serverConfig","address":"localhost:8080"}
+        {"level":"info","ts":1693567328.5537212,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/StackSys/360448.00","method":"POST","status":200,"duration":0.000010125,"size":0}
+        {"level":"info","ts":1693567328.553927,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/GCSys/2799992.00","method":"POST","status":200,"duration":0.000006167,"size":0}
+        {"level":"info","ts":1693567328.554067,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapReleased/2981888.00","method":"POST","status":200,"duration":0.000003792,"size":0}
+        {"level":"info","ts":1693567328.554223,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/PollCount/5","method":"POST","status":200,"duration":0.000003125,"size":0}
+        {"level":"info","ts":1693567328.648441,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testSetGet41","method":"GET","status":404,"duration":0.000047667,"size":24}
+        {"level":"info","ts":1693567328.648741,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/testSetGet41/79","method":"POST","status":200,"duration":0.000007542,"size":0}
+        {"level":"info","ts":1693567328.6489978,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testSetGet41","method":"GET","status":200,"duration":0.000012666,"size":2}
+        {"level":"info","ts":1693567328.649179,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/testSetGet41/272","method":"POST","status":200,"duration":0.000004334,"size":0}
+        {"level":"info","ts":1693567328.6493409,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testSetGet41","method":"GET","status":200,"duration":0.000002833,"size":3}
+        {"level":"info","ts":1693567328.6494799,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/testSetGet41/997","method":"POST","status":200,"duration":0.000003333,"size":0}
+        {"level":"info","ts":1693567328.6496089,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testSetGet41","method":"GET","status":200,"duration":0.0000085,"size":4}
+        {"level":"info","ts":1693567328.649877,"caller":"logger/logger.go:48","msg":"","uri":"/value/counter/testUnknown48","method":"GET","status":404,"duration":0.000004541,"size":24}
+        {"level":"info","ts":1693567328.651619,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/testSetGet238/899074.844","method":"POST","status":200,"duration":0.000034125,"size":0}
+        {"level":"info","ts":1693567328.651843,"caller":"logger/logger.go:48","msg":"","uri":"/value/gauge/testSetGet238","method":"GET","status":200,"duration":0.000007209,"size":10}
+        {"level":"info","ts":1693567328.6520221,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/testSetGet238/919900.695","method":"POST","status":200,"duration":0.000003459,"size":0}
+        {"level":"info","ts":1693567328.652194,"caller":"logger/logger.go:48","msg":"","uri":"/value/gauge/testSetGet238","method":"GET","status":200,"duration":0.000003959,"size":10}
+        {"level":"info","ts":1693567328.652341,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/testSetGet238/871871.368","method":"POST","status":200,"duration":0.00000375,"size":0}
+        {"level":"info","ts":1693567328.65248,"caller":"logger/logger.go:48","msg":"","uri":"/value/gauge/testSetGet238","method":"GET","status":200,"duration":0.000003,"size":10}
+        {"level":"info","ts":1693567328.652938,"caller":"logger/logger.go:48","msg":"","uri":"/value/gauge/testUnknown9","method":"GET","status":404,"duration":0.000012459,"size":24}
+--- PASS: TestIteration5 (5.13s)
+    --- PASS: TestIteration5/TestCounter (0.00s)
+        --- PASS: TestIteration5/TestCounter/update_sequence (0.00s)
+        --- PASS: TestIteration5/TestCounter/get_unknown (0.00s)
+    --- PASS: TestIteration5/TestGauge (0.00s)
+        --- PASS: TestIteration5/TestGauge/update_sequence (0.00s)
+        --- PASS: TestIteration5/TestGauge/get_unknown (0.00s)
 === RUN   TestIteration6
 === RUN   TestIteration6/TestLoggerUsage
 --- PASS: TestIteration6 (0.00s)
     --- PASS: TestIteration6/TestLoggerUsage (0.00s)
 === RUN   TestIteration7
-    iteration7_test.go:76: Не удалось дождаться пока порт 8080 станет доступен для запроса: context deadline exceeded
 === RUN   TestIteration7/TestCollectAgentMetrics
-    iteration7_test.go:395: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration7_test.go:395
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/value/": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration7/TestCollectAgentMetrics
-        	Messages:   	Ошибка при попытке сделать запрос с получением значения PollCount
-    iteration7_test.go:421: Оригинальный запрос:
-        
-        POST /value/ HTTP/1.1
-        Host: localhost:8080
-        Accept: application/json
-        Content-Type: application/json
-        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
-        
-    iteration7_test.go:423: Оригинальный ответ:
-        
+    iteration7_test.go:432: get gauge: "BuckHashSys", value: 0.000000
+    iteration7_test.go:432: get gauge: "GCCPUFraction", value: 0.000000
+    iteration7_test.go:432: get gauge: "GCSys", value: 0.000000
+    iteration7_test.go:432: get gauge: "HeapReleased", value: 0.000000
+    iteration7_test.go:432: get gauge: "HeapSys", value: 0.000000
+    iteration7_test.go:432: get gauge: "LastGC", value: 0.000000
+    iteration7_test.go:432: get gauge: "Lookups", value: 0.000000
+    iteration7_test.go:432: get gauge: "MCacheInuse", value: 0.000000
+    iteration7_test.go:432: get gauge: "MCacheSys", value: 0.000000
+    iteration7_test.go:432: get gauge: "MSpanInuse", value: 0.000000
+    iteration7_test.go:432: get gauge: "MSpanSys", value: 0.000000
+    iteration7_test.go:432: get gauge: "NextGC", value: 0.000000
+    iteration7_test.go:432: get gauge: "NumForcedGC", value: 0.000000
+    iteration7_test.go:432: get gauge: "NumGC", value: 0.000000
+    iteration7_test.go:432: get gauge: "OtherSys", value: 0.000000
+    iteration7_test.go:432: get gauge: "PauseTotalNs", value: 0.000000
+    iteration7_test.go:432: get gauge: "StackInuse", value: 0.000000
+    iteration7_test.go:432: get gauge: "StackSys", value: 0.000000
+    iteration7_test.go:432: get gauge: "Sys", value: 0.000000
+    iteration7_test.go:432: get gauge: "HeapObjects", value: 4068.000000
+    iteration7_test.go:432: get gauge: "Mallocs", value: 4228.000000
+    iteration7_test.go:432: get gauge: "TotalAlloc", value: 410472.000000
+    iteration7_test.go:439: get counter: "PollCount", value: 10
+    iteration7_test.go:432: get gauge: "RandomValue", value: 0.920000
+    iteration7_test.go:432: get gauge: "Alloc", value: 410472.000000
+    iteration7_test.go:432: get gauge: "Frees", value: 160.000000
+    iteration7_test.go:432: get gauge: "HeapAlloc", value: 410472.000000
+    iteration7_test.go:432: get gauge: "HeapIdle", value: 2752512.000000
+    iteration7_test.go:432: get gauge: "HeapInuse", value: 1081344.000000
+=== RUN   TestIteration7/TestCollectAgentMetrics/counter/PollCount
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/RandomValue
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Alloc
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/BuckHashSys
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Frees
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/GCCPUFraction
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/GCSys
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapAlloc
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapIdle
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapInuse
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapObjects
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapReleased
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/HeapSys
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/LastGC
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Lookups
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/MCacheInuse
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/MCacheSys
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/MSpanInuse
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/MSpanSys
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Mallocs
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/NextGC
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/NumForcedGC
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/NumGC
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/OtherSys
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/PauseTotalNs
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/StackInuse
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/StackSys
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/Sys
+=== RUN   TestIteration7/TestCollectAgentMetrics/gauge/TotalAlloc
 === RUN   TestIteration7/TestCounterHandlers
 === RUN   TestIteration7/TestCounterHandlers/update
-    iteration7_test.go:199: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration7_test.go:199
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/value/": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration7/TestCounterHandlers/update
-        	Messages:   	Ошибка при попытке сделать запрос с получением значения counter
-    iteration7_test.go:214: Несоответствие статус кода 0 ответа ожидаемому http.StatusNotFound или http.StatusOK в хендлере "POST": "http://localhost:8080/value/"
 === RUN   TestIteration7/TestEncoderUsage
 === RUN   TestIteration7/TestGaugeHandlers
 === RUN   TestIteration7/TestGaugeHandlers/update
-    iteration7_test.go:287: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration7_test.go:287
+=== NAME  TestIteration7
+    iteration7_test.go:162: Получен STDOUT лог процесса:
+        
+        Post "http://localhost:8080/update/gauge/MSpanInuse/33760.00": read tcp [::1]:54300->[::1]:8080: read: connection reset by peer
+        Post "http://localhost:8080/update/gauge/MSpanSys/48960.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackSys/327680.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Alloc/171112.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Frees/10.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCSys/2818496.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapSys/3866624.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/BuckHashSys/4181.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/OtherSys/982475.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapObjects/644.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/TotalAlloc/171112.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapInuse/663552.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackInuse/327680.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Sys/8064016.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapAlloc/171112.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapIdle/3203072.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapReleased/3170304.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/RandomValue/0.31": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Mallocs/654.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        interrupt
+    iteration7_test.go:131: Получен STDOUT лог процесса:
+        
+        {"level":"info","ts":1693567338.686035,"caller":"server/main.go:47","msg":"Running serverConfig","address":"localhost:8080"}
+        {"level":"info","ts":1693567338.8797052,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000415459,"size":68}
+        {"level":"info","ts":1693567338.981571,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000194583,"size":65}
+        {"level":"info","ts":1693567339.083322,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000262709,"size":64}
+        {"level":"info","ts":1693567339.1871748,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.002395334,"size":70}
+        {"level":"info","ts":1693567339.289632,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00016525,"size":64}
+        {"level":"info","ts":1693567339.39119,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000160041,"size":72}
+        {"level":"info","ts":1693567339.4937038,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.001005042,"size":64}
+        {"level":"info","ts":1693567339.595914,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000284167,"size":68}
+        {"level":"info","ts":1693567339.697729,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000227291,"size":65}
+        {"level":"info","ts":1693567339.799844,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000566667,"size":66}
+        {"level":"info","ts":1693567339.901928,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000180041,"size":70}
+        {"level":"info","ts":1693567340.003656,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000189083,"size":71}
+        {"level":"info","ts":1693567340.1060748,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000688666,"size":66}
+        {"level":"info","ts":1693567340.2089431,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000097542,"size":65}
+        {"level":"info","ts":1693567340.310497,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000105792,"size":66}
+        {"level":"info","ts":1693567340.4123251,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000364042,"size":68}
+        {"level":"info","ts":1693567340.5138402,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00010025,"size":68}
+        {"level":"info","ts":1693567340.6153998,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000117584,"size":67}
+        {"level":"info","ts":1693567340.7173839,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000417542,"size":67}
+        {"level":"info","ts":1693567340.818978,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.0001595,"size":66}
+        {"level":"info","ts":1693567340.920318,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000157667,"size":65}
+        {"level":"info","ts":1693567341.022348,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000426041,"size":70}
+        {"level":"info","ts":1693567341.1306,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000397958,"size":64}
+        {"level":"info","ts":1693567341.239126,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000176333,"size":67}
+        {"level":"info","ts":1693567341.341113,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000288708,"size":71}
+        {"level":"info","ts":1693567341.442583,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000089416,"size":67}
+        {"level":"info","ts":1693567341.544048,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00009375,"size":67}
+        {"level":"info","ts":1693567341.645848,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000364542,"size":62}
+        {"level":"info","ts":1693567341.747448,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000107083,"size":69}
+        {"level":"info","ts":1693567341.849132,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000215792,"size":68}
+        {"level":"info","ts":1693567341.951503,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000546042,"size":65}
+        {"level":"info","ts":1693567342.053462,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000188417,"size":64}
+        {"level":"info","ts":1693567342.155118,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000135042,"size":64}
+        {"level":"info","ts":1693567342.2569869,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000441208,"size":68}
+        {"level":"info","ts":1693567342.358691,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000170333,"size":65}
+        {"level":"info","ts":1693567342.460466,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000165667,"size":66}
+        {"level":"info","ts":1693567342.562648,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000604291,"size":70}
+        {"level":"info","ts":1693567342.664822,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000364917,"size":66}
+        {"level":"info","ts":1693567342.766761,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000161917,"size":69}
+        {"level":"info","ts":1693567342.868024,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000460042,"size":68}
+        {"level":"info","ts":1693567342.9706712,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000159291,"size":65}
+        {"level":"info","ts":1693567343.0725691,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000145166,"size":64}
+        {"level":"info","ts":1693567343.174575,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000473417,"size":64}
+        {"level":"info","ts":1693567343.276192,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000124292,"size":68}
+        {"level":"info","ts":1693567343.3777401,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000129708,"size":65}
+        {"level":"info","ts":1693567343.4803572,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000968375,"size":66}
+        {"level":"info","ts":1693567343.587424,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000300875,"size":70}
+        {"level":"info","ts":1693567343.689631,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000241875,"size":66}
+        {"level":"info","ts":1693567343.7925582,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000712084,"size":69}
+        {"level":"info","ts":1693567343.894527,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00018575,"size":68}
+        {"level":"info","ts":1693567343.9959092,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000307959,"size":65}
+        {"level":"info","ts":1693567344.097734,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000882083,"size":64}
+        {"level":"info","ts":1693567344.1992729,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00019375,"size":64}
+        {"level":"info","ts":1693567344.300854,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000193833,"size":68}
+        {"level":"info","ts":1693567344.403121,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000641625,"size":65}
+        {"level":"info","ts":1693567344.505641,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000382792,"size":66}
+        {"level":"info","ts":1693567344.608106,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000251167,"size":70}
+        {"level":"info","ts":1693567344.709569,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000576708,"size":66}
+        {"level":"info","ts":1693567344.811349,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000190666,"size":69}
+        {"level":"info","ts":1693567344.913075,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000172917,"size":68}
+        {"level":"info","ts":1693567345.016051,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.001088541,"size":65}
+        {"level":"info","ts":1693567345.118772,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.0004065,"size":64}
+        {"level":"info","ts":1693567345.220876,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000215084,"size":64}
+        {"level":"info","ts":1693567345.323025,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00049825,"size":68}
+        {"level":"info","ts":1693567345.424172,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00026625,"size":65}
+        {"level":"info","ts":1693567345.52626,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000229459,"size":66}
+        {"level":"info","ts":1693567345.6285062,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000469584,"size":70}
+        {"level":"info","ts":1693567345.730161,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00011625,"size":66}
+        {"level":"info","ts":1693567345.832032,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000170625,"size":69}
+        {"level":"info","ts":1693567345.933485,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000622958,"size":68}
+        {"level":"info","ts":1693567346.035351,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000250958,"size":65}
+        {"level":"info","ts":1693567346.1375518,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000301875,"size":64}
+        {"level":"info","ts":1693567346.240042,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000730875,"size":64}
+        {"level":"info","ts":1693567346.340835,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000168375,"size":68}
+        {"level":"info","ts":1693567346.443202,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000701084,"size":65}
+        {"level":"info","ts":1693567346.547047,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00117925,"size":66}
+        {"level":"info","ts":1693567346.649138,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000265542,"size":70}
+        {"level":"info","ts":1693567346.750727,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000146875,"size":66}
+        {"level":"info","ts":1693567346.852879,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000532209,"size":69}
+        {"level":"info","ts":1693567346.954591,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000168958,"size":68}
+        {"level":"info","ts":1693567347.056423,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000186166,"size":65}
+        {"level":"info","ts":1693567347.158825,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.001176541,"size":64}
+        {"level":"info","ts":1693567347.260664,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000185708,"size":64}
+        {"level":"info","ts":1693567347.362942,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000402042,"size":68}
+        {"level":"info","ts":1693567347.465649,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000774959,"size":65}
+        {"level":"info","ts":1693567347.567724,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000265667,"size":66}
+        {"level":"info","ts":1693567347.670443,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000503875,"size":70}
+        {"level":"info","ts":1693567347.772725,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000682292,"size":66}
+        {"level":"info","ts":1693567347.8745751,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.0001945,"size":69}
+        {"level":"info","ts":1693567347.975635,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000205125,"size":68}
+        {"level":"info","ts":1693567348.078169,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.001146041,"size":65}
+        {"level":"info","ts":1693567348.1805508,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000278625,"size":64}
+        {"level":"info","ts":1693567348.282867,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.0001655,"size":64}
+        {"level":"info","ts":1693567348.384707,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000645417,"size":68}
+        {"level":"info","ts":1693567348.48671,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000193333,"size":65}
+        {"level":"info","ts":1693567348.588696,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000252458,"size":66}
+        {"level":"info","ts":1693567348.6704829,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Alloc/410472.00","method":"POST","status":200,"duration":0.000055625,"size":0}
+        {"level":"info","ts":1693567348.6714702,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Frees/160.00","method":"POST","status":200,"duration":0.0000075,"size":0}
+        {"level":"info","ts":1693567348.6716118,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/GCSys/2886344.00","method":"POST","status":200,"duration":0.000004583,"size":0}
+        {"level":"info","ts":1693567348.6718059,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapSys/3833856.00","method":"POST","status":200,"duration":0.000005917,"size":0}
+        {"level":"info","ts":1693567348.6720169,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/PauseTotalNs/0.00","method":"POST","status":200,"duration":0.0000105,"size":0}
+        {"level":"info","ts":1693567348.6722162,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/BuckHashSys/4181.00","method":"POST","status":200,"duration":0.000006833,"size":0}
+        {"level":"info","ts":1693567348.67241,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/PollCount/10","method":"POST","status":200,"duration":0.000006833,"size":0}
+        {"level":"info","ts":1693567348.672627,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/LastGC/0.00","method":"POST","status":200,"duration":0.000008625,"size":0}
+        {"level":"info","ts":1693567348.672838,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/OtherSys/914627.00","method":"POST","status":200,"duration":0.000014833,"size":0}
+        {"level":"info","ts":1693567348.673059,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/GCCPUFraction/0.00","method":"POST","status":200,"duration":0.000007666,"size":0}
+        {"level":"info","ts":1693567348.673283,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapObjects/4068.00","method":"POST","status":200,"duration":0.000015583,"size":0}
+        {"level":"info","ts":1693567348.673495,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MCacheInuse/9600.00","method":"POST","status":200,"duration":0.000006958,"size":0}
+        {"level":"info","ts":1693567348.673669,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MCacheSys/15600.00","method":"POST","status":200,"duration":0.000007667,"size":0}
+        {"level":"info","ts":1693567348.673813,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/TotalAlloc/410472.00","method":"POST","status":200,"duration":0.00000825,"size":0}
+        {"level":"info","ts":1693567348.673952,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapInuse/1081344.00","method":"POST","status":200,"duration":0.000004291,"size":0}
+        {"level":"info","ts":1693567348.674104,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/StackInuse/360448.00","method":"POST","status":200,"duration":0.000004708,"size":0}
+        {"level":"info","ts":1693567348.674253,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Sys/8064016.00","method":"POST","status":200,"duration":0.000004292,"size":0}
+        {"level":"info","ts":1693567348.6743848,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapAlloc/410472.00","method":"POST","status":200,"duration":0.0000045,"size":0}
+        {"level":"info","ts":1693567348.674536,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapIdle/2752512.00","method":"POST","status":200,"duration":0.000005083,"size":0}
+        {"level":"info","ts":1693567348.6746829,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapReleased/2654208.00","method":"POST","status":200,"duration":0.000010958,"size":0}
+        {"level":"info","ts":1693567348.67484,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/NextGC/4194304.00","method":"POST","status":200,"duration":0.000005041,"size":0}
+        {"level":"info","ts":1693567348.674996,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/RandomValue/0.92","method":"POST","status":200,"duration":0.00000775,"size":0}
+        {"level":"info","ts":1693567348.675143,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Lookups/0.00","method":"POST","status":200,"duration":0.000004333,"size":0}
+        {"level":"info","ts":1693567348.6752892,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Mallocs/4228.00","method":"POST","status":200,"duration":0.000004625,"size":0}
+        {"level":"info","ts":1693567348.6754482,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/NumForcedGC/0.00","method":"POST","status":200,"duration":0.000005667,"size":0}
+        {"level":"info","ts":1693567348.675585,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/NumGC/0.00","method":"POST","status":200,"duration":0.000003959,"size":0}
+        {"level":"info","ts":1693567348.675699,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MSpanInuse/33760.00","method":"POST","status":200,"duration":0.000009166,"size":0}
+        {"level":"info","ts":1693567348.675806,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MSpanSys/48960.00","method":"POST","status":200,"duration":0.0000055,"size":0}
+        {"level":"info","ts":1693567348.675912,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/StackSys/360448.00","method":"POST","status":200,"duration":0.000003917,"size":0}
+        {"level":"info","ts":1693567348.691766,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.001515875,"size":73}
+        {"level":"info","ts":1693567348.793631,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.0001745,"size":69}
+        {"level":"info","ts":1693567348.895463,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000187834,"size":74}
+        {"level":"info","ts":1693567348.997267,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.0004995,"size":69}
+        {"level":"info","ts":1693567349.0985222,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000190042,"size":68}
+        {"level":"info","ts":1693567349.200875,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000389375,"size":69}
+        {"level":"info","ts":1693567349.303374,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000504208,"size":66}
+        {"level":"info","ts":1693567349.405958,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000563917,"size":73}
+        {"level":"info","ts":1693567349.507676,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000187583,"size":71}
+        {"level":"info","ts":1693567349.6091762,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00049325,"size":72}
+        {"level":"info","ts":1693567349.612722,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000216875,"size":70}
+        {"level":"info","ts":1693567349.613236,"caller":"logger/logger.go:48","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.000161708,"size":79}
+        {"level":"info","ts":1693567349.613952,"caller":"logger/logger.go:48","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.000490666,"size":79}
+        {"level":"info","ts":1693567349.614308,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00012675,"size":79}
+        {"level":"info","ts":1693567349.622786,"caller":"logger/logger.go:48","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.00019175,"size":83}
+        {"level":"info","ts":1693567349.623561,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000515958,"size":83}
+--- PASS: TestIteration7 (20.97s)
+    --- PASS: TestIteration7/TestCollectAgentMetrics (10.83s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/counter/PollCount (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/RandomValue (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/Alloc (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/BuckHashSys (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/Frees (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/GCCPUFraction (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/GCSys (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/HeapAlloc (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/HeapIdle (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/HeapInuse (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/HeapObjects (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/HeapReleased (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/HeapSys (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/LastGC (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/Lookups (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/MCacheInuse (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/MCacheSys (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/MSpanInuse (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/MSpanSys (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/Mallocs (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/NextGC (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/NumForcedGC (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/NumGC (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/OtherSys (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/PauseTotalNs (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/StackInuse (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/StackSys (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/Sys (0.00s)
+        --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/TotalAlloc (0.00s)
+    --- PASS: TestIteration7/TestCounterHandlers (0.00s)
+        --- PASS: TestIteration7/TestCounterHandlers/update (0.00s)
+    --- PASS: TestIteration7/TestEncoderUsage (0.01s)
+    --- PASS: TestIteration7/TestGaugeHandlers (0.00s)
+        --- PASS: TestIteration7/TestGaugeHandlers/update (0.00s)
+=== RUN   TestIteration8
+=== RUN   TestIteration8/TestCounterGzipHandlers
+=== RUN   TestIteration8/TestCounterGzipHandlers/update
+=== RUN   TestIteration8/TestGaugeGzipHandlers
+=== RUN   TestIteration8/TestGaugeGzipHandlers/update
+=== RUN   TestIteration8/TestGetGzipHandlers
+=== RUN   TestIteration8/TestGetGzipHandlers/get_info_page
+=== NAME  TestIteration8
+    iteration8_test.go:152: Получен STDOUT лог процесса:
+        
+        Post "http://localhost:8080/update/gauge/StackSys/360448.00": EOF
+        Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Frees/10.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapObjects/655.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapSys/3833856.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanInuse/44000.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/OtherSys/994811.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Alloc/176128.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapAlloc/176128.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapIdle/3039232.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapReleased/2973696.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Sys/8064016.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/TotalAlloc/176128.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCSys/2806160.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapInuse/794624.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Mallocs/665.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/BuckHashSys/4181.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanSys/48960.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/RandomValue/0.39": dial tcp [::1]:8080: connect: connection refused
+        interrupt
+    iteration8_test.go:121: Получен STDOUT лог процесса:
+        
+        {"level":"info","ts":1693567359.6736908,"caller":"server/main.go:47","msg":"Running serverConfig","address":"localhost:8080"}
+        {"level":"info","ts":1693567359.754653,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000790458,"size":73}
+        {"level":"info","ts":1693567359.7551942,"caller":"logger/logger.go:48","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.000191166,"size":82}
+        {"level":"info","ts":1693567359.756717,"caller":"logger/logger.go:48","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.00125725,"size":81}
+        {"level":"info","ts":1693567359.757458,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.00029525,"size":82}
+        {"level":"info","ts":1693567359.758764,"caller":"logger/logger.go:48","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.00019225,"size":88}
+        {"level":"info","ts":1693567359.759516,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000577667,"size":88}
+        {"level":"info","ts":1693567359.7612019,"caller":"logger/logger.go:48","msg":"","uri":"/","method":"GET","status":0,"duration":0.000279709,"size":50}
+--- PASS: TestIteration8 (10.14s)
+    --- PASS: TestIteration8/TestCounterGzipHandlers (0.01s)
+        --- PASS: TestIteration8/TestCounterGzipHandlers/update (0.01s)
+    --- PASS: TestIteration8/TestGaugeGzipHandlers (0.00s)
+        --- PASS: TestIteration8/TestGaugeGzipHandlers/update (0.00s)
+    --- PASS: TestIteration8/TestGetGzipHandlers (0.00s)
+        --- PASS: TestIteration8/TestGetGzipHandlers/get_info_page (0.00s)
+=== RUN   TestIteration9
+=== RUN   TestIteration9/TestCounterHandlers
+=== RUN   TestIteration9/TestCounterHandlers/update
+=== RUN   TestIteration9/TestCounterHandlers/restart_server
+    iteration9_test.go:126: Получен STDOUT лог процесса:
+        
+        {"level":"info","ts":1693567369.784008,"caller":"server/main.go:47","msg":"Running serverConfig","address":"localhost:8080"}
+        {"level":"info","ts":1693567369.7864041,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/RandomValue/0.60","method":"POST","status":200,"duration":0.000012709,"size":0}
+        {"level":"info","ts":1693567369.786709,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/PollCount/5","method":"POST","status":200,"duration":0.000011542,"size":0}
+        {"level":"info","ts":1693567369.786936,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/GCCPUFraction/0.00","method":"POST","status":200,"duration":0.000004875,"size":0}
+        {"level":"info","ts":1693567369.7871659,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapAlloc/172240.00","method":"POST","status":200,"duration":0.000009542,"size":0}
+        {"level":"info","ts":1693567369.78744,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapSys/3866624.00","method":"POST","status":200,"duration":0.000005334,"size":0}
+        {"level":"info","ts":1693567369.787648,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/NextGC/4194304.00","method":"POST","status":200,"duration":0.000004875,"size":0}
+        {"level":"info","ts":1693567369.7879171,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/NumGC/0.00","method":"POST","status":200,"duration":0.000002667,"size":0}
+        {"level":"info","ts":1693567369.788064,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/PauseTotalNs/0.00","method":"POST","status":200,"duration":0.00000625,"size":0}
+        {"level":"info","ts":1693567369.7883341,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/StackSys/327680.00","method":"POST","status":200,"duration":0.000129917,"size":0}
+        {"level":"info","ts":1693567369.788491,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/OtherSys/1000979.00","method":"POST","status":200,"duration":0.000003042,"size":0}
+        {"level":"info","ts":1693567369.8814452,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000353042,"size":69}
+        {"level":"info","ts":1693567369.882041,"caller":"logger/logger.go:48","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.000202375,"size":77}
+        {"level":"info","ts":1693567369.884074,"caller":"logger/logger.go:48","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.00174575,"size":78}
+        {"level":"info","ts":1693567369.884589,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000179875,"size":78}
+=== RUN   TestIteration9/TestCounterHandlers/get
+    iteration9_test.go:291: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration9_test.go:291
         	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/update/": dial tcp [::1]:8080: connect: connection refused
-        	Test:       	TestIteration7/TestGaugeHandlers/update
-        	Messages:   	Ошибка при попытке сделать запрос с обновлением gauge
-    iteration7_test.go:314: Оригинальный запрос:
+        	Error:      	Not equal: 
+        	            	expected: 1380326343
+        	            	actual  : 0
+        	Test:       	TestIteration9/TestCounterHandlers/get
+        	Messages:   	Несоответствие ожидаемого значения counter (1380326343) полученному от сервера (0), '"POST" http://localhost:8080/value/'
+    iteration9_test.go:296: Оригинальный запрос:
         
         POST /value/ HTTP/1.1
         Host: localhost:8080
@@ -573,162 +595,153 @@
         Content-Type: application/json
         User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
         
-    iteration7_test.go:316: Оригинальный ответ:
+    iteration9_test.go:298: Оригинальный ответ:
         
-=== NAME  TestIteration7
-    iteration7_test.go:162: Получен STDOUT лог процесса:
+=== RUN   TestIteration9/TestGaugeHandlers
+=== RUN   TestIteration9/TestGaugeHandlers/update
+=== RUN   TestIteration9/TestGaugeHandlers/restart_server
+    iteration9_test.go:126: Получен STDOUT лог процесса:
         
-        Post "http://localhost:8080/update/gauge/LastGC/0.00": read tcp [::1]:58643->[::1]:8080: read: connection reset by peer
-        Post "http://localhost:8080/update/gauge/Alloc/172088.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapAlloc/172088.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCSys/2806160.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapInuse/786432.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/OtherSys/732667.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapIdle/3080192.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Mallocs/657.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackInuse/327680.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapReleased/3014656.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Sys/7801872.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/RandomValue/0.85": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Frees/10.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackSys/327680.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapObjects/647.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/BuckHashSys/4181.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapSys/3866624.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MSpanInuse/33760.00": dial tcp [::1]:8080: connect: connection refused
+        {"level":"info","ts":1693567374.8915358,"caller":"server/main.go:47","msg":"Running serverConfig","address":"localhost:8080"}
+        {"level":"info","ts":1693567374.992705,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000239084,"size":69}
+        {"level":"info","ts":1693567374.994227,"caller":"logger/logger.go:48","msg":"","uri":"/update/","method":"POST","status":0,"duration":0.00015875,"size":85}
+        {"level":"info","ts":1693567374.994984,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000185167,"size":85}
+        {"level":"info","ts":1693567379.77442,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/BuckHashSys/4181.00","method":"POST","status":200,"duration":0.000090958,"size":0}
+        {"level":"info","ts":1693567379.774813,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Sys/8064016.00","method":"POST","status":200,"duration":0.000012458,"size":0}
+        {"level":"info","ts":1693567379.7749639,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/TotalAlloc/398280.00","method":"POST","status":200,"duration":0.000004209,"size":0}
+        {"level":"info","ts":1693567379.775151,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/RandomValue/0.74","method":"POST","status":200,"duration":0.000007375,"size":0}
+        {"level":"info","ts":1693567379.77546,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/GCCPUFraction/0.00","method":"POST","status":200,"duration":0.000006291,"size":0}
+        {"level":"info","ts":1693567379.7756438,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapAlloc/398280.00","method":"POST","status":200,"duration":0.000004333,"size":0}
+        {"level":"info","ts":1693567379.775771,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapSys/3801088.00","method":"POST","status":200,"duration":0.00000525,"size":0}
+        {"level":"info","ts":1693567379.775944,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/NextGC/4194304.00","method":"POST","status":200,"duration":0.000009209,"size":0}
+        {"level":"info","ts":1693567379.7760808,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/NumGC/0.00","method":"POST","status":200,"duration":0.000003916,"size":0}
+        {"level":"info","ts":1693567379.776503,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/PauseTotalNs/0.00","method":"POST","status":200,"duration":0.000005125,"size":0}
+        {"level":"info","ts":1693567379.776722,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/StackSys/393216.00","method":"POST","status":200,"duration":0.000005416,"size":0}
+        {"level":"info","ts":1693567379.7768462,"caller":"logger/logger.go:48","msg":"","uri":"/update/counter/PollCount/10","method":"POST","status":200,"duration":0.000005,"size":0}
+        {"level":"info","ts":1693567379.776994,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/OtherSys/933131.00","method":"POST","status":200,"duration":0.000027208,"size":0}
+        {"level":"info","ts":1693567379.77713,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Frees/124.00","method":"POST","status":200,"duration":0.000004417,"size":0}
+        {"level":"info","ts":1693567379.777272,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapReleased/2580480.00","method":"POST","status":200,"duration":0.000027875,"size":0}
+        {"level":"info","ts":1693567379.7773912,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MSpanSys/48960.00","method":"POST","status":200,"duration":0.00000425,"size":0}
+        {"level":"info","ts":1693567379.7775092,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Alloc/398280.00","method":"POST","status":200,"duration":0.000004084,"size":0}
+        {"level":"info","ts":1693567379.777618,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapIdle/2711552.00","method":"POST","status":200,"duration":0.000003583,"size":0}
+        {"level":"info","ts":1693567379.777743,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Lookups/0.00","method":"POST","status":200,"duration":0.000003667,"size":0}
+        {"level":"info","ts":1693567379.777877,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/Mallocs/3624.00","method":"POST","status":200,"duration":0.000004167,"size":0}
+        {"level":"info","ts":1693567379.777997,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/NumForcedGC/0.00","method":"POST","status":200,"duration":0.000003791,"size":0}
+        {"level":"info","ts":1693567379.778131,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapInuse/1089536.00","method":"POST","status":200,"duration":0.0000035,"size":0}
+        {"level":"info","ts":1693567379.7782662,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/LastGC/0.00","method":"POST","status":200,"duration":0.000012042,"size":0}
+        {"level":"info","ts":1693567379.7784069,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MCacheSys/15600.00","method":"POST","status":200,"duration":0.000003792,"size":0}
+        {"level":"info","ts":1693567379.778888,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/StackInuse/393216.00","method":"POST","status":200,"duration":0.000004417,"size":0}
+        {"level":"info","ts":1693567379.779124,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/GCSys/2867840.00","method":"POST","status":200,"duration":0.000044791,"size":0}
+        {"level":"info","ts":1693567379.779477,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/HeapObjects/3500.00","method":"POST","status":200,"duration":0.000006958,"size":0}
+        {"level":"info","ts":1693567379.779688,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MCacheInuse/9600.00","method":"POST","status":200,"duration":0.000005459,"size":0}
+        {"level":"info","ts":1693567379.779937,"caller":"logger/logger.go:48","msg":"","uri":"/update/gauge/MSpanInuse/33760.00","method":"POST","status":200,"duration":0.000008583,"size":0}
+=== RUN   TestIteration9/TestGaugeHandlers/get
+    iteration9_test.go:387: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration9_test.go:387
+        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 302492.16248748417
+        	            	actual  : 0
+        	Test:       	TestIteration9/TestGaugeHandlers/get
+        	Messages:   	Несоответствие ожидаемого значения gauge (302492.162487) полученному от сервера (0.000000), '"POST" http://localhost:8080/value/'
+    iteration9_test.go:392: Оригинальный запрос:
+        
+        POST /value/ HTTP/1.1
+        Host: localhost:8080
+        Accept: application/json
+        Content-Type: application/json
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration9_test.go:394: Оригинальный ответ:
+        
+=== NAME  TestIteration9
+    iteration9_test.go:157: Получен STDOUT лог процесса:
+        
+        Post "http://localhost:8080/update/gauge/Frees/10.00": EOF
+        Post "http://localhost:8080/update/gauge/HeapReleased/3162112.00": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/MSpanSys/48960.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/TotalAlloc/172088.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCSys/2874008.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapInuse/1122304.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/OtherSys/926963.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapIdle/2678784.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Mallocs/4239.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackInuse/393216.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/counter/PollCount/10": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/RandomValue/0.21": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapReleased/2613248.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Alloc/172240.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapIdle/3227648.00": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Sys/8064016.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Frees/158.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/StackSys/393216.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapObjects/4081.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Mallocs/659.00": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/TotalAlloc/412712.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/BuckHashSys/4181.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapSys/3801088.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MSpanInuse/33760.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/MSpanSys/48960.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapInuse/638976.00": dial tcp [::1]:8080: connect: connection refused
         Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/Alloc/412712.00": dial tcp [::1]:8080: connect: connection refused
-        Post "http://localhost:8080/update/gauge/HeapAlloc/412712.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackInuse/327680.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCSys/2799992.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapObjects/649.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanInuse/33760.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/BuckHashSys/4181.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Sys/8064016.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/TotalAlloc/172240.00": dial tcp [::1]:8080: connect: connection refused
         interrupt
-    iteration7_test.go:119: Процесс завершился с не нулевым статусом 2
-    iteration7_test.go:131: Получен STDOUT лог процесса:
+    iteration9_test.go:126: Получен STDOUT лог процесса:
         
-        cmd/server/server flag redefined: a
-        panic: cmd/server/server flag redefined: a
-        
-        goroutine 1 [running]:
-        flag.(*FlagSet).Var(0x1400012c120, {0x100816098, 0x14000100120}, {0x100710667, 0x1}, {0x100712368, 0xa})
-        	/usr/local/go/src/flag/flag.go:982 +0x2a4
-        flag.StringVar(...)
-        	/usr/local/go/src/flag/flag.go:853
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/config/serverConfig.ParseServerConfig()
-        	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/internal/config/serverConfig/config.go:53 +0x1dc
-        main.main()
-        	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/cmd/server/main.go:17 +0x20
---- FAIL: TestIteration7 (20.12s)
-    --- FAIL: TestIteration7/TestCollectAgentMetrics (0.11s)
-    --- FAIL: TestIteration7/TestCounterHandlers (0.00s)
-        --- FAIL: TestIteration7/TestCounterHandlers/update (0.00s)
-    --- PASS: TestIteration7/TestEncoderUsage (0.01s)
-    --- FAIL: TestIteration7/TestGaugeHandlers (0.00s)
-        --- FAIL: TestIteration7/TestGaugeHandlers/update (0.00s)
-=== RUN   TestIteration8
-    iteration8_test.go:36: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration8_test.go:36
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:53
-        	Error:      	Should NOT be empty, but was 
-        	Test:       	TestIteration8
-        	Messages:   	-server-port non-empty flag required
---- FAIL: TestIteration8 (0.00s)
-=== RUN   TestIteration9
-    iteration9_test.go:36: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration9_test.go:36
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
-        	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:57
-        	Error:      	Should NOT be empty, but was 
-        	Test:       	TestIteration9
-        	Messages:   	-server-port non-empty flag required
---- FAIL: TestIteration9 (0.00s)
+        {"level":"info","ts":1693567380.018795,"caller":"server/main.go:47","msg":"Running serverConfig","address":"localhost:8080"}
+        {"level":"info","ts":1693567380.1125278,"caller":"logger/logger.go:48","msg":"","uri":"/value/","method":"POST","status":0,"duration":0.000304417,"size":68}
+--- FAIL: TestIteration9 (20.35s)
+    --- FAIL: TestIteration9/TestCounterHandlers (5.11s)
+        --- PASS: TestIteration9/TestCounterHandlers/update (0.00s)
+        --- PASS: TestIteration9/TestCounterHandlers/restart_server (5.11s)
+        --- FAIL: TestIteration9/TestCounterHandlers/get (0.00s)
+    --- FAIL: TestIteration9/TestGaugeHandlers (5.12s)
+        --- PASS: TestIteration9/TestGaugeHandlers/update (0.00s)
+        --- PASS: TestIteration9/TestGaugeHandlers/restart_server (5.12s)
+        --- FAIL: TestIteration9/TestGaugeHandlers/get (0.00s)
 === RUN   TestIteration10A
-    iteration10a_test.go:33: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration10a_test.go:33
+    iteration10a_test.go:34: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration10a_test.go:34
         	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
         	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:61
         	Error:      	Should NOT be empty, but was 
         	Test:       	TestIteration10A
-        	Messages:   	-server-port non-empty flag required
+        	Messages:   	-database-dsn non-empty flag required
 --- FAIL: TestIteration10A (0.00s)
 === RUN   TestIteration10B
-    iteration10b_test.go:32: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration10b_test.go:32
+    iteration10b_test.go:33: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration10b_test.go:33
         	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
         	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:65
         	Error:      	Should NOT be empty, but was 
         	Test:       	TestIteration10B
-        	Messages:   	-server-port non-empty flag required
+        	Messages:   	-database-dsn non-empty flag required
 --- FAIL: TestIteration10B (0.00s)
 === RUN   TestIteration11
-    iteration11_test.go:40: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration11_test.go:40
+    iteration11_test.go:41: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration11_test.go:41
         	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
         	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:69
         	Error:      	Should NOT be empty, but was 
         	Test:       	TestIteration11
-        	Messages:   	-server-port non-empty flag required
+        	Messages:   	-database-dsn non-empty flag required
 --- FAIL: TestIteration11 (0.00s)
 === RUN   TestIteration12
-    iteration12_test.go:39: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration12_test.go:39
+    iteration12_test.go:40: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration12_test.go:40
         	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
         	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:73
         	Error:      	Should NOT be empty, but was 
         	Test:       	TestIteration12
-        	Messages:   	-server-port non-empty flag required
+        	Messages:   	-database-dsn non-empty flag required
 --- FAIL: TestIteration12 (0.00s)
 === RUN   TestIteration13
-    iteration13_test.go:35: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration13_test.go:35
+    iteration13_test.go:36: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration13_test.go:36
         	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
         	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:77
         	Error:      	Should NOT be empty, but was 
         	Test:       	TestIteration13
-        	Messages:   	-server-port non-empty flag required
+        	Messages:   	-database-dsn non-empty flag required
 --- FAIL: TestIteration13 (0.00s)
 === RUN   TestIteration14
-    iteration14_test.go:38: 
-        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration14_test.go:38
+    iteration14_test.go:39: 
+        	Error Trace:	/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/iteration14_test.go:39
         	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/suite.go:132
         	            				/Users/nikitabar/Dev/test_metric/metrics_and_alertinc/main_test.go:81
         	Error:      	Should NOT be empty, but was 
         	Test:       	TestIteration14
-        	Messages:   	-server-port non-empty flag required
+        	Messages:   	-key non-empty flag required
 --- FAIL: TestIteration14 (0.00s)
 FAIL

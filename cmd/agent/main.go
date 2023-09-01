@@ -20,7 +20,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("config err : %s\n", err)
 	}
-
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 

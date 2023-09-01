@@ -30,21 +30,34 @@ func NewMemStorage() *MemStorage {
 
 type MemStorage struct {
 	MemStorageMap map[string]MemStorageStruct
+	onUpdate      func()
 	mu            sync.RWMutex
+}
+
+func (m *MemStorage) SetOnUpdate(fn func()) {
+	m.onUpdate = fn
 }
 
 func (m *MemStorage) UpdateGaugeMetric(key string, value float64) {
 	m.mu.Lock()
-	defer m.mu.Unlock()
 	m.MemStorageMap[key] = MemStorageStruct{ID: key, MType: "gauge", Value: value}
+	fn := m.onUpdate
+	m.mu.Unlock()
+	if fn != nil {
+		fn()
+	}
 }
 
 func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
 	m.mu.Lock()
-	defer m.mu.Unlock()
 	metricValue := m.MemStorageMap[key].Delta
 	metricValue += value
 	m.MemStorageMap[key] = MemStorageStruct{ID: key, MType: "counter", Delta: metricValue}
+	fn := m.onUpdate
+	m.mu.Unlock()
+	if fn != nil {
+		fn()
+	}
 }
 
 func (m *MemStorage) ReadDefinitelyMetric(key string) (MemStorageStruct, error) {
@@ -71,10 +84,27 @@ func (m *MemStorage) GetAllMetric() []string {
 		metricType := m.MemStorageMap[metricName].MType
 		switch metricType {
 		case "gauge":
-			metricSlice = append(metricSlice, fmt.Sprintf("%s = %2f", metricName, metricValue.Delta))
+			metricSlice = append(metricSlice, fmt.Sprintf("%s = %d", metricName, metricValue.Delta))
 		case "counter":
-			metricSlice = append(metricSlice, fmt.Sprintf("%s = %d", metricName, metricValue.Value))
+			metricSlice = append(metricSlice, fmt.Sprintf("%s = %2f", metricName, metricValue.Value))
 		}
 	}
 	return metricSlice
+}
+
+func (m *MemStorage) GetAllMetricSlice() []MemStorageStruct {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+	metricSlice := make([]MemStorageStruct, 0, len(m.MemStorageMap))
+	for metricName, _ := range m.MemStorageMap {
+		metricSlice = append(metricSlice, m.MemStorageMap[metricName])
+
+	}
+	return metricSlice
+}
+
+func (m *MemStorage) PutMetricMap(data map[string]MemStorageStruct) {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	m.MemStorageMap = data
 }
