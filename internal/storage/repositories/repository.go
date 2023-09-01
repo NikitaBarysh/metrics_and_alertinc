@@ -67,7 +67,7 @@ func (m *MemStorage) ReadDefinitelyMetric(key string) (MemStorageStruct, error) 
 	if ok {
 		return metricStruct, nil
 	}
-	return MemStorageStruct{}, models.ErrNotFound
+	return metricStruct, models.ErrNotFound
 }
 
 func (m *MemStorage) ReadMetric() map[string]MemStorageStruct {
