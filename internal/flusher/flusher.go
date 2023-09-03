@@ -3,9 +3,10 @@ package flusher
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/restorer"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
-	"time"
 )
 
 type Flusher struct {

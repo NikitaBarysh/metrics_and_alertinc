@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"context"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -54,7 +55,7 @@ func TestHandler_Safe(t *testing.T) {
 
 			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
 			rw := httptest.NewRecorder()
-			handler := NewHandler(repositories.NewMemStorage())
+			handler := NewHandler(repositories.NewMemStorage(), logger.NewLoggingVar())
 			handler.Safe(rw, r)
 
 			res := rw.Result()
@@ -104,7 +105,7 @@ func TestHandler_GetGaugeMetric(t *testing.T) {
 
 			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
 			rw := httptest.NewRecorder()
-			handler := NewHandler(testStorage)
+			handler := NewHandler(testStorage, logger.NewLoggingVar())
 			handler.Get(rw, r)
 
 			res := rw.Result()
@@ -148,7 +149,7 @@ func TestHandler_GetCounterMetric(t *testing.T) {
 
 			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
 			rw := httptest.NewRecorder()
-			handler := NewHandler(testStorage)
+			handler := NewHandler(testStorage, logger.NewLoggingVar())
 			handler.Get(rw, r)
 
 			res := rw.Result()
@@ -196,7 +197,7 @@ func TestHandler_GetAll(t *testing.T) {
 
 			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
 			rw := httptest.NewRecorder()
-			handler := NewHandler(testStorage)
+			handler := NewHandler(testStorage, logger.NewLoggingVar())
 			handler.GetAll(rw, r)
 
 			res := rw.Result()

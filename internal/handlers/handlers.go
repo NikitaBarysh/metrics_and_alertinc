@@ -4,13 +4,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/models"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 	"go.uber.org/zap"
 	"io"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/models"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 
 	"github.com/go-chi/chi/v5"
 )
@@ -25,11 +26,13 @@ type storage interface {
 
 type Handler struct {
 	storage storage
+	logger  logger.LoggingVar
 }
 
-func NewHandler(storage storage) *Handler {
+func NewHandler(storage storage, logger *logger.LoggingVar) *Handler {
 	return &Handler{
 		storage,
+		*logger,
 	}
 }
 
@@ -103,7 +106,7 @@ func (h *Handler) GetJSON(rw http.ResponseWriter, r *http.Request) {
 	var req models.Metrics
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		fmt.Println("ddecoder: ", err)
-		logger.Log.Fatal("error decode getJSON", zap.Error(err))
+		h.logger.Log.Fatal("error decode getJSON", zap.Error(err))
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -127,14 +130,14 @@ func (h *Handler) GetJSON(rw http.ResponseWriter, r *http.Request) {
 	rw.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(rw).Encode(req); err != nil {
 		fmt.Println("encoder: ", err)
-		logger.Log.Fatal("error encoding getJSON", zap.Error(err))
+		h.logger.Log.Fatal("error encoding getJSON", zap.Error(err))
 	}
 }
 
 func (h *Handler) SafeJSON(rw http.ResponseWriter, r *http.Request) {
 	var req models.Metrics
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		logger.Log.Debug("error  decode safeJSON", zap.Error(err))
+		h.logger.Log.Debug("error  decode safeJSON", zap.Error(err))
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -159,6 +162,6 @@ func (h *Handler) SafeJSON(rw http.ResponseWriter, r *http.Request) {
 
 	rw.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(rw).Encode(req); err != nil {
-		logger.Log.Debug("error encoding safeJSON", zap.Error(err))
+		h.logger.Log.Debug("error encoding safeJSON", zap.Error(err))
 	}
 }

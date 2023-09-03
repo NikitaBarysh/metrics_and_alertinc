@@ -4,9 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/http"
+
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/compress"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
-	"net/http"
 )
 
 type Sender struct{}

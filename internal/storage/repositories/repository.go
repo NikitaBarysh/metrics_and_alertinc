@@ -2,8 +2,9 @@ package repositories
 
 import (
 	"fmt"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/models"
 	"sync"
+
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/models"
 )
 
 func NewMemStorageStruct(id, mType string, delta int64, value float64) MemStorageStruct {

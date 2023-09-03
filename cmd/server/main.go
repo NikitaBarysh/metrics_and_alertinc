@@ -2,17 +2,21 @@ package main
 
 import (
 	"context"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/config/server"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/flusher"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/restorer"
 	"go.uber.org/zap"
 	"log"
 	"net/http"
 
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/config/server"
+
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/flusher"
+
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/restorer"
+
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/router"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
+
 	"github.com/go-chi/chi/v5"
 )
 
@@ -27,7 +31,8 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	logger.Initialize(cfg.LogLevel)
+	loggingVar := logger.NewLoggingVar()
+	loggingVar.Initialize(cfg.LogLevel)
 
 	memStorage := repositories.NewMemStorage()
 
@@ -40,11 +45,11 @@ func main() {
 		memStorage.SetOnUpdate(flush.SyncFlush)
 	}
 
-	handler := handlers.NewHandler(memStorage)
+	handler := handlers.NewHandler(memStorage, loggingVar)
 	router := router.NewRouter(handler)
 	chiRouter := chi.NewRouter()
 	chiRouter.Mount("/", router.Register())
-	logger.Log.Info("Running server", zap.String("address", cfg.RunAddr))
+	loggingVar.Log.Info("Running server", zap.String("address", cfg.RunAddr))
 	err := http.ListenAndServe(cfg.RunAddr, chiRouter)
 	if err != nil {
 		panic(err)

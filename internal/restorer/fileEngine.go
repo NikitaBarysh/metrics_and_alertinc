@@ -4,9 +4,10 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 	"os"
 	"sync"
+
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 )
 
 type FileEngine struct {
