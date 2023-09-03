@@ -255,7 +255,12 @@ jobs:
           SERVER_PORT=$(random unused-port)
           ADDRESS="localhost:${SERVER_PORT}"
           TEMP_FILE=$(random tempfile)
-          metricstest -test.v  -agent-binary-path=cmd/agent/agent -binary-path=cmd/server/server -file-storage-path=/tmp/data.json -server-port=8080 -source-path=. >result.log
+          metricstest -test.v -test.run=^TestIteration9$ \
+            -agent-binary-path=cmd/agent/agent \
+            -binary-path=cmd/server/server \
+            -file-storage-path=$TEMP_FILE \
+            -server-port=$SERVER_PORT \
+            -source-path=.
 
       - name: "Code increment #10"
         if: |
