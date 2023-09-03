@@ -46,5 +46,5 @@ func (l LoggingVar) Debug(msg string, opt ...any) {
 }
 
 func (l LoggingVar) Fatal(msg string, opt ...any) {
-	l.Log.Fatal(fmt.Sprintf(fmt.Sprintf(msg, opt...)))
+	l.Log.Fatal(fmt.Sprintf(msg, opt...))
 }
