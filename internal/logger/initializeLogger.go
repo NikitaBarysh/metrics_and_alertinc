@@ -25,11 +25,6 @@ func (l LoggingVar) Initialize(level string) error {
 	cfg := zap.NewProductionConfig()
 	cfg.Level = lvl
 
-	zl, err := cfg.Build()
-	if err != nil {
-		return fmt.Errorf("ошибка при билдинге логера: %w", err)
-	}
-	l.Log = zl
 	return nil
 }
 
