@@ -142,6 +142,7 @@ func (h *Handler) SafeJSON(rw http.ResponseWriter, r *http.Request) {
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	defer r.Body.Close()
 	fmt.Println("step 2")
 	switch req.MType {
 	case "gauge":
