@@ -136,12 +136,13 @@ func (h *Handler) GetJSON(rw http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) SafeJSON(rw http.ResponseWriter, r *http.Request) {
 	var req models.Metrics
+	fmt.Println("step 1")
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		h.logger.Log.Debug("error  decode safeJSON", zap.Error(err))
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
+	fmt.Println("step 2")
 	switch req.MType {
 	case "gauge":
 		if req.Value == nil {
@@ -159,9 +160,10 @@ func (h *Handler) SafeJSON(rw http.ResponseWriter, r *http.Request) {
 		rw.WriteHeader(http.StatusNotImplemented)
 		return
 	}
-
+	fmt.Println("step 3")
 	rw.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(rw).Encode(req); err != nil {
 		h.logger.Log.Debug("error encoding safeJSON", zap.Error(err))
 	}
+	fmt.Println("step 4")
 }

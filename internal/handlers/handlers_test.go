@@ -55,7 +55,7 @@ func TestHandler_Safe(t *testing.T) {
 
 			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
 			rw := httptest.NewRecorder()
-			handler := NewHandler(repositories.NewMemStorage(), logger.NewLoggingVar())
+			handler := NewHandler(repositories.NewMemStorage(nil), logger.NewLoggingVar())
 			handler.Safe(rw, r)
 
 			res := rw.Result()
@@ -92,7 +92,7 @@ func TestHandler_GetGaugeMetric(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			testStorage := repositories.NewMemStorage()
+			testStorage := repositories.NewMemStorage(nil)
 			for k, v := range tt.metrics {
 				testStorage.UpdateGaugeMetric(k, v)
 			}
@@ -136,7 +136,7 @@ func TestHandler_GetCounterMetric(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			testStorage := repositories.NewMemStorage()
+			testStorage := repositories.NewMemStorage(nil)
 			for k, v := range tt.metrics {
 				testStorage.UpdateCounterMetric(k, v)
 			}
@@ -184,7 +184,7 @@ func TestHandler_GetAll(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			testStorage := repositories.NewMemStorage()
+			testStorage := repositories.NewMemStorage(nil)
 			for k, v := range tt.metrics {
 				testStorage.UpdateGaugeMetric(k, v)
 			}

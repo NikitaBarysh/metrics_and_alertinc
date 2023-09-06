@@ -26,7 +26,7 @@ func main() {
 	termSignal := make(chan os.Signal, 1)
 	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 
-	memStorage := repositories.NewMemStorage()
+	memStorage := repositories.NewMemStorage(nil)
 	sender := sender.NewSender()
 	newMetricAction := storage.NewMetricAction(memStorage, sender)
 	go newMetricAction.Run(ctx, cfg.PollInterval, cfg.ReportInterval, cfg.URL)

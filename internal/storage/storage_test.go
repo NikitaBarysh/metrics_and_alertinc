@@ -48,7 +48,7 @@ func TestMetricAction(t *testing.T) {
 				url: "http://localhost:8080/update/gauge/Alloc/134",
 			},
 			fields: fields{
-				MemStorage: repositories.NewMemStorage(),
+				MemStorage: repositories.NewMemStorage(nil),
 				sender:     sender2.NewSender(),
 			},
 		},

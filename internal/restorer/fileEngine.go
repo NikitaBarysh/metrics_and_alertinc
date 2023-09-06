@@ -21,7 +21,7 @@ func NewFileEngine(storePath string) *FileEngine {
 	}
 }
 
-func (f *FileEngine) WriteFile(data map[string]repositories.MemStorageStruct) error {
+func (f *FileEngine) Flush(data map[string]repositories.MemStorageStruct) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	file, err := os.OpenFile(f.storePath, os.O_CREATE|os.O_WRONLY, 0666)
@@ -43,7 +43,7 @@ func (f *FileEngine) WriteFile(data map[string]repositories.MemStorageStruct) er
 	return nil
 }
 
-func (f *FileEngine) ReadFile() (map[string]repositories.MemStorageStruct, error) {
+func (f *FileEngine) Restore() (map[string]repositories.MemStorageStruct, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	metricMap := make(map[string]repositories.MemStorageStruct)

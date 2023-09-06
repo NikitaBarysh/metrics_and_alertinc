@@ -23,30 +23,41 @@ type MemStorageStruct struct {
 	Value float64 `json:"value,omitempty"` // значение метрики в случае передачи gauge
 }
 
-func NewMemStorage() *MemStorage {
-	return &MemStorage{
-		MemStorageMap: make(map[string]MemStorageStruct),
-	}
+type keeper interface {
+	Restore() (map[string]MemStorageStruct, error)
+	Flush(data map[string]MemStorageStruct) error
 }
 
 type MemStorage struct {
 	MemStorageMap map[string]MemStorageStruct
-	onUpdate      func()
+	Keeper        keeper
 	mu            sync.RWMutex
 }
 
-func (m *MemStorage) SetOnUpdate(fn func()) {
-	m.onUpdate = fn
+func NewMemStorage(keeper keeper) *MemStorage {
+	var data map[string]MemStorageStruct
+	if keeper == nil {
+		data = make(map[string]MemStorageStruct)
+	} else {
+		data, _ = keeper.Restore()
+	}
+	storage := &MemStorage{
+		MemStorageMap: data,
+		Keeper:        keeper,
+	}
+	return storage
+}
+
+func (m *MemStorage) SaveData() {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+	m.Keeper.Flush(m.MemStorageMap)
 }
 
 func (m *MemStorage) UpdateGaugeMetric(key string, value float64) {
 	m.mu.Lock()
 	m.MemStorageMap[key] = MemStorageStruct{ID: key, MType: "gauge", Value: value}
-	fn := m.onUpdate
 	m.mu.Unlock()
-	if fn != nil {
-		fn()
-	}
 }
 
 func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
@@ -54,11 +65,8 @@ func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
 	metricValue := m.MemStorageMap[key].Delta
 	metricValue += value
 	m.MemStorageMap[key] = MemStorageStruct{ID: key, MType: "counter", Delta: metricValue}
-	fn := m.onUpdate
 	m.mu.Unlock()
-	if fn != nil {
-		fn()
-	}
+
 }
 
 func (m *MemStorage) ReadDefinitelyMetric(key string) (MemStorageStruct, error) {

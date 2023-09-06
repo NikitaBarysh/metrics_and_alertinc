@@ -2,14 +2,14 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
 	"go.uber.org/zap"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/config/server"
-
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/flusher"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/restorer"
 
@@ -34,16 +34,10 @@ func main() {
 	loggingVar := logger.NewLoggingVar()
 	loggingVar.Initialize(cfg.LogLevel)
 
-	memStorage := repositories.NewMemStorage()
+	memStorage := repositories.NewMemStorage(file)
+	fmt.Println("main")
 
-	flush := flusher.NewFlusher(memStorage, file)
-	flush.Restorer()
-
-	if cfg.StoreInterval != 0 {
-		go flush.Flush(ctx, cfg.StoreInterval)
-	} else {
-		memStorage.SetOnUpdate(flush.SyncFlush)
-	}
+	go TimeTicker(ctx, cfg.StoreInterval, memStorage)
 
 	handler := handlers.NewHandler(memStorage, loggingVar)
 	router := router.NewRouter(handler)
@@ -53,5 +47,21 @@ func main() {
 	err := http.ListenAndServe(cfg.RunAddr, chiRouter)
 	if err != nil {
 		panic(err)
+	}
+}
+
+func TimeTicker(ctx context.Context, interval uint64, storage *repositories.MemStorage) {
+	if interval < 1 {
+		interval = 1
+	}
+	ticker := time.NewTicker(time.Second * time.Duration(interval))
+	defer ticker.Stop()
+	for {
+		select {
+		case <-ticker.C:
+			storage.SaveData()
+		case <-ctx.Done():
+			return
+		}
 	}
 }
