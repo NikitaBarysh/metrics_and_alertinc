@@ -35,12 +35,14 @@ type MemStorage struct {
 }
 
 func NewMemStorage(keeper keeper) *MemStorage {
-	var data map[string]MemStorageStruct
-	if keeper == nil {
-		data = make(map[string]MemStorageStruct)
-	} else {
-		data, _ = keeper.Restore()
+	data := make(map[string]MemStorageStruct)
+	if keeper != nil {
+		restorerData, err := keeper.Restore()
+		if err == nil {
+			data = restorerData
+		}
 	}
+
 	storage := &MemStorage{
 		MemStorageMap: data,
 		Keeper:        keeper,
@@ -56,17 +58,16 @@ func (m *MemStorage) SaveData() {
 
 func (m *MemStorage) UpdateGaugeMetric(key string, value float64) {
 	m.mu.Lock()
+	defer m.mu.Unlock()
 	m.MemStorageMap[key] = MemStorageStruct{ID: key, MType: "gauge", Value: value}
-	m.mu.Unlock()
 }
 
 func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
 	m.mu.Lock()
+	defer m.mu.Unlock()
 	metricValue := m.MemStorageMap[key].Delta
 	metricValue += value
 	m.MemStorageMap[key] = MemStorageStruct{ID: key, MType: "counter", Delta: metricValue}
-	m.mu.Unlock()
-
 }
 
 func (m *MemStorage) ReadDefinitelyMetric(key string) (MemStorageStruct, error) {

@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
 	"go.uber.org/zap"
 	"log"
@@ -35,7 +34,6 @@ func main() {
 	loggingVar.Initialize(cfg.LogLevel)
 
 	memStorage := repositories.NewMemStorage(file)
-	fmt.Println("main")
 
 	go TimeTicker(ctx, cfg.StoreInterval, memStorage)
 

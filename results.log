@@ -1,10 +1,88 @@
 === RUN   TestIteration9
 === RUN   TestIteration9/TestCounterHandlers
 === RUN   TestIteration9/TestCounterHandlers/update
-    iteration9_test.go:209: 
-        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration9_test.go:209
+=== RUN   TestIteration9/TestCounterHandlers/restart_server
+=== RUN   TestIteration9/TestCounterHandlers/get
+    iteration9_test.go:281: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration9_test.go:281
         	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
-        	Error:      	Received unexpected error:
-        	            	Post "http://localhost:8080/update/": EOF
-        	Test:       	TestIteration9/TestCounterHandlers/update
-        	Messages:   	Ошибка при попытке сделать запрос с обновлением counter
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 404
+        	Test:       	TestIteration9/TestCounterHandlers/get
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере "POST": "http://localhost:8080/value/" 
+    iteration9_test.go:296: Оригинальный запрос:
+        
+        POST /value/ HTTP/1.1
+        Host: localhost:8080
+        Accept: application/json
+        Content-Type: application/json
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration9_test.go:298: Оригинальный ответ:
+        
+=== RUN   TestIteration9/TestGaugeHandlers
+=== RUN   TestIteration9/TestGaugeHandlers/update
+=== RUN   TestIteration9/TestGaugeHandlers/restart_server
+=== RUN   TestIteration9/TestGaugeHandlers/get
+    iteration9_test.go:381: 
+        	Error Trace:	/Users/nikitabar/Dev/metrics_and_alertinc/iteration9_test.go:381
+        	            				/Users/nikitabar/Dev/metrics_and_alertinc/suite.go:91
+        	Error:      	Not equal: 
+        	            	expected: 200
+        	            	actual  : 404
+        	Test:       	TestIteration9/TestGaugeHandlers/get
+        	Messages:   	Несоответствие статус кода ответа ожидаемому в хендлере "POST": "http://localhost:8080/value/" 
+    iteration9_test.go:392: Оригинальный запрос:
+        
+        POST /value/ HTTP/1.1
+        Host: localhost:8080
+        Accept: application/json
+        Content-Type: application/json
+        User-Agent: go-resty/2.7.0 (https://github.com/go-resty/resty)
+        
+    iteration9_test.go:394: Оригинальный ответ:
+        
+=== NAME  TestIteration9
+    iteration9_test.go:157: Получен STDOUT лог процесса:
+        
+        Post "http://localhost:8080/update/gauge/HeapReleased/3186688.00": EOF
+        Post "http://localhost:8080/update/gauge/HeapSys/3866624.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanSys/48960.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Sys/7801872.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Frees/9.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Mallocs/589.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapIdle/3186688.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapObjects/580.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/GCSys/2793824.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/MSpanInuse/33760.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackSys/327680.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/StackInuse/327680.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/Alloc/168576.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/BuckHashSys/4173.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapAlloc/168576.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/OtherSys/745011.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/TotalAlloc/168576.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/RandomValue/0.76": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/HeapInuse/679936.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
+        interrupt
+--- FAIL: TestIteration9 (20.38s)
+    --- FAIL: TestIteration9/TestCounterHandlers (5.13s)
+        --- PASS: TestIteration9/TestCounterHandlers/update (0.01s)
+        --- PASS: TestIteration9/TestCounterHandlers/restart_server (5.11s)
+        --- FAIL: TestIteration9/TestCounterHandlers/get (0.00s)
+    --- FAIL: TestIteration9/TestGaugeHandlers (5.12s)
+        --- PASS: TestIteration9/TestGaugeHandlers/update (0.00s)
+        --- PASS: TestIteration9/TestGaugeHandlers/restart_server (5.11s)
+        --- FAIL: TestIteration9/TestGaugeHandlers/get (0.00s)
+FAIL
