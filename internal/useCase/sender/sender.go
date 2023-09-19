@@ -4,10 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"net/http"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/compress"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 )
 
 type Sender struct{}
@@ -16,7 +16,7 @@ func NewSender() *Sender {
 	return &Sender{}
 }
 
-func (s *Sender) SendPost(ctx context.Context, url string, storage repositories.MemStorageStruct) {
+func (s *Sender) SendPost(ctx context.Context, url string, storage service.Metric) {
 	request, err := http.NewRequest(http.MethodPost, url, nil)
 	request = request.WithContext(ctx)
 	if err != nil {
@@ -32,7 +32,7 @@ func (s *Sender) SendPost(ctx context.Context, url string, storage repositories.
 	res.Body.Close()
 }
 
-func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage repositories.MemStorageStruct) {
+func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage service.Metric) {
 	data, err := json.Marshal(storage)
 	if err != nil {
 		panic(err)

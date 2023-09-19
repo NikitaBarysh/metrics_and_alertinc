@@ -3,11 +3,11 @@ package handlers
 import (
 	"context"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 	"github.com/go-chi/chi/v5"
 	"github.com/stretchr/testify/assert"
 )
@@ -55,7 +55,7 @@ func TestHandler_Safe(t *testing.T) {
 
 			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
 			rw := httptest.NewRecorder()
-			handler := NewHandler(repositories.NewMemStorage(), logger.NewLoggingVar())
+			handler := NewHandler(service.NewMemStorage(), logger.NewLoggingVar())
 			handler.Safe(rw, r)
 
 			res := rw.Result()
@@ -92,7 +92,7 @@ func TestHandler_GetGaugeMetric(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			testStorage := repositories.NewMemStorage()
+			testStorage := service.NewMemStorage()
 			for k, v := range tt.metrics {
 				testStorage.UpdateGaugeMetric(k, v)
 			}
@@ -136,7 +136,7 @@ func TestHandler_GetCounterMetric(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			testStorage := repositories.NewMemStorage()
+			testStorage := service.NewMemStorage()
 			for k, v := range tt.metrics {
 				testStorage.UpdateCounterMetric(k, v)
 			}
@@ -184,7 +184,7 @@ func TestHandler_GetAll(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			testStorage := repositories.NewMemStorage()
+			testStorage := service.NewMemStorage()
 			for k, v := range tt.metrics {
 				testStorage.UpdateGaugeMetric(k, v)
 			}

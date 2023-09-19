@@ -3,18 +3,18 @@ package flusher
 import (
 	"context"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"time"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/restorer"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 )
 
 type Flusher struct {
-	getMetric  *repositories.MemStorage
+	getMetric  *service.MemStorage
 	fileEngine *restorer.FileEngine
 }
 
-func NewFlusher(metric *repositories.MemStorage, fileEngine *restorer.FileEngine) *Flusher {
+func NewFlusher(metric *service.MemStorage, fileEngine *restorer.FileEngine) *Flusher {
 	return &Flusher{
 		getMetric:  metric,
 		fileEngine: fileEngine,

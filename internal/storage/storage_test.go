@@ -2,10 +2,10 @@ package storage
 
 import (
 	"context"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
+	sender2 "github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/sender"
 	"testing"
 
-	sender2 "github.com/NikitaBarysh/metrics_and_alertinc/internal/sender"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -14,7 +14,7 @@ type senderMock struct {
 	url string
 }
 
-func (s *senderMock) SendPost(ctx context.Context, url string, storage repositories.MemStorageStruct) {
+func (s *senderMock) SendPost(ctx context.Context, url string, storage service.Metric) {
 	if url != s.url {
 		assert.Fail(s.t, "url not equal")
 	}
@@ -29,7 +29,7 @@ func newSenderMock(t *testing.T, url string) *senderMock {
 
 func TestMetricAction(t *testing.T) {
 	type fields struct {
-		MemStorage *repositories.MemStorage
+		MemStorage *service.MemStorage
 		sender     sender
 	}
 	type args struct {
@@ -48,7 +48,7 @@ func TestMetricAction(t *testing.T) {
 				url: "http://localhost:8080/update/gauge/Alloc/134",
 			},
 			fields: fields{
-				MemStorage: repositories.NewMemStorage(),
+				MemStorage: service.NewMemStorage(),
 				sender:     sender2.NewSender(),
 			},
 		},

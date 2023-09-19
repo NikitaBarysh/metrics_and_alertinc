@@ -4,10 +4,9 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"os"
 	"sync"
-
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 )
 
 type FileEngine struct {
@@ -21,7 +20,7 @@ func NewFileEngine(storePath string) *FileEngine {
 	}
 }
 
-func (f *FileEngine) WriteFile(data map[string]repositories.MemStorageStruct) error {
+func (f *FileEngine) WriteFile(data map[string]service.Metric) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	file, err := os.OpenFile(f.storePath, os.O_CREATE|os.O_WRONLY, 0666)
@@ -43,10 +42,10 @@ func (f *FileEngine) WriteFile(data map[string]repositories.MemStorageStruct) er
 	return nil
 }
 
-func (f *FileEngine) ReadFile() (map[string]repositories.MemStorageStruct, error) {
+func (f *FileEngine) ReadFile() (map[string]service.Metric, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	metricMap := make(map[string]repositories.MemStorageStruct)
+	metricMap := make(map[string]service.Metric)
 	file, err := os.OpenFile(f.storePath, os.O_RDONLY|os.O_CREATE, 0666)
 	if err != nil {
 		return nil, err
@@ -54,7 +53,7 @@ func (f *FileEngine) ReadFile() (map[string]repositories.MemStorageStruct, error
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		data := scanner.Bytes()
-		var memStorage repositories.MemStorageStruct
+		var memStorage service.Metric
 		err := json.Unmarshal(data, &memStorage)
 		if err != nil {
 			return nil, fmt.Errorf("write error: %w", err)

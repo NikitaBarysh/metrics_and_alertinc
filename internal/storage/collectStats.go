@@ -3,15 +3,14 @@ package storage
 import (
 	"context"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"math/rand"
 	"runtime"
 	"time"
-
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
 )
 
 type sender interface {
-	SendPost(ctx context.Context, url string, storage repositories.MemStorageStruct)
+	SendPost(ctx context.Context, url string, storage service.Metric)
 }
 
 func (m *MetricAction) Run(ctx context.Context, pollInterval int64, reportInterval int64, flagRunAddr string) error {
@@ -70,7 +69,7 @@ func (m *MetricAction) CollectMetric() {
 
 func (m *MetricAction) SendMetric(ctx context.Context, flagRunAddr string) error {
 	for metricName, metricValue := range m.MemStorage.ReadMetric() {
-		metricType := m.MemStorage.MemStorageMap[metricName].MType
+		metricType := m.MemStorage.MetricMap[metricName].MType
 		switch metricType {
 		case "gauge":
 			url := fmt.Sprintf("http://%s/update/%s/%s/%.2f", flagRunAddr, metricType, metricName, metricValue.Value)

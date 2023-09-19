@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"go.uber.org/zap"
 	"log"
 	"net/http"
@@ -15,8 +16,6 @@ import (
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/router"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
-
 	"github.com/go-chi/chi/v5"
 )
 
@@ -34,7 +33,7 @@ func main() {
 	loggingVar := logger.NewLoggingVar()
 	loggingVar.Initialize(cfg.LogLevel)
 
-	memStorage := repositories.NewMemStorage()
+	memStorage := service.NewMemStorage()
 
 	flush := flusher.NewFlusher(memStorage, file)
 	flush.Restorer()

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"go.uber.org/zap"
 	"io"
 	"net/http"
@@ -11,17 +12,15 @@ import (
 	"strings"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/models"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage/repositories"
-
 	"github.com/go-chi/chi/v5"
 )
 
 type storage interface {
 	UpdateGaugeMetric(key string, value float64)
 	UpdateCounterMetric(key string, value int64)
-	ReadMetric() map[string]repositories.MemStorageStruct
+	ReadMetric() map[string]service.Metric
 	GetAllMetric() []string
-	ReadDefinitelyMetric(key string) (repositories.MemStorageStruct, error)
+	ReadDefinitelyMetric(key string) (service.Metric, error)
 }
 
 type Handler struct {
