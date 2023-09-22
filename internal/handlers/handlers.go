@@ -1,37 +1,42 @@
 package handlers
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
+	"github.com/jmoiron/sqlx"
 	"go.uber.org/zap"
 	"io"
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/models"
 	"github.com/go-chi/chi/v5"
 )
 
 type storage interface {
 	UpdateGaugeMetric(key string, value float64)
 	UpdateCounterMetric(key string, value int64)
-	ReadMetric() map[string]service.Metric
+	ReadMetric() map[string]entity.Metric
 	GetAllMetric() []string
-	ReadDefinitelyMetric(key string) (service.Metric, error)
+	ReadDefinitelyMetric(key string) (entity.Metric, error)
 }
 
 type Handler struct {
 	storage storage
 	logger  logger.LoggingVar
+	db      *sqlx.DB
 }
 
-func NewHandler(storage storage, logger *logger.LoggingVar) *Handler {
+func NewHandler(storage storage, logger *logger.LoggingVar, db *sqlx.DB) *Handler {
 	return &Handler{
 		storage,
 		*logger,
+		db,
 	}
 }
 
@@ -82,12 +87,18 @@ func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 	case "gauge":
 		metricValue := metricValueStruct.Value
 		rw.WriteHeader(http.StatusOK)
-		rw.Write([]byte(fmt.Sprintf("%v", metricValue)))
+		_, err := rw.Write([]byte(fmt.Sprintf("%v", metricValue)))
+		if err != nil {
+			fmt.Println(fmt.Errorf("handler: get: write gauge metric: %w", err))
+		}
 		return
 	case "counter":
 		metricValue := metricValueStruct.Delta
 		rw.WriteHeader(http.StatusOK)
-		rw.Write([]byte(fmt.Sprintf("%v", metricValue)))
+		_, err := rw.Write([]byte(fmt.Sprintf("%v", metricValue)))
+		if err != nil {
+			fmt.Println(fmt.Errorf("handler: get: write counter metric: %w", err))
+		}
 		return
 	default:
 		http.Error(rw, "unknown metric type", http.StatusNotFound)
@@ -98,13 +109,16 @@ func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 func (h *Handler) GetAll(rw http.ResponseWriter, _ *http.Request) {
 	list := h.storage.GetAllMetric()
 	rw.Header().Set("Content-Type", "text/html")
-	io.WriteString(rw, strings.Join(list, ","))
+	_, err := io.WriteString(rw, strings.Join(list, ","))
+	if err != nil {
+		fmt.Println(fmt.Errorf("handler: getAll: write metrices: %w", err))
+	}
 }
 
 func (h *Handler) GetJSON(rw http.ResponseWriter, r *http.Request) {
 	var req models.Metrics
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		fmt.Println("ddecoder: ", err)
+		fmt.Println("decoder: ", err)
 		h.logger.Log.Fatal("error decode getJSON", zap.Error(err))
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
@@ -163,4 +177,16 @@ func (h *Handler) SafeJSON(rw http.ResponseWriter, r *http.Request) {
 	if err := json.NewEncoder(rw).Encode(req); err != nil {
 		h.logger.Log.Debug("error encoding safeJSON", zap.Error(err))
 	}
+}
+
+func (h *Handler) CheckConnection(rw http.ResponseWriter, r *http.Request) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	if err := h.db.PingContext(ctx); err != nil {
+		rw.WriteHeader(http.StatusInternalServerError)
+		fmt.Println(fmt.Errorf("handlers: CheckConnection: %w", err))
+		return
+	}
+
+	rw.WriteHeader(http.StatusOK)
 }

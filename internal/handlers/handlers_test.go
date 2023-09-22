@@ -2,8 +2,11 @@ package handlers
 
 import (
 	"context"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/config/server"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/repository/postgres"
+	storage2 "github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -55,13 +58,19 @@ func TestHandler_Safe(t *testing.T) {
 
 			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
 			rw := httptest.NewRecorder()
-			handler := NewHandler(service.NewMemStorage(), logger.NewLoggingVar())
+			cfg, configError := server.ParseServerConfig()
+			if configError != nil {
+				log.Fatalf("config err: %s\n", configError)
+			}
+			db, err := postgres.NewPostgres(cfg).InitPostgres()
+			if err != nil {
+			}
+			handler := NewHandler(storage2.NewMemStorage(), logger.NewLoggingVar(), db)
 			handler.Safe(rw, r)
 
 			res := rw.Result()
 			res.Body.Close()
 			assert.Equal(t, tt.want.code, res.StatusCode)
-
 		})
 	}
 }
@@ -92,7 +101,7 @@ func TestHandler_GetGaugeMetric(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			testStorage := service.NewMemStorage()
+			testStorage := storage2.NewMemStorage()
 			for k, v := range tt.metrics {
 				testStorage.UpdateGaugeMetric(k, v)
 			}
@@ -105,7 +114,14 @@ func TestHandler_GetGaugeMetric(t *testing.T) {
 
 			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
 			rw := httptest.NewRecorder()
-			handler := NewHandler(testStorage, logger.NewLoggingVar())
+			cfg, configError := server.ParseServerConfig()
+			if configError != nil {
+				log.Fatalf("config err: %s\n", configError)
+			}
+			db, err := postgres.NewPostgres(cfg).InitPostgres()
+			if err != nil {
+			}
+			handler := NewHandler(storage2.NewMemStorage(), logger.NewLoggingVar(), db)
 			handler.Get(rw, r)
 
 			res := rw.Result()
@@ -136,7 +152,7 @@ func TestHandler_GetCounterMetric(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			testStorage := service.NewMemStorage()
+			testStorage := storage2.NewMemStorage()
 			for k, v := range tt.metrics {
 				testStorage.UpdateCounterMetric(k, v)
 			}
@@ -149,7 +165,14 @@ func TestHandler_GetCounterMetric(t *testing.T) {
 
 			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
 			rw := httptest.NewRecorder()
-			handler := NewHandler(testStorage, logger.NewLoggingVar())
+			cfg, configError := server.ParseServerConfig()
+			if configError != nil {
+				log.Fatalf("config err: %s\n", configError)
+			}
+			db, err := postgres.NewPostgres(cfg).InitPostgres()
+			if err != nil {
+			}
+			handler := NewHandler(storage2.NewMemStorage(), logger.NewLoggingVar(), db)
 			handler.Get(rw, r)
 
 			res := rw.Result()
@@ -184,7 +207,7 @@ func TestHandler_GetAll(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			testStorage := service.NewMemStorage()
+			testStorage := storage2.NewMemStorage()
 			for k, v := range tt.metrics {
 				testStorage.UpdateGaugeMetric(k, v)
 			}
@@ -197,7 +220,14 @@ func TestHandler_GetAll(t *testing.T) {
 
 			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
 			rw := httptest.NewRecorder()
-			handler := NewHandler(testStorage, logger.NewLoggingVar())
+			cfg, configError := server.ParseServerConfig()
+			if configError != nil {
+				log.Fatalf("config err: %s\n", configError)
+			}
+			db, err := postgres.NewPostgres(cfg).InitPostgres()
+			if err != nil {
+			}
+			handler := NewHandler(storage2.NewMemStorage(), logger.NewLoggingVar(), db)
 			handler.GetAll(rw, r)
 
 			res := rw.Result()

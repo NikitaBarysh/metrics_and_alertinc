@@ -2,17 +2,16 @@ package main
 
 import (
 	"context"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
+	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/config/server"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/repository/postgres"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/flusher"
 	"go.uber.org/zap"
 	"log"
 	"net/http"
-
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/config/server"
-
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/flusher"
-
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/restorer"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/router"
@@ -25,31 +24,43 @@ func main() {
 		log.Fatalf("config err: %s\n", configError)
 	}
 
-	file := restorer.NewFileEngine(cfg.StorePath)
+	file := service.NewFileEngine(cfg.StorePath)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	loggingVar := logger.NewLoggingVar()
-	loggingVar.Initialize(cfg.LogLevel)
+	loggerError := loggingVar.Initialize(cfg.LogLevel)
+	if loggerError != nil {
+		fmt.Println(fmt.Errorf("server: main: logger: %w", loggerError))
+	}
 
-	memStorage := service.NewMemStorage()
+	memStorage := storage.NewMemStorage()
 
 	flush := flusher.NewFlusher(memStorage, file)
-	flush.Restorer()
+	restorerError := flush.Restorer()
+	if restorerError != nil {
+		fmt.Println(fmt.Errorf("server: main: restorer: %w", restorerError))
+	}
 
 	if cfg.StoreInterval != 0 {
 		go flush.Flush(ctx, cfg.StoreInterval)
 	} else {
 		memStorage.SetOnUpdate(flush.SyncFlush)
 	}
+	db, err := postgres.NewPostgres(cfg).InitPostgres()
+	if err != nil {
+		panic(err)
+	}
 
-	handler := handlers.NewHandler(memStorage, loggingVar)
+	defer db.Close()
+
+	handler := handlers.NewHandler(memStorage, loggingVar, db)
 	router := router.NewRouter(handler)
 	chiRouter := chi.NewRouter()
 	chiRouter.Mount("/", router.Register())
 	loggingVar.Log.Info("Running server", zap.String("address", cfg.RunAddr))
-	err := http.ListenAndServe(cfg.RunAddr, chiRouter)
+	err = http.ListenAndServe(cfg.RunAddr, chiRouter)
 	if err != nil {
 		panic(err)
 	}

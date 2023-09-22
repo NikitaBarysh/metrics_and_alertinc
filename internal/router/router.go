@@ -1,9 +1,9 @@
 package router
 
 import (
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/compress"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/logger"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -22,6 +22,7 @@ func (rt *Router) Register() *chi.Mux {
 	r.Use(logger.WithLogging)
 	r.Use(compress.GzipMiddleware)
 
+	r.Get("/ping", rt.metricHandler.CheckConnection)
 	r.Post("/update/", rt.metricHandler.SafeJSON)
 	r.Post("/update/{type}/{name}/{value}", rt.metricHandler.Safe)
 	r.Get("/value/{type}/{name}", rt.metricHandler.Get)
