@@ -25,6 +25,5 @@ vendor/
 .vscode
 
 
-docker-compose.yml
-results.log
-.
+.docker-compose.yml
+.results.log
