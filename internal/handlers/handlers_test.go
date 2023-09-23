@@ -65,6 +65,7 @@ func TestHandler_Safe(t *testing.T) {
 			}
 			db, err := postgres.NewPostgres(cfg).InitPostgres()
 			if err != nil {
+				fmt.Println(fmt.Errorf("handler_test: safe: init db: %w", err))
 			}
 			handler := NewHandler(storage2.NewMemStorage(), logger.NewLoggingVar(), db)
 			handler.Safe(rw, r)
