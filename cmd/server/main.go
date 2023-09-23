@@ -50,7 +50,7 @@ func main() {
 	}
 	db, err := postgres.NewPostgres(cfg).InitPostgres()
 	if err != nil {
-		panic(err)
+		fmt.Println(fmt.Errorf("can't connect: %w", err))
 	}
 
 	defer db.Close()

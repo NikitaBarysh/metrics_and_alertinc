@@ -2,12 +2,12 @@ package postgres
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"time"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/config/server"
 	_ "github.com/jackc/pgx/v5/stdlib"
-	"github.com/jmoiron/sqlx"
 )
 
 type Postgres struct {
@@ -18,8 +18,8 @@ func NewPostgres(config *server.Config) *Postgres {
 	return &Postgres{cfg: config}
 }
 
-func (p *Postgres) InitPostgres() (*sqlx.DB, error) {
-	db, err := sqlx.Open("pgx", p.cfg.DataBaseDSN)
+func (p *Postgres) InitPostgres() (*sql.DB, error) {
+	db, err := sql.Open("pgx", p.cfg.DataBaseDSN)
 	if err != nil {
 		panic(err)
 	}
