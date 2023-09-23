@@ -108,8 +108,6 @@ jobs:
           metricstest -test.v -test.run=^TestIteration2[AB]*$ \
             -source-path=. \
             -agent-binary-path=cmd/agent/agent
-          
-
 
       - name: "Code increment #3"
         if: |
@@ -277,7 +275,7 @@ jobs:
           metricstest -test.v -test.run=^TestIteration10[AB]$ \
             -agent-binary-path=cmd/agent/agent \
             -binary-path=cmd/server/server \
-            -database-dsn='postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable' \
+            -database-dsn='postgres://postgres:postgres@postgres:5432/praktikum?sslmode=disable' \
             -server-port=$SERVER_PORT \
             -source-path=.
 
