@@ -13,7 +13,7 @@ type Config struct {
 	StoreInterval uint64
 	StorePath     string
 	Restore       bool
-	DataBaseDSN   string
+	DataBaseDSN   string `env:"DATABASE_DSN"`
 }
 
 func newConfig(option options) (*Config, error) {
