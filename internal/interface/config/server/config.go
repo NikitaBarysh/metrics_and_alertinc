@@ -55,7 +55,7 @@ func ParseServerConfig() (*Config, error) {
 	flag.StringVar(&option.storeInterval, "i", "300", "store interval")
 	flag.StringVar(&option.storePath, "f", "/tmp/metrics-db.json", "store path")
 	flag.StringVar(&option.restore, "r", "true", "restore")
-	flag.StringVar(&option.dataBaseDSN, "d", "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable", "data base DSN")
+	flag.StringVar(&option.dataBaseDSN, "d", "", "data base DSN")
 
 	flag.Parse()
 
