@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"context"
+	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/repository/postgres"
@@ -120,6 +121,7 @@ func TestHandler_GetGaugeMetric(t *testing.T) {
 			}
 			db, err := postgres.NewPostgres(cfg).InitPostgres()
 			if err != nil {
+				fmt.Println(fmt.Errorf("handler_test: get gauge: init db: %w", err))
 			}
 			handler := NewHandler(storage2.NewMemStorage(), logger.NewLoggingVar(), db)
 			handler.Get(rw, r)
@@ -171,6 +173,7 @@ func TestHandler_GetCounterMetric(t *testing.T) {
 			}
 			db, err := postgres.NewPostgres(cfg).InitPostgres()
 			if err != nil {
+				fmt.Println(fmt.Errorf("handler_test: get counter: init db: %w", err))
 			}
 			handler := NewHandler(storage2.NewMemStorage(), logger.NewLoggingVar(), db)
 			handler.Get(rw, r)
@@ -226,6 +229,7 @@ func TestHandler_GetAll(t *testing.T) {
 			}
 			db, err := postgres.NewPostgres(cfg).InitPostgres()
 			if err != nil {
+				fmt.Println(fmt.Errorf("handler_test: get get all: init db: %w", err))
 			}
 			handler := NewHandler(storage2.NewMemStorage(), logger.NewLoggingVar(), db)
 			handler.GetAll(rw, r)
