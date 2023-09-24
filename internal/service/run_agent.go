@@ -20,7 +20,7 @@ func (m *MetricAction) Run(ctx context.Context, pollInterval int64, reportInterv
 		case <-collectTicker.C:
 			m.CollectMetric()
 		case <-sendTicker.C:
-			m.SendMetric(ctx, flagRunAddr) // TODO
+			m.SendMetric(ctx, flagRunAddr)
 		}
 	}
 }

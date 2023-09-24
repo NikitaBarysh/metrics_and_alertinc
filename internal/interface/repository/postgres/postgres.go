@@ -19,7 +19,8 @@ func NewPostgres(config *server.Config) *Postgres {
 }
 
 func (p *Postgres) InitPostgres() (*sql.DB, error) {
-	db, err := sql.Open("pgx", p.cfg.DataBaseDSN)
+	//dsn := p.cfg.DataBaseDSN
+	db, err := sql.Open("pgx", "postgres://postgres:postgres@localhost:5432/praktikum?sslmode=disable")
 	if err != nil {
 		panic(err)
 	}
