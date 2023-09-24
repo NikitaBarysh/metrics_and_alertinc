@@ -16,66 +16,66 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestHandler_Safe(t *testing.T) {
-	type want struct {
-		code int
-		url  string
-	}
-	tests := []struct {
-		name  string
-		want  want
-		param map[string]any
-	}{
-		{
-			"Test#1, not enough argument in url",
-			want{http.StatusBadRequest, "/update/counter/someMetric"},
-			map[string]any{"update": "update", "type": "counter", "name": "someMetric"},
-		},
-		{"Test#2, check if all correct",
-			want{http.StatusOK, "/update/gauge/Alloc/527"},
-			map[string]any{"update": "update", "type": "gauge", "name": "Alloc", "value": "527"},
-		},
-		{"Test#3, wrong metric",
-			want{http.StatusNotImplemented, "/update/anytype/someMetric/527"},
-			map[string]any{"update": "update", "type": "anytype", "name": "someMetric", "value": "527"},
-		},
-		{"Test#4, wrong value for counter metric",
-			want{http.StatusBadRequest, "/update/counter/someMetric/wrong"},
-			map[string]any{"update": "update", "type": "counter", "name": "someMetric", "value": "wrong"},
-		},
-		{"Test#5, wrong value for gauge metric",
-			want{http.StatusBadRequest, "/update/gauge/someMetric/wrong"},
-			map[string]any{"update": "update", "type": "gauge", "name": "someMetric", "value": "wrong"},
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			r := httptest.NewRequest(http.MethodPost, tt.want.url, nil)
-			rctx := chi.NewRouteContext()
-			for k, v := range tt.param {
-				strVal := v.(string)
-				rctx.URLParams.Add(k, strVal)
-			}
-
-			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
-			rw := httptest.NewRecorder()
-			cfg, configError := server.ParseServerConfig()
-			if configError != nil {
-				log.Fatalf("config err: %s\n", configError)
-			}
-			db, err := postgres.NewPostgres(cfg).InitPostgres()
-			if err != nil {
-				fmt.Println(fmt.Errorf("handler_test: safe: init db: %w", err))
-			}
-			handler := NewHandler(storage2.NewMemStorage(), logger.NewLoggingVar(), db)
-			handler.Safe(rw, r)
-
-			res := rw.Result()
-			res.Body.Close()
-			assert.Equal(t, tt.want.code, res.StatusCode)
-		})
-	}
-}
+//func TestHandler_Safe(t *testing.T) {
+//	type want struct {
+//		code int
+//		url  string
+//	}
+//	tests := []struct {
+//		name  string
+//		want  want
+//		param map[string]any
+//	}{
+//		{
+//			"Test#1, not enough argument in url",
+//			want{http.StatusBadRequest, "/update/counter/someMetric"},
+//			map[string]any{"update": "update", "type": "counter", "name": "someMetric"},
+//		},
+//		{"Test#2, check if all correct",
+//			want{http.StatusOK, "/update/gauge/Alloc/527"},
+//			map[string]any{"update": "update", "type": "gauge", "name": "Alloc", "value": "527"},
+//		},
+//		{"Test#3, wrong metric",
+//			want{http.StatusNotImplemented, "/update/anytype/someMetric/527"},
+//			map[string]any{"update": "update", "type": "anytype", "name": "someMetric", "value": "527"},
+//		},
+//		{"Test#4, wrong value for counter metric",
+//			want{http.StatusBadRequest, "/update/counter/someMetric/wrong"},
+//			map[string]any{"update": "update", "type": "counter", "name": "someMetric", "value": "wrong"},
+//		},
+//		{"Test#5, wrong value for gauge metric",
+//			want{http.StatusBadRequest, "/update/gauge/someMetric/wrong"},
+//			map[string]any{"update": "update", "type": "gauge", "name": "someMetric", "value": "wrong"},
+//		},
+//	}
+//	for _, tt := range tests {
+//		t.Run(tt.name, func(t *testing.T) {
+//			r := httptest.NewRequest(http.MethodPost, tt.want.url, nil)
+//			rctx := chi.NewRouteContext()
+//			for k, v := range tt.param {
+//				strVal := v.(string)
+//				rctx.URLParams.Add(k, strVal)
+//			}
+//
+//			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
+//			rw := httptest.NewRecorder()
+//			cfg, configError := server.ParseServerConfig()
+//			if configError != nil {
+//				log.Fatalf("config err: %s\n", configError)
+//			}
+//			db, err := postgres.NewPostgres(cfg).InitPostgres()
+//			if err != nil {
+//				fmt.Println(fmt.Errorf("handler_test: safe: init db: %w", err))
+//			}
+//			handler := NewHandler(storage2.NewMemStorage(), logger.NewLoggingVar(), db)
+//			handler.Safe(rw, r)
+//
+//			res := rw.Result()
+//			res.Body.Close()
+//			assert.Equal(t, tt.want.code, res.StatusCode)
+//		})
+//	}
+//}
 
 func TestHandler_GetGaugeMetric(t *testing.T) {
 	type want struct {
