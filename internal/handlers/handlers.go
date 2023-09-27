@@ -2,12 +2,12 @@ package handlers
 
 import (
 	"context"
-	"database/sql"
 	"encoding/json"
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
+	"github.com/jmoiron/sqlx"
 	"go.uber.org/zap"
 	"io"
 	"net/http"
@@ -29,10 +29,10 @@ type storage interface {
 type Handler struct {
 	storage storage
 	logger  logger.LoggingVar
-	db      *sql.DB
+	db      *sqlx.DB
 }
 
-func NewHandler(storage storage, logger *logger.LoggingVar, db *sql.DB) *Handler {
+func NewHandler(storage storage, logger *logger.LoggingVar, db *sqlx.DB) *Handler {
 	return &Handler{
 		storage,
 		*logger,
