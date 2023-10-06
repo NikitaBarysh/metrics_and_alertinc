@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/repository/postgres"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/memory"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/flusher"
 	"go.uber.org/zap"
 	"log"
@@ -35,7 +35,7 @@ func main() {
 		fmt.Println(fmt.Errorf("server: main: logger: %w", loggerError))
 	}
 
-	memStorage := storage.NewMemStorage()
+	memStorage := memory.NewMemStorage()
 
 	flush := flusher.NewFlusher(memStorage, file)
 	restorerError := flush.Restorer()
@@ -48,12 +48,10 @@ func main() {
 	} else {
 		memStorage.SetOnUpdate(flush.SyncFlush)
 	}
-	db, err := postgres.NewPostgres(cfg).InitPostgres()
+	db, err := postgres.InitPostgres(cfg)
 	if err != nil {
 		fmt.Println(fmt.Errorf("can't connect: %w", err))
 	}
-
-	defer db.Close()
 
 	handler := handlers.NewHandler(memStorage, loggingVar, db)
 	router := router.NewRouter(handler)

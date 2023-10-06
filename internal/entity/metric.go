@@ -10,10 +10,10 @@ func NewMetric(id, mType string, delta int64, value float64) Metric {
 }
 
 type Metric struct {
-	ID    string  // имя метрики
-	MType string  // параметр, принимающий значение gauge или counter
-	Delta int64   // значение метрики в случае передачи counter
-	Value float64 // значение метрики в случае передачи gauge
+	ID    string  `json:"id"`              // имя метрики
+	MType string  `json:"type"`            // параметр, принимающий значение gauge или counter
+	Delta int64   `json:"delta,omitempty"` // значение метрики в случае передачи counter
+	Value float64 `json:"value,omitempty"` // значение метрики в случае передачи gauge
 }
 
 //func NewMemStorage() *MemStorage {
@@ -54,7 +54,7 @@ type Metric struct {
 //	}
 //}
 //
-//func (m *MemStorage) ReadDefinitelyMetric(key string) (Metric, error) {
+//func (m *MemStorage) GetMetric(key string) (Metric, error) {
 //	m.mu.RLock()
 //	defer m.mu.RUnlock()
 //	metricStruct, ok := m.MetricMap[key]
@@ -64,7 +64,7 @@ type Metric struct {
 //	return metricStruct, models.ErrNotFound
 //}
 //
-//func (m *MemStorage) ReadMetric() map[string]Metric {
+//func (m *MemStorage) GetMetricForSend() map[string]Metric {
 //	m.mu.RLock()
 //	defer m.mu.RUnlock()
 //	return m.MetricMap

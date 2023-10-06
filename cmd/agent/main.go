@@ -4,14 +4,13 @@ import (
 	"context"
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/config/agent"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/memory"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/sender"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
-
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 )
 
 func main() {
@@ -26,7 +25,7 @@ func main() {
 	termSignal := make(chan os.Signal, 1)
 	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 
-	memStorage := storage.NewMemStorage()
+	memStorage := memory.NewMemStorage()
 	send := sender.NewSender()
 	newMetricAction := service.NewMetricAction(memStorage, send)
 	go newMetricAction.Run(ctx, cfg.PollInterval, cfg.ReportInterval, cfg.URL) // TODO

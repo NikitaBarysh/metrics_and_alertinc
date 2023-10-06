@@ -3,17 +3,17 @@ package flusher
 import (
 	"context"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/memory"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
 	"time"
 )
 
 type Flusher struct {
-	getMetric  *storage.MemStorage
+	getMetric  *memory.MemStorage
 	fileEngine *service.FileEngine
 }
 
-func NewFlusher(metric *storage.MemStorage, fileEngine *service.FileEngine) *Flusher {
+func NewFlusher(metric *memory.MemStorage, fileEngine *service.FileEngine) *Flusher {
 	return &Flusher{
 		getMetric:  metric,
 		fileEngine: fileEngine,
@@ -34,7 +34,7 @@ func (f *Flusher) Flush(ctx context.Context, interval uint64) {
 }
 
 func (f *Flusher) SyncFlush() {
-	data := f.getMetric.ReadMetric()
+	data := f.getMetric.GetMetricForSend()
 	_ = f.fileEngine.WriteFile(data)
 }
 

@@ -36,5 +36,6 @@ func (m *MetricAction) CollectMetric() {
 	m.MemStorage.UpdateGaugeMetric("Sys", float64(memStats.Sys))
 	m.MemStorage.UpdateGaugeMetric("TotalAlloc", float64(memStats.TotalAlloc))
 	m.MemStorage.UpdateGaugeMetric("RandomValue", rand.Float64())
+
 	m.MemStorage.UpdateCounterMetric("PollCount", int64(1))
 }

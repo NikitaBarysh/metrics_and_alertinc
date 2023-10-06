@@ -1,7 +1,6 @@
-package storage
+package memory
 
 import (
-	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
 	"sync"
@@ -21,6 +20,12 @@ func NewMemStorage() *MemStorage {
 
 func (m *MemStorage) SetOnUpdate(fn func()) {
 	m.onUpdate = fn
+}
+
+func (m *MemStorage) SetMetric(metric entity.Metric) {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	m.MetricMap[metric.ID] = entity.Metric{ID: metric.ID, MType: metric.MType, Delta: metric.Delta, Value: metric.Value}
 }
 
 func (m *MemStorage) UpdateGaugeMetric(key string, value float64) {
@@ -45,7 +50,7 @@ func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
 	}
 }
 
-func (m *MemStorage) ReadDefinitelyMetric(key string) (entity.Metric, error) {
+func (m *MemStorage) GetMetric(key string) (entity.Metric, error) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	metricStruct, ok := m.MetricMap[key]
@@ -55,25 +60,20 @@ func (m *MemStorage) ReadDefinitelyMetric(key string) (entity.Metric, error) {
 	return metricStruct, models.ErrNotFound
 }
 
-func (m *MemStorage) ReadMetric() map[string]entity.Metric {
+func (m *MemStorage) GetMetricForSend() map[string]entity.Metric {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	return m.MetricMap
 }
 
-func (m *MemStorage) GetAllMetric() []string {
+func (m *MemStorage) GetAllMetric() []entity.Metric {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
-	metricSlice := make([]string, 0, len(m.MetricMap))
-	for metricName, metricValue := range m.MetricMap {
-		metricType := m.MetricMap[metricName].MType
-		switch metricType {
-		case "gauge":
-			metricSlice = append(metricSlice, fmt.Sprintf("%s = %d", metricName, metricValue.Delta))
-		case "counter":
-			metricSlice = append(metricSlice, fmt.Sprintf("%s = %2f", metricName, metricValue.Value))
-		}
+	metricSlice := make([]entity.Metric, 0, len(m.MetricMap))
+	for _, metric := range m.MetricMap {
+		metricSlice = append(metricSlice, metric)
 	}
+
 	return metricSlice
 }
 

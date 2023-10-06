@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/memory"
 	sender2 "github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/sender"
 	"testing"
 
@@ -30,7 +30,7 @@ func newSenderMock(t *testing.T, url string) *senderMock {
 
 func TestMetricAction(t *testing.T) {
 	type fields struct {
-		MemStorage *storage.MemStorage
+		MemStorage *memory.MemStorage
 		sender     sender
 	}
 	type args struct {
@@ -49,7 +49,7 @@ func TestMetricAction(t *testing.T) {
 				url: "http://localhost:8080/update/gauge/Alloc/134",
 			},
 			fields: fields{
-				MemStorage: storage.NewMemStorage(),
+				MemStorage: memory.NewMemStorage(),
 				sender:     sender2.NewSender(),
 			},
 		},
