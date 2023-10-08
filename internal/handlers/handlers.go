@@ -2,12 +2,12 @@ package handlers
 
 import (
 	"context"
-	"database/sql"
 	"encoding/json"
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres"
 	"go.uber.org/zap"
 	"io"
 	"net/http"
@@ -29,10 +29,10 @@ type storage interface {
 type Handler struct {
 	storage storage
 	logger  logger.LoggingVar
-	db      *sql.DB
+	db      *postgres.Postgres
 }
 
-func NewHandler(storage storage, logger *logger.LoggingVar, db *sql.DB) *Handler {
+func NewHandler(storage storage, logger *logger.LoggingVar, db *postgres.Postgres) *Handler {
 	return &Handler{
 		storage,
 		*logger,
@@ -180,9 +180,9 @@ func (h *Handler) SafeJSON(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) CheckConnection(rw http.ResponseWriter, r *http.Request) {
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
-	if err := h.db.PingContext(ctx); err != nil {
+	if err := h.db.CheckPing(ctx); err != nil {
 		rw.WriteHeader(http.StatusInternalServerError)
 		fmt.Println(fmt.Errorf("handlers: CheckConnection: %w", err))
 		return

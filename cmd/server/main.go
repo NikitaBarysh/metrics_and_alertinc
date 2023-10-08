@@ -48,12 +48,10 @@ func main() {
 	} else {
 		memStorage.SetOnUpdate(flush.SyncFlush)
 	}
-	db, err := postgres.NewPostgres(cfg).InitPostgres()
+	db, err := postgres.InitPostgres(cfg)
 	if err != nil {
 		fmt.Println(fmt.Errorf("can't connect: %w", err))
 	}
-
-	defer db.Close()
 
 	handler := handlers.NewHandler(memStorage, loggingVar, db)
 	router := router.NewRouter(handler)
