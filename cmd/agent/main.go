@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/config/agent"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/sender"
 	"log"
 	"os"

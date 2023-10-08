@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
 )
 
 type MetricAction struct {

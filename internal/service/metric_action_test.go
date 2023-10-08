@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
 	sender2 "github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/sender"
 	"testing"
 

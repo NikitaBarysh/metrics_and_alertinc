@@ -3,8 +3,8 @@ package flusher
 import (
 	"context"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/storage"
 	"time"
 )
 

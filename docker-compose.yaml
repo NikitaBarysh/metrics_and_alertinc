@@ -7,10 +7,10 @@ services:
       - POSTGRES_DB=praktikum
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    ports:
-      - ${POSTGRES_DEV_PORT}:5432
-    volumes:
-      - app-volume:/var/lib/postgresql/data
-
-volumes:
-  app-volume:
+#    ports:
+#      - ${POSTGRES_DEV_PORT}:5432
+#    volumes:
+#      - app-volume:/var/lib/postgresql/data
+#
+#volumes:
+#  app-volume:

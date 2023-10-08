@@ -17,16 +17,13 @@ func NewSender() *Sender {
 
 func (s *Sender) SendPost(ctx context.Context, url string, storage entity.Metric) {
 	request, err := http.NewRequest(http.MethodPost, url, nil)
-	fmt.Println("1", request)
 	request = request.WithContext(ctx)
-	fmt.Println("2", request)
 	if err != nil {
 		panic(err)
 	}
 	request.Header.Set(`Content-Type`, "text/plain")
 	client := &http.Client{}
 	res, err := client.Do(request)
-	fmt.Println("3", res)
 	if err != nil {
 		fmt.Println(fmt.Errorf("useCase: sender: sendPost: do request: %w", err))
 		return
