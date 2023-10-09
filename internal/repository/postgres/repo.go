@@ -46,7 +46,7 @@ package postgres
 //	}
 //}
 //
-//func (m *MemStorage) ReadDefinitelyMetric(key string) (entity.Metric, error) {
+//func (m *MemStorage) GetMetric(key string) (entity.Metric, error) {
 //	m.mu.RLock()
 //	defer m.mu.RUnlock()
 //	metricStruct, ok := m.MetricMap[key]
@@ -78,7 +78,7 @@ package postgres
 //	return metricSlice
 //}
 //
-//func (m *MemStorage) PutMetricMap(data map[string]entity.Metric) {
+//func (m *MemStorage) SetMetric(data map[string]entity.Metric) {
 //	m.mu.Lock()
 //	defer m.mu.Unlock()
 //	m.MetricMap = data

@@ -76,7 +76,7 @@ func NewMetric(id, mType, value string) (*Metric, error) {
 //	}
 //}
 //
-//func (m *MemStorage) ReadDefinitelyMetric(key string) (Metric, error) {
+//func (m *MemStorage) GetMetric(key string) (Metric, error) {
 //	m.mu.RLock()
 //	defer m.mu.RUnlock()
 //	metricStruct, ok := m.MetricMap[key]
@@ -108,7 +108,7 @@ func NewMetric(id, mType, value string) (*Metric, error) {
 //	return metricSlice
 //}
 //
-//func (m *MemStorage) PutMetricMap(data map[string]Metric) {
+//func (m *MemStorage) SetMetric(data map[string]Metric) {
 //	m.mu.Lock()
 //	defer m.mu.Unlock()
 //	m.MetricMap = data

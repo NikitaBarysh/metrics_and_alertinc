@@ -11,15 +11,15 @@ type sender interface {
 }
 
 func (m *MetricAction) SendMetric(ctx context.Context, flagRunAddr string) error {
-	for metricName, metricValue := range m.MemStorage.ReadMetric() {
-		metricType := m.MemStorage.MetricMap[metricName].MType
+	for _, value := range m.MemStorage.GetAllMetric() {
+		metricType := value.MType
 		switch metricType {
 		case "gauge":
-			url := fmt.Sprintf("http://%s/update/%s/%s/%.2f", flagRunAddr, metricType, metricName, metricValue.Value)
-			m.sender.SendPost(ctx, url, metricValue)
+			url := fmt.Sprintf("http://%s/update/%s/%s/%.2f", flagRunAddr, value.MType, value.ID, value.Value)
+			m.sender.SendPost(ctx, url, value)
 		case "counter":
-			url := fmt.Sprintf("http://%s/update/%s/%s/%d", flagRunAddr, metricType, metricName, metricValue.Delta)
-			m.sender.SendPost(ctx, url, metricValue)
+			url := fmt.Sprintf("http://%s/update/%s/%s/%d", flagRunAddr, value.MType, value.ID, value.Delta)
+			m.sender.SendPost(ctx, url, value)
 		}
 	}
 	return nil

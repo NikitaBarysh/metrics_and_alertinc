@@ -9,10 +9,8 @@ import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres"
 	"go.uber.org/zap"
-	"io"
 	"net/http"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/go-chi/chi/v5"
@@ -21,9 +19,9 @@ import (
 type storage interface {
 	UpdateGaugeMetric(key string, value float64)
 	UpdateCounterMetric(key string, value int64)
-	ReadMetric() map[string]entity.Metric
-	GetAllMetric() []string
-	ReadDefinitelyMetric(key string) (entity.Metric, error)
+	//ReadMetric() map[string]entity.Metric
+	GetAllMetric() []entity.Metric
+	GetMetric(key string) (entity.Metric, error)
 }
 
 type Handler struct {
@@ -77,7 +75,7 @@ func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 
 	metricName := chi.URLParam(r, "name")
 
-	metricValueStruct, err := h.storage.ReadDefinitelyMetric(metricName)
+	metricValueStruct, err := h.storage.GetMetric(metricName)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusNotFound)
 		return
@@ -109,9 +107,11 @@ func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 func (h *Handler) GetAll(rw http.ResponseWriter, _ *http.Request) {
 	list := h.storage.GetAllMetric()
 	rw.Header().Set("Content-Type", "text/html")
-	_, err := io.WriteString(rw, strings.Join(list, ","))
-	if err != nil {
-		fmt.Println(fmt.Errorf("handler: getAll: write metrices: %w", err))
+	for _, value := range list {
+		_, err := rw.Write([]byte(fmt.Sprintf(value.ID, value.MType, value.Value, value.Delta)))
+		if err != nil {
+			fmt.Println(fmt.Errorf("handler: getAll: write metrices: %w", err))
+		}
 	}
 }
 
@@ -125,13 +125,13 @@ func (h *Handler) GetJSON(rw http.ResponseWriter, r *http.Request) {
 	}
 	switch req.MType {
 	case "gauge":
-		metricValue, err := h.storage.ReadDefinitelyMetric(req.ID)
+		metricValue, err := h.storage.GetMetric(req.ID)
 		if err != nil {
 			http.Error(rw, "get json gauge error", http.StatusNotFound)
 		}
 		req.NewMetricValue(metricValue.Value)
 	case "counter":
-		metricValue, err := h.storage.ReadDefinitelyMetric(req.ID)
+		metricValue, err := h.storage.GetMetric(req.ID)
 		if err != nil {
 			http.Error(rw, "get json counter error", http.StatusNotFound)
 		}

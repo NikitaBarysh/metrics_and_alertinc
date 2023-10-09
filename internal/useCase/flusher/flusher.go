@@ -34,15 +34,15 @@ func (f *Flusher) Flush(ctx context.Context, interval uint64) {
 }
 
 func (f *Flusher) SyncFlush() {
-	data := f.getMetric.ReadMetric()
-	_ = f.fileEngine.WriteFile(data)
+	data := f.getMetric.GetAllMetric()
+	_ = f.fileEngine.SetMetric(data)
 }
 
 func (f *Flusher) Restorer() error {
-	data, err := f.fileEngine.ReadFile()
+	data, err := f.fileEngine.GetAllMetric()
 	if err != nil {
 		return fmt.Errorf("read file error: %w", err)
 	}
-	f.getMetric.PutMetricMap(data)
+	f.getMetric.SetMetric(data)
 	return nil
 }

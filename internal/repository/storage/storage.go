@@ -1,7 +1,6 @@
 package storage
 
 import (
-	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
 	"sync"
@@ -49,7 +48,7 @@ func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
 	}
 }
 
-func (m *MemStorage) ReadDefinitelyMetric(key string) (entity.Metric, error) {
+func (m *MemStorage) GetMetric(key string) (entity.Metric, error) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	metricStruct, ok := m.MetricMap[key]
@@ -59,29 +58,23 @@ func (m *MemStorage) ReadDefinitelyMetric(key string) (entity.Metric, error) {
 	return metricStruct, models.ErrNotFound
 }
 
-func (m *MemStorage) ReadMetric() map[string]entity.Metric {
-	m.mu.RLock()
-	defer m.mu.RUnlock()
-	return m.MetricMap
-}
+//func (m *MemStorage) ReadMetric() map[string]entity.Metric {
+//	m.mu.RLock()
+//	defer m.mu.RUnlock()
+//	return m.MetricMap
+//}
 
-func (m *MemStorage) GetAllMetric() []string {
+func (m *MemStorage) GetAllMetric() []entity.Metric {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
-	metricSlice := make([]string, 0, len(m.MetricMap))
-	for metricName, metricValue := range m.MetricMap {
-		metricType := m.MetricMap[metricName].MType
-		switch metricType {
-		case "gauge":
-			metricSlice = append(metricSlice, fmt.Sprintf("%s = %d", metricName, metricValue.Delta))
-		case "counter":
-			metricSlice = append(metricSlice, fmt.Sprintf("%s = %2f", metricName, metricValue.Value))
-		}
+	metricSlice := make([]entity.Metric, 0, len(m.MetricMap))
+	for _, metricValue := range m.MetricMap {
+		metricSlice = append(metricSlice, metricValue)
 	}
 	return metricSlice
 }
 
-func (m *MemStorage) PutMetricMap(data map[string]entity.Metric) {
+func (m *MemStorage) SetMetric(data map[string]entity.Metric) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	m.MetricMap = data
