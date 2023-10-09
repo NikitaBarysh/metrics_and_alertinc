@@ -14,7 +14,8 @@
     iteration1_test.go:82: Получен STDOUT лог процесса:
         
         server: main: restorer: read file error: service: file_engine: GetAllMetric: Unmarshal: invalid character '}' looking for beginning of value
-        can't connect: repository: postgres: InitPostgres: gooose.UP: failed to connect to `host=/private/tmp user=nikitabar database=`: dial error (dial unix /private/tmp/.s.PGSQL.5432: connect: no such file or directory)
+        2023/10/09 19:58:02 OK    001_metric.go
+        2023/10/09 19:58:02 goose: no migrations to run. current version: 1
 --- PASS: TestIteration1 (0.12s)
     --- PASS: TestIteration1/TestCounterHandlers (0.01s)
         --- PASS: TestIteration1/TestCounterHandlers/update (0.01s)
@@ -33,17 +34,41 @@
 === NAME  TestIteration2A
     iteration2a_test.go:80: Получен STDOUT лог процесса:
         
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapAlloc/150032.00": EOF
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/counter/PollCount/5": read tcp [::1]:61150->[::1]:8080: read: connection reset by peer
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapReleased/3006464.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanSys/48888.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Frees/11.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapIdle/3072000.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Mallocs/361.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/RandomValue/0.42": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCSys/2761056.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/OtherSys/745256.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Sys/7769104.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/TotalAlloc/149616.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackSys/360448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanInuse/35448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapAlloc/149616.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapInuse/761856.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/BuckHashSys/4000.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapObjects/350.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
         interrupt
---- PASS: TestIteration2A (10.01s)
+--- PASS: TestIteration2A (10.06s)
     --- PASS: TestIteration2A/TestAgent (0.00s)
         --- PASS: TestIteration2A/TestAgent/receive_data_from_agent (0.00s)
 === RUN   TestIteration2B
 === RUN   TestIteration2B/TestFilesPresence
 === RUN   TestIteration2B/TestServerCoverage
---- PASS: TestIteration2B (1.82s)
+--- PASS: TestIteration2B (1.36s)
     --- PASS: TestIteration2B/TestFilesPresence (0.00s)
-    --- PASS: TestIteration2B/TestServerCoverage (1.82s)
+    --- PASS: TestIteration2B/TestServerCoverage (1.36s)
 === RUN   TestIteration3A
 === RUN   TestIteration3A/TestFrameworkUsage
 --- PASS: TestIteration3A (0.00s)
@@ -59,7 +84,7 @@
     iteration3b_test.go:85: Получен STDOUT лог процесса:
         
         server: main: restorer: read file error: service: file_engine: GetAllMetric: Unmarshal: invalid character '}' looking for beginning of value
-        can't connect: repository: postgres: InitPostgres: gooose.UP: failed to connect to `host=/private/tmp user=nikitabar database=`: dial error (dial unix /private/tmp/.s.PGSQL.5432: connect: no such file or directory)
+        2023/10/09 19:58:13 goose: no migrations to run. current version: 1
 --- PASS: TestIteration3B (0.11s)
     --- PASS: TestIteration3B/TestCounter (0.01s)
         --- PASS: TestIteration3B/TestCounter/update_sequence (0.01s)
@@ -77,40 +102,40 @@
 === NAME  TestIteration4
     iteration4_test.go:166: Получен STDOUT лог процесса:
         
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/BuckHashSys/4000.00": read tcp [::1]:59346->[::1]:8080: read: connection reset by peer
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapAlloc/150752.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackSys/360448.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/TotalAlloc/150752.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapReleased/3203072.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Sys/8031248.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapIdle/3203072.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/counter/PollCount/2": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Mallocs/365.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/OtherSys/995064.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Frees/11.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapObjects/354.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/counter/PollCount/2": read tcp [::1]:61212->[::1]:8080: read: connection reset by peer
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCSys/2767224.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapSys/3833856.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/TotalAlloc/149808.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Frees/11.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackSys/360448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/RandomValue/0.54": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapInuse/655360.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Mallocs/364.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapAlloc/149808.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapObjects/353.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Sys/8031248.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/BuckHashSys/4000.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapIdle/3178496.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/RandomValue/0.45": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Alloc/150752.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCSys/2773392.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapInuse/630784.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Alloc/149808.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapReleased/3178496.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanInuse/35448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/OtherSys/1001232.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanSys/48888.00": dial tcp [::1]:8080: connect: connection refused
         interrupt
     iteration4_test.go:135: Получен STDOUT лог процесса:
         
         server: main: restorer: read file error: service: file_engine: GetAllMetric: Unmarshal: invalid character '}' looking for beginning of value
-        can't connect: repository: postgres: InitPostgres: gooose.UP: failed to connect to `host=/private/tmp user=nikitabar database=`: dial error (dial unix /private/tmp/.s.PGSQL.5432: connect: no such file or directory)
+        2023/10/09 19:58:16 goose: no migrations to run. current version: 1
 --- PASS: TestIteration4 (2.12s)
     --- PASS: TestIteration4/TestCounter (0.00s)
         --- PASS: TestIteration4/TestCounter/update_sequence (0.00s)
@@ -128,42 +153,42 @@
 === NAME  TestIteration5
     iteration5_test.go:151: Получен STDOUT лог процесса:
         
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanInuse/24696.00": read tcp [::1]:59410->[::1]:8080: read: connection reset by peer
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/OtherSys/761552.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapReleased/3268608.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapObjects/354.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCSys/2761056.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackSys/360448.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Frees/11.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapIdle/3268608.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapSys/3833856.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Sys/7769104.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Alloc/153640.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": read tcp [::1]:61283->[::1]:8080: read: connection reset by peer
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapInuse/565248.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanSys/32592.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Mallocs/365.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapAlloc/153640.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/TotalAlloc/153640.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/RandomValue/0.94": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCSys/2761056.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapReleased/3244032.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Mallocs/366.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/BuckHashSys/4000.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/OtherSys/1007400.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackSys/360448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapInuse/589824.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapObjects/355.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapAlloc/154216.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanInuse/35448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Alloc/154216.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Sys/8031248.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/RandomValue/0.59": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapSys/3833856.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapIdle/3244032.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/TotalAlloc/154216.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Frees/11.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanSys/48888.00": dial tcp [::1]:8080: connect: connection refused
         interrupt
     iteration5_test.go:120: Получен STDOUT лог процесса:
         
         server: main: restorer: read file error: service: file_engine: GetAllMetric: Unmarshal: invalid character '}' looking for beginning of value
-        can't connect: repository: postgres: InitPostgres: gooose.UP: failed to connect to `host=/private/tmp user=nikitabar database=`: dial error (dial unix /private/tmp/.s.PGSQL.5432: connect: no such file or directory)
+        2023/10/09 19:58:21 goose: no migrations to run. current version: 1
 --- PASS: TestIteration5 (5.12s)
-    --- PASS: TestIteration5/TestCounter (0.00s)
+    --- PASS: TestIteration5/TestCounter (0.01s)
         --- PASS: TestIteration5/TestCounter/update_sequence (0.00s)
         --- PASS: TestIteration5/TestCounter/get_unknown (0.00s)
     --- PASS: TestIteration5/TestGauge (0.00s)
@@ -175,35 +200,35 @@
     --- PASS: TestIteration6/TestLoggerUsage (0.00s)
 === RUN   TestIteration7
 === RUN   TestIteration7/TestCollectAgentMetrics
-    iteration7_test.go:432: get gauge: "HeapReleased", value: 2342912.000000
+    iteration7_test.go:432: get gauge: "HeapReleased", value: 2531328.000000
     iteration7_test.go:432: get gauge: "HeapSys", value: 3768320.000000
     iteration7_test.go:432: get gauge: "LastGC", value: 0.000000
     iteration7_test.go:432: get gauge: "Lookups", value: 0.000000
     iteration7_test.go:432: get gauge: "MCacheInuse", value: 9600.000000
     iteration7_test.go:432: get gauge: "MCacheSys", value: 15600.000000
-    iteration7_test.go:432: get gauge: "MSpanInuse", value: 46200.000000
+    iteration7_test.go:432: get gauge: "MSpanInuse", value: 35448.000000
     iteration7_test.go:432: get gauge: "MSpanSys", value: 48888.000000
     iteration7_test.go:432: get gauge: "NextGC", value: 4194304.000000
     iteration7_test.go:432: get gauge: "NumForcedGC", value: 0.000000
     iteration7_test.go:432: get gauge: "NumGC", value: 0.000000
-    iteration7_test.go:432: get gauge: "OtherSys", value: 939552.000000
+    iteration7_test.go:432: get gauge: "OtherSys", value: 921048.000000
     iteration7_test.go:432: get gauge: "PauseTotalNs", value: 0.000000
     iteration7_test.go:432: get gauge: "StackInuse", value: 425984.000000
     iteration7_test.go:432: get gauge: "StackSys", value: 425984.000000
     iteration7_test.go:432: get gauge: "Sys", value: 8031248.000000
     iteration7_test.go:432: get gauge: "BuckHashSys", value: 4000.000000
     iteration7_test.go:432: get gauge: "GCCPUFraction", value: 0.000000
-    iteration7_test.go:432: get gauge: "GCSys", value: 2828904.000000
-    iteration7_test.go:432: get gauge: "HeapInuse", value: 1400832.000000
-    iteration7_test.go:432: get gauge: "HeapObjects", value: 5232.000000
-    iteration7_test.go:432: get gauge: "Mallocs", value: 5454.000000
-    iteration7_test.go:432: get gauge: "TotalAlloc", value: 532528.000000
+    iteration7_test.go:432: get gauge: "GCSys", value: 2847408.000000
+    iteration7_test.go:432: get gauge: "HeapInuse", value: 1277952.000000
+    iteration7_test.go:432: get gauge: "HeapObjects", value: 5230.000000
+    iteration7_test.go:432: get gauge: "Mallocs", value: 5449.000000
+    iteration7_test.go:432: get gauge: "TotalAlloc", value: 533152.000000
     iteration7_test.go:439: get counter: "PollCount", value: 25
-    iteration7_test.go:432: get gauge: "RandomValue", value: 0.080000
-    iteration7_test.go:432: get gauge: "Alloc", value: 532528.000000
-    iteration7_test.go:432: get gauge: "Frees", value: 222.000000
-    iteration7_test.go:432: get gauge: "HeapAlloc", value: 532528.000000
-    iteration7_test.go:432: get gauge: "HeapIdle", value: 2367488.000000
+    iteration7_test.go:432: get gauge: "RandomValue", value: 0.060000
+    iteration7_test.go:432: get gauge: "Alloc", value: 533152.000000
+    iteration7_test.go:432: get gauge: "Frees", value: 219.000000
+    iteration7_test.go:432: get gauge: "HeapAlloc", value: 533152.000000
+    iteration7_test.go:432: get gauge: "HeapIdle", value: 2457600.000000
 === RUN   TestIteration7/TestCollectAgentMetrics/counter/PollCount
 === RUN   TestIteration7/TestCollectAgentMetrics/gauge/RandomValue
 === RUN   TestIteration7/TestCollectAgentMetrics/gauge/Alloc
@@ -241,42 +266,42 @@
 === NAME  TestIteration7
     iteration7_test.go:162: Получен STDOUT лог процесса:
         
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/TotalAlloc/149248.00": read tcp [::1]:59479->[::1]:8080: read: connection reset by peer
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapAlloc/149248.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapReleased/3022848.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Sys/7769104.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Frees/11.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanInuse/35448.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackSys/360448.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Alloc/149248.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/OtherSys/745256.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Mallocs/361.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/RandomValue/0.57": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/BuckHashSys/4000.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapSys/3833856.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanSys/48888.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapInuse/745472.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapObjects/350.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Alloc/149456.00": read tcp [::1]:61351->[::1]:8080: read: connection reset by peer
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapObjects/351.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/TotalAlloc/149456.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/RandomValue/0.50": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCSys/2761056.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapIdle/3088384.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapSys/3833856.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackSys/360448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Frees/11.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapAlloc/149456.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Sys/8031248.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/BuckHashSys/4000.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapInuse/745472.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapReleased/3063808.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Mallocs/362.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/OtherSys/1007400.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanSys/48888.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapIdle/3088384.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanInuse/35448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
         interrupt
     iteration7_test.go:131: Получен STDOUT лог процесса:
         
         server: main: restorer: read file error: service: file_engine: GetAllMetric: Unmarshal: invalid character '}' looking for beginning of value
-        can't connect: repository: postgres: InitPostgres: gooose.UP: failed to connect to `host=/private/tmp user=nikitabar database=`: dial error (dial unix /private/tmp/.s.PGSQL.5432: connect: no such file or directory)
---- PASS: TestIteration7 (30.98s)
-    --- PASS: TestIteration7/TestCollectAgentMetrics (20.85s)
+        2023/10/09 19:58:31 goose: no migrations to run. current version: 1
+--- PASS: TestIteration7 (31.01s)
+    --- PASS: TestIteration7/TestCollectAgentMetrics (20.87s)
         --- PASS: TestIteration7/TestCollectAgentMetrics/counter/PollCount (0.00s)
         --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/RandomValue (0.00s)
         --- PASS: TestIteration7/TestCollectAgentMetrics/gauge/Alloc (0.00s)
@@ -321,43 +346,43 @@
 === NAME  TestIteration8
     iteration8_test.go:152: Получен STDOUT лог процесса:
         
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": read tcp [::1]:59558->[::1]:8080: read: connection reset by peer
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanInuse/24696.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/TotalAlloc/149848.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/RandomValue/0.97": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Alloc/149848.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapInuse/622592.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapObjects/354.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/OtherSys/755384.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/BuckHashSys/4000.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCSys/2767224.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanSys/32592.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapReleased/3211264.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Sys/7769104.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapAlloc/149848.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapIdle/3211264.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapSys/3833856.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Frees/11.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Mallocs/365.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Mallocs/362.00": EOF
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Alloc/149272.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapObjects/351.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanInuse/35448.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackSys/360448.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapReleased/3203072.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCSys/2773392.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/OtherSys/995064.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/RandomValue/0.69": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/BuckHashSys/4000.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapSys/3833856.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapIdle/3203072.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/counter/PollCount/5": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Frees/11.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapAlloc/149272.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanSys/48888.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapInuse/630784.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackSys/360448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Sys/8031248.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/TotalAlloc/149272.00": dial tcp [::1]:8080: connect: connection refused
         interrupt
     iteration8_test.go:121: Получен STDOUT лог процесса:
         
         server: main: restorer: read file error: service: file_engine: GetAllMetric: Unmarshal: invalid character '}' looking for beginning of value
-        can't connect: repository: postgres: InitPostgres: gooose.UP: failed to connect to `host=/private/tmp user=nikitabar database=`: dial error (dial unix /private/tmp/.s.PGSQL.5432: connect: no such file or directory)
---- PASS: TestIteration8 (10.13s)
-    --- PASS: TestIteration8/TestCounterGzipHandlers (0.00s)
-        --- PASS: TestIteration8/TestCounterGzipHandlers/update (0.00s)
+        2023/10/09 19:59:02 goose: no migrations to run. current version: 1
+--- PASS: TestIteration8 (10.15s)
+    --- PASS: TestIteration8/TestCounterGzipHandlers (0.01s)
+        --- PASS: TestIteration8/TestCounterGzipHandlers/update (0.01s)
     --- PASS: TestIteration8/TestGaugeGzipHandlers (0.00s)
         --- PASS: TestIteration8/TestGaugeGzipHandlers/update (0.00s)
     --- PASS: TestIteration8/TestGetGzipHandlers (0.00s)
@@ -380,423 +405,423 @@
         
         server: main: restorer: read file error: service: file_engine: GetAllMetric: Unmarshal: invalid character '}' looking for beginning of value
         can't connect: repository: postgres: InitPostgres: gooose.UP: failed to connect to `host=postgres user=postgres database=praktikum`: hostname resolving error (lookup postgres: no such host)
-        2023/10/09 19:15:28 http: panic serving 127.0.0.1:59624: runtime error: invalid memory address or nil pointer dereference
+        2023/10/09 19:59:03 http: panic serving 127.0.0.1:61504: runtime error: invalid memory address or nil pointer dereference
         goroutine 11 [running]:
         net/http.(*conn).serve.func1()
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x100a32fe0?, 0x100dfd6f0?})
+        panic({0x104feefe0?, 0x1053b96f0?})
         	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x100adc458?, {0x100adc500?, 0x140000c5c00?})
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x105098458?, {0x105098500?, 0x140000c5dc0?})
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x100adb4f0, 0x1400025ccc0}, 0x1?)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x1050974f0, 0x1400025ccc0}, 0x1?)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb4f0?, 0x1400025ccc0?}, 0x14000010fb4?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x1050974f0?, 0x1400025ccc0?}, 0x14000010fb4?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x100adb4f0, 0x1400025ccc0}, 0x140000e6500)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x1050974f0, 0x1400025ccc0}, 0x140000e6500)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x100adb4f0?, 0x1400025ccc0?}, 0x10059d4bc?)
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1050974f0?, 0x1400025ccc0?}, 0x104b594bc?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x100adb220, 0x1400000e6c0}, 0x140000e6500)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x105097220, 0x1400000e660}, 0x140000e6500)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x100adb220?, 0x1400000e6c0?}, 0x1400006c3a0?)
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x105097220?, 0x1400000e660?}, 0x1400006c388?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x100adb160?, 0x140000ec540}, 0x140000e6500)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x105097160?, 0x140000ec540}, 0x140000e6500)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400025cc90?, {0x100adb160?, 0x140000ec540?}, 0x140000dd938?)
+        net/http.HandlerFunc.ServeHTTP(0x1400025cc90?, {0x105097160?, 0x140000ec540?}, 0x140000dd938?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x100adb160, 0x140000ec540}, 0x140000e6500)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x105097160, 0x140000ec540}, 0x140000e6500)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x100adb160, 0x140000ec540}, 0x140000e6500)
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x105097160, 0x140000ec540}, 0x140000e6500)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb160?, 0x140000ec540?}, 0x1400003c28c?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x105097160?, 0x140000ec540?}, 0x1400003c28c?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x100adb160, 0x140000ec540}, 0x140000e6500)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x105097160, 0x140000ec540}, 0x140000e6500)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x100adc490?, {0x100adb160?, 0x140000ec540?}, 0x100dfd3e0?)
+        net/http.HandlerFunc.ServeHTTP(0x105098490?, {0x105097160?, 0x140000ec540?}, 0x1053b93e0?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x100adb160, 0x140000ec540}, 0x140000e6400)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x105097160, 0x140000ec540}, 0x140000e6400)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400025cb70?}, {0x100adb160?, 0x140000ec540?}, 0x6?)
+        net/http.serverHandler.ServeHTTP({0x1400025cb70?}, {0x105097160?, 0x140000ec540?}, 0x6?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x140000eb8c0, {0x100adc458, 0x1400025c990})
+        net/http.(*conn).serve(0x140000eb950, {0x105098458, 0x1400025c990})
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
         created by net/http.(*Server).Serve in goroutine 1
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:29 http: panic serving 127.0.0.1:59626: runtime error: invalid memory address or nil pointer dereference
+        2023/10/09 19:59:04 http: panic serving 127.0.0.1:61506: runtime error: invalid memory address or nil pointer dereference
         goroutine 13 [running]:
         net/http.(*conn).serve.func1()
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x100a32fe0?, 0x100dfd6f0?})
+        panic({0x104feefe0?, 0x1053b96f0?})
         	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x100adc458?, {0x100adc500?, 0x140000c5ce0?})
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x105098458?, {0x105098500?, 0x140000c5ea0?})
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x100adb4f0, 0x1400025ced0}, 0x1?)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x1050974f0, 0x1400025ced0}, 0x1?)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb4f0?, 0x1400025ced0?}, 0x14000011084?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x1050974f0?, 0x1400025ced0?}, 0x14000011084?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x100adb4f0, 0x1400025ced0}, 0x140000e6700)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x1050974f0, 0x1400025ced0}, 0x140000e6700)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x100adb4f0?, 0x1400025ced0?}, 0x10059d4bc?)
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1050974f0?, 0x1400025ced0?}, 0x104b594bc?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x100adb220, 0x1400000e708}, 0x140000e6700)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x105097220, 0x1400000e6a8}, 0x140000e6700)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x100adb220?, 0x1400000e708?}, 0x1400006c3a0?)
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x105097220?, 0x1400000e6a8?}, 0x1400006c388?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x100adb160?, 0x140000ec620}, 0x140000e6700)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x105097160?, 0x140000ec620}, 0x140000e6700)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400025cea0?, {0x100adb160?, 0x140000ec620?}, 0x1400007d938?)
+        net/http.HandlerFunc.ServeHTTP(0x1400025cea0?, {0x105097160?, 0x140000ec620?}, 0x1400007d938?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x100adb160, 0x140000ec620}, 0x140000e6700)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x105097160, 0x140000ec620}, 0x140000e6700)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x100adb160, 0x140000ec620}, 0x140000e6700)
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x105097160, 0x140000ec620}, 0x140000e6700)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb160?, 0x140000ec620?}, 0x1400003c2a4?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x105097160?, 0x140000ec620?}, 0x1400003c2a4?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x100adb160, 0x140000ec620}, 0x140000e6700)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x105097160, 0x140000ec620}, 0x140000e6700)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x100adc490?, {0x100adb160?, 0x140000ec620?}, 0x100dfd3e0?)
+        net/http.HandlerFunc.ServeHTTP(0x105098490?, {0x105097160?, 0x140000ec620?}, 0x1053b93e0?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x100adb160, 0x140000ec620}, 0x140000e6600)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x105097160, 0x140000ec620}, 0x140000e6600)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400025cdb0?}, {0x100adb160?, 0x140000ec620?}, 0x6?)
+        net/http.serverHandler.ServeHTTP({0x1400025cdb0?}, {0x105097160?, 0x140000ec620?}, 0x6?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x140000ebb00, {0x100adc458, 0x1400025c990})
+        net/http.(*conn).serve(0x140000ebb90, {0x105098458, 0x1400025c990})
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
         created by net/http.(*Server).Serve in goroutine 1
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:30 http: panic serving 127.0.0.1:59628: runtime error: invalid memory address or nil pointer dereference
+        2023/10/09 19:59:05 http: panic serving 127.0.0.1:61509: runtime error: invalid memory address or nil pointer dereference
         goroutine 15 [running]:
         net/http.(*conn).serve.func1()
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x100a32fe0?, 0x100dfd6f0?})
+        panic({0x104feefe0?, 0x1053b96f0?})
         	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x100adc458?, {0x100adc500?, 0x140000c5d50?})
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x105098458?, {0x105098500?, 0x140000c5f10?})
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x100adb4f0, 0x1400025d0e0}, 0x1?)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x1050974f0, 0x1400025d0e0}, 0x1?)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb4f0?, 0x1400025d0e0?}, 0x140000110d4?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x1050974f0?, 0x1400025d0e0?}, 0x140000110d4?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x100adb4f0, 0x1400025d0e0}, 0x140000e6900)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x1050974f0, 0x1400025d0e0}, 0x140000e6900)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x100adb4f0?, 0x1400025d0e0?}, 0x10059d4bc?)
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1050974f0?, 0x1400025d0e0?}, 0x104b594bc?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x100adb220, 0x1400000e738}, 0x140000e6900)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x105097220, 0x1400000e6d8}, 0x140000e6900)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x100adb220?, 0x1400000e738?}, 0x1400006c3a0?)
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x105097220?, 0x1400000e6d8?}, 0x1400006c388?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x100adb160?, 0x140000ec700}, 0x140000e6900)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x105097160?, 0x140000ec700}, 0x140000e6900)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400025d0b0?, {0x100adb160?, 0x140000ec700?}, 0x1400007d938?)
+        net/http.HandlerFunc.ServeHTTP(0x1400025d0b0?, {0x105097160?, 0x140000ec700?}, 0x1400007d938?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x100adb160, 0x140000ec700}, 0x140000e6900)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x105097160, 0x140000ec700}, 0x140000e6900)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x100adb160, 0x140000ec700}, 0x140000e6900)
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x105097160, 0x140000ec700}, 0x140000e6900)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb160?, 0x140000ec700?}, 0x1400003c2bc?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x105097160?, 0x140000ec700?}, 0x1400003c2bc?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x100adb160, 0x140000ec700}, 0x140000e6900)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x105097160, 0x140000ec700}, 0x140000e6900)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x100adc490?, {0x100adb160?, 0x140000ec700?}, 0x100dfd3e0?)
+        net/http.HandlerFunc.ServeHTTP(0x105098490?, {0x105097160?, 0x140000ec700?}, 0x1053b93e0?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x100adb160, 0x140000ec700}, 0x140000e6800)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x105097160, 0x140000ec700}, 0x140000e6800)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400025cfc0?}, {0x100adb160?, 0x140000ec700?}, 0x6?)
+        net/http.serverHandler.ServeHTTP({0x1400025cfc0?}, {0x105097160?, 0x140000ec700?}, 0x6?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x140000ebd40, {0x100adc458, 0x1400025c990})
+        net/http.(*conn).serve(0x140000ebdd0, {0x105098458, 0x1400025c990})
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
         created by net/http.(*Server).Serve in goroutine 1
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:31 http: panic serving 127.0.0.1:59630: runtime error: invalid memory address or nil pointer dereference
+        2023/10/09 19:59:06 http: panic serving 127.0.0.1:61511: runtime error: invalid memory address or nil pointer dereference
         goroutine 18 [running]:
         net/http.(*conn).serve.func1()
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x100a32fe0?, 0x100dfd6f0?})
+        panic({0x104feefe0?, 0x1053b96f0?})
         	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x100adc458?, {0x100adc500?, 0x140000c5dc0?})
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x105098458?, {0x105098500?, 0x140000c5f80?})
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x100adb4f0, 0x1400025d2f0}, 0x1?)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x1050974f0, 0x1400025d2f0}, 0x1?)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb4f0?, 0x1400025d2f0?}, 0x14000011124?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x1050974f0?, 0x1400025d2f0?}, 0x14000011124?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x100adb4f0, 0x1400025d2f0}, 0x140000e6b00)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x1050974f0, 0x1400025d2f0}, 0x140000e6b00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x100adb4f0?, 0x1400025d2f0?}, 0x10059d4bc?)
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1050974f0?, 0x1400025d2f0?}, 0x104b594bc?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x100adb220, 0x1400000e768}, 0x140000e6b00)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x105097220, 0x1400000e708}, 0x140000e6b00)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x100adb220?, 0x1400000e768?}, 0x1400006c3a0?)
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x105097220?, 0x1400000e708?}, 0x1400006c388?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x100adb160?, 0x140000ec7e0}, 0x140000e6b00)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x105097160?, 0x140000ec7e0}, 0x140000e6b00)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400025d2c0?, {0x100adb160?, 0x140000ec7e0?}, 0x1400007d938?)
+        net/http.HandlerFunc.ServeHTTP(0x1400025d2c0?, {0x105097160?, 0x140000ec7e0?}, 0x1400007d938?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x100adb160, 0x140000ec7e0}, 0x140000e6b00)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x105097160, 0x140000ec7e0}, 0x140000e6b00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x100adb160, 0x140000ec7e0}, 0x140000e6b00)
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x105097160, 0x140000ec7e0}, 0x140000e6b00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb160?, 0x140000ec7e0?}, 0x1400003c2d4?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x105097160?, 0x140000ec7e0?}, 0x1400003c2d4?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x100adb160, 0x140000ec7e0}, 0x140000e6b00)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x105097160, 0x140000ec7e0}, 0x140000e6b00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x100adc490?, {0x100adb160?, 0x140000ec7e0?}, 0x100dfd3e0?)
+        net/http.HandlerFunc.ServeHTTP(0x105098490?, {0x105097160?, 0x140000ec7e0?}, 0x1053b93e0?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x100adb160, 0x140000ec7e0}, 0x140000e6a00)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x105097160, 0x140000ec7e0}, 0x140000e6a00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400025d1d0?}, {0x100adb160?, 0x140000ec7e0?}, 0x6?)
+        net/http.serverHandler.ServeHTTP({0x1400025d1d0?}, {0x105097160?, 0x140000ec7e0?}, 0x6?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x140002a8000, {0x100adc458, 0x1400025c990})
+        net/http.(*conn).serve(0x14000298090, {0x105098458, 0x1400025c990})
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
         created by net/http.(*Server).Serve in goroutine 1
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:32 http: panic serving 127.0.0.1:59632: runtime error: invalid memory address or nil pointer dereference
+        2023/10/09 19:59:07 http: panic serving 127.0.0.1:61513: runtime error: invalid memory address or nil pointer dereference
         goroutine 20 [running]:
         net/http.(*conn).serve.func1()
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x100a32fe0?, 0x100dfd6f0?})
+        panic({0x104feefe0?, 0x1053b96f0?})
         	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x100adc458?, {0x100adc500?, 0x140000c5e30?})
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x105098458?, {0x105098500?, 0x140002bc000?})
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x100adb4f0, 0x1400025d500}, 0x1?)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x1050974f0, 0x1400025d500}, 0x1?)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb4f0?, 0x1400025d500?}, 0x14000011174?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x1050974f0?, 0x1400025d500?}, 0x14000011174?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x100adb4f0, 0x1400025d500}, 0x140000e6d00)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x1050974f0, 0x1400025d500}, 0x140000e6d00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x100adb4f0?, 0x1400025d500?}, 0x10059d4bc?)
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1050974f0?, 0x1400025d500?}, 0x104b594bc?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x100adb220, 0x1400000e798}, 0x140000e6d00)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x105097220, 0x1400000e738}, 0x140000e6d00)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x100adb220?, 0x1400000e798?}, 0x1400006c3a0?)
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x105097220?, 0x1400000e738?}, 0x1400006c388?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x100adb160?, 0x140000ec8c0}, 0x140000e6d00)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x105097160?, 0x140000ec8c0}, 0x140000e6d00)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400025d4d0?, {0x100adb160?, 0x140000ec8c0?}, 0x1400007d938?)
+        net/http.HandlerFunc.ServeHTTP(0x1400025d4d0?, {0x105097160?, 0x140000ec8c0?}, 0x1400007d938?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x100adb160, 0x140000ec8c0}, 0x140000e6d00)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x105097160, 0x140000ec8c0}, 0x140000e6d00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x100adb160, 0x140000ec8c0}, 0x140000e6d00)
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x105097160, 0x140000ec8c0}, 0x140000e6d00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb160?, 0x140000ec8c0?}, 0x1400003c2ec?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x105097160?, 0x140000ec8c0?}, 0x1400003c2ec?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x100adb160, 0x140000ec8c0}, 0x140000e6d00)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x105097160, 0x140000ec8c0}, 0x140000e6d00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x100adc490?, {0x100adb160?, 0x140000ec8c0?}, 0x100dfd3e0?)
+        net/http.HandlerFunc.ServeHTTP(0x105098490?, {0x105097160?, 0x140000ec8c0?}, 0x1053b93e0?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x100adb160, 0x140000ec8c0}, 0x140000e6c00)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x105097160, 0x140000ec8c0}, 0x140000e6c00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400025d3e0?}, {0x100adb160?, 0x140000ec8c0?}, 0x6?)
+        net/http.serverHandler.ServeHTTP({0x1400025d3e0?}, {0x105097160?, 0x140000ec8c0?}, 0x6?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x140002a8240, {0x100adc458, 0x1400025c990})
+        net/http.(*conn).serve(0x140002982d0, {0x105098458, 0x1400025c990})
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
         created by net/http.(*Server).Serve in goroutine 1
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:33 http: panic serving 127.0.0.1:59634: runtime error: invalid memory address or nil pointer dereference
+        2023/10/09 19:59:08 http: panic serving 127.0.0.1:61517: runtime error: invalid memory address or nil pointer dereference
         goroutine 22 [running]:
         net/http.(*conn).serve.func1()
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x100a32fe0?, 0x100dfd6f0?})
+        panic({0x104feefe0?, 0x1053b96f0?})
         	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x100adc458?, {0x100adc500?, 0x14000136000?})
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x105098458?, {0x105098500?, 0x140002bc070?})
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x100adb4f0, 0x1400011c0f0}, 0x1?)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x1050974f0, 0x1400025d710}, 0x1?)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb4f0?, 0x1400011c0f0?}, 0x1400011e014?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x1050974f0?, 0x1400025d710?}, 0x140000111c4?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x100adb4f0, 0x1400011c0f0}, 0x14000130000)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x1050974f0, 0x1400025d710}, 0x140000e6f00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x100adb4f0?, 0x1400011c0f0?}, 0x10059d4bc?)
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1050974f0?, 0x1400025d710?}, 0x104b594bc?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x100adb220, 0x14000110018}, 0x14000130000)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x105097220, 0x1400000e768}, 0x140000e6f00)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x100adb220?, 0x14000110018?}, 0x1400006c3a0?)
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x105097220?, 0x1400000e768?}, 0x1400006c388?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x100adb160?, 0x14000128000}, 0x14000130000)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x105097160?, 0x140000ec9a0}, 0x140000e6f00)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400011c0c0?, {0x100adb160?, 0x14000128000?}, 0x1400007d938?)
+        net/http.HandlerFunc.ServeHTTP(0x1400025d6e0?, {0x105097160?, 0x140000ec9a0?}, 0x1400007d938?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x100adb160, 0x14000128000}, 0x14000130000)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x105097160, 0x140000ec9a0}, 0x140000e6f00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x100adb160, 0x14000128000}, 0x14000130000)
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x105097160, 0x140000ec9a0}, 0x140000e6f00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb160?, 0x14000128000?}, 0x14000118004?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x105097160?, 0x140000ec9a0?}, 0x1400003c304?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x100adb160, 0x14000128000}, 0x14000130000)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x105097160, 0x140000ec9a0}, 0x140000e6f00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x100adc490?, {0x100adb160?, 0x14000128000?}, 0x100dfd3e0?)
+        net/http.HandlerFunc.ServeHTTP(0x105098490?, {0x105097160?, 0x140000ec9a0?}, 0x1053b93e0?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x100adb160, 0x14000128000}, 0x140000e6e00)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x105097160, 0x140000ec9a0}, 0x140000e6e00)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400025d5f0?}, {0x100adb160?, 0x14000128000?}, 0x6?)
+        net/http.serverHandler.ServeHTTP({0x1400025d5f0?}, {0x105097160?, 0x140000ec9a0?}, 0x6?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x140002a8480, {0x100adc458, 0x1400025c990})
+        net/http.(*conn).serve(0x14000298510, {0x105098458, 0x1400025c990})
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
         created by net/http.(*Server).Serve in goroutine 1
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:34 http: panic serving 127.0.0.1:59637: runtime error: invalid memory address or nil pointer dereference
-        goroutine 35 [running]:
+        2023/10/09 19:59:09 http: panic serving 127.0.0.1:61519: runtime error: invalid memory address or nil pointer dereference
+        goroutine 24 [running]:
         net/http.(*conn).serve.func1()
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x100a32fe0?, 0x100dfd6f0?})
+        panic({0x104feefe0?, 0x1053b96f0?})
         	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x100adc458?, {0x100adc500?, 0x14000136070?})
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x105098458?, {0x105098500?, 0x140002bc0e0?})
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x100adb4f0, 0x1400011c300}, 0x1?)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x1050974f0, 0x1400025d920}, 0x1?)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb4f0?, 0x1400011c300?}, 0x1400011e084?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x1050974f0?, 0x1400025d920?}, 0x14000011214?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x100adb4f0, 0x1400011c300}, 0x14000130200)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x1050974f0, 0x1400025d920}, 0x140000e7100)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x100adb4f0?, 0x1400011c300?}, 0x10059d4bc?)
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1050974f0?, 0x1400025d920?}, 0x104b594bc?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x100adb220, 0x14000110060}, 0x14000130200)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x105097220, 0x1400000e798}, 0x140000e7100)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x100adb220?, 0x14000110060?}, 0x1400006c3a0?)
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x105097220?, 0x1400000e798?}, 0x1400006c388?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x100adb160?, 0x140001280e0}, 0x14000130200)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x105097160?, 0x140000eca80}, 0x140000e7100)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400011c2d0?, {0x100adb160?, 0x140001280e0?}, 0x1400007d938?)
+        net/http.HandlerFunc.ServeHTTP(0x1400025d8f0?, {0x105097160?, 0x140000eca80?}, 0x1400007d938?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x100adb160, 0x140001280e0}, 0x14000130200)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x105097160, 0x140000eca80}, 0x140000e7100)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x100adb160, 0x140001280e0}, 0x14000130200)
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x105097160, 0x140000eca80}, 0x140000e7100)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb160?, 0x140001280e0?}, 0x1400011801c?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x105097160?, 0x140000eca80?}, 0x1400003c31c?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x100adb160, 0x140001280e0}, 0x14000130200)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x105097160, 0x140000eca80}, 0x140000e7100)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x100adc490?, {0x100adb160?, 0x140001280e0?}, 0x100dfd3e0?)
+        net/http.HandlerFunc.ServeHTTP(0x105098490?, {0x105097160?, 0x140000eca80?}, 0x1053b93e0?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x100adb160, 0x140001280e0}, 0x14000130100)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x105097160, 0x140000eca80}, 0x140000e7000)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400011c1e0?}, {0x100adb160?, 0x140001280e0?}, 0x6?)
+        net/http.serverHandler.ServeHTTP({0x1400025d800?}, {0x105097160?, 0x140000eca80?}, 0x6?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x1400011a1b0, {0x100adc458, 0x1400025c990})
+        net/http.(*conn).serve(0x14000298750, {0x105098458, 0x1400025c990})
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
         created by net/http.(*Server).Serve in goroutine 1
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:35 http: panic serving 127.0.0.1:59639: runtime error: invalid memory address or nil pointer dereference
-        goroutine 37 [running]:
+        2023/10/09 19:59:10 http: panic serving 127.0.0.1:61521: runtime error: invalid memory address or nil pointer dereference
+        goroutine 34 [running]:
         net/http.(*conn).serve.func1()
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x100a32fe0?, 0x100dfd6f0?})
+        panic({0x104feefe0?, 0x1053b96f0?})
         	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x100adc458?, {0x100adc500?, 0x140001360e0?})
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x105098458?, {0x105098500?, 0x14000338000?})
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x100adb4f0, 0x1400011c510}, 0x1?)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x1050974f0, 0x140003041e0}, 0x1?)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb4f0?, 0x1400011c510?}, 0x1400011e0d4?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x1050974f0?, 0x140003041e0?}, 0x14000316034?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x100adb4f0, 0x1400011c510}, 0x14000130400)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x1050974f0, 0x140003041e0}, 0x14000322100)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x100adb4f0?, 0x1400011c510?}, 0x10059d4bc?)
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1050974f0?, 0x140003041e0?}, 0x105550f40?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x100adb220, 0x14000110090}, 0x14000130400)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x105097220, 0x14000334000}, 0x14000322100)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x100adb220?, 0x14000110090?}, 0x1400006c3a0?)
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x105097220?, 0x14000334000?}, 0x1400006c388?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x100adb160?, 0x140001281c0}, 0x14000130400)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x105097160?, 0x1400032e000}, 0x14000322100)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400011c4e0?, {0x100adb160?, 0x140001281c0?}, 0x1400007d938?)
+        net/http.HandlerFunc.ServeHTTP(0x140003041b0?, {0x105097160?, 0x1400032e000?}, 0x14000312938?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x100adb160, 0x140001281c0}, 0x14000130400)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x105097160, 0x1400032e000}, 0x14000322100)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x100adb160, 0x140001281c0}, 0x14000130400)
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x105097160, 0x1400032e000}, 0x14000322100)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb160?, 0x140001281c0?}, 0x14000118034?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x105097160?, 0x1400032e000?}, 0x14000324004?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x100adb160, 0x140001281c0}, 0x14000130400)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x105097160, 0x1400032e000}, 0x14000322100)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x100adc490?, {0x100adb160?, 0x140001281c0?}, 0x100dfd3e0?)
+        net/http.HandlerFunc.ServeHTTP(0x105098490?, {0x105097160?, 0x1400032e000?}, 0x1053b93e0?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x100adb160, 0x140001281c0}, 0x14000130300)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x105097160, 0x1400032e000}, 0x14000322000)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400011c3f0?}, {0x100adb160?, 0x140001281c0?}, 0x6?)
+        net/http.serverHandler.ServeHTTP({0x14000304090?}, {0x105097160?, 0x1400032e000?}, 0x6?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x1400011a3f0, {0x100adc458, 0x1400025c990})
+        net/http.(*conn).serve(0x14000308000, {0x105098458, 0x1400025c990})
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
         created by net/http.(*Server).Serve in goroutine 1
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:36 http: panic serving 127.0.0.1:59641: runtime error: invalid memory address or nil pointer dereference
-        goroutine 50 [running]:
+        2023/10/09 19:59:11 http: panic serving 127.0.0.1:61523: runtime error: invalid memory address or nil pointer dereference
+        goroutine 36 [running]:
         net/http.(*conn).serve.func1()
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x100a32fe0?, 0x100dfd6f0?})
+        panic({0x104feefe0?, 0x1053b96f0?})
         	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x100adc458?, {0x100adc500?, 0x140001d2000?})
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x105098458?, {0x105098500?, 0x14000338070?})
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x100adb4f0, 0x140001921e0}, 0x1?)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x1050974f0, 0x140003043f0}, 0x1?)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb4f0?, 0x140001921e0?}, 0x140001ac034?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x1050974f0?, 0x140003043f0?}, 0x140003160a4?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x100adb4f0, 0x140001921e0}, 0x140001b6100)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x1050974f0, 0x140003043f0}, 0x14000322300)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x100adb4f0?, 0x140001921e0?}, 0x100f94a90?)
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1050974f0?, 0x140003043f0?}, 0x104b594bc?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x100adb220, 0x140001c6000}, 0x140001b6100)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x105097220, 0x14000334048}, 0x14000322300)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x100adb220?, 0x140001c6000?}, 0x1400006c3a0?)
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x105097220?, 0x14000334048?}, 0x1400006c388?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x100adb160?, 0x140001c0000}, 0x140001b6100)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x105097160?, 0x1400032e0e0}, 0x14000322300)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x140001921b0?, {0x100adb160?, 0x140001c0000?}, 0x140001a8938?)
+        net/http.HandlerFunc.ServeHTTP(0x140003043c0?, {0x105097160?, 0x1400032e0e0?}, 0x14000312938?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x100adb160, 0x140001c0000}, 0x140001b6100)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x105097160, 0x1400032e0e0}, 0x14000322300)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x100adb160, 0x140001c0000}, 0x140001b6100)
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x105097160, 0x1400032e0e0}, 0x14000322300)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb160?, 0x140001c0000?}, 0x140001b8004?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x105097160?, 0x1400032e0e0?}, 0x1400032401c?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x100adb160, 0x140001c0000}, 0x140001b6100)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x105097160, 0x1400032e0e0}, 0x14000322300)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x100adc490?, {0x100adb160?, 0x140001c0000?}, 0x100dfd3e0?)
+        net/http.HandlerFunc.ServeHTTP(0x105098490?, {0x105097160?, 0x1400032e0e0?}, 0x1053b93e0?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x100adb160, 0x140001c0000}, 0x140001b6000)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x105097160, 0x1400032e0e0}, 0x14000322200)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x14000192090?}, {0x100adb160?, 0x140001c0000?}, 0x6?)
+        net/http.serverHandler.ServeHTTP({0x140003042d0?}, {0x105097160?, 0x1400032e0e0?}, 0x6?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x14000196000, {0x100adc458, 0x1400025c990})
+        net/http.(*conn).serve(0x14000308240, {0x105098458, 0x1400025c990})
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
         created by net/http.(*Server).Serve in goroutine 1
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:37 http: panic serving 127.0.0.1:59643: runtime error: invalid memory address or nil pointer dereference
-        goroutine 23 [running]:
+        2023/10/09 19:59:12 http: panic serving 127.0.0.1:61525: runtime error: invalid memory address or nil pointer dereference
+        goroutine 38 [running]:
         net/http.(*conn).serve.func1()
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x100a32fe0?, 0x100dfd6f0?})
+        panic({0x104feefe0?, 0x1053b96f0?})
         	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x100adc458?, {0x100adc500?, 0x140000c5ea0?})
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x105098458?, {0x105098500?, 0x140003380e0?})
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x100adb4f0, 0x1400025d800}, 0x1?)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x14000088580, {0x1050974f0, 0x14000304600}, 0x1?)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb4f0?, 0x1400025d800?}, 0x140000111e4?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x1050974f0?, 0x14000304600?}, 0x140003160f4?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x100adb4f0, 0x1400025d800}, 0x140000e7000)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x14000092900, {0x1050974f0, 0x14000304600}, 0x14000322500)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x100adb4f0?, 0x1400025d800?}, 0x10059d4bc?)
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1050974f0?, 0x14000304600?}, 0x104b594bc?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x100adb220, 0x1400000e7c8}, 0x140000e7000)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x105097220, 0x14000334078}, 0x14000322500)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x100adb220?, 0x1400000e7c8?}, 0x1400006c3a0?)
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x105097220?, 0x14000334078?}, 0x1400006c388?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x100adb160?, 0x140000ec9a0}, 0x140000e7000)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x105097160?, 0x1400032e1c0}, 0x14000322500)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400025d7d0?, {0x100adb160?, 0x140000ec9a0?}, 0x1400007e938?)
+        net/http.HandlerFunc.ServeHTTP(0x140003045d0?, {0x105097160?, 0x1400032e1c0?}, 0x14000312938?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x100adb160, 0x140000ec9a0}, 0x140000e7000)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x14000092900, {0x105097160, 0x1400032e1c0}, 0x14000322500)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x100adb160, 0x140000ec9a0}, 0x140000e7000)
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x105097160, 0x1400032e1c0}, 0x14000322500)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x100a2f240?, {0x100adb160?, 0x140000ec9a0?}, 0x1400003c304?)
+        net/http.HandlerFunc.ServeHTTP(0x104feb240?, {0x105097160?, 0x1400032e1c0?}, 0x1400032404c?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x100adb160, 0x140000ec9a0}, 0x140000e7000)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140000928a0, {0x105097160, 0x1400032e1c0}, 0x14000322500)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x100adc490?, {0x100adb160?, 0x140000ec9a0?}, 0x100dfd3e0?)
+        net/http.HandlerFunc.ServeHTTP(0x105098490?, {0x105097160?, 0x1400032e1c0?}, 0x1053b93e0?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x100adb160, 0x140000ec9a0}, 0x140000e6f00)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140000928a0, {0x105097160, 0x1400032e1c0}, 0x14000322400)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400025d6b0?}, {0x100adb160?, 0x140000ec9a0?}, 0x6?)
+        net/http.serverHandler.ServeHTTP({0x140003044e0?}, {0x105097160?, 0x1400032e1c0?}, 0x6?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x140002a8510, {0x100adc458, 0x1400025c990})
+        net/http.(*conn).serve(0x14000308480, {0x105098458, 0x1400025c990})
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
         created by net/http.(*Server).Serve in goroutine 1
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
@@ -810,423 +835,423 @@
         
         server: main: restorer: read file error: service: file_engine: GetAllMetric: Unmarshal: invalid character '}' looking for beginning of value
         can't connect: repository: postgres: InitPostgres: gooose.UP: failed to connect to `host=/private/tmp user=nikitabar database=`: dial error (dial unix /private/tmp/.s.PGSQL.5432: connect: no such file or directory)
-        2023/10/09 19:15:38 http: panic serving 127.0.0.1:59646: runtime error: invalid memory address or nil pointer dereference
-        goroutine 18 [running]:
-        net/http.(*conn).serve.func1()
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x102532fe0?, 0x1028fd6f0?})
-        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x1025dc458?, {0x1025dc500?, 0x140002c4000?})
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x1400007c640, {0x1025db4f0, 0x1400028a270}, 0x1?)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db4f0?, 0x1400028a270?}, 0x14000288054?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e900, {0x1025db4f0, 0x1400028a270}, 0x1400029a200)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1025db4f0?, 0x1400028a270?}, 0x102a94f40?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x1025db220, 0x140002c0000}, 0x1400029a200)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x1025db220?, 0x140002c0000?}, 0x14000070398?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x1025db160?, 0x140002b8000}, 0x1400029a200)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400028a240?, {0x1025db160?, 0x140002b8000?}, 0x140000d7938?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e900, {0x1025db160, 0x140002b8000}, 0x1400029a200)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x1025db160, 0x140002b8000}, 0x1400029a200)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db160?, 0x140002b8000?}, 0x140002a4004?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e8a0, {0x1025db160, 0x140002b8000}, 0x1400029a200)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x1025dc490?, {0x1025db160?, 0x140002b8000?}, 0x1028fd3e0?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e8a0, {0x1025db160, 0x140002b8000}, 0x1400029a100)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400028a120?}, {0x1025db160?, 0x140002b8000?}, 0x6?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x140002a2000, {0x1025dc458, 0x1400025c840})
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
-        created by net/http.(*Server).Serve in goroutine 1
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:39 http: panic serving 127.0.0.1:59648: runtime error: invalid memory address or nil pointer dereference
-        goroutine 34 [running]:
-        net/http.(*conn).serve.func1()
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x102532fe0?, 0x1028fd6f0?})
-        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x1025dc458?, {0x1025dc500?, 0x14000144000?})
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x1400007c640, {0x1025db4f0, 0x1400011c1e0}, 0x1?)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db4f0?, 0x1400011c1e0?}, 0x14000122034?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e900, {0x1025db4f0, 0x1400011c1e0}, 0x1400012a100)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1025db4f0?, 0x1400011c1e0?}, 0x10209d4bc?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x1025db220, 0x14000110018}, 0x1400012a100)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x1025db220?, 0x14000110018?}, 0x14000070398?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x1025db160?, 0x14000134000}, 0x1400012a100)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400011c1b0?, {0x1025db160?, 0x14000134000?}, 0x14000081938?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e900, {0x1025db160, 0x14000134000}, 0x1400012a100)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x1025db160, 0x14000134000}, 0x1400012a100)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db160?, 0x14000134000?}, 0x1400012c004?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e8a0, {0x1025db160, 0x14000134000}, 0x1400012a100)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x1025dc490?, {0x1025db160?, 0x14000134000?}, 0x1028fd3e0?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e8a0, {0x1025db160, 0x14000134000}, 0x1400012a000)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400011c090?}, {0x1025db160?, 0x14000134000?}, 0x6?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x1400011e000, {0x1025dc458, 0x1400025c840})
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
-        created by net/http.(*Server).Serve in goroutine 1
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:40 http: panic serving 127.0.0.1:59651: runtime error: invalid memory address or nil pointer dereference
-        goroutine 36 [running]:
-        net/http.(*conn).serve.func1()
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x102532fe0?, 0x1028fd6f0?})
-        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x1025dc458?, {0x1025dc500?, 0x14000144070?})
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x1400007c640, {0x1025db4f0, 0x1400011c3f0}, 0x1?)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db4f0?, 0x1400011c3f0?}, 0x140001220a4?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e900, {0x1025db4f0, 0x1400011c3f0}, 0x1400012a300)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1025db4f0?, 0x1400011c3f0?}, 0x10209d4bc?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x1025db220, 0x14000110060}, 0x1400012a300)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x1025db220?, 0x14000110060?}, 0x14000070398?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x1025db160?, 0x140001340e0}, 0x1400012a300)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400011c3c0?, {0x1025db160?, 0x140001340e0?}, 0x14000081938?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e900, {0x1025db160, 0x140001340e0}, 0x1400012a300)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x1025db160, 0x140001340e0}, 0x1400012a300)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db160?, 0x140001340e0?}, 0x1400012c034?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e8a0, {0x1025db160, 0x140001340e0}, 0x1400012a300)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x1025dc490?, {0x1025db160?, 0x140001340e0?}, 0x1028fd3e0?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e8a0, {0x1025db160, 0x140001340e0}, 0x1400012a200)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400011c2d0?}, {0x1025db160?, 0x140001340e0?}, 0x6?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x1400011e240, {0x1025dc458, 0x1400025c840})
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
-        created by net/http.(*Server).Serve in goroutine 1
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:41 http: panic serving 127.0.0.1:59654: runtime error: invalid memory address or nil pointer dereference
-        goroutine 38 [running]:
-        net/http.(*conn).serve.func1()
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x102532fe0?, 0x1028fd6f0?})
-        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x1025dc458?, {0x1025dc500?, 0x140001440e0?})
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x1400007c640, {0x1025db4f0, 0x1400011c600}, 0x1?)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db4f0?, 0x1400011c600?}, 0x140001220f4?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e900, {0x1025db4f0, 0x1400011c600}, 0x1400012a500)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1025db4f0?, 0x1400011c600?}, 0x10209d4bc?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x1025db220, 0x14000110090}, 0x1400012a500)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x1025db220?, 0x14000110090?}, 0x14000070398?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x1025db160?, 0x140001341c0}, 0x1400012a500)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400011c5d0?, {0x1025db160?, 0x140001341c0?}, 0x14000081938?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e900, {0x1025db160, 0x140001341c0}, 0x1400012a500)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x1025db160, 0x140001341c0}, 0x1400012a500)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db160?, 0x140001341c0?}, 0x1400012c04c?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e8a0, {0x1025db160, 0x140001341c0}, 0x1400012a500)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x1025dc490?, {0x1025db160?, 0x140001341c0?}, 0x1028fd3e0?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e8a0, {0x1025db160, 0x140001341c0}, 0x1400012a400)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400011c4e0?}, {0x1025db160?, 0x140001341c0?}, 0x6?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x1400011e480, {0x1025dc458, 0x1400025c840})
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
-        created by net/http.(*Server).Serve in goroutine 1
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:42 http: panic serving 127.0.0.1:59656: runtime error: invalid memory address or nil pointer dereference
-        goroutine 40 [running]:
-        net/http.(*conn).serve.func1()
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x102532fe0?, 0x1028fd6f0?})
-        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x1025dc458?, {0x1025dc500?, 0x14000144150?})
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x1400007c640, {0x1025db4f0, 0x1400011c810}, 0x1?)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db4f0?, 0x1400011c810?}, 0x14000122144?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e900, {0x1025db4f0, 0x1400011c810}, 0x1400012a700)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1025db4f0?, 0x1400011c810?}, 0x10209d4bc?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x1025db220, 0x140001100c0}, 0x1400012a700)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x1025db220?, 0x140001100c0?}, 0x14000070398?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x1025db160?, 0x140001342a0}, 0x1400012a700)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400011c7e0?, {0x1025db160?, 0x140001342a0?}, 0x14000081938?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e900, {0x1025db160, 0x140001342a0}, 0x1400012a700)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x1025db160, 0x140001342a0}, 0x1400012a700)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db160?, 0x140001342a0?}, 0x1400012c064?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e8a0, {0x1025db160, 0x140001342a0}, 0x1400012a700)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x1025dc490?, {0x1025db160?, 0x140001342a0?}, 0x1028fd3e0?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e8a0, {0x1025db160, 0x140001342a0}, 0x1400012a600)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400011c6f0?}, {0x1025db160?, 0x140001342a0?}, 0x6?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x1400011e6c0, {0x1025dc458, 0x1400025c840})
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
-        created by net/http.(*Server).Serve in goroutine 1
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:43 http: panic serving 127.0.0.1:59658: runtime error: invalid memory address or nil pointer dereference
-        goroutine 42 [running]:
-        net/http.(*conn).serve.func1()
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x102532fe0?, 0x1028fd6f0?})
-        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x1025dc458?, {0x1025dc500?, 0x140001441c0?})
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x1400007c640, {0x1025db4f0, 0x1400011ca20}, 0x1?)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db4f0?, 0x1400011ca20?}, 0x14000122194?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e900, {0x1025db4f0, 0x1400011ca20}, 0x1400012a900)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1025db4f0?, 0x1400011ca20?}, 0x10209d4bc?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x1025db220, 0x140001100f0}, 0x1400012a900)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x1025db220?, 0x140001100f0?}, 0x14000070398?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x1025db160?, 0x14000134380}, 0x1400012a900)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400011c9f0?, {0x1025db160?, 0x14000134380?}, 0x14000081938?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e900, {0x1025db160, 0x14000134380}, 0x1400012a900)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x1025db160, 0x14000134380}, 0x1400012a900)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db160?, 0x14000134380?}, 0x1400012c07c?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e8a0, {0x1025db160, 0x14000134380}, 0x1400012a900)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x1025dc490?, {0x1025db160?, 0x14000134380?}, 0x1028fd3e0?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e8a0, {0x1025db160, 0x14000134380}, 0x1400012a800)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400011c900?}, {0x1025db160?, 0x14000134380?}, 0x6?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x1400011e900, {0x1025dc458, 0x1400025c840})
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
-        created by net/http.(*Server).Serve in goroutine 1
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:44 http: panic serving 127.0.0.1:59660: runtime error: invalid memory address or nil pointer dereference
-        goroutine 20 [running]:
-        net/http.(*conn).serve.func1()
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x102532fe0?, 0x1028fd6f0?})
-        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x1025dc458?, {0x1025dc500?, 0x140002c40e0?})
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x1400007c640, {0x1025db4f0, 0x1400028a480}, 0x1?)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db4f0?, 0x1400028a480?}, 0x14000288124?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e900, {0x1025db4f0, 0x1400028a480}, 0x1400029a400)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1025db4f0?, 0x1400028a480?}, 0x10209d4bc?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x1025db220, 0x140002c0048}, 0x1400029a400)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x1025db220?, 0x140002c0048?}, 0x14000070398?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x1025db160?, 0x140002b80e0}, 0x1400029a400)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400028a450?, {0x1025db160?, 0x140002b80e0?}, 0x14000284938?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e900, {0x1025db160, 0x140002b80e0}, 0x1400029a400)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x1025db160, 0x140002b80e0}, 0x1400029a400)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db160?, 0x140002b80e0?}, 0x140002a401c?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e8a0, {0x1025db160, 0x140002b80e0}, 0x1400029a400)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x1025dc490?, {0x1025db160?, 0x140002b80e0?}, 0x1028fd3e0?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e8a0, {0x1025db160, 0x140002b80e0}, 0x1400029a300)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400028a360?}, {0x1025db160?, 0x140002b80e0?}, 0x6?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x140002a2240, {0x1025dc458, 0x1400025c840})
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
-        created by net/http.(*Server).Serve in goroutine 1
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:45 http: panic serving 127.0.0.1:59663: runtime error: invalid memory address or nil pointer dereference
-        goroutine 22 [running]:
-        net/http.(*conn).serve.func1()
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x102532fe0?, 0x1028fd6f0?})
-        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x1025dc458?, {0x1025dc500?, 0x140002c4150?})
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x1400007c640, {0x1025db4f0, 0x1400028a690}, 0x1?)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db4f0?, 0x1400028a690?}, 0x14000288174?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e900, {0x1025db4f0, 0x1400028a690}, 0x1400029a600)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1025db4f0?, 0x1400028a690?}, 0x10209d4bc?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x1025db220, 0x140002c0078}, 0x1400029a600)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x1025db220?, 0x140002c0078?}, 0x14000070398?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x1025db160?, 0x140002b81c0}, 0x1400029a600)
-        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400028a660?, {0x1025db160?, 0x140002b81c0?}, 0x14000284938?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e900, {0x1025db160, 0x140002b81c0}, 0x1400029a600)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x1025db160, 0x140002b81c0}, 0x1400029a600)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db160?, 0x140002b81c0?}, 0x140002a4034?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e8a0, {0x1025db160, 0x140002b81c0}, 0x1400029a600)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x1025dc490?, {0x1025db160?, 0x140002b81c0?}, 0x1028fd3e0?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e8a0, {0x1025db160, 0x140002b81c0}, 0x1400029a500)
-        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400028a570?}, {0x1025db160?, 0x140002b81c0?}, 0x6?)
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x140002a2480, {0x1025dc458, 0x1400025c840})
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
-        created by net/http.(*Server).Serve in goroutine 1
-        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:46 http: panic serving 127.0.0.1:59665: runtime error: invalid memory address or nil pointer dereference
+        2023/10/09 19:59:13 http: panic serving 127.0.0.1:61528: runtime error: invalid memory address or nil pointer dereference
         goroutine 24 [running]:
         net/http.(*conn).serve.func1()
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x102532fe0?, 0x1028fd6f0?})
+        panic({0x102c4afe0?, 0x1030156f0?})
         	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x1025dc458?, {0x1025dc500?, 0x140002c41c0?})
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x102cf4458?, {0x102cf4500?, 0x140001c9c70?})
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x1400007c640, {0x1025db4f0, 0x1400028a8a0}, 0x1?)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x140001d2640, {0x102cf34f0, 0x14000282b40}, 0x1?)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db4f0?, 0x1400028a8a0?}, 0x140002881c4?)
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf34f0?, 0x14000282b40?}, 0x1400019cf04?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e900, {0x1025db4f0, 0x1400028a8a0}, 0x1400029a800)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae8a0, {0x102cf34f0, 0x14000282b40}, 0x140001f4500)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1025db4f0?, 0x1400028a8a0?}, 0x10209d4bc?)
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x102cf34f0?, 0x14000282b40?}, 0x1027b54bc?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x1025db220, 0x140002c00a8}, 0x1400029a800)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x102cf3220, 0x140001a0648}, 0x140001f4500)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x1025db220?, 0x140002c00a8?}, 0x14000070398?)
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x102cf3220?, 0x140001a0648?}, 0x1400019e388?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x1025db160?, 0x140002b82a0}, 0x1400029a800)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x102cf3160?, 0x140001fa540}, 0x140001f4500)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400028a870?, {0x1025db160?, 0x140002b82a0?}, 0x14000284938?)
+        net/http.HandlerFunc.ServeHTTP(0x14000282b10?, {0x102cf3160?, 0x140001fa540?}, 0x140001eb938?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e900, {0x1025db160, 0x140002b82a0}, 0x1400029a800)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae8a0, {0x102cf3160, 0x140001fa540}, 0x140001f4500)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x1025db160, 0x140002b82a0}, 0x1400029a800)
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x102cf3160, 0x140001fa540}, 0x140001f4500)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db160?, 0x140002b82a0?}, 0x140002a404c?)
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf3160?, 0x140001fa540?}, 0x140001ac244?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e8a0, {0x1025db160, 0x140002b82a0}, 0x1400029a800)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae840, {0x102cf3160, 0x140001fa540}, 0x140001f4500)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x1025dc490?, {0x1025db160?, 0x140002b82a0?}, 0x1028fd3e0?)
+        net/http.HandlerFunc.ServeHTTP(0x102cf4490?, {0x102cf3160?, 0x140001fa540?}, 0x1030153e0?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e8a0, {0x1025db160, 0x140002b82a0}, 0x1400029a700)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae840, {0x102cf3160, 0x140001fa540}, 0x140001f4400)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400028a780?}, {0x1025db160?, 0x140002b82a0?}, 0x6?)
+        net/http.serverHandler.ServeHTTP({0x140002829f0?}, {0x102cf3160?, 0x140001fa540?}, 0x6?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x140002a26c0, {0x1025dc458, 0x1400025c840})
+        net/http.(*conn).serve(0x140001f97a0, {0x102cf4458, 0x14000282810})
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
         created by net/http.(*Server).Serve in goroutine 1
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
-        2023/10/09 19:15:47 http: panic serving 127.0.0.1:59668: runtime error: invalid memory address or nil pointer dereference
-        goroutine 11 [running]:
+        2023/10/09 19:59:14 http: panic serving 127.0.0.1:61530: runtime error: invalid memory address or nil pointer dereference
+        goroutine 26 [running]:
         net/http.(*conn).serve.func1()
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
-        panic({0x102532fe0?, 0x1028fd6f0?})
+        panic({0x102c4afe0?, 0x1030156f0?})
         	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x1025dc458?, {0x1025dc500?, 0x140000c5c00?})
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x102cf4458?, {0x102cf4500?, 0x140001c9d50?})
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x1400007c640, {0x1025db4f0, 0x1400025cae0}, 0x1?)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x140001d2640, {0x102cf34f0, 0x14000282d50}, 0x1?)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db4f0?, 0x1400025cae0?}, 0x14000010f74?)
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf34f0?, 0x14000282d50?}, 0x1400019cfd4?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e900, {0x1025db4f0, 0x1400025cae0}, 0x140000e6400)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae8a0, {0x102cf34f0, 0x14000282d50}, 0x140001f4700)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x0?, {0x1025db4f0?, 0x1400025cae0?}, 0x10209d4bc?)
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x102cf34f0?, 0x14000282d50?}, 0x1027b54bc?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x1025db220, 0x1400000e678}, 0x140000e6400)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x102cf3220, 0x140001a0690}, 0x140001f4700)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
-        net/http.HandlerFunc.ServeHTTP(0x8?, {0x1025db220?, 0x1400000e678?}, 0x14000070398?)
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x102cf3220?, 0x140001a0690?}, 0x1400019e388?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x1025db160?, 0x140000ec540}, 0x140000e6400)
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x102cf3160?, 0x140001fa620}, 0x140001f4700)
         	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
-        net/http.HandlerFunc.ServeHTTP(0x1400025cab0?, {0x1025db160?, 0x140000ec540?}, 0x14000085938?)
+        net/http.HandlerFunc.ServeHTTP(0x14000282d20?, {0x102cf3160?, 0x140001fa620?}, 0x14000080938?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e900, {0x1025db160, 0x140000ec540}, 0x140000e6400)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae8a0, {0x102cf3160, 0x140001fa620}, 0x140001f4700)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
-        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x1025db160, 0x140000ec540}, 0x140000e6400)
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x102cf3160, 0x140001fa620}, 0x140001f4700)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
-        net/http.HandlerFunc.ServeHTTP(0x10252f240?, {0x1025db160?, 0x140000ec540?}, 0x1400003c304?)
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf3160?, 0x140001fa620?}, 0x140001ac25c?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x1400007e8a0, {0x1025db160, 0x140000ec540}, 0x140000e6400)
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae840, {0x102cf3160, 0x140001fa620}, 0x140001f4700)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
-        net/http.HandlerFunc.ServeHTTP(0x1025dc490?, {0x1025db160?, 0x140000ec540?}, 0x1028fd3e0?)
+        net/http.HandlerFunc.ServeHTTP(0x102cf4490?, {0x102cf3160?, 0x140001fa620?}, 0x1030153e0?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
-        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x1400007e8a0, {0x1025db160, 0x140000ec540}, 0x140000e6300)
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae840, {0x102cf3160, 0x140001fa620}, 0x140001f4600)
         	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
-        net/http.serverHandler.ServeHTTP({0x1400025c990?}, {0x1025db160?, 0x140000ec540?}, 0x6?)
+        net/http.serverHandler.ServeHTTP({0x14000282c30?}, {0x102cf3160?, 0x140001fa620?}, 0x6?)
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
-        net/http.(*conn).serve(0x140000eb830, {0x1025dc458, 0x1400025c840})
+        net/http.(*conn).serve(0x140001f99e0, {0x102cf4458, 0x14000282810})
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
+        created by net/http.(*Server).Serve in goroutine 1
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
+        2023/10/09 19:59:15 http: panic serving 127.0.0.1:61533: runtime error: invalid memory address or nil pointer dereference
+        goroutine 28 [running]:
+        net/http.(*conn).serve.func1()
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
+        panic({0x102c4afe0?, 0x1030156f0?})
+        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x102cf4458?, {0x102cf4500?, 0x140001c9dc0?})
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x140001d2640, {0x102cf34f0, 0x14000282f60}, 0x1?)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf34f0?, 0x14000282f60?}, 0x1400019d024?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae8a0, {0x102cf34f0, 0x14000282f60}, 0x140001f4900)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x102cf34f0?, 0x14000282f60?}, 0x1027b54bc?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x102cf3220, 0x140001a06c0}, 0x140001f4900)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x102cf3220?, 0x140001a06c0?}, 0x1400019e388?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x102cf3160?, 0x140001fa700}, 0x140001f4900)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
+        net/http.HandlerFunc.ServeHTTP(0x14000282f30?, {0x102cf3160?, 0x140001fa700?}, 0x14000080938?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae8a0, {0x102cf3160, 0x140001fa700}, 0x140001f4900)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x102cf3160, 0x140001fa700}, 0x140001f4900)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf3160?, 0x140001fa700?}, 0x140001ac274?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae840, {0x102cf3160, 0x140001fa700}, 0x140001f4900)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x102cf4490?, {0x102cf3160?, 0x140001fa700?}, 0x1030153e0?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae840, {0x102cf3160, 0x140001fa700}, 0x140001f4800)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
+        net/http.serverHandler.ServeHTTP({0x14000282e40?}, {0x102cf3160?, 0x140001fa700?}, 0x6?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
+        net/http.(*conn).serve(0x140001f9c20, {0x102cf4458, 0x14000282810})
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
+        created by net/http.(*Server).Serve in goroutine 1
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
+        2023/10/09 19:59:16 http: panic serving 127.0.0.1:61535: runtime error: invalid memory address or nil pointer dereference
+        goroutine 30 [running]:
+        net/http.(*conn).serve.func1()
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
+        panic({0x102c4afe0?, 0x1030156f0?})
+        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x102cf4458?, {0x102cf4500?, 0x14000110000?})
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x140001d2640, {0x102cf34f0, 0x14000032120}, 0x1?)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf34f0?, 0x14000032120?}, 0x140000100a4?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae8a0, {0x102cf34f0, 0x14000032120}, 0x1400010c000)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x102cf34f0?, 0x14000032120?}, 0x1027b54bc?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x102cf3220, 0x1400000e030}, 0x1400010c000)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x102cf3220?, 0x1400000e030?}, 0x1400019e388?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x102cf3160?, 0x14000106000}, 0x1400010c000)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
+        net/http.HandlerFunc.ServeHTTP(0x140000320f0?, {0x102cf3160?, 0x14000106000?}, 0x14000080938?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae8a0, {0x102cf3160, 0x14000106000}, 0x1400010c000)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x102cf3160, 0x14000106000}, 0x1400010c000)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf3160?, 0x14000106000?}, 0x1400003c0ac?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae840, {0x102cf3160, 0x14000106000}, 0x1400010c000)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x102cf4490?, {0x102cf3160?, 0x14000106000?}, 0x1030153e0?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae840, {0x102cf3160, 0x14000106000}, 0x140001f4a00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
+        net/http.serverHandler.ServeHTTP({0x14000283050?}, {0x102cf3160?, 0x14000106000?}, 0x6?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
+        net/http.(*conn).serve(0x140001f9e60, {0x102cf4458, 0x14000282810})
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
+        created by net/http.(*Server).Serve in goroutine 1
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
+        2023/10/09 19:59:17 http: panic serving 127.0.0.1:61537: runtime error: invalid memory address or nil pointer dereference
+        goroutine 6 [running]:
+        net/http.(*conn).serve.func1()
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
+        panic({0x102c4afe0?, 0x1030156f0?})
+        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x102cf4458?, {0x102cf4500?, 0x14000110070?})
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x140001d2640, {0x102cf34f0, 0x14000032330}, 0x1?)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf34f0?, 0x14000032330?}, 0x14000010114?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae8a0, {0x102cf34f0, 0x14000032330}, 0x1400010c200)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x102cf34f0?, 0x14000032330?}, 0x1027b54bc?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x102cf3220, 0x1400000e078}, 0x1400010c200)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x102cf3220?, 0x1400000e078?}, 0x1400019e388?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x102cf3160?, 0x140001060e0}, 0x1400010c200)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
+        net/http.HandlerFunc.ServeHTTP(0x14000032300?, {0x102cf3160?, 0x140001060e0?}, 0x14000080938?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae8a0, {0x102cf3160, 0x140001060e0}, 0x1400010c200)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x102cf3160, 0x140001060e0}, 0x1400010c200)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf3160?, 0x140001060e0?}, 0x1400003c0c4?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae840, {0x102cf3160, 0x140001060e0}, 0x1400010c200)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x102cf4490?, {0x102cf3160?, 0x140001060e0?}, 0x1030153e0?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae840, {0x102cf3160, 0x140001060e0}, 0x1400010c100)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
+        net/http.serverHandler.ServeHTTP({0x14000032210?}, {0x102cf3160?, 0x140001060e0?}, 0x6?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
+        net/http.(*conn).serve(0x140001021b0, {0x102cf4458, 0x14000282810})
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
+        created by net/http.(*Server).Serve in goroutine 1
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
+        2023/10/09 19:59:18 http: panic serving 127.0.0.1:61540: runtime error: invalid memory address or nil pointer dereference
+        goroutine 8 [running]:
+        net/http.(*conn).serve.func1()
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
+        panic({0x102c4afe0?, 0x1030156f0?})
+        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x102cf4458?, {0x102cf4500?, 0x140001c9e30?})
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x140001d2640, {0x102cf34f0, 0x14000283170}, 0x1?)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf34f0?, 0x14000283170?}, 0x1400019d074?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae8a0, {0x102cf34f0, 0x14000283170}, 0x140001f4b00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x102cf34f0?, 0x14000283170?}, 0x1027b54bc?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x102cf3220, 0x140001a06f0}, 0x140001f4b00)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x102cf3220?, 0x140001a06f0?}, 0x1400019e388?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x102cf3160?, 0x140001fa7e0}, 0x140001f4b00)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
+        net/http.HandlerFunc.ServeHTTP(0x14000283140?, {0x102cf3160?, 0x140001fa7e0?}, 0x14000080938?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae8a0, {0x102cf3160, 0x140001fa7e0}, 0x140001f4b00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x102cf3160, 0x140001fa7e0}, 0x140001f4b00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf3160?, 0x140001fa7e0?}, 0x140001ac28c?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae840, {0x102cf3160, 0x140001fa7e0}, 0x140001f4b00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x102cf4490?, {0x102cf3160?, 0x140001fa7e0?}, 0x1030153e0?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae840, {0x102cf3160, 0x140001fa7e0}, 0x1400010c300)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
+        net/http.serverHandler.ServeHTTP({0x14000032420?}, {0x102cf3160?, 0x140001fa7e0?}, 0x6?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
+        net/http.(*conn).serve(0x140001023f0, {0x102cf4458, 0x14000282810})
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
+        created by net/http.(*Server).Serve in goroutine 1
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
+        2023/10/09 19:59:19 http: panic serving 127.0.0.1:61542: runtime error: invalid memory address or nil pointer dereference
+        goroutine 32 [running]:
+        net/http.(*conn).serve.func1()
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
+        panic({0x102c4afe0?, 0x1030156f0?})
+        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x102cf4458?, {0x102cf4500?, 0x140001c9ea0?})
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x140001d2640, {0x102cf34f0, 0x14000283380}, 0x1?)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf34f0?, 0x14000283380?}, 0x1400019d0c4?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae8a0, {0x102cf34f0, 0x14000283380}, 0x140001f4d00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x102cf34f0?, 0x14000283380?}, 0x1027b54bc?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x102cf3220, 0x140001a0720}, 0x140001f4d00)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x102cf3220?, 0x140001a0720?}, 0x1400019e388?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x102cf3160?, 0x140001fa8c0}, 0x140001f4d00)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
+        net/http.HandlerFunc.ServeHTTP(0x14000283350?, {0x102cf3160?, 0x140001fa8c0?}, 0x14000080938?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae8a0, {0x102cf3160, 0x140001fa8c0}, 0x140001f4d00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x102cf3160, 0x140001fa8c0}, 0x140001f4d00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf3160?, 0x140001fa8c0?}, 0x140001ac2a4?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae840, {0x102cf3160, 0x140001fa8c0}, 0x140001f4d00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x102cf4490?, {0x102cf3160?, 0x140001fa8c0?}, 0x1030153e0?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae840, {0x102cf3160, 0x140001fa8c0}, 0x140001f4c00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
+        net/http.serverHandler.ServeHTTP({0x14000283260?}, {0x102cf3160?, 0x140001fa8c0?}, 0x6?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
+        net/http.(*conn).serve(0x140002d0120, {0x102cf4458, 0x14000282810})
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
+        created by net/http.(*Server).Serve in goroutine 1
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
+        2023/10/09 19:59:20 http: panic serving 127.0.0.1:61545: runtime error: invalid memory address or nil pointer dereference
+        goroutine 34 [running]:
+        net/http.(*conn).serve.func1()
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
+        panic({0x102c4afe0?, 0x1030156f0?})
+        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x102cf4458?, {0x102cf4500?, 0x140001c9f10?})
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x140001d2640, {0x102cf34f0, 0x14000283590}, 0x1?)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf34f0?, 0x14000283590?}, 0x1400019d114?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae8a0, {0x102cf34f0, 0x14000283590}, 0x140001f4f00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x102cf34f0?, 0x14000283590?}, 0x1027b54bc?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x102cf3220, 0x140001a0750}, 0x140001f4f00)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x102cf3220?, 0x140001a0750?}, 0x1400019e388?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x102cf3160?, 0x140001fa9a0}, 0x140001f4f00)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
+        net/http.HandlerFunc.ServeHTTP(0x14000283560?, {0x102cf3160?, 0x140001fa9a0?}, 0x14000080938?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae8a0, {0x102cf3160, 0x140001fa9a0}, 0x140001f4f00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x102cf3160, 0x140001fa9a0}, 0x140001f4f00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf3160?, 0x140001fa9a0?}, 0x140001ac2bc?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae840, {0x102cf3160, 0x140001fa9a0}, 0x140001f4f00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x102cf4490?, {0x102cf3160?, 0x140001fa9a0?}, 0x1030153e0?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae840, {0x102cf3160, 0x140001fa9a0}, 0x140001f4e00)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
+        net/http.serverHandler.ServeHTTP({0x14000283470?}, {0x102cf3160?, 0x140001fa9a0?}, 0x6?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
+        net/http.(*conn).serve(0x140002d0360, {0x102cf4458, 0x14000282810})
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
+        created by net/http.(*Server).Serve in goroutine 1
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
+        2023/10/09 19:59:21 http: panic serving 127.0.0.1:61548: runtime error: invalid memory address or nil pointer dereference
+        goroutine 36 [running]:
+        net/http.(*conn).serve.func1()
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
+        panic({0x102c4afe0?, 0x1030156f0?})
+        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x102cf4458?, {0x102cf4500?, 0x140000dc000?})
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x140001d2640, {0x102cf34f0, 0x140000ae0f0}, 0x1?)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf34f0?, 0x140000ae0f0?}, 0x140000b0014?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae8a0, {0x102cf34f0, 0x140000ae0f0}, 0x140000cc000)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x102cf34f0?, 0x140000ae0f0?}, 0x1031ac5e0?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x102cf3220, 0x140000ce000}, 0x140000cc000)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x102cf3220?, 0x140000ce000?}, 0x1400019e388?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x102cf3160?, 0x140000bc000}, 0x140000cc000)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
+        net/http.HandlerFunc.ServeHTTP(0x140000ae0c0?, {0x102cf3160?, 0x140000bc000?}, 0x14000080938?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae8a0, {0x102cf3160, 0x140000bc000}, 0x140000cc000)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x102cf3160, 0x140000bc000}, 0x140000cc000)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf3160?, 0x140000bc000?}, 0x140000aa004?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae840, {0x102cf3160, 0x140000bc000}, 0x140000cc000)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x102cf4490?, {0x102cf3160?, 0x140000bc000?}, 0x1030153e0?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae840, {0x102cf3160, 0x140000bc000}, 0x140001f5000)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
+        net/http.serverHandler.ServeHTTP({0x14000283680?}, {0x102cf3160?, 0x140000bc000?}, 0x6?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
+        net/http.(*conn).serve(0x140002d05a0, {0x102cf4458, 0x14000282810})
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
+        created by net/http.(*Server).Serve in goroutine 1
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
+        2023/10/09 19:59:22 http: panic serving 127.0.0.1:61550: runtime error: invalid memory address or nil pointer dereference
+        goroutine 51 [running]:
+        net/http.(*conn).serve.func1()
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:1868 +0xb0
+        panic({0x102c4afe0?, 0x1030156f0?})
+        	/opt/homebrew/opt/go/libexec/src/runtime/panic.go:920 +0x26c
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres.(*Postgres).CheckPing(0x102cf4458?, {0x102cf4500?, 0x140000dc070?})
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/repository/postgres/postgres.go:86 +0x20
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers.(*Handler).CheckConnection(0x140001d2640, {0x102cf34f0, 0x140000ae300}, 0x1?)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/handlers/handlers.go:184 +0x88
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf34f0?, 0x140000ae300?}, 0x140000b0084?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae8a0, {0x102cf34f0, 0x140000ae300}, 0x140000cc200)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x0?, {0x102cf34f0?, 0x140000ae300?}, 0x1027b54bc?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress.GzipMiddleware.func1({0x102cf3220, 0x140000ce048}, 0x140000cc200)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/compress/middleware.go:111 +0x1fc
+        net/http.HandlerFunc.ServeHTTP(0x8?, {0x102cf3220?, 0x140000ce048?}, 0x1400019e388?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger.WithLogging.func1({0x102cf3160?, 0x140000bc0e0}, 0x140000cc200)
+        	/Users/nikitabar/Dev/metrics_and_alertinc/internal/interface/logger/logger.go:45 +0xc8
+        net/http.HandlerFunc.ServeHTTP(0x140000ae2d0?, {0x102cf3160?, 0x140000bc0e0?}, 0x14000314938?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae8a0, {0x102cf3160, 0x140000bc0e0}, 0x140000cc200)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:73 +0x300
+        github.com/go-chi/chi/v5.(*Mux).Mount.func1({0x102cf3160, 0x140000bc0e0}, 0x140000cc200)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:316 +0x1e0
+        net/http.HandlerFunc.ServeHTTP(0x102c47240?, {0x102cf3160?, 0x140000bc0e0?}, 0x140000aa04c?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).routeHTTP(0x140001ae840, {0x102cf3160, 0x140000bc0e0}, 0x140000cc200)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:444 +0x270
+        net/http.HandlerFunc.ServeHTTP(0x102cf4490?, {0x102cf3160?, 0x140000bc0e0?}, 0x1030153e0?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2136 +0x38
+        github.com/go-chi/chi/v5.(*Mux).ServeHTTP(0x140001ae840, {0x102cf3160, 0x140000bc0e0}, 0x140000cc100)
+        	/Users/nikitabar/go/pkg/mod/github.com/go-chi/chi/v5@v5.0.10/mux.go:90 +0x2bc
+        net/http.serverHandler.ServeHTTP({0x140000ae1e0?}, {0x102cf3160?, 0x140000bc0e0?}, 0x6?)
+        	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2938 +0xbc
+        net/http.(*conn).serve(0x140000ac1b0, {0x102cf4458, 0x14000282810})
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:2009 +0x518
         created by net/http.(*Server).Serve in goroutine 1
         	/opt/homebrew/opt/go/libexec/src/net/http/server.go:3086 +0x4cc
@@ -1341,8 +1366,8 @@
         --- FAIL: TestIteration12/TestBatchAPI/check_gauge_value (0.00s)
 === RUN   TestIteration13
 === RUN   TestIteration13/TestCollectAgentMetrics
-    iteration13_test.go:424: get gauge: "HeapReleased", value: 2310144.000000
-    iteration13_test.go:424: get gauge: "HeapSys", value: 3735552.000000
+    iteration13_test.go:424: get gauge: "HeapReleased", value: 2564096.000000
+    iteration13_test.go:424: get gauge: "HeapSys", value: 3768320.000000
     iteration13_test.go:424: get gauge: "LastGC", value: 0.000000
     iteration13_test.go:424: get gauge: "Lookups", value: 0.000000
     iteration13_test.go:424: get gauge: "MCacheInuse", value: 9600.000000
@@ -1352,24 +1377,24 @@
     iteration13_test.go:424: get gauge: "NextGC", value: 4194304.000000
     iteration13_test.go:424: get gauge: "NumForcedGC", value: 0.000000
     iteration13_test.go:424: get gauge: "NumGC", value: 0.000000
-    iteration13_test.go:424: get gauge: "OtherSys", value: 1201696.000000
+    iteration13_test.go:424: get gauge: "OtherSys", value: 1189360.000000
     iteration13_test.go:424: get gauge: "PauseTotalNs", value: 0.000000
-    iteration13_test.go:424: get gauge: "StackInuse", value: 458752.000000
-    iteration13_test.go:424: get gauge: "StackSys", value: 458752.000000
+    iteration13_test.go:424: get gauge: "StackInuse", value: 425984.000000
+    iteration13_test.go:424: get gauge: "StackSys", value: 425984.000000
     iteration13_test.go:424: get gauge: "Sys", value: 8293392.000000
     iteration13_test.go:424: get gauge: "BuckHashSys", value: 4000.000000
     iteration13_test.go:424: get gauge: "GCCPUFraction", value: 0.000000
-    iteration13_test.go:424: get gauge: "GCSys", value: 2828904.000000
-    iteration13_test.go:424: get gauge: "HeapInuse", value: 1425408.000000
-    iteration13_test.go:424: get gauge: "HeapObjects", value: 5261.000000
-    iteration13_test.go:424: get gauge: "Mallocs", value: 5482.000000
-    iteration13_test.go:424: get gauge: "TotalAlloc", value: 542800.000000
+    iteration13_test.go:424: get gauge: "GCSys", value: 2841240.000000
+    iteration13_test.go:424: get gauge: "HeapInuse", value: 1236992.000000
+    iteration13_test.go:424: get gauge: "HeapObjects", value: 5237.000000
+    iteration13_test.go:424: get gauge: "Mallocs", value: 5455.000000
+    iteration13_test.go:424: get gauge: "TotalAlloc", value: 537224.000000
     iteration13_test.go:431: get counter: "PollCount", value: 50
-    iteration13_test.go:424: get gauge: "RandomValue", value: 0.420000
-    iteration13_test.go:424: get gauge: "Alloc", value: 542800.000000
-    iteration13_test.go:424: get gauge: "Frees", value: 221.000000
-    iteration13_test.go:424: get gauge: "HeapAlloc", value: 542800.000000
-    iteration13_test.go:424: get gauge: "HeapIdle", value: 2310144.000000
+    iteration13_test.go:424: get gauge: "RandomValue", value: 0.700000
+    iteration13_test.go:424: get gauge: "Alloc", value: 537224.000000
+    iteration13_test.go:424: get gauge: "Frees", value: 218.000000
+    iteration13_test.go:424: get gauge: "HeapAlloc", value: 537224.000000
+    iteration13_test.go:424: get gauge: "HeapIdle", value: 2531328.000000
 === RUN   TestIteration13/TestCollectAgentMetrics/counter/PollCount
 === RUN   TestIteration13/TestCollectAgentMetrics/gauge/RandomValue
 === RUN   TestIteration13/TestCollectAgentMetrics/gauge/Alloc
@@ -1406,42 +1431,42 @@
 === NAME  TestIteration13
     iteration13_test.go:164: Получен STDOUT лог процесса:
         
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackSys/360448.00": read tcp [::1]:59686->[::1]:8080: read: connection reset by peer
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapReleased/3145728.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": read tcp [::1]:61566->[::1]:8080: read: connection reset by peer
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapReleased/3006464.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheInuse/9600.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapInuse/688128.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanInuse/46368.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanSys/48888.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Mallocs/367.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackInuse/360448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/StackSys/360448.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapAlloc/153840.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/TotalAlloc/153840.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/BuckHashSys/4000.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCSys/2754888.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapObjects/356.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/counter/PollCount/10": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Frees/11.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapIdle/3072000.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapSys/3833856.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Sys/8031248.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Alloc/153840.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapInuse/761856.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NextGC/4194304.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumGC/0.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/OtherSys/1013568.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCSys/2754888.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapSys/3833856.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Lookups/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/counter/PollCount/10": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapIdle/3145728.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MSpanInuse/46368.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Mallocs/371.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/GCCPUFraction/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapObjects/360.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/RandomValue/0.92": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/NumForcedGC/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Sys/8031248.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Alloc/154560.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/HeapAlloc/154560.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/MCacheSys/15600.00": dial tcp [::1]:8080: connect: connection refused
         useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/PauseTotalNs/0.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/TotalAlloc/154560.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/BuckHashSys/4000.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/Frees/11.00": dial tcp [::1]:8080: connect: connection refused
-        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/LastGC/0.00": dial tcp [::1]:8080: connect: connection refused
+        useCase: sender: sendPost: do request: Post "http://localhost:8080/update/gauge/RandomValue/0.32": dial tcp [::1]:8080: connect: connection refused
         interrupt
     iteration13_test.go:132: Получен STDOUT лог процесса:
         
         server: main: restorer: read file error: service: file_engine: GetAllMetric: Unmarshal: invalid character '}' looking for beginning of value
         can't connect: repository: postgres: InitPostgres: gooose.UP: failed to connect to `host=postgres user=postgres database=praktikum`: hostname resolving error (lookup postgres: no such host)
---- PASS: TestIteration13 (30.98s)
-    --- PASS: TestIteration13/TestCollectAgentMetrics (20.84s)
+--- PASS: TestIteration13 (30.99s)
+    --- PASS: TestIteration13/TestCollectAgentMetrics (20.83s)
         --- PASS: TestIteration13/TestCollectAgentMetrics/counter/PollCount (0.00s)
         --- PASS: TestIteration13/TestCollectAgentMetrics/gauge/RandomValue (0.00s)
         --- PASS: TestIteration13/TestCollectAgentMetrics/gauge/Alloc (0.00s)

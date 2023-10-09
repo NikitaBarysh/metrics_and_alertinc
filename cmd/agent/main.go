@@ -27,6 +27,13 @@ func main() {
 	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 
 	memStorage := storage.NewMemStorage()
+
+	//cfgServer, configError := server.ParseServerConfig()
+	//if configError != nil {
+	//	log.Fatalf("config err: %s\n", configError)
+	//}
+	//
+	//projectStorage := repository.New(cfgServer)
 	send := sender.NewSender()
 	newMetricAction := service.NewMetricAction(memStorage, send)
 	go newMetricAction.Run(ctx, cfg.PollInterval, cfg.ReportInterval, cfg.URL) // TODO
