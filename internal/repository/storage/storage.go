@@ -11,11 +11,15 @@ type MemStorage struct {
 	MetricMap map[string]entity.Metric
 	onUpdate  func()
 	mu        sync.RWMutex
+	//flush  *flusher.Flusher
 }
+
+//fileEngine *service.FileEngine
 
 func NewMemStorage() *MemStorage {
 	return &MemStorage{
 		MetricMap: make(map[string]entity.Metric),
+		//flush: fileEngine,
 	}
 }
 

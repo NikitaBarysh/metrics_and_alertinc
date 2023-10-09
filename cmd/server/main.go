@@ -3,15 +3,17 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
+	"log"
+	"net/http"
+
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
+	_ "github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres/migrations"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/flusher"
 	"go.uber.org/zap"
-	"log"
-	"net/http"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/router"

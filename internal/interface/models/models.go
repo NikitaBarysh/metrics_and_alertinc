@@ -3,6 +3,8 @@ package models
 import "errors"
 
 var ErrNotFound = errors.New("not found metric")
+var ErrWrongValue = errors.New("entity: ParseValue")
+var ErrUnknownType = errors.New("entity: New: UnknownType")
 
 type Metrics struct {
 	ID    string   `json:"id"`              // имя метрики
