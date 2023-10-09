@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/config/agent"
+	"github.com/NikitaBarysh/metrics_and_alertinc/config/agent"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/sender"
 	"log"
@@ -32,8 +32,9 @@ func main() {
 	//if configError != nil {
 	//	log.Fatalf("config err: %s\n", configError)
 	//}
-	//
+
 	//projectStorage := repository.New(cfgServer)
+
 	send := sender.NewSender()
 	newMetricAction := service.NewMetricAction(memStorage, send)
 	go newMetricAction.Run(ctx, cfg.PollInterval, cfg.ReportInterval, cfg.URL) // TODO

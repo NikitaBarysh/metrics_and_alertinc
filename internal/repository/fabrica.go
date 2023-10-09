@@ -1,8 +1,8 @@
 package repository
 
 import (
+	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres"
 	storage2 "github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
 )

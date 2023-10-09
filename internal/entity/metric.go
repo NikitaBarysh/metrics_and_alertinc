@@ -38,23 +38,23 @@ func NewMetric(id, mType, value string) (*Metric, error) {
 	return nil, models.ErrUnknownType
 }
 
-//func NewMemStorage() *MemStorage {
-//	return &MemStorage{
+//func NewMemStorage() *storage {
+//	return &storage{
 //		MetricMap: make(map[string]Metric),
 //	}
 //}
 //
-//type MemStorage struct {
+//type storage struct {
 //	MetricMap map[string]Metric
 //	onUpdate  func()
 //	mu        sync.RWMutex
 //}
 //
-//func (m *MemStorage) SetOnUpdate(fn func()) {
+//func (m *storage) SetOnUpdate(fn func()) {
 //	m.onUpdate = fn
 //}
 //
-//func (m *MemStorage) UpdateGaugeMetric(key string, value float64) {
+//func (m *storage) UpdateGaugeMetric(key string, value float64) {
 //	m.mu.Lock()
 //	m.MetricMap[key] = Metric{ID: key, MType: "gauge", Value: value}
 //	fn := m.onUpdate
@@ -64,7 +64,7 @@ func NewMetric(id, mType, value string) (*Metric, error) {
 //	}
 //}
 //
-//func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
+//func (m *storage) UpdateCounterMetric(key string, value int64) {
 //	m.mu.Lock()
 //	metricValue := m.MetricMap[key].Delta
 //	metricValue += value
@@ -76,7 +76,7 @@ func NewMetric(id, mType, value string) (*Metric, error) {
 //	}
 //}
 //
-//func (m *MemStorage) GetMetric(key string) (Metric, error) {
+//func (m *storage) GetMetric(key string) (Metric, error) {
 //	m.mu.RLock()
 //	defer m.mu.RUnlock()
 //	metricStruct, ok := m.MetricMap[key]
@@ -86,13 +86,13 @@ func NewMetric(id, mType, value string) (*Metric, error) {
 //	return metricStruct, models.ErrNotFound
 //}
 //
-//func (m *MemStorage) ReadMetric() map[string]Metric {
+//func (m *storage) ReadMetric() map[string]Metric {
 //	m.mu.RLock()
 //	defer m.mu.RUnlock()
 //	return m.MetricMap
 //}
 //
-//func (m *MemStorage) GetAllMetric() []string {
+//func (m *storage) GetAllMetric() []string {
 //	m.mu.RLock()
 //	defer m.mu.RUnlock()
 //	metricSlice := make([]string, 0, len(m.MetricMap))
@@ -108,7 +108,7 @@ func NewMetric(id, mType, value string) (*Metric, error) {
 //	return metricSlice
 //}
 //
-//func (m *MemStorage) SetMetric(data map[string]Metric) {
+//func (m *storage) SetMetric(data map[string]Metric) {
 //	m.mu.Lock()
 //	defer m.mu.Unlock()
 //	m.MetricMap = data

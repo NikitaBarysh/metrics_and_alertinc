@@ -68,8 +68,10 @@ func (m *MemStorage) GetAllMetric() []entity.Metric {
 	return metricSlice
 }
 
-func (m *MemStorage) SetMetric(data map[string]entity.Metric) {
+func (m *MemStorage) SetMetric(data []entity.Metric) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	m.MetricMap = data
+	for _, value := range data {
+		m.MetricMap[value.ID] = value
+	}
 }

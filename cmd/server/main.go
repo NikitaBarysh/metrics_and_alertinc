@@ -3,12 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
 	"log"
 	"net/http"
 
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres"
 	_ "github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres/migrations"

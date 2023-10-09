@@ -28,7 +28,7 @@ func (f *FileEngine) SetMetric(data []entity.Metric) error {
 	if err != nil {
 		return fmt.Errorf("service: file_engine: SetMetric: OpenFile: %w", err)
 	}
-	defer file.Close() //TODO
+	defer file.Close()
 	for _, metricValue := range data {
 		metricValueJSON, err := json.Marshal(metricValue)
 		if err != nil {
@@ -46,10 +46,10 @@ func (f *FileEngine) SetMetric(data []entity.Metric) error {
 	return nil
 }
 
-func (f *FileEngine) GetAllMetric() (map[string]entity.Metric, error) {
+func (f *FileEngine) GetAllMetric() ([]entity.Metric, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	metricMap := make(map[string]entity.Metric)
+	metricSlice := make([]entity.Metric, 0, 35)
 	file, err := os.OpenFile(f.storePath, os.O_RDONLY|os.O_CREATE, 0666)
 	if err != nil {
 		return nil, fmt.Errorf("service: file_engine: GetAllMetric: OpenFile: %w", err)
@@ -65,7 +65,7 @@ func (f *FileEngine) GetAllMetric() (map[string]entity.Metric, error) {
 		if err != nil {
 			return nil, fmt.Errorf("service: file_engine: GetAllMetric: Unmarshal: %w", err)
 		}
-		metricMap[memStorage.ID] = memStorage
+		metricSlice = append(metricSlice, memStorage)
 	}
-	return metricMap, nil
+	return metricSlice, nil
 }

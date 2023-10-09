@@ -4,11 +4,11 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"time"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/config/server"
 	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/pressly/goose"
 )

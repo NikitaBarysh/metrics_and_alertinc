@@ -5,7 +5,7 @@ import (
 )
 
 type MetricAction struct {
-	//storage repository.Storage
+	//MemStorage repository.Storage
 	MemStorage *storage.MemStorage
 	sender     sender
 }

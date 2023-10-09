@@ -4,9 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres"
 	"go.uber.org/zap"
 	"net/http"
@@ -16,20 +16,20 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-//type storage interface {
-//	UpdateGaugeMetric(key string, value float64)
-//	UpdateCounterMetric(key string, value int64)
-//	GetAllMetric() []entity.Metric
-//	GetMetric(key string) (entity.Metric, error)
-//}
+type storage interface {
+	UpdateGaugeMetric(key string, value float64)
+	UpdateCounterMetric(key string, value int64)
+	GetAllMetric() []entity.Metric
+	GetMetric(key string) (entity.Metric, error)
+}
 
 type Handler struct {
-	storage repository.Storage
+	storage storage
 	logger  logger.LoggingVar
 	db      *postgres.Postgres
 }
 
-func NewHandler(storage repository.Storage, logger *logger.LoggingVar, db *postgres.Postgres) *Handler {
+func NewHandler(storage storage, logger *logger.LoggingVar, db *postgres.Postgres) *Handler {
 	return &Handler{
 		storage,
 		*logger,

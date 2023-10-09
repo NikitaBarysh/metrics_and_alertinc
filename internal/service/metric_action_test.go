@@ -5,7 +5,7 @@ package service
 //	url string
 //}
 //
-//func (s *senderMock) SendPost(ctx context.Context, url string, storage entity.Metric) {
+//func (s *senderMock) SendPost(ctx context.Context, url string, MemStorage entity.Metric) {
 //	if url != s.url {
 //		assert.Fail(s.t, "url not equal")
 //	}
@@ -20,7 +20,7 @@ package service
 //
 //func TestMetricAction(t *testing.T) {
 //	type fields struct {
-//		MemStorage *storage.MemStorage
+//		MemStorage *MemStorage.MemStorage
 //		sender     sender
 //	}
 //	type args struct {
@@ -39,7 +39,7 @@ package service
 //				url: "http://localhost:8080/update/gauge/Alloc/134",
 //			},
 //			fields: fields{
-//				MemStorage: storage.NewMemStorage(),
+//				MemStorage: MemStorage.NewMemStorage(),
 //				sender:     sender2.NewSender(),
 //			},
 //		},
