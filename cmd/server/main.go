@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
 	"log"
 	"net/http"
@@ -37,6 +38,8 @@ func main() {
 		fmt.Println(fmt.Errorf("server: main: logger: %w", loggerError))
 	}
 
+	projectStorage := repository.New(cfg)
+
 	memStorage := storage.NewMemStorage()
 
 	flush := flusher.NewFlusher(memStorage, file)
@@ -55,7 +58,7 @@ func main() {
 		fmt.Println(fmt.Errorf("can't connect: %w", err))
 	}
 
-	handler := handlers.NewHandler(memStorage, loggingVar, db)
+	handler := handlers.NewHandler(projectStorage, loggingVar, db)
 	router := router.NewRouter(handler)
 	chiRouter := chi.NewRouter()
 	chiRouter.Mount("/", router.Register())

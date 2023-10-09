@@ -58,12 +58,6 @@ func (m *MemStorage) GetMetric(key string) (entity.Metric, error) {
 	return metricStruct, models.ErrNotFound
 }
 
-//func (m *MemStorage) ReadMetric() map[string]entity.Metric {
-//	m.mu.RLock()
-//	defer m.mu.RUnlock()
-//	return m.MetricMap
-//}
-
 func (m *MemStorage) GetAllMetric() []entity.Metric {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
