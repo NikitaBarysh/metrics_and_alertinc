@@ -8,8 +8,8 @@ import (
 
 type DBStorage struct {
 	MetricMap map[string]entity.Metric
-	onUpdate  func()
-	mu        sync.RWMutex
+
+	mu sync.RWMutex
 }
 
 func NewDBStorage() *DBStorage {
@@ -18,18 +18,18 @@ func NewDBStorage() *DBStorage {
 	}
 }
 
-func (m *DBStorage) SetOnUpdate(fn func()) {
-	m.onUpdate = fn
-}
+//func (m *DBStorage) SetOnUpdate(fn func()) {
+//	m.onUpdate = fn
+//}
 
 func (m *DBStorage) UpdateGaugeMetric(key string, value float64) {
 	m.mu.Lock()
 	m.MetricMap[key] = entity.Metric{ID: key, MType: "gauge", Value: value}
-	fn := m.onUpdate
+	//fn := m.onUpdate
 	m.mu.Unlock()
-	if fn != nil {
-		fn()
-	}
+	//if fn != nil {
+	//	fn()
+	//}
 }
 
 func (m *DBStorage) UpdateCounterMetric(key string, value int64) {
@@ -37,11 +37,11 @@ func (m *DBStorage) UpdateCounterMetric(key string, value int64) {
 	metricValue := m.MetricMap[key].Delta
 	metricValue += value
 	m.MetricMap[key] = entity.Metric{ID: key, MType: "counter", Delta: metricValue}
-	fn := m.onUpdate
+	//fn := m.onUpdate
 	m.mu.Unlock()
-	if fn != nil {
-		fn()
-	}
+	//if fn != nil {
+	//	fn()
+	//}
 }
 
 func (m *DBStorage) GetMetric(key string) (entity.Metric, error) {

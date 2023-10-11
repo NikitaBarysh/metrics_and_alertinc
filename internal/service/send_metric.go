@@ -11,7 +11,7 @@ type sender interface {
 }
 
 func (m *MetricAction) SendMetric(ctx context.Context, flagRunAddr string) error {
-	for _, value := range m.MemStorage.GetAllMetric() {
+	for _, value := range m.storage.GetAllMetric() {
 		metricType := value.MType
 		switch metricType {
 		case "gauge":

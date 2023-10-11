@@ -5,13 +5,12 @@ import (
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/agent"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/sender"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
-
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 )
 
 func main() {
@@ -28,15 +27,9 @@ func main() {
 
 	memStorage := storage.NewMemStorage()
 
-	//cfgServer, configError := server.ParseServerConfig()
-	//if configError != nil {
-	//	log.Fatalf("config err: %s\n", configError)
-	//}
-
-	//projectStorage := repository.New(cfgServer)
-
 	send := sender.NewSender()
 	newMetricAction := service.NewMetricAction(memStorage, send)
+
 	go newMetricAction.Run(ctx, cfg.PollInterval, cfg.ReportInterval, cfg.URL) // TODO
 
 	sig := <-termSignal

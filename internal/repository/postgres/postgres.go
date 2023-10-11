@@ -14,7 +14,8 @@ import (
 )
 
 type Postgres struct {
-	db *sql.DB
+	db        *sql.DB
+	dbStorage DBStorage
 }
 
 func InitPostgres(cfg *server.Config) (*Postgres, error) {
@@ -39,47 +40,54 @@ func InitPostgres(cfg *server.Config) (*Postgres, error) {
 	return &Postgres{db: db}, nil
 }
 
-func (p *Postgres) GetMetric(key string) map[string]entity.Metric {
+//func (p *Postgres) SetMetricToDB(metric entity.Metric) {
+//	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
+//	defer cancel()
+//
+//}
+
+func (p *Postgres) GetMetricFromDB(key string) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
 	row := p.db.QueryRowContext(ctx, getMetric, key)
 
-	var metric map[string]entity.Metric
+	metric := p.dbStorage.MetricMap
 
 	err := row.Scan(metric[key].ID, metric[key].MType, metric[key].Delta, metric[key].Value)
 	if err != nil {
 		fmt.Println(fmt.Errorf("repository: postgres: Get: Scan: %w", err))
-		return nil
 	}
 
-	return metric
+	p.dbStorage.SetMetric(metric)
 }
 
-func (p *Postgres) GetAllMetric() []entity.Metric {
+func (p *Postgres) GetAllMetricFromDB() {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
 	rows, err := p.db.QueryContext(ctx, getAllMetric)
 	if err != nil {
 		fmt.Println(fmt.Errorf("repository: postgres: GetAllMetric: QueryContext: %w", err))
-		return nil
 	}
 
 	defer rows.Close()
 
 	metricSlice := make([]entity.Metric, 0, 35)
+	metric := p.dbStorage.MetricMap
 
 	for rows.Next() {
 		m := entity.Metric{}
 		err := rows.Scan(m.ID, m.MType, m.Delta, m.Value)
 		if err != nil {
 			fmt.Println(fmt.Errorf("repository: postgres: GetAllMetric: Scan: %w", err))
-			return nil
 		}
-		metricSlice = append(metricSlice, m)
 	}
-	return metricSlice
+
+	for _, v := range metricSlice {
+		metric[v.ID] = entity.Metric{ID: v.ID, MType: v.MType, Delta: v.Delta, Value: v.Value}
+	}
+	p.dbStorage.SetMetric(metric)
 }
 
 func (p *Postgres) CheckPing(ctx context.Context) error {

@@ -38,7 +38,7 @@ func main() {
 		fmt.Println(fmt.Errorf("server: main: logger: %w", loggerError))
 	}
 
-	projectStorage := repository.New(cfg)
+	projectStorage := repository.New(cfg.DataBaseDSN)
 
 	memStorage := storage.NewMemStorage()
 

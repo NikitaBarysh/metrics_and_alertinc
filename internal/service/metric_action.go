@@ -5,14 +5,13 @@ import (
 )
 
 type MetricAction struct {
-	//MemStorage repository.Storage
-	MemStorage *storage.MemStorage
-	sender     sender
+	storage *storage.MemStorage
+	sender  sender
 }
 
-func NewMetricAction(MemStorage *storage.MemStorage, sender sender) *MetricAction {
+func NewMetricAction(storage *storage.MemStorage, sender sender) *MetricAction {
 	return &MetricAction{
-		MemStorage: MemStorage,
-		sender:     sender,
+		storage: storage,
+		sender:  sender,
 	}
 }

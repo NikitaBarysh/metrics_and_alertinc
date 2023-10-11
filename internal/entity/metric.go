@@ -38,6 +38,15 @@ func NewMetric(id, mType, value string) (*Metric, error) {
 	return nil, models.ErrUnknownType
 }
 
+//func (m *Metric) Update(metric *Metric) {
+//	switch m.MType {
+//	case "gauge":
+//		m.Value = metric.Value
+//	case "counter":
+//		m.Delta += metric.Delta
+//
+//}
+
 //func NewMemStorage() *storage {
 //	return &storage{
 //		MetricMap: make(map[string]Metric),
