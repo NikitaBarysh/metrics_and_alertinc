@@ -17,10 +17,9 @@ import (
 )
 
 type storage interface {
-	UpdateGaugeMetric(key string, value float64)
-	UpdateCounterMetric(key string, value int64)
 	GetAllMetric() []entity.Metric
 	GetMetric(key string) (entity.Metric, error)
+	SetMetrics(metric []entity.Metric) error
 }
 
 type Handler struct {
@@ -44,6 +43,9 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 	metricName := chi.URLParam(r, "name")
 
 	metricValue := chi.URLParam(r, "value")
+	fmt.Println("1")
+
+	metricSlice := make([]entity.Metric, 0, 35)
 
 	switch metricType {
 	case "counter":
@@ -52,21 +54,34 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 			http.Error(rw, "wrong counter type", http.StatusBadRequest)
 			return
 		}
-		h.storage.UpdateCounterMetric(metricName, value)
+		metric := entity.Metric{ID: metricName, MType: metricType, Delta: value}
+		metricSlice = append(metricSlice, metric)
+		//h.storage.UpdateCounterMetric(metricName, value)
+		fmt.Println("3")
 	case "gauge":
+		fmt.Println("4")
 		value, err := strconv.ParseFloat(metricValue, 64)
 		if err != nil {
 			http.Error(rw, "wrong gauge type", http.StatusBadRequest)
 			return
 		}
-		h.storage.UpdateGaugeMetric(metricName, value)
+		metric := entity.Metric{ID: metricName, MType: metricType, Value: value}
+		metricSlice = append(metricSlice, metric)
+		//h.storage.UpdateGaugeMetric(metricName, value)
+		fmt.Println("5")
 	default:
 		http.Error(rw, "unknown metric type", http.StatusNotImplemented)
 		return
 	}
+	err := h.storage.SetMetrics(metricSlice)
+	if err != nil {
+		fmt.Println(fmt.Errorf("handlers: safe: SetMetric: %w", err))
+	}
+	fmt.Println("6")
 
 	rw.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	rw.WriteHeader(http.StatusOK)
+	fmt.Println("7")
 }
 
 func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
@@ -154,23 +169,30 @@ func (h *Handler) SafeJSON(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	metricSlice := make([]entity.Metric, 0, 35)
+
 	switch req.MType {
 	case "gauge":
 		if req.Value == nil {
 			rw.WriteHeader(http.StatusBadRequest)
 			return
 		}
-		h.storage.UpdateGaugeMetric(req.ID, *req.Value)
+		metric := entity.Metric{ID: req.ID, MType: "gauge", Value: *req.Value}
+		metricSlice = append(metricSlice, metric)
+		//h.storage.UpdateGaugeMetric(req.ID, *req.Value)
 	case "counter":
 		if req.Delta == nil {
 			rw.WriteHeader(http.StatusBadRequest)
 			return
 		}
-		h.storage.UpdateCounterMetric(req.ID, *req.Delta)
+		metric := entity.Metric{ID: req.ID, MType: "gauge", Delta: *req.Delta}
+		metricSlice = append(metricSlice, metric)
+		//h.storage.UpdateCounterMetric(req.ID, *req.Delta)
 	default:
 		rw.WriteHeader(http.StatusNotImplemented)
 		return
 	}
+	h.storage.SetMetrics(metricSlice)
 
 	rw.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(rw).Encode(req); err != nil {

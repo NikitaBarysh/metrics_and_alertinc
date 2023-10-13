@@ -12,7 +12,7 @@ func init() {
 
 func upTable(tx *sql.Tx) error {
 	query := `CREATE TABLE IF NOT EXISTS metric (
-    "id" VARCHAR(255) UNIQUE NOT NULL,
+    "id" VARCHAR(255) PRIMARY KEY ,
     "type" VARCHAR(50) NOT NULL,
     "delta" BIGINT,
     "value" DOUBLE PRECISION);`

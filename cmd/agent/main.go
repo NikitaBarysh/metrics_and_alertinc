@@ -25,7 +25,10 @@ func main() {
 	termSignal := make(chan os.Signal, 1)
 	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 
-	memStorage := storage.NewMemStorage()
+	memStorage, err := storage.NewMemStorage()
+	if err != nil {
+		panic(err)
+	}
 
 	send := sender.NewSender()
 	newMetricAction := service.NewMetricAction(memStorage, send)
@@ -33,5 +36,5 @@ func main() {
 	go newMetricAction.Run(ctx, cfg.PollInterval, cfg.ReportInterval, cfg.URL) // TODO
 
 	sig := <-termSignal
-	fmt.Println(sig.String())
+	fmt.Println("Agent Graceful Shutdown", sig.String())
 }

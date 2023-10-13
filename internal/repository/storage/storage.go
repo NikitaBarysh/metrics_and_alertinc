@@ -15,11 +15,11 @@ type MemStorage struct {
 
 //fileEngine *service.FileEngine
 
-func NewMemStorage() *MemStorage {
+func NewMemStorage() (*MemStorage, error) {
 	return &MemStorage{
 		MetricMap: make(map[string]entity.Metric),
 		//flush: fileEngine,
-	}
+	}, nil
 }
 
 func (m *MemStorage) SetOnUpdate(fn func()) {
@@ -74,4 +74,20 @@ func (m *MemStorage) SetMetric(data []entity.Metric) {
 	for _, value := range data {
 		m.MetricMap[value.ID] = value
 	}
+}
+
+func (m *MemStorage) SetMetrics(metric []entity.Metric) error {
+	for _, v := range metric {
+		switch v.MType {
+		case "counter":
+			metricValue := m.MetricMap[v.ID].Delta
+			metricValue += v.Delta
+			m.MetricMap[v.ID] = entity.Metric{ID: v.ID, MType: v.MType, Delta: metricValue}
+		case "gauge":
+			m.MetricMap[v.ID] = v
+		default:
+			return models.ErrNotFound
+		}
+	}
+	return nil
 }

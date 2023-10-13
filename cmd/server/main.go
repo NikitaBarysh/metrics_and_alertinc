@@ -8,6 +8,9 @@ import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres"
@@ -32,15 +35,24 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
+	termSignal := make(chan os.Signal, 1)
+	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
+
 	loggingVar := logger.NewLoggingVar()
 	loggerError := loggingVar.Initialize(cfg.LogLevel)
 	if loggerError != nil {
 		fmt.Println(fmt.Errorf("server: main: logger: %w", loggerError))
 	}
 
-	projectStorage := repository.New(cfg.DataBaseDSN)
+	projectStorage, err := repository.New(cfg)
+	if err != nil {
+		panic(err)
+	}
 
-	memStorage := storage.NewMemStorage()
+	memStorage, err := storage.NewMemStorage()
+	if err != nil {
+		panic(err)
+	}
 
 	flush := flusher.NewFlusher(memStorage, file)
 	restorerError := flush.Restorer()
@@ -67,4 +79,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	sig := <-termSignal
+	fmt.Println("Server Graceful Shutdown", sig.String())
 }
