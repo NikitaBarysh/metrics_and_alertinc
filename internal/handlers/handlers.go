@@ -43,10 +43,10 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 	metricName := chi.URLParam(r, "name")
 
 	metricValue := chi.URLParam(r, "value")
-	fmt.Println("1")
+	//fmt.Println("1")
 
 	metricSlice := make([]entity.Metric, 0, 35)
-	fmt.Println(metricSlice)
+	//fmt.Println(metricSlice)
 
 	switch metricType {
 	case "counter":
@@ -56,10 +56,10 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 			return
 		}
 		metric := entity.Metric{ID: metricName, MType: metricType, Delta: value}
-		fmt.Println(metric)
+		//fmt.Println(metric)
 		metricSlice = append(metricSlice, metric)
 		//h.storage.UpdateCounterMetric(metricName, value)
-		fmt.Println(metricSlice)
+		//fmt.Println(metricSlice)
 	case "gauge":
 		fmt.Println("4")
 		value, err := strconv.ParseFloat(metricValue, 64)
@@ -68,24 +68,24 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 			return
 		}
 		metric := entity.Metric{ID: metricName, MType: metricType, Value: value}
-		fmt.Println(metric)
+		//fmt.Println(metric)
 		metricSlice = append(metricSlice, metric)
 		//h.storage.UpdateGaugeMetric(metricName, value)
-		fmt.Println(metricSlice)
+		//fmt.Println(metricSlice)
 	default:
 		http.Error(rw, "unknown metric type", http.StatusNotImplemented)
 		return
 	}
 	err := h.storage.SetMetrics(metricSlice)
 	if err != nil {
-		fmt.Println("handler safe", err)
+		//fmt.Println("handler safe", err)
 		fmt.Println(fmt.Errorf("handlers: safe: SetMetric: %w", err))
 	}
-	fmt.Println("6")
+	//fmt.Println("6")
 
 	rw.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	rw.WriteHeader(http.StatusOK)
-	fmt.Println("7")
+	//fmt.Println("7")
 }
 
 func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
@@ -182,6 +182,7 @@ func (h *Handler) SafeJSON(rw http.ResponseWriter, r *http.Request) {
 			return
 		}
 		metric := entity.Metric{ID: req.ID, MType: "gauge", Value: *req.Value}
+
 		metricSlice = append(metricSlice, metric)
 		//h.storage.UpdateGaugeMetric(req.ID, *req.Value)
 	case "counter":
@@ -189,8 +190,10 @@ func (h *Handler) SafeJSON(rw http.ResponseWriter, r *http.Request) {
 			rw.WriteHeader(http.StatusBadRequest)
 			return
 		}
-		metric := entity.Metric{ID: req.ID, MType: "gauge", Delta: *req.Delta}
+		metric := entity.Metric{ID: req.ID, MType: "counter", Delta: *req.Delta}
+		//fmt.Println("json:", metric)
 		metricSlice = append(metricSlice, metric)
+		//fmt.Println("jsonSlice:", metric)
 		//h.storage.UpdateCounterMetric(req.ID, *req.Delta)
 	default:
 		rw.WriteHeader(http.StatusNotImplemented)

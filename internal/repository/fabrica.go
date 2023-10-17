@@ -8,8 +8,8 @@ import (
 )
 
 type Storage interface {
-	UpdateGaugeMetric(key string, value float64)
-	UpdateCounterMetric(key string, value int64)
+	//UpdateGaugeMetric(key string, value float64)
+	//UpdateCounterMetric(key string, value int64)
 	GetAllMetric() []entity.Metric
 	GetMetric(key string) (entity.Metric, error)
 	SetMetrics(metric []entity.Metric) error

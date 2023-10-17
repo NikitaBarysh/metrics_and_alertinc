@@ -14,6 +14,9 @@ import (
 	"go.uber.org/zap"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/router"
@@ -31,8 +34,8 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	//termSignal := make(chan os.Signal, 1)
-	//signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
+	termSig := make(chan os.Signal, 1)
+	signal.Notify(termSig, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 
 	loggingVar := logger.NewLoggingVar()
 	loggerError := loggingVar.Initialize(cfg.LogLevel)
@@ -71,11 +74,13 @@ func main() {
 	chiRouter := chi.NewRouter()
 	chiRouter.Mount("/", router.Register())
 	loggingVar.Log.Info("Running server", zap.String("address", cfg.RunAddr))
-	err = http.ListenAndServe(cfg.RunAddr, chiRouter)
-	if err != nil {
-		panic(err)
-	}
+	go func() {
+		err = http.ListenAndServe(cfg.RunAddr, chiRouter)
+		if err != nil {
+			panic(err)
+		}
+	}()
 
-	//sig := <-termSignal
-	//fmt.Println("Server Graceful Shutdown", sig.String())
+	sig := <-termSig
+	fmt.Println("Server Graceful Shutdown", sig.String())
 }

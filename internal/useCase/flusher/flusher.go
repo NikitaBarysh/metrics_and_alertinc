@@ -43,6 +43,6 @@ func (f *Flusher) Restorer() error {
 	if err != nil {
 		return fmt.Errorf("read file error: %w", err)
 	}
-	f.getMetric.SetMetric(data)
+	f.getMetric.SetMetrics(data)
 	return nil
 }

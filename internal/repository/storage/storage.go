@@ -68,23 +68,19 @@ func (m *MemStorage) GetAllMetric() []entity.Metric {
 	return metricSlice
 }
 
-func (m *MemStorage) SetMetric(data []entity.Metric) {
-	m.mu.Lock()
-	defer m.mu.Unlock()
-	for _, value := range data {
-		m.MetricMap[value.ID] = value
-	}
-}
-
 func (m *MemStorage) SetMetrics(metric []entity.Metric) error {
 	for _, v := range metric {
 		switch v.MType {
 		case "counter":
+			m.mu.Lock()
 			metricValue := m.MetricMap[v.ID].Delta
 			metricValue += v.Delta
 			m.MetricMap[v.ID] = entity.Metric{ID: v.ID, MType: v.MType, Delta: metricValue}
+			m.mu.Unlock()
 		case "gauge":
+			m.mu.Lock()
 			m.MetricMap[v.ID] = v
+			m.mu.Unlock()
 		default:
 			return models.ErrNotFound
 		}
