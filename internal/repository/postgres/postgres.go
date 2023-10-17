@@ -58,9 +58,10 @@ func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 		fmt.Println(v.ID, v.MType, v.Delta, v.Value)
 		_, err := tx.ExecContext(ctx,
 			`INSERT INTO metric (id, "type", delta, "value")
-					ON CONFLICT(id) DO UPDATE
-   					SET delta = metric.delta + excluded.delta ,"value" = excluded.value
-					VALUES('?','?',?,?) `, v.ID, v.MType, v.Delta, v.Value)
+					VALUES('?','?',?,?)
+   					ON CONFLICT(id) DO UPDATE
+    				SET delta = metric.delta + excluded.delta ,"value" = excluded.value
+					`, v.ID, v.MType, v.Delta, v.Value)
 		fmt.Println(v.ID, v.MType, v.Delta, v.Value)
 		fmt.Println("4444")
 		if err != nil {

@@ -4,20 +4,16 @@ import (
 	"context"
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
-	"log"
-	"net/http"
-	"os"
-	"os/signal"
-	"syscall"
-
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres"
 	_ "github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres/migrations"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/flusher"
 	"go.uber.org/zap"
+	"log"
+	"net/http"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/router"
@@ -35,8 +31,8 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	termSignal := make(chan os.Signal, 1)
-	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
+	//termSignal := make(chan os.Signal, 1)
+	//signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 
 	loggingVar := logger.NewLoggingVar()
 	loggerError := loggingVar.Initialize(cfg.LogLevel)
@@ -80,6 +76,6 @@ func main() {
 		panic(err)
 	}
 
-	sig := <-termSignal
-	fmt.Println("Server Graceful Shutdown", sig.String())
+	//sig := <-termSignal
+	//fmt.Println("Server Graceful Shutdown", sig.String())
 }

@@ -46,6 +46,7 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 	fmt.Println("1")
 
 	metricSlice := make([]entity.Metric, 0, 35)
+	fmt.Println(metricSlice)
 
 	switch metricType {
 	case "counter":
@@ -55,9 +56,10 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 			return
 		}
 		metric := entity.Metric{ID: metricName, MType: metricType, Delta: value}
+		fmt.Println(metric)
 		metricSlice = append(metricSlice, metric)
 		//h.storage.UpdateCounterMetric(metricName, value)
-		fmt.Println("3")
+		fmt.Println(metricSlice)
 	case "gauge":
 		fmt.Println("4")
 		value, err := strconv.ParseFloat(metricValue, 64)
@@ -66,15 +68,17 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 			return
 		}
 		metric := entity.Metric{ID: metricName, MType: metricType, Value: value}
+		fmt.Println(metric)
 		metricSlice = append(metricSlice, metric)
 		//h.storage.UpdateGaugeMetric(metricName, value)
-		fmt.Println("5")
+		fmt.Println(metricSlice)
 	default:
 		http.Error(rw, "unknown metric type", http.StatusNotImplemented)
 		return
 	}
 	err := h.storage.SetMetrics(metricSlice)
 	if err != nil {
+		fmt.Println("handler safe", err)
 		fmt.Println(fmt.Errorf("handlers: safe: SetMetric: %w", err))
 	}
 	fmt.Println("6")
