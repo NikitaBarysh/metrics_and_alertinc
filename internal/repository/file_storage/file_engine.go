@@ -83,7 +83,7 @@ func (f *FileEngine) GetMetric(key string) (entity.Metric, error) {
 	for scanner.Scan() {
 		data := scanner.Bytes()
 		if len(data) == 0 {
-			return entity.Metric{}, errors.New("empty fail")
+			return entity.Metric{}, err
 		}
 		var metric entity.Metric
 		err := json.Unmarshal(data, &metric)
