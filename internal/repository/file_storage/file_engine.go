@@ -1,4 +1,4 @@
-package service
+package file_storage
 
 import (
 	"bufio"
@@ -15,13 +15,13 @@ type FileEngine struct {
 	mu        sync.Mutex
 }
 
-func NewFileEngine(storePath string) *FileEngine {
+func NewFileEngine(storePath string) (*FileEngine, error) {
 	return &FileEngine{
 		storePath: storePath,
-	}
+	}, nil
 }
 
-func (f *FileEngine) SetMetric(data []entity.Metric) error {
+func (f *FileEngine) SetMetrics(data []entity.Metric) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	file, err := os.OpenFile(f.storePath, os.O_CREATE|os.O_WRONLY, 0666)
@@ -68,4 +68,34 @@ func (f *FileEngine) GetAllMetric() ([]entity.Metric, error) {
 		metricSlice = append(metricSlice, memStorage)
 	}
 	return metricSlice, nil
+}
+
+func (f *FileEngine) GetMetric(key string) (entity.Metric, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	metricSlice := make([]entity.Metric, 0, 35)
+
+	file, err := os.OpenFile(f.storePath, os.O_RDONLY|os.O_CREATE, 0666)
+	if err != nil {
+		return entity.Metric{}, fmt.Errorf("service: file_engine: GetMetric: OpenFile: %w", err)
+	}
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		data := scanner.Bytes()
+		if len(data) == 0 {
+			return entity.Metric{}, errors.New("empty fail")
+		}
+		var metric entity.Metric
+		err := json.Unmarshal(data, &metric)
+		if err != nil {
+			return entity.Metric{}, fmt.Errorf("service: file_engine: GetMetric: Unmarshal: %w", err)
+		}
+		metricSlice = append(metricSlice, metric)
+	}
+	for _, v := range metricSlice {
+		if v.ID == key {
+			return entity.Metric{ID: v.ID, MType: v.MType, Delta: v.Delta, Value: v.Value}, nil
+		}
+	}
+	return entity.Metric{}, nil
 }

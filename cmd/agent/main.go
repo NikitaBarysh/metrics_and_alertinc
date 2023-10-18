@@ -25,10 +25,7 @@ func main() {
 	termSignal := make(chan os.Signal, 1)
 	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 
-	memStorage, err := storage.NewMemStorage()
-	if err != nil {
-		panic(err)
-	}
+	memStorage := storage.NewAgentStorage()
 
 	send := sender.NewSender()
 	newMetricAction := service.NewMetricAction(memStorage, send)

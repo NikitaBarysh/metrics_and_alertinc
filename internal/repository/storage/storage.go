@@ -1,24 +1,37 @@
 package storage
 
 import (
+	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/file_storage"
 	"sync"
 )
 
 type MemStorage struct {
-	MetricMap map[string]entity.Metric
-	onUpdate  func()
-	mu        sync.RWMutex
-	//flush  *flusher.Flusher
+	MetricMap  map[string]entity.Metric
+	onUpdate   func()
+	mu         sync.RWMutex
+	FileEngine *file_storage.FileEngine
+}
+
+func NewAgentStorage() *MemStorage {
+	return &MemStorage{
+		MetricMap: make(map[string]entity.Metric),
+	}
 }
 
 //fileEngine *service.FileEngine
 
-func NewMemStorage() (*MemStorage, error) {
+func NewMemStorage(cfg *server.Config) (*MemStorage, error) {
+	fileEngine, err := file_storage.NewFileEngine(cfg.StorePath)
+	if err != nil {
+		return nil, fmt.Errorf("storage: newMemStorage: NewFileEngine: %w", err)
+	}
 	return &MemStorage{
-		MetricMap: make(map[string]entity.Metric),
-		//flush: fileEngine,
+		MetricMap:  make(map[string]entity.Metric),
+		FileEngine: fileEngine,
 	}, nil
 }
 
@@ -58,14 +71,14 @@ func (m *MemStorage) GetMetric(key string) (entity.Metric, error) {
 	return metricStruct, models.ErrNotFound
 }
 
-func (m *MemStorage) GetAllMetric() []entity.Metric {
+func (m *MemStorage) GetAllMetric() ([]entity.Metric, error) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	metricSlice := make([]entity.Metric, 0, len(m.MetricMap))
 	for _, metricValue := range m.MetricMap {
 		metricSlice = append(metricSlice, metricValue)
 	}
-	return metricSlice
+	return metricSlice, nil
 }
 
 func (m *MemStorage) SetMetrics(metric []entity.Metric) error {

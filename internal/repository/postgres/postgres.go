@@ -46,6 +46,8 @@ func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 	defer cancel()
 	//fmt.Println("1111")
 
+	p.db.C
+
 	tx, err := p.db.BeginTx(ctx, nil)
 	if err != nil {
 		return fmt.Errorf("repository: postgres: SetMetric: BegimTX: %w", err)
@@ -55,7 +57,7 @@ func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 	for _, v := range metric {
 		//fmt.Println("3333")
 
-		fmt.Println(v.ID, v.MType, v.Delta, v.Value)
+		//fmt.Println(v.ID, v.MType, v.Delta, v.Value)
 		_, err := tx.ExecContext(ctx, `INSERT INTO metric (id, "type", delta, "value")
 			VALUES($1, $2, $3 ,$4) 
 		    ON CONFLICT(id) DO 
@@ -111,7 +113,7 @@ func (p *Postgres) GetMetric(key string) (entity.Metric, error) { // TODO
 
 	err := row.Scan(&metric.ID, &metric.MType, &metric.Delta, &metric.Value)
 	if errors.Is(err, pgx.ErrNoRows) || errors.Is(err, sql.ErrNoRows) {
-		return metric, nil // TODO
+		return metric, err // TODO
 	}
 	if err != nil {
 		return metric, fmt.Errorf("repository: postgres: Get: Scan: %w", err)
@@ -120,13 +122,13 @@ func (p *Postgres) GetMetric(key string) (entity.Metric, error) { // TODO
 	return metric, nil
 }
 
-func (p *Postgres) GetAllMetric() []entity.Metric {
+func (p *Postgres) GetAllMetric() ([]entity.Metric, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
 	rows, err := p.db.QueryContext(ctx, getAllMetric)
 	if err != nil {
-		fmt.Println(fmt.Errorf("repository: postgres: GetAllMetric: QueryContext: %w", err))
+		return nil, fmt.Errorf("repository: postgres: GetAllMetric: QueryContext: %w", err)
 	}
 
 	defer rows.Close()
@@ -137,12 +139,12 @@ func (p *Postgres) GetAllMetric() []entity.Metric {
 		m := entity.Metric{}
 		err := rows.Scan(&m.ID, &m.MType, &m.Delta, &m.Value)
 		if err != nil {
-			fmt.Println(fmt.Errorf("repository: postgres: GetAllMetric: Scan: %w", err))
+			return nil, fmt.Errorf("repository: postgres: GetAllMetric: Scan: %w", err)
 		}
 		metricSlice = append(metricSlice, m)
 	}
 
-	return metricSlice
+	return metricSlice, nil
 }
 
 func (p *Postgres) CheckPing(ctx context.Context) error {
