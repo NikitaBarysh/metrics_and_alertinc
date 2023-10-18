@@ -46,8 +46,6 @@ func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 	defer cancel()
 	//fmt.Println("1111")
 
-	p.db.C
-
 	tx, err := p.db.BeginTx(ctx, nil)
 	if err != nil {
 		return fmt.Errorf("repository: postgres: SetMetric: BegimTX: %w", err)
