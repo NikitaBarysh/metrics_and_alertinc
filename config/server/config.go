@@ -52,7 +52,7 @@ func ParseServerConfig() (*Config, error) {
 	var option options
 	flag.StringVar(&option.runAddr, "a", "localhost:8080", "address and port to run server")
 	flag.StringVar(&option.logLevel, "l", "info", "log level")
-	flag.StringVar(&option.storeInterval, "i", "300", "store interval")
+	flag.StringVar(&option.storeInterval, "i", "1", "store interval")
 	flag.StringVar(&option.storePath, "f", "/tmp/metrics-db.json", "store path")
 	flag.StringVar(&option.restore, "r", "true", "restore")
 	flag.StringVar(&option.dataBaseDSN, "d", "", "data base DSN")

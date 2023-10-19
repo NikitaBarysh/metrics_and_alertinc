@@ -1,12 +1,13 @@
 package storage
 
 import (
-	"fmt"
+	"context"
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/file_storage"
 	"sync"
+	"time"
 )
 
 type MemStorage struct {
@@ -22,31 +23,37 @@ func NewAgentStorage() *MemStorage {
 	}
 }
 
-//fileEngine *service.FileEngine
-
-func NewMemStorage(cfg *server.Config) (*MemStorage, error) {
-	fileEngine, err := file_storage.NewFileEngine(cfg.StorePath)
-	if err != nil {
-		return nil, fmt.Errorf("storage: newMemStorage: NewFileEngine: %w", err)
+func NewMemStorage(cfg *server.Config, file *file_storage.FileEngine) (*MemStorage, error) { // TODO ctx
+	m := &MemStorage{}
+	data := make(map[string]entity.Metric)
+	if file != nil {
+		data, _ = file.GetAllMetric()
+		go m.syncData(cfg.StoreInterval)
 	}
-	return &MemStorage{
-		MetricMap:  make(map[string]entity.Metric),
-		FileEngine: fileEngine,
-	}, nil
+	m.mu = sync.RWMutex{}
+	m.MetricMap = data
+	m.FileEngine = file
+	return m, nil
 }
 
-func (m *MemStorage) SetOnUpdate(fn func()) {
-	m.onUpdate = fn
+func (m *MemStorage) syncData(interval uint64) {
+	timeTicker := time.NewTicker(time.Second * time.Duration(interval))
+	defer timeTicker.Stop()
+	for {
+		select {
+		case <-timeTicker.C:
+			m.FileEngine.SetMetrics(m.MetricMap)
+			//case <-ctx.Done():
+			//	return
+		}
+	}
 }
 
 func (m *MemStorage) UpdateGaugeMetric(key string, value float64) {
 	m.mu.Lock()
 	m.MetricMap[key] = entity.Metric{ID: key, MType: "gauge", Value: value}
-	fn := m.onUpdate
 	m.mu.Unlock()
-	if fn != nil {
-		fn()
-	}
+
 }
 
 func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
@@ -54,14 +61,12 @@ func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
 	metricValue := m.MetricMap[key].Delta
 	metricValue += value
 	m.MetricMap[key] = entity.Metric{ID: key, MType: "counter", Delta: metricValue}
-	fn := m.onUpdate
 	m.mu.Unlock()
-	if fn != nil {
-		fn()
-	}
 }
 
 func (m *MemStorage) GetMetric(key string) (entity.Metric, error) {
+	//fmt.Println(m)
+	//fmt.Println(m.mu)
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	metricStruct, ok := m.MetricMap[key]
@@ -98,5 +103,9 @@ func (m *MemStorage) SetMetrics(metric []entity.Metric) error {
 			return models.ErrNotFound
 		}
 	}
+	return nil
+}
+
+func (m *MemStorage) CheckPing(ctx context.Context) error {
 	return nil
 }
