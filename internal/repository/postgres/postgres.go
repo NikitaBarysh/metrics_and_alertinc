@@ -44,18 +44,13 @@ func InitPostgres(cfg *server.Config) (*Postgres, error) {
 func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	defer cancel()
-	//fmt.Println("1111")
 
 	tx, err := p.db.BeginTx(ctx, nil)
 	if err != nil {
 		return fmt.Errorf("repository: postgres: SetMetric: BegimTX: %w", err)
 	}
-	//fmt.Println("2222")
 
 	for _, v := range metric {
-		//fmt.Println("3333")
-
-		//fmt.Println(v.ID, v.MType, v.Delta, v.Value)
 		_, err := tx.ExecContext(ctx, `INSERT INTO metric (id, "type", delta, "value")
 			VALUES($1, $2, $3 ,$4) 
 		    ON CONFLICT(id) DO 
@@ -65,20 +60,16 @@ func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 			v.Delta,
 			v.Value,
 		)
-		//v.ID, v.MType, v.Delta, v.Value)
-		//fmt.Println(v.ID, v.MType, v.Delta, v.Value)
-		//fmt.Println("4444")
+
 		if err != nil {
-			//fmt.Println("err", err)
 			err := tx.Rollback()
 			if err != nil {
 				return fmt.Errorf("repository: postgres: SetMetric: Rollback: %w", err)
 			}
 			return fmt.Errorf("repository: postgres: SetMetric: INSERT INTO: %w", err)
 		}
-		//fmt.Println("5555")
 	}
-	//fmt.Println("6666")
+
 	return tx.Commit()
 }
 
@@ -91,14 +82,12 @@ func (p *Postgres) UpdateGaugeMetric(key string, value float64) {
 }
 
 func (p *Postgres) UpdateCounterMetric(key string, value int64) {
-	//fmt.Println("11")
 	metric := entity.Metric{ID: key, MType: "counter", Delta: value, Value: 0}
-	//fmt.Println("22")
+
 	err := p.SetMetrics([]entity.Metric{metric})
 	if err != nil {
 		fmt.Println(fmt.Errorf("repository: postgres: UpdateCounter: SetMetric: %w", err))
 	}
-	//fmt.Println("33")
 }
 
 func (p *Postgres) GetMetric(key string) (entity.Metric, error) { // TODO

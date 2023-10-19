@@ -42,27 +42,6 @@ func main() {
 		panic(err)
 	}
 
-	//memStorage, err := storage.NewMemStorage()
-	//if err != nil {
-	//	panic(err)
-	//}
-
-	//flush := flusher.NewFlusher(projectStorage)
-	//restorerError := flush.Restorer()
-	//if restorerError != nil {
-	//	fmt.Println(fmt.Errorf("server: main: restorer: %w", restorerError))
-	//}
-	//
-	//if cfg.StoreInterval != 0 {
-	//	go flush.Flush(ctx, cfg.StoreInterval)
-	//} else {
-	//	memStorage.SetOnUpdate(flush.SyncFlush)
-	//}
-	//db, err := postgres.InitPostgres(cfg)
-	//if err != nil {
-	//	fmt.Println(fmt.Errorf("can't connect: %w", err))
-	//}
-
 	handler := handlers.NewHandler(projectStorage, loggingVar)
 	router := router.NewRouter(handler)
 	chiRouter := chi.NewRouter()
