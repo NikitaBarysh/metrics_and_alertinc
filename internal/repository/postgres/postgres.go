@@ -117,7 +117,6 @@ func (p *Postgres) GetAllMetric() ([]entity.Metric, error) {
 	if err != nil {
 		return nil, fmt.Errorf("repository: postgres: GetAllMetric: QueryContext: %w", err)
 	}
-
 	defer rows.Close()
 
 	metricSlice := make([]entity.Metric, 0, 35)
