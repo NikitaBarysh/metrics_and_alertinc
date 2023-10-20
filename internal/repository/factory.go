@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/file_storage"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/fileStorage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
 )
@@ -21,7 +21,7 @@ func New(cfg *server.Config) (Storage, error) {
 	if cfg.DataBaseDSN != "" {
 		return postgres.InitPostgres(cfg)
 	} else if cfg.StorePath != "" {
-		file, err := file_storage.NewFileEngine(cfg.StorePath)
+		file, err := fileStorage.NewFileEngine(cfg.StorePath)
 		if err != nil {
 			fmt.Println("memstorage-file error factory")
 			return nil, err

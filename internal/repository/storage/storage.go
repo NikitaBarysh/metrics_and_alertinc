@@ -5,7 +5,7 @@ import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/file_storage"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/fileStorage"
 	"sync"
 	"time"
 )
@@ -14,7 +14,7 @@ type MemStorage struct {
 	MetricMap  map[string]entity.Metric
 	onUpdate   func()
 	mu         sync.RWMutex
-	FileEngine *file_storage.FileEngine
+	FileEngine *fileStorage.FileEngine
 }
 
 func NewAgentStorage() *MemStorage {
@@ -23,7 +23,7 @@ func NewAgentStorage() *MemStorage {
 	}
 }
 
-func NewMemStorage(cfg *server.Config, file *file_storage.FileEngine) (*MemStorage, error) { // TODO ctx
+func NewMemStorage(cfg *server.Config, file *fileStorage.FileEngine) (*MemStorage, error) { // TODO ctx
 	m := &MemStorage{}
 	data := make(map[string]entity.Metric)
 	if file != nil {
