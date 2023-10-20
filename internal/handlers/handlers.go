@@ -84,7 +84,7 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) SafeBatch(rw http.ResponseWriter, r *http.Request) {
-	if r.Header.Get("Content-Type") != "`apllication/json" {
+	if r.Header.Get("Content-Type") != "application/json" {
 		rw.WriteHeader(http.StatusBadRequest)
 		return
 	}
