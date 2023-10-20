@@ -28,7 +28,7 @@ func NewMemStorage(ctx context.Context, cfg *server.Config, file *filestorage.Fi
 	data := make(map[string]entity.Metric)
 	if file != nil {
 		data, _ = file.GetAllMetric()
-		go m.syncData(cfg.StoreInterval)
+		go m.syncData(ctx, cfg.StoreInterval)
 	}
 	m.mu = sync.RWMutex{}
 	m.MetricMap = data
