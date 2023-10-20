@@ -3,10 +3,9 @@ package postgres
 import (
 	"context"
 	"database/sql"
-	"errors"
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
-	"github.com/jackc/pgx/v5"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"time"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
@@ -51,15 +50,24 @@ func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 	}
 
 	for _, v := range metric {
-		_, err := tx.ExecContext(ctx, `INSERT INTO metric (id, "type", delta, "value")
-			VALUES($1, $2, $3 ,$4) 
-		    ON CONFLICT(id) DO 
-		    UPDATE SET delta = metric.delta + excluded.delta ,"value" = excluded.value`,
-			v.ID,
-			v.MType,
-			v.Delta,
-			v.Value,
-		)
+		//_, err := tx.ExecContext(ctx,
+		//	query,
+		//	v.ID,
+		//	v.MType,
+		//	v.Delta,
+		//	v.Value,
+		//)
+
+		service.Retry(func() error {
+			_, err := tx.ExecContext(ctx,
+				insertMetric,
+				v.ID,
+				v.MType,
+				v.Delta,
+				v.Value,
+			)
+			return err
+		}, 0)
 
 		if err != nil {
 			err := tx.Rollback()
@@ -73,38 +81,28 @@ func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 	return tx.Commit()
 }
 
-func (p *Postgres) UpdateGaugeMetric(key string, value float64) {
-	metric := entity.Metric{ID: key, MType: "gauge", Value: value, Delta: 0}
-	err := p.SetMetrics([]entity.Metric{metric})
-	if err != nil {
-		fmt.Println(fmt.Errorf("repository: postgres: UpdateGauge: SetMetric: %w", err))
-	}
-}
-
-func (p *Postgres) UpdateCounterMetric(key string, value int64) {
-	metric := entity.Metric{ID: key, MType: "counter", Delta: value, Value: 0}
-
-	err := p.SetMetrics([]entity.Metric{metric})
-	if err != nil {
-		fmt.Println(fmt.Errorf("repository: postgres: UpdateCounter: SetMetric: %w", err))
-	}
-}
-
 func (p *Postgres) GetMetric(key string) (entity.Metric, error) { // TODO
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
-
-	row := p.db.QueryRowContext(ctx, getMetric, key)
-
 	metric := entity.Metric{}
 
-	err := row.Scan(&metric.ID, &metric.MType, &metric.Delta, &metric.Value)
-	if errors.Is(err, pgx.ErrNoRows) || errors.Is(err, sql.ErrNoRows) {
-		return metric, err // TODO
-	}
-	if err != nil {
-		return metric, fmt.Errorf("repository: postgres: Get: Scan: %w", err)
-	}
+	service.Retry(func() error {
+		row := p.db.QueryRowContext(ctx, getMetric, key)
+
+		return row.Scan(&metric.ID, &metric.MType, &metric.Delta, &metric.Value)
+
+	}, 0)
+
+	//row := p.db.QueryRowContext(ctx, getMetric, key)
+	//
+	//
+	//err := row.Scan(&metric.ID, &metric.MType, &metric.Delta, &metric.Value)
+	//if errors.Is(err, pgx.ErrNoRows) || errors.Is(err, sql.ErrNoRows) {
+	//	return metric, err // TODO
+	//}
+	//if err != nil {
+	//	return metric, fmt.Errorf("repository: postgres: Get: Scan: %w", err)
+	//}
 
 	return metric, nil
 }
@@ -113,7 +111,7 @@ func (p *Postgres) GetAllMetric() ([]entity.Metric, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	rows, err := p.db.QueryContext(ctx, getAllMetric)
+	rows, err := p.db.QueryContext(ctx, getAllMetric) //TODo
 	if err != nil {
 		return nil, fmt.Errorf("repository: postgres: GetAllMetric: QueryContext: %w", err)
 	}
