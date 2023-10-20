@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -25,8 +26,8 @@ func main() {
 		log.Fatalf("config err: %s\n", configError)
 	}
 
-	//ctx, cancel := context.WithCancel(context.Background())
-	//defer cancel()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
 	termSig := make(chan os.Signal, 1)
 	signal.Notify(termSig, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
@@ -37,7 +38,7 @@ func main() {
 		fmt.Println(fmt.Errorf("server: main: logger: %w", loggerError))
 	}
 
-	projectStorage, err := repository.New(cfg)
+	projectStorage, err := repository.New(ctx, cfg)
 	if err != nil {
 		panic(err)
 	}

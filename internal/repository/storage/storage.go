@@ -5,7 +5,7 @@ import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/fileStorage"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/filestorage"
 	"sync"
 	"time"
 )
@@ -14,7 +14,7 @@ type MemStorage struct {
 	MetricMap  map[string]entity.Metric
 	onUpdate   func()
 	mu         sync.RWMutex
-	FileEngine *fileStorage.FileEngine
+	FileEngine *filestorage.FileEngine
 }
 
 func NewAgentStorage() *MemStorage {
@@ -23,7 +23,7 @@ func NewAgentStorage() *MemStorage {
 	}
 }
 
-func NewMemStorage(cfg *server.Config, file *fileStorage.FileEngine) (*MemStorage, error) { // TODO ctx
+func NewMemStorage(ctx context.Context, cfg *server.Config, file *filestorage.FileEngine) (*MemStorage, error) { // TODO ctx
 	m := &MemStorage{}
 	data := make(map[string]entity.Metric)
 	if file != nil {
@@ -36,15 +36,15 @@ func NewMemStorage(cfg *server.Config, file *fileStorage.FileEngine) (*MemStorag
 	return m, nil
 }
 
-func (m *MemStorage) syncData(interval uint64) {
+func (m *MemStorage) syncData(ctx context.Context, interval uint64) {
 	timeTicker := time.NewTicker(time.Second * time.Duration(interval))
 	defer timeTicker.Stop()
 	for {
 		select {
 		case <-timeTicker.C:
 			m.FileEngine.SetMetrics(m.MetricMap)
-			//case <-ctx.Done():
-			//	return
+		case <-ctx.Done():
+			return
 		}
 	}
 }
