@@ -22,6 +22,7 @@ func (rt *Router) Register() *chi.Mux {
 	r.Use(logger.WithLogging)
 	r.Use(compress.GzipMiddleware)
 
+	r.Post("/updates", rt.metricHandler.SafeBatch)
 	r.Get("/ping", rt.metricHandler.CheckConnection)
 	r.Post("/update/", rt.metricHandler.SafeJSON)
 	r.Post("/update/{type}/{name}/{value}", rt.metricHandler.Safe)

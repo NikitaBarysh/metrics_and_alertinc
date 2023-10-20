@@ -10,6 +10,7 @@ import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
 	"github.com/go-chi/chi/v5"
 	"go.uber.org/zap"
+	"io"
 	"net/http"
 	"strconv"
 	"time"
@@ -80,6 +81,33 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 
 	rw.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	rw.WriteHeader(http.StatusOK)
+}
+
+func (h *Handler) SafeBatch(rw http.ResponseWriter, r *http.Request) {
+	if r.Header.Get("Content-Type") != "`apllication/json" {
+		rw.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		rw.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	metricSlice := make([]entity.Metric, 0, 30)
+	if err = json.Unmarshal(body, &metricSlice); err != nil {
+		rw.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	if err = h.storage.SetMetrics(metricSlice); err != nil {
+		rw.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	rw.WriteHeader(http.StatusOK)
+
 }
 
 func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
