@@ -70,10 +70,7 @@ func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 		}, 0)
 
 		if err != nil {
-			err := tx.Rollback()
-			if err != nil {
-				return fmt.Errorf("repository: postgres: SetMetric: Rollback: %w", err)
-			}
+			tx.Rollback()
 			return fmt.Errorf("repository: postgres: SetMetric: INSERT INTO: %w", err)
 		}
 	}
