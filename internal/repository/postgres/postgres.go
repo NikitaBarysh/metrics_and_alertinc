@@ -129,6 +129,11 @@ func (p *Postgres) GetAllMetric() ([]entity.Metric, error) {
 		metricSlice = append(metricSlice, m)
 	}
 
+	err = rows.Err()
+	if err != nil {
+		return nil, err
+	}
+
 	return metricSlice, nil
 }
 
