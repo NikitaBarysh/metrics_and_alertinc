@@ -60,7 +60,7 @@ func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 		var err error
 
 		service.Retry(func() error {
-			_, err := tx.ExecContext(ctx,
+			_, err = tx.ExecContext(ctx,
 				insertMetric,
 				v.ID,
 				v.MType,
@@ -70,9 +70,12 @@ func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 			return err
 		}, 0)
 
-		err = tx.Rollback()
 		if err != nil {
-			return fmt.Errorf("repository: postgres: SetMetric: Rollback: %w", err)
+			err := tx.Rollback()
+			if err != nil {
+				return fmt.Errorf("repository: postgres: SetMetric: Rollback: %w", err)
+			}
+			return fmt.Errorf("repository: postgres: SetMetric: INSERT INTO: %w", err)
 		}
 	}
 
