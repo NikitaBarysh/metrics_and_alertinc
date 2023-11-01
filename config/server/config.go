@@ -48,7 +48,7 @@ type options struct {
 	dataBaseDSN   string
 }
 
-func ParseServerConfig() (*Config, error) {
+func NewServer() (*Config, error) {
 	var option options
 	flag.StringVar(&option.runAddr, "a", "localhost:8080", "address and port to run server")
 	flag.StringVar(&option.logLevel, "l", "info", "log level")

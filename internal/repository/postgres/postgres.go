@@ -24,7 +24,6 @@ func InitPostgres(cfg *server.Config) (*Postgres, error) {
 	if err != nil {
 		panic(err)
 	}
-	//defer db.Close()
 
 	err = goose.Up(db, ".")
 	if err != nil {
@@ -50,13 +49,6 @@ func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 	}
 
 	for _, v := range metric {
-		//_, err := tx.ExecContext(ctx,
-		//	query,
-		//	v.ID,
-		//	v.MType,
-		//	v.Delta,
-		//	v.Value,
-		//)
 		var err error
 
 		service.Retry(func() error {
@@ -93,17 +85,6 @@ func (p *Postgres) GetMetric(key string) (entity.Metric, error) { // TODO
 		return row.Scan(&metric.ID, &metric.MType, &metric.Delta, &metric.Value)
 
 	}, 0)
-
-	//row := p.db.QueryRowContext(ctx, getMetric, key)
-	//
-	//
-	//err := row.Scan(&metric.ID, &metric.MType, &metric.Delta, &metric.Value)
-	//if errors.Is(err, pgx.ErrNoRows) || errors.Is(err, sql.ErrNoRows) {
-	//	return metric, err // TODO
-	//}
-	//if err != nil {
-	//	return metric, fmt.Errorf("repository: postgres: Get: Scan: %w", err)
-	//}
 
 	return metric, nil
 }

@@ -13,7 +13,7 @@ type Config struct {
 	ReportInterval int64
 }
 
-func ParseAgentFlags() (*Config, error) {
+func NewAgent() (*Config, error) {
 	cfg := new(Config)
 	flag.StringVar(&cfg.URL, "a", "localhost:8080", "address and port to run server")
 	flag.Int64Var(&cfg.PollInterval, "p", 2, "poll interval")

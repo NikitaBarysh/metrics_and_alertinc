@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"errors"
 	"github.com/jackc/pgx/v5"
+	"net"
+	"strings"
 	"time"
 )
 
@@ -15,6 +17,7 @@ var durationSleep = map[int]time.Duration{
 
 func Retry(fn func() error, attempt int) {
 	err := fn()
+	var netErr net.Error
 
 	if attempt > 3 {
 		return
@@ -53,6 +56,12 @@ func Retry(fn func() error, attempt int) {
 	if errors.Is(err, sql.ErrTxDone) {
 		attempt++
 		time.Sleep(durationSleep[attempt])
+		Retry(fn, attempt)
+	}
+
+	if (errors.As(err, &netErr) && netErr.Timeout()) ||
+		strings.Contains(err.Error(), "EOF") ||
+		strings.Contains(err.Error(), "connection reset by peer") {
 		Retry(fn, attempt)
 	}
 }

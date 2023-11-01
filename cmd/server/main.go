@@ -12,7 +12,7 @@ import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository"
-	_ "github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres/migrations"
+	_ "github.com/NikitaBarysh/metrics_and_alertinc/migrations"
 	"go.uber.org/zap"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers"
@@ -21,7 +21,7 @@ import (
 )
 
 func main() {
-	cfg, configError := server.ParseServerConfig()
+	cfg, configError := server.NewServer()
 	if configError != nil {
 		log.Fatalf("config err: %s\n", configError)
 	}

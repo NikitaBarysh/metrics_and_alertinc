@@ -1,15 +1,13 @@
 package service
 
-import (
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/storage"
-)
+import "github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/memStorage"
 
 type MetricAction struct {
-	storage *storage.MemStorage
+	storage *memStorage.MemStorage
 	sender  sender
 }
 
-func NewMetricAction(storage *storage.MemStorage, sender sender) *MetricAction {
+func NewMetricAction(storage *memStorage.MemStorage, sender sender) *MetricAction {
 	return &MetricAction{
 		storage: storage,
 		sender:  sender,
