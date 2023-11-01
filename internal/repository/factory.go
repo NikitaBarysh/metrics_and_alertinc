@@ -6,7 +6,7 @@ import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/filestorage"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/mem_storage"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/memstorage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/postgres"
 )
 
@@ -26,13 +26,13 @@ func New(ctx context.Context, cfg *server.Config) (Storage, error) {
 			fmt.Println("memstorage-file error factory")
 			return nil, err
 		}
-		memStorage, err := mem_storage.NewMemStorage(ctx, cfg, file)
+		memStorage, err := memstorage.NewMemStorage(ctx, cfg, file)
 		if err != nil {
 			return nil, err
 		}
 		return memStorage, nil
 	} else {
-		memStorage, err := mem_storage.NewMemStorage(ctx, cfg, nil)
+		memStorage, err := memstorage.NewMemStorage(ctx, cfg, nil)
 		if err != nil {
 			fmt.Println("memstorage error factory")
 			return nil, err
