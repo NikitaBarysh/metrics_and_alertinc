@@ -7,7 +7,7 @@ package handlers
 //	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/config/server"
 //	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
 //	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/repository/postgres"
-//	storage2 "github.com/NikitaBarysh/metrics_and_alertinc/internal/memStorage"
+//	storage2 "github.com/NikitaBarysh/metrics_and_alertinc/internal/mem_storage"
 //	"log"
 //	"net/http"
 //	"net/http/httptest"

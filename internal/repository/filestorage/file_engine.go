@@ -144,12 +144,12 @@ func (f *FileEngine) GetAllMetric() (map[string]entity.Metric, error) {
 //		if len(data) == 0 {
 //			return nil, errors.New("empty fail")
 //		}
-//		var memStorage entity.Metric
-//		err := json.Unmarshal(data, &memStorage)
+//		var mem_storage entity.Metric
+//		err := json.Unmarshal(data, &mem_storage)
 //		if err != nil {
 //			return nil, fmt.Errorf("service: file_engine: GetAllMetric: Unmarshal: %w", err)
 //		}
-//		metricSlice = append(metricSlice, memStorage)
+//		metricSlice = append(metricSlice, mem_storage)
 //	}
 //	return metricSlice, nil
 //}

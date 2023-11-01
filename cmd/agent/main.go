@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/agent"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/memStorage"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/mem_storage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/sender"
 	"log"
@@ -25,7 +25,7 @@ func main() {
 	termSignal := make(chan os.Signal, 1)
 	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 
-	storage := memStorage.NewAgentStorage()
+	storage := mem_storage.NewAgentStorage()
 
 	send := sender.NewSender()
 	newMetricAction := service.NewMetricAction(storage, send)
