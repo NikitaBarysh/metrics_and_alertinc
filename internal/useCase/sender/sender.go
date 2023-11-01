@@ -27,9 +27,13 @@ func (s *Sender) SendPost(ctx context.Context, url string, storage entity.Metric
 	res, err := client.Do(request)
 	if err != nil {
 		service.Retry(func() error {
-			_, err := client.Do(request)
+			res, err := client.Do(request)
 			if err != nil {
 				fmt.Println("can't do retry request")
+			}
+			errBody := res.Body.Close()
+			if errBody != nil {
+				fmt.Println("can't close body in retry sender")
 			}
 			return err
 		}, 0)
@@ -63,5 +67,9 @@ func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage e
 		fmt.Println(fmt.Errorf("useCase: sender: sendPostJSON: do request: %w", err))
 		return
 	}
-	res.Body.Close()
+	errBody := res.Body.Close()
+	if errBody != nil {
+		fmt.Println(fmt.Errorf("useCase: sender: sendPostJSON: close Body: %w", err))
+		return
+	}
 }
