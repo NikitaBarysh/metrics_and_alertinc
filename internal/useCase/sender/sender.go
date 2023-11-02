@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"net/http"
 )
 
@@ -26,18 +25,18 @@ func (s *Sender) SendPost(ctx context.Context, url string, storage entity.Metric
 	client := &http.Client{}
 	res, err := client.Do(request)
 	if err != nil {
-		service.Retry(func() error {
-			retryClient := &http.Client{}
-			res, err := retryClient.Do(request)
-			if err != nil {
-				fmt.Println("can't do retry request")
-			}
-			errBody := res.Body.Close()
-			if errBody != nil {
-				fmt.Println("can't close body in retry sender")
-			}
-			return err
-		}, 0)
+		//service.Retry(func() error {
+		//	retryClient := &http.Client{}
+		//	res, err := retryClient.Do(request)
+		//	if err != nil {
+		//		fmt.Println("can't do retry request")
+		//	}
+		//	errBody := res.Body.Close()
+		//	if errBody != nil {
+		//		fmt.Println("can't close body in retry sender")
+		//	}
+		//	return err
+		//}, 0)
 		fmt.Println(fmt.Errorf("useCase: sender: sendPost: do request: %w", err))
 		return
 	}
