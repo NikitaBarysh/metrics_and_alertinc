@@ -39,14 +39,16 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 
 	metricType := chi.URLParam(r, "type")
 
+	mType := entity.MType(metricType)
+
 	metricName := chi.URLParam(r, "name")
 
 	metricValue := chi.URLParam(r, "value")
 
 	metricSlice := make([]entity.Metric, 0, 35)
 
-	switch metricType {
-	case "counter":
+	switch mType {
+	case entity.Counter:
 		value, err := strconv.ParseInt(metricValue, 10, 64)
 		if err != nil {
 			http.Error(rw, "wrong counter type", http.StatusBadRequest)
@@ -57,16 +59,16 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 			fmt.Println(fmt.Errorf("no metric PollCount yet: %w", err))
 		}
 		delta.Delta += value
-		metric := entity.Metric{ID: metricName, MType: metricType, Delta: value}
+		metric := entity.Metric{ID: metricName, MType: mType, Delta: value}
 
 		metricSlice = append(metricSlice, metric)
-	case "gauge":
+	case entity.Gauge:
 		value, err := strconv.ParseFloat(metricValue, 64)
 		if err != nil {
 			http.Error(rw, "wrong gauge type", http.StatusBadRequest)
 			return
 		}
-		metric := entity.Metric{ID: metricName, MType: metricType, Value: value}
+		metric := entity.Metric{ID: metricName, MType: mType, Value: value}
 
 		metricSlice = append(metricSlice, metric)
 
@@ -112,6 +114,7 @@ func (h *Handler) SafeBatch(rw http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 	metricType := chi.URLParam(r, "type")
+	mType := entity.MType(metricType)
 
 	metricName := chi.URLParam(r, "name")
 
@@ -122,8 +125,8 @@ func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	switch metricType {
-	case "gauge":
+	switch mType {
+	case entity.Gauge:
 		metricValue := metricValueStruct.Value
 		rw.WriteHeader(http.StatusOK)
 		_, err := rw.Write([]byte(fmt.Sprintf("%v", metricValue)))
@@ -131,7 +134,7 @@ func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 			fmt.Println(fmt.Errorf("handler: get: write gauge metric: %w", err))
 		}
 		return
-	case "counter":
+	case entity.Counter:
 		metricValue := metricValueStruct.Delta
 		rw.WriteHeader(http.StatusOK)
 		_, err := rw.Write([]byte(fmt.Sprintf("%v", metricValue)))

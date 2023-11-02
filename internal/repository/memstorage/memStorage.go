@@ -51,7 +51,7 @@ func (m *MemStorage) syncData(ctx context.Context, interval uint64) {
 
 func (m *MemStorage) UpdateGaugeMetric(key string, value float64) {
 	m.mu.Lock()
-	m.MetricMap[key] = entity.Metric{ID: key, MType: "gauge", Value: value}
+	m.MetricMap[key] = entity.Metric{ID: key, MType: entity.Gauge, Value: value}
 	m.mu.Unlock()
 
 }
@@ -60,13 +60,11 @@ func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
 	m.mu.Lock()
 	metricValue := m.MetricMap[key].Delta
 	metricValue += value
-	m.MetricMap[key] = entity.Metric{ID: key, MType: "counter", Delta: metricValue}
+	m.MetricMap[key] = entity.Metric{ID: key, MType: entity.Counter, Delta: metricValue}
 	m.mu.Unlock()
 }
 
 func (m *MemStorage) GetMetric(key string) (entity.Metric, error) {
-	//fmt.Println(m)
-	//fmt.Println(m.mu)
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	metricStruct, ok := m.MetricMap[key]
@@ -89,13 +87,13 @@ func (m *MemStorage) GetAllMetric() ([]entity.Metric, error) {
 func (m *MemStorage) SetMetrics(metric []entity.Metric) error {
 	for _, v := range metric {
 		switch v.MType {
-		case "counter":
+		case entity.Counter:
 			m.mu.Lock()
 			metricValue := m.MetricMap[v.ID].Delta
 			metricValue += v.Delta
 			m.MetricMap[v.ID] = entity.Metric{ID: v.ID, MType: v.MType, Delta: metricValue}
 			m.mu.Unlock()
-		case "gauge":
+		case entity.Gauge:
 			m.mu.Lock()
 			m.MetricMap[v.ID] = v
 			m.mu.Unlock()

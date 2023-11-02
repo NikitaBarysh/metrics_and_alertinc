@@ -18,10 +18,10 @@ func (m *MetricAction) SendMetric(ctx context.Context, flagRunAddr string) error
 	for _, value := range allMetric {
 		metricType := value.MType
 		switch metricType {
-		case "gauge":
+		case entity.Gauge:
 			url := fmt.Sprintf("http://%s/update/%s/%s/%.2f", flagRunAddr, value.MType, value.ID, value.Value)
 			m.sender.SendPost(ctx, url, value)
-		case "counter":
+		case entity.Counter:
 			url := fmt.Sprintf("http://%s/update/%s/%s/%d", flagRunAddr, value.MType, value.ID, value.Delta)
 			m.sender.SendPost(ctx, url, value)
 		}

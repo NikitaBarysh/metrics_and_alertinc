@@ -5,16 +5,23 @@ import (
 	"strconv"
 )
 
+type MType string
+
+const (
+	Gauge   MType = "gauge"
+	Counter MType = "counter"
+)
+
 type Metric struct {
 	ID    string  // имя метрики
-	MType string  // параметр, принимающий значение gauge или counter
+	MType MType   // параметр, принимающий значение gauge или counter
 	Delta int64   // значение метрики в случае передачи counter
 	Value float64 // значение метрики в случае передачи gauge
 }
 
-func NewMetric(id, mType, value string) (*Metric, error) {
+func NewMetric(id, value string, mType MType) (*Metric, error) {
 	switch mType {
-	case "gauge":
+	case Gauge:
 		val, err := strconv.ParseFloat(value, 64)
 		if err != nil {
 			return nil, models.ErrWrongValue
@@ -24,7 +31,7 @@ func NewMetric(id, mType, value string) (*Metric, error) {
 			MType: mType,
 			Value: val,
 		}, nil
-	case "counter":
+	case Counter:
 		val, err := strconv.ParseInt(value, 10, 64)
 		if err != nil {
 			return nil, models.ErrWrongValue
@@ -37,5 +44,3 @@ func NewMetric(id, mType, value string) (*Metric, error) {
 	}
 	return nil, models.ErrUnknownType
 }
-
-
