@@ -27,7 +27,8 @@ func (s *Sender) SendPost(ctx context.Context, url string, storage entity.Metric
 	res, err := client.Do(request)
 	if err != nil {
 		service.Retry(func() error {
-			res, err := client.Do(request)
+			retryClient := &http.Client{}
+			res, err := retryClient.Do(request)
 			if err != nil {
 				fmt.Println("can't do retry request")
 			}
