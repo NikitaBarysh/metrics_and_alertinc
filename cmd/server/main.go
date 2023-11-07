@@ -53,7 +53,7 @@ func main() {
 		chiRouter.Use(hasher.Middleware)
 	}
 	chiRouter.Mount("/", router.Register())
-	loggingVar.Info("Running server", zap.String("address", cfg.RunAddr))
+	loggingVar.Log.Info("Running server", zap.String("address", cfg.RunAddr))
 	go func() {
 		err = http.ListenAndServe(cfg.RunAddr, chiRouter)
 		if err != nil {
