@@ -7,6 +7,7 @@ import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
 	"net/http"
 )
 
@@ -58,11 +59,16 @@ func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage e
 	if err != nil {
 		panic(err)
 	}
+	hash, err := hasher.Sign.NewSign(buf.Bytes())
+	if err != nil {
+	}
+
 	request, err := http.NewRequest(http.MethodPost, url, buf)
 	request = request.WithContext(ctx)
 	if err != nil {
 		panic(err)
 	}
+	request.Header.Set("HashSHA256", fmt.Sprintf("%x", hash))
 	request.Header.Set(`Content-Type`, "application/json")
 	client := &http.Client{}
 	res, err := client.Do(request)

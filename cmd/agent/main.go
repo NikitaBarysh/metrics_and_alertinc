@@ -27,7 +27,7 @@ func main() {
 	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 
 	if cfg.Key != "" {
-		hasher.NewHasher([]byte(cfg.Key))
+		hasher.Sign = hasher.NewHasher([]byte(cfg.Key))
 	}
 
 	storage := memstorage.NewAgentStorage()

@@ -27,7 +27,7 @@ func (s *signRW) Write(b []byte) (int, error) {
 	if err != nil {
 		return 0, fmt.Errorf("hasher: Write: NewSign: %w", err)
 	}
-
+	fmt.Println("Write ", hex.EncodeToString(sign))
 	s.rw.Header().Set("HashSHA256", hex.EncodeToString(sign))
 	return s.rw.Write(b)
 }
@@ -40,14 +40,14 @@ func Middleware(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		if hash := r.Header.Get("HashSHA256"); hash != "" {
 			buff, _ := io.ReadAll(r.Body)
-
+			fmt.Println(hash)
 			sign, err := hex.DecodeString(hash)
 			if err != nil {
 				fmt.Println(fmt.Errorf("bad req sign: %w", err))
 				rw.WriteHeader(http.StatusBadRequest)
 				return
 			}
-
+			//fmt.Println(fmt.Sprintf("%x : %x", , sign))
 			if err := Sign.CheckSign(buff, sign); err != nil {
 				fmt.Println(fmt.Errorf("CHeckSign: %w", err))
 				rw.WriteHeader(http.StatusBadRequest)

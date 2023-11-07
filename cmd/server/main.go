@@ -49,7 +49,7 @@ func main() {
 	chiRouter := chi.NewRouter()
 	if cfg.Key != "" {
 		fmt.Println("00")
-		hasher.NewHasher([]byte(cfg.Key))
+		hasher.Sign = hasher.NewHasher([]byte(cfg.Key))
 		chiRouter.Use(hasher.Middleware)
 	}
 	chiRouter.Mount("/", router.Register())

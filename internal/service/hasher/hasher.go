@@ -29,12 +29,12 @@ func (h *hasher) NewSign(buff []byte) ([]byte, error) {
 	return m.Sum(nil), nil
 }
 
-func (h *hasher) CheckSign(data, sign []byte) error {
+func (h *hasher) CheckSign(data []byte, sign []byte) error {
 	newSign, err := h.NewSign(data)
 	if err != nil {
 		return fmt.Errorf("service: hasher: CheckSign: NewSign: %w", err)
 	}
-
+	fmt.Println(fmt.Sprintf("%x : %x", newSign, sign))
 	if !hmac.Equal(newSign, sign) {
 		return fmt.Errorf("sign not equal: %w", err)
 	}
