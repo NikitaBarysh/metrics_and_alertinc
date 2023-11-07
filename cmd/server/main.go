@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
 	"log"
 	"net/http"
 	"os"
@@ -46,8 +47,13 @@ func main() {
 	handler := handlers.NewHandler(projectStorage, loggingVar)
 	router := router.NewRouter(handler)
 	chiRouter := chi.NewRouter()
+	if cfg.Key != "" {
+		fmt.Println("00")
+		hasher.NewHasher([]byte(cfg.Key))
+		chiRouter.Use(hasher.Middleware)
+	}
 	chiRouter.Mount("/", router.Register())
-	loggingVar.Log.Info("Running server", zap.String("address", cfg.RunAddr))
+	loggingVar.Info("Running server", zap.String("address", cfg.RunAddr))
 	go func() {
 		err = http.ListenAndServe(cfg.RunAddr, chiRouter)
 		if err != nil {

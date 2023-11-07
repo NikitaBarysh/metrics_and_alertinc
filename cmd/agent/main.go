@@ -6,6 +6,7 @@ import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/agent"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/memstorage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/sender"
 	"log"
 	"os"
@@ -24,6 +25,10 @@ func main() {
 
 	termSignal := make(chan os.Signal, 1)
 	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
+
+	if cfg.Key != "" {
+		hasher.NewHasher([]byte(cfg.Key))
+	}
 
 	storage := memstorage.NewAgentStorage()
 

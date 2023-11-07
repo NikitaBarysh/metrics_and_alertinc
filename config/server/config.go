@@ -14,6 +14,7 @@ type Config struct {
 	StorePath     string
 	Restore       bool
 	DataBaseDSN   string
+	Key           string
 }
 
 func newConfig(option options) (*Config, error) {
@@ -22,6 +23,7 @@ func newConfig(option options) (*Config, error) {
 		LogLevel:    option.logLevel,
 		StorePath:   option.storePath,
 		DataBaseDSN: option.dataBaseDSN,
+		Key:         option.key,
 	}
 
 	restore, err := strconv.ParseBool(option.restore)
@@ -46,6 +48,7 @@ type options struct {
 	storePath     string
 	restore       string
 	dataBaseDSN   string
+	key           string
 }
 
 func NewServer() (*Config, error) {
@@ -56,6 +59,7 @@ func NewServer() (*Config, error) {
 	flag.StringVar(&option.storePath, "f", "/tmp/metrics-db.json", "store path")
 	flag.StringVar(&option.restore, "r", "true", "restore")
 	flag.StringVar(&option.dataBaseDSN, "d", "", "data base DSN")
+	flag.StringVar(&option.key, "k", "", "sign key")
 
 	flag.Parse()
 
@@ -81,6 +85,10 @@ func NewServer() (*Config, error) {
 
 	if dataBase := os.Getenv("DATABASE_DSN"); dataBase != "" {
 		option.dataBaseDSN = dataBase
+	}
+
+	if key, exist := os.LookupEnv("KEY"); exist {
+		option.key = key
 	}
 
 	return newConfig(option)

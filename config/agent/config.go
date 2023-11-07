@@ -11,6 +11,7 @@ type Config struct {
 	URL            string
 	PollInterval   int64
 	ReportInterval int64
+	Key            string
 }
 
 func NewAgent() (*Config, error) {
@@ -18,6 +19,7 @@ func NewAgent() (*Config, error) {
 	flag.StringVar(&cfg.URL, "a", "localhost:8080", "address and port to run server")
 	flag.Int64Var(&cfg.PollInterval, "p", 2, "poll interval")
 	flag.Int64Var(&cfg.ReportInterval, "r", 10, "report interval")
+	flag.StringVar(&cfg.Key, "k", "", "sign key")
 
 	flag.Parse()
 
@@ -35,6 +37,10 @@ func NewAgent() (*Config, error) {
 		if value, err := strconv.ParseInt(interval, 10, 64); err == nil {
 			cfg.PollInterval = value
 		}
+	}
+
+	if key := os.Getenv("KEY"); key != "" {
+		cfg.Key = key
 	}
 
 	if !strings.HasPrefix(cfg.URL, "http") &&
