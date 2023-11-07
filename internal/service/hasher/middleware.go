@@ -9,7 +9,8 @@ import (
 )
 
 type signRW struct {
-	rw http.ResponseWriter
+	rw   http.ResponseWriter
+	Hash Hasher
 }
 
 func newSignRW(rw http.ResponseWriter) *signRW {
@@ -23,11 +24,11 @@ func (s *signRW) Header() http.Header {
 }
 
 func (s *signRW) Write(b []byte) (int, error) {
-	sign, err := Sign.NewSign(b)
+	sign, err := s.Hash.NewSign(b)
 	if err != nil {
 		return 0, fmt.Errorf("hasher: Write: NewSign: %w", err)
 	}
-	fmt.Println("Write ", hex.EncodeToString(sign))
+	//fmt.Println("Write ", hex.EncodeToString(sign))
 	s.rw.Header().Set("HashSHA256", hex.EncodeToString(sign))
 	return s.rw.Write(b)
 }

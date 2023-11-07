@@ -48,7 +48,6 @@ func main() {
 	router := router.NewRouter(handler)
 	chiRouter := chi.NewRouter()
 	if cfg.Key != "" {
-		fmt.Println("00")
 		hasher.Sign = hasher.NewHasher([]byte(cfg.Key))
 		chiRouter.Use(hasher.Middleware)
 	}

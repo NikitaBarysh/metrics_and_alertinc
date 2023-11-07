@@ -2,6 +2,7 @@ package sender
 
 import (
 	"context"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
@@ -11,10 +12,14 @@ import (
 	"net/http"
 )
 
-type Sender struct{}
+type Sender struct {
+	hash *hasher.Hasher
+}
 
-func NewSender() *Sender {
-	return &Sender{}
+func NewSender(hash *hasher.Hasher) *Sender {
+	return &Sender{
+		hash: hash,
+	}
 }
 
 //func (s *Sender) SendPost(ctx context.Context, url string, storage entity.Metric) {
@@ -55,20 +60,27 @@ func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage e
 	if err != nil {
 		panic(err)
 	}
+	//fmt.Println("data", data)
 	buf, err := compress.Compress(data)
 	if err != nil {
 		panic(err)
 	}
-	hash, err := hasher.Sign.NewSign(buf.Bytes())
-	if err != nil {
-	}
+	//fmt.Println("buf sender", hex.EncodeToString(buf.Bytes()))
+	//hash, errSign := s.hash.NewSign(buf.Bytes())
+	//fmt.Println("hash sender", hex.EncodeToString(hash))
 
 	request, err := http.NewRequest(http.MethodPost, url, buf)
 	request = request.WithContext(ctx)
 	if err != nil {
 		panic(err)
 	}
-	request.Header.Set("HashSHA256", fmt.Sprintf("%x", hash))
+	if s.hash != nil {
+		hash, errSign := s.hash.NewSign(buf.Bytes())
+		if errSign != nil {
+			fmt.Println(fmt.Errorf("SendMetric: NewSign: %w", err))
+		}
+		request.Header.Set("HashSHA256", hex.EncodeToString(hash))
+	}
 	request.Header.Set(`Content-Type`, "application/json")
 	client := &http.Client{}
 	res, err := client.Do(request)
