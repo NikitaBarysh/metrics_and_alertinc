@@ -1,4 +1,4 @@
-package useCase
+package usecase
 
 import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/agent"
@@ -9,8 +9,6 @@ func WithHash(cfg *agent.Config) *hasher.Hasher {
 	if cfg.Key != "" {
 		hash := hasher.NewHasher([]byte(cfg.Key))
 		hasher.Sign = hash
-		//fmt.Println("cfg hash", hash)
-		//fmt.Println("cfg Sign", hasher.Sign)
 		return hash
 
 	}

@@ -6,8 +6,8 @@ import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/agent"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/memstorage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/useCase/sender"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/usecase"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/usecase/sender"
 	"log"
 	"os"
 	"os/signal"
@@ -26,8 +26,7 @@ func main() {
 	termSignal := make(chan os.Signal, 1)
 	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 
-	hash := useCase.WithHash(cfg)
-	//fmt.Println("main", hash)
+	hash := usecase.WithHash(cfg)
 
 	storage := memstorage.NewAgentStorage()
 

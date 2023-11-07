@@ -17,7 +17,6 @@ func NewHasher(key []byte) *Hasher {
 }
 
 func (h *Hasher) NewSign(buff []byte) ([]byte, error) {
-	//fmt.Println("buff", buff)
 	m := hmac.New(sha256.New, h.key)
 
 	_, err := m.Write(buff)
@@ -32,7 +31,6 @@ func (h *Hasher) CheckSign(data []byte, sign []byte) error {
 	if err != nil {
 		return fmt.Errorf("service: hasher: CheckSign: NewSign: %w", err)
 	}
-	//fmt.Println(fmt.Sprintf("%x : %x", newSign, sign))
 	if !hmac.Equal(newSign, sign) {
 		return fmt.Errorf("sign not equal: %w", err)
 	}
