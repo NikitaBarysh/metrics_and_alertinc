@@ -10,11 +10,7 @@ type sender interface {
 	SendPostCompressJSON(ctx context.Context, url string, storage entity.Metric)
 }
 
-func (m *MetricAction) SendMetric(ctx context.Context, flagRunAddr string) error {
-	allMetric, err := m.storage.GetAllMetric()
-	if err != nil {
-		return fmt.Errorf("can't get all metrics: %w", err)
-	}
+func (m *MetricAction) SendMetric(ctx context.Context, allMetric []entity.Metric, flagRunAddr string) error {
 	for _, value := range allMetric {
 		metricType := value.MType
 		switch metricType {

@@ -12,6 +12,7 @@ type Config struct {
 	PollInterval   int64
 	ReportInterval int64
 	Key            string
+	Limit          int64
 }
 
 func NewAgent() (*Config, error) {
@@ -20,6 +21,7 @@ func NewAgent() (*Config, error) {
 	flag.Int64Var(&cfg.PollInterval, "p", 2, "poll interval")
 	flag.Int64Var(&cfg.ReportInterval, "r", 10, "report interval")
 	flag.StringVar(&cfg.Key, "k", "", "sign key")
+	flag.Int64Var(&cfg.Limit, "l", 8, "rate limit")
 
 	flag.Parse()
 
@@ -41,6 +43,12 @@ func NewAgent() (*Config, error) {
 
 	if key := os.Getenv("KEY"); key != "" {
 		cfg.Key = key
+	}
+
+	if limit := os.Getenv("RATE_LIMIT"); limit != "" {
+		if value, err := strconv.ParseInt(limit, 10, 64); err == nil {
+			cfg.Limit = value
+		}
 	}
 
 	if !strings.HasPrefix(cfg.URL, "http") &&

@@ -33,7 +33,11 @@ func main() {
 	send := sender.NewSender(hash)
 	newMetricAction := service.NewMetricAction(storage, send)
 
-	go newMetricAction.Run(ctx, cfg.PollInterval, cfg.ReportInterval, cfg.URL) // TODO
+	go newMetricAction.CollectPsutil(ctx, cfg.PollInterval)
+
+	go newMetricAction.CollectRuntimeMetric(ctx, cfg.PollInterval)
+
+	go newMetricAction.SendMetricsToServer(ctx, cfg.ReportInterval, cfg.URL, cfg.Limit)
 
 	sig := <-termSignal
 	fmt.Println("Agent Graceful Shutdown", sig.String())
