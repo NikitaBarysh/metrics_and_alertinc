@@ -1,8 +1,11 @@
 package service
 
 import (
+	"github.com/shirou/gopsutil/v3/cpu"
+	"github.com/shirou/gopsutil/v3/mem"
 	"math/rand"
 	"runtime"
+	"time"
 )
 
 func (m *MetricAction) CollectMetric() {
@@ -37,4 +40,18 @@ func (m *MetricAction) CollectMetric() {
 	m.storage.UpdateGaugeMetric("TotalAlloc", float64(memStats.TotalAlloc))
 	m.storage.UpdateGaugeMetric("RandomValue", rand.Float64())
 	m.storage.UpdateCounterMetric("PollCount", int64(1))
+}
+
+func (m *MetricAction) CollectPsutilMetrics() {
+	psutilMem, _ := mem.VirtualMemory()
+	psutilCPU, _ := cpu.Percent(time.Second*10, false)
+	// правильно ли исправил ?
+	totalMemoryVal := float64(psutilMem.Total)
+	freeVal := float64(psutilMem.Free)
+
+	m.storage.UpdateGaugeMetric("TotalMemory", totalMemoryVal)
+	m.storage.UpdateGaugeMetric("FreeMemory", freeVal)
+	if len(psutilCPU) != 0 {
+		m.storage.UpdateGaugeMetric("CPUutilization1", psutilCPU[0])
+	}
 }

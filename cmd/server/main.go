@@ -9,6 +9,8 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
+
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository"
@@ -21,7 +23,12 @@ import (
 )
 
 func main() {
-	cfg, configError := server.NewServer()
+	env, envErr := server.NewServer()
+	if envErr != nil {
+		log.Fatalf("config err: %s\n", envErr)
+	}
+
+	cfg, configError := server.NewConfig(env) // сделал паттерн option, но не понял как реализовать на 56 строке
 	if configError != nil {
 		log.Fatalf("config err: %s\n", configError)
 	}
@@ -46,6 +53,10 @@ func main() {
 	handler := handlers.NewHandler(projectStorage, loggingVar)
 	router := router.NewRouter(handler)
 	chiRouter := chi.NewRouter()
+	if cfg.Key != "" {
+		hasher.Sign = hasher.NewHasher([]byte(cfg.Key))
+		chiRouter.Use(hasher.Middleware)
+	}
 	chiRouter.Mount("/", router.Register())
 	loggingVar.Log.Info("Running server", zap.String("address", cfg.RunAddr))
 	go func() {

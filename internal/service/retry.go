@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/jackc/pgx/v5"
 	"net"
+	"net/url"
 	"time"
 )
 
@@ -17,6 +18,7 @@ var durationSleep = map[int]time.Duration{
 func Retry(fn func() error, attempt int) {
 	err := fn()
 	var netErr net.Error
+	var urlErr url.Error
 
 	if attempt > 3 {
 		return
@@ -64,4 +66,9 @@ func Retry(fn func() error, attempt int) {
 		Retry(fn, attempt)
 	}
 
+	if errors.Is(err, &urlErr) {
+		attempt++
+		time.Sleep(durationSleep[attempt])
+		Retry(fn, attempt)
+	}
 }
