@@ -7,10 +7,10 @@ import (
 	"time"
 )
 
-func (m *MetricAction) SendMetricsToServer(ctx context.Context, reportInterval int64, flagRunAddr string, workers int64) {
+func (m *MetricAction) SendMetricsToServer(ctx context.Context, reportInterval int64, flagRunAddr string, workers int) {
 	metricsCh := make(chan []entity.Metric, 1)
 	var wg sync.WaitGroup
-	wg.Add(int(workers))
+	wg.Add(workers)
 
 	sendTicker := time.NewTicker(time.Second * time.Duration(reportInterval))
 	defer sendTicker.Stop()
@@ -21,7 +21,7 @@ func (m *MetricAction) SendMetricsToServer(ctx context.Context, reportInterval i
 		case <-sendTicker.C:
 			metric, _ := m.storage.GetAllMetric()
 			metricsCh <- metric
-			for i := 0; i <= int(workers); i++ {
+			for i := 0; i <= workers; i++ {
 				go func() {
 					defer wg.Done()
 					m.WorkerPoll(ctx, flagRunAddr, metricsCh)

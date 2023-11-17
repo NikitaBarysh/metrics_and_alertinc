@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -38,26 +39,30 @@ func (s *signRW) WriteHeader(status int) {
 
 func Middleware(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
-		if hash := r.Header.Get("HashSHA256"); hash != "" {
-			buff, _ := io.ReadAll(r.Body)
-			sign, err := hex.DecodeString(hash)
-			if err != nil {
-				fmt.Println(fmt.Errorf("bad req sign: %w", err))
-				rw.WriteHeader(http.StatusBadRequest)
-				return
-			}
-			if err := Sign.CheckSign(buff, sign); err != nil {
-				fmt.Println(fmt.Errorf("CHeckSign: %w", err))
-				rw.WriteHeader(http.StatusBadRequest)
-				return
-			}
-
-			newBody := io.NopCloser(bytes.NewBuffer(buff))
-			r.Body = newBody
+		hash := r.Header.Get("HashSHA256")
+		if hash == "" {
+			w := newSignRW(rw)
+			h.ServeHTTP(w, r)
+			return
+		}
+		buff, _ := io.ReadAll(r.Body)
+		sign, err := hex.DecodeString(hash)
+		if err != nil {
+			log.Println(fmt.Errorf("bad req sign: %w", err))
+			rw.WriteHeader(http.StatusBadRequest)
+			return
 		}
 
-		w := newSignRW(rw)
+		if err := Sign.CheckSign(buff, sign); err != nil {
+			log.Println(fmt.Errorf("CHeckSign: %w", err))
+			rw.WriteHeader(http.StatusBadRequest)
+			return
+		}
 
+		newBody := io.NopCloser(bytes.NewBuffer(buff))
+		r.Body = newBody
+
+		w := newSignRW(rw)
 		h.ServeHTTP(w, r)
 	})
 }

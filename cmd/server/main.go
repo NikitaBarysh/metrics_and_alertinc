@@ -3,12 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
@@ -22,7 +23,12 @@ import (
 )
 
 func main() {
-	cfg, configError := server.NewServer()
+	env, envErr := server.NewServer()
+	if envErr != nil {
+		log.Fatalf("config err: %s\n", envErr)
+	}
+
+	cfg, configError := server.NewConfig(env) // сделал паттерн option, но не понял как реализовать на 56 строке
 	if configError != nil {
 		log.Fatalf("config err: %s\n", configError)
 	}

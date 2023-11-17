@@ -3,15 +3,16 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/agent"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/memstorage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/usecase"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/usecase/sender"
-	"log"
-	"os"
-	"os/signal"
-	"syscall"
 )
 
 func main() {
