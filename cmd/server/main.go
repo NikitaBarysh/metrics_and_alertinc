@@ -28,7 +28,7 @@ func main() {
 		log.Fatalf("config err: %s\n", envErr)
 	}
 
-	cfg, configError := server.NewConfig(env) // сделал паттерн option, но не понял как реализовать на 56 строке
+	cfg, configError := server.NewConfig(env)
 	if configError != nil {
 		log.Fatalf("config err: %s\n", configError)
 	}

@@ -1,11 +1,12 @@
 package service
 
 import (
-	"github.com/shirou/gopsutil/v3/cpu"
-	"github.com/shirou/gopsutil/v3/mem"
 	"math/rand"
 	"runtime"
 	"time"
+
+	"github.com/shirou/gopsutil/v3/cpu"
+	"github.com/shirou/gopsutil/v3/mem"
 )
 
 func (m *MetricAction) CollectMetric() {
@@ -45,7 +46,6 @@ func (m *MetricAction) CollectMetric() {
 func (m *MetricAction) CollectPsutilMetrics() {
 	psutilMem, _ := mem.VirtualMemory()
 	psutilCPU, _ := cpu.Percent(time.Second*10, false)
-	// правильно ли исправил ?
 	totalMemoryVal := float64(psutilMem.Total)
 	freeVal := float64(psutilMem.Free)
 

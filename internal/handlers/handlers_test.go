@@ -1,247 +1,449 @@
 package handlers
 
-//import (
-//	"context"
-//	"fmt"
-//	"log"
-//	"net/http"
-//	"net/http/httptest"
-//	"testing"
-//
-//	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
-//	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
-//	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository"
-//	"github.com/go-chi/chi/v5"
-//	"github.com/stretchr/testify/assert"
-//)
-//
-//func TestHandler_Safe(t *testing.T) {
-//	type want struct {
-//		code int
-//		url  string
-//	}
-//	tests := []struct {
-//		name  string
-//		want  want
-//		param map[string]any
-//	}{
-//		{
-//			"Test#1, not enough argument in url",
-//			want{http.StatusBadRequest, "/update/counter/someMetric"},
-//			map[string]any{"update": "update", "type": "counter", "name": "someMetric"},
-//		},
-//		{"Test#2, check if all correct",
-//			want{http.StatusOK, "/update/gauge/Alloc/527"},
-//			map[string]any{"update": "update", "type": "gauge", "name": "Alloc", "value": "527"},
-//		},
-//		{"Test#3, wrong metric",
-//			want{http.StatusNotImplemented, "/update/anytype/someMetric/527"},
-//			map[string]any{"update": "update", "type": "anytype", "name": "someMetric", "value": "527"},
-//		},
-//		{"Test#4, wrong value for counter metric",
-//			want{http.StatusBadRequest, "/update/counter/someMetric/wrong"},
-//			map[string]any{"update": "update", "type": "counter", "name": "someMetric", "value": "wrong"},
-//		},
-//		{"Test#5, wrong value for gauge metric",
-//			want{http.StatusBadRequest, "/update/gauge/someMetric/wrong"},
-//			map[string]any{"update": "update", "type": "gauge", "name": "someMetric", "value": "wrong"},
-//		},
-//	}
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			r := httptest.NewRequest(http.MethodPost, tt.want.url, nil)
-//			rctx := chi.NewRouteContext()
-//			for k, v := range tt.param {
-//				strVal := v.(string)
-//				rctx.URLParams.Add(k, strVal)
-//			}
-//
-//			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
-//			rw := httptest.NewRecorder()
-//			cfg, configError := server.NewServer()
-//			if configError != nil {
-//				log.Fatalf("config err: %s\n", configError)
-//			}
-//			projectStorage, err := repository.New(r.Context(), cfg)
-//			if err != nil {
-//				panic(err)
-//			}
-//			if err != nil {
-//				fmt.Println(fmt.Errorf("handler_test: safe: init db: %w", err))
-//			}
-//			handler := NewHandler(projectStorage, logger.NewLoggingVar())
-//			handler.Safe(rw, r)
-//
-//			res := rw.Result()
-//			res.Body.Close()
-//			assert.Equal(t, tt.want.code, res.StatusCode)
-//		})
-//	}
-//}
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"net/http"
+	"net/http/httptest"
+	"testing"
 
-//
-//func TestHandler_GetGaugeMetric(t *testing.T) {
-//	type want struct {
-//		code int
-//		url  string
-//	}
-//	tests := []struct {
-//		name    string
-//		want    want
-//		param   map[string]any
-//		metrics map[string]float64
-//	}{
-//		{
-//			"Test#1, correct test with gauge metric",
-//			want{http.StatusOK, "/value/gauge/Alloc"},
-//			map[string]any{"value": "value", "type": "gauge", "name": "Alloc"},
-//			map[string]float64{"Alloc": 456},
-//		},
-//		{
-//			"Test#2, unknown metric type",
-//			want{http.StatusNotFound, "/value/any/PollCounter"},
-//			map[string]any{"value": "value", "type": "any", "name": "Alloc"},
-//			map[string]float64{"PollCounter": 456},
-//		},
-//	}
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			testStorage := storage2.NewMemStorage()
-//			for k, v := range tt.metrics {
-//				testStorage.UpdateGaugeMetric(k, v)
-//			}
-//			r := httptest.NewRequest(http.MethodGet, tt.want.url, nil)
-//			rctx := chi.NewRouteContext()
-//			for k, v := range tt.param {
-//				strVal := v.(string)
-//				rctx.URLParams.Add(k, strVal)
-//			}
-//
-//			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
-//			rw := httptest.NewRecorder()
-//			cfg, configError := server.ParseServerConfig()
-//			if configError != nil {
-//				log.Fatalf("config err: %s\n", configError)
-//			}
-//			db, err := postgres.NewPostgres(cfg).InitPostgres()
-//			if err != nil {
-//				fmt.Println(fmt.Errorf("handler_test: get gauge: init db: %w", err))
-//			}
-//			handler := NewHandler(storage2.NewMemStorage(), logger.NewLoggingVar(), db)
-//			handler.Get(rw, r)
-//
-//			res := rw.Result()
-//			res.Body.Close()
-//			assert.Equal(t, tt.want.code, res.StatusCode)
-//
-//		})
-//	}
-//}
-//
-//func TestHandler_GetCounterMetric(t *testing.T) {
-//	type want struct {
-//		code int
-//		url  string
-//	}
-//	tests := []struct {
-//		name    string
-//		want    want
-//		param   map[string]any
-//		metrics map[string]int64
-//	}{
-//		{
-//			"Test#1, correct test with gauge metric",
-//			want{http.StatusOK, "/value/counter/PollCount"},
-//			map[string]any{"value": "value", "type": "counter", "name": "PollCount"},
-//			map[string]int64{"PollCount": 3},
-//		},
-//	}
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			testStorage := storage2.NewMemStorage()
-//			for k, v := range tt.metrics {
-//				testStorage.UpdateCounterMetric(k, v)
-//			}
-//			r := httptest.NewRequest(http.MethodGet, tt.want.url, nil)
-//			rctx := chi.NewRouteContext()
-//			for k, v := range tt.param {
-//				strVal := v.(string)
-//				rctx.URLParams.Add(k, strVal)
-//			}
-//
-//			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
-//			rw := httptest.NewRecorder()
-//			cfg, configError := server.ParseServerConfig()
-//			if configError != nil {
-//				log.Fatalf("config err: %s\n", configError)
-//			}
-//			db, err := postgres.NewPostgres(cfg).InitPostgres()
-//			if err != nil {
-//				fmt.Println(fmt.Errorf("handler_test: get counter: init db: %w", err))
-//			}
-//			handler := NewHandler(storage2.NewMemStorage(), logger.NewLoggingVar(), db)
-//			handler.Get(rw, r)
-//
-//			res := rw.Result()
-//			res.Body.Close()
-//			assert.Equal(t, tt.want.code, res.StatusCode)
-//
-//		})
-//	}
-//}
-//
-//func TestHandler_GetAll(t *testing.T) {
-//	type want struct {
-//		code int
-//		url  string
-//	}
-//	tests := []struct {
-//		name    string
-//		want    want
-//		param   map[string]any
-//		metrics map[string]float64
-//	}{
-//		{
-//			"Test#1, correct test ",
-//			want{http.StatusOK, "/value/gauge/Alloc"},
-//			map[string]any{"value": "value", "type": "gauge", "name": "Alloc"},
-//			map[string]float64{
-//				"Alloc":       456.34,
-//				"Frees":       354.35,
-//				"BuckHashSys": 645.64,
-//			},
-//		},
-//	}
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			testStorage := storage2.NewMemStorage()
-//			for k, v := range tt.metrics {
-//				testStorage.UpdateGaugeMetric(k, v)
-//			}
-//			listMetric := testStorage.GetAllMetric()
-//			r := httptest.NewRequest(http.MethodGet, tt.want.url, nil)
-//			rctx := chi.NewRouteContext()
-//			for _, v := range listMetric {
-//				rctx.URLParams.Add("AllMetric", v)
-//			}
-//
-//			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
-//			rw := httptest.NewRecorder()
-//			cfg, configError := server.ParseServerConfig()
-//			if configError != nil {
-//				log.Fatalf("config err: %s\n", configError)
-//			}
-//			db, err := postgres.NewPostgres(cfg).InitPostgres()
-//			if err != nil {
-//				fmt.Println(fmt.Errorf("handler_test: get get all: init db: %w", err))
-//			}
-//			handler := NewHandler(storage2.NewMemStorage(), logger.NewLoggingVar(), db)
-//			handler.GetAll(rw, r)
-//
-//			res := rw.Result()
-//			res.Body.Close()
-//			assert.Equal(t, tt.want.code, res.StatusCode)
-//
-//		})
-//	}
-//}
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
+	"github.com/go-chi/chi/v5"
+	"github.com/golang/mock/gomock"
+	"github.com/stretchr/testify/assert"
+)
+
+func TestHandler_Safe(t *testing.T) {
+	type mockBehaviour func(s *Mockstorage, metric entity.Metric, metricSlice []entity.Metric, key string)
+	type want struct {
+		code int
+		url  string
+	}
+	tests := []struct {
+		name          string
+		metric        entity.Metric
+		mockBehaviour mockBehaviour
+		metricSlice   []entity.Metric
+		want          want
+		param         map[string]any
+	}{
+		{
+			name: "Test#1, check if all correct for counter",
+			metric: entity.Metric{
+				ID:    "PollCount",
+				MType: "counter",
+				Delta: 10,
+				Value: 0,
+			},
+			metricSlice: []entity.Metric{{ID: "PollCount", MType: "counter", Delta: 10, Value: 0}},
+			mockBehaviour: func(s *Mockstorage, metric entity.Metric, metricSlice []entity.Metric, key string) {
+				s.EXPECT().GetMetric(key).Return(metric, nil)
+				s.EXPECT().SetMetrics(metricSlice).Return(nil)
+			},
+			want:  want{http.StatusOK, "/update/counter/PollCount/10"},
+			param: map[string]any{"update": "update", "type": "counter", "name": "PollCount", "value": "10"},
+		},
+		{
+			name: "Test#2, check if all correct for gauge",
+			metric: entity.Metric{
+				ID:    "Alloc",
+				MType: "gauge",
+				Delta: 0,
+				Value: 527,
+			},
+			metricSlice: []entity.Metric{{ID: "Alloc", MType: "gauge", Delta: 0, Value: 527}},
+			mockBehaviour: func(s *Mockstorage, metric entity.Metric, metricSlice []entity.Metric, key string) {
+				s.EXPECT().SetMetrics(metricSlice).Return(nil)
+			},
+			want:  want{http.StatusOK, "/update/gauge/Alloc/527"},
+			param: map[string]any{"update": "update", "type": "gauge", "name": "Alloc", "value": "527"},
+		},
+		{
+			name: "Test#3, err get counter metric",
+			metric: entity.Metric{
+				ID:    "PollCount",
+				MType: "counter",
+				Delta: 10,
+				Value: 0,
+			},
+			metricSlice: []entity.Metric{{ID: "PollCount", MType: "counter", Delta: 10, Value: 0}},
+			mockBehaviour: func(s *Mockstorage, metric entity.Metric, metricSlice []entity.Metric, key string) {
+				s.EXPECT().GetMetric(key).Return(entity.Metric{}, errors.New("no metric PollCount yet"))
+				s.EXPECT().SetMetrics(metricSlice).Return(nil)
+			},
+			want:  want{http.StatusOK, "/update/counter/PollCount/10"},
+			param: map[string]any{"update": "update", "type": "counter", "name": "PollCount", "value": "10"},
+		},
+		{
+			name: "Test#4, err set metric",
+			metric: entity.Metric{
+				ID:    "PollCount",
+				MType: "counter",
+				Delta: 10,
+				Value: 0,
+			},
+			metricSlice: []entity.Metric{{ID: "PollCount", MType: "counter", Delta: 10, Value: 0}},
+			mockBehaviour: func(s *Mockstorage, metric entity.Metric, metricSlice []entity.Metric, key string) {
+				s.EXPECT().GetMetric(key).Return(metric, nil)
+				s.EXPECT().SetMetrics(metricSlice).Return(errors.New("err to set metric"))
+			},
+			want:  want{http.StatusOK, "/update/counter/PollCount/10"},
+			param: map[string]any{"update": "update", "type": "counter", "name": "PollCount", "value": "10"},
+		},
+		{
+			name: "Test#5, wrong metric type",
+			metric: entity.Metric{
+				ID:    "PollCount",
+				MType: "counter",
+				Delta: 10,
+				Value: 0,
+			},
+			metricSlice: []entity.Metric{{ID: "PollCount", MType: "counter", Delta: 10, Value: 0}},
+			mockBehaviour: func(s *Mockstorage, metric entity.Metric, metricSlice []entity.Metric, key string) {
+			},
+			want:  want{http.StatusNotImplemented, "/update/count/PollCount/10"},
+			param: map[string]any{"update": "update", "type": "count", "name": "PollCount", "value": "10"},
+		},
+		{
+			name: "Test#6, wrong counter value",
+			metric: entity.Metric{
+				ID:    "PollCount",
+				MType: "counter",
+				Delta: 10,
+				Value: 0,
+			},
+			metricSlice: []entity.Metric{{ID: "PollCount", MType: "counter", Delta: 10, Value: 0}},
+			mockBehaviour: func(s *Mockstorage, metric entity.Metric, metricSlice []entity.Metric, key string) {
+			},
+			want:  want{http.StatusBadRequest, "/update/counter/PollCount/val"},
+			param: map[string]any{"update": "update", "type": "counter", "name": "PollCount", "value": "val"},
+		},
+		{
+			name: "Test#7, wrong gauge value",
+			metric: entity.Metric{
+				ID:    "Alloc",
+				MType: "gauge",
+				Delta: 0,
+				Value: 527,
+			},
+			metricSlice: []entity.Metric{{ID: "Alloc", MType: "gauge", Delta: 0, Value: 527}},
+			mockBehaviour: func(s *Mockstorage, metric entity.Metric, metricSlice []entity.Metric, key string) {
+			},
+			want:  want{http.StatusBadRequest, "/update/gauge/Alloc/val"},
+			param: map[string]any{"update": "update", "type": "gauge", "name": "Alloc", "value": "val"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := gomock.NewController(t)
+			defer c.Finish()
+
+			r := httptest.NewRequest(http.MethodPost, tt.want.url, nil)
+			rctx := chi.NewRouteContext()
+			for k, v := range tt.param {
+				strVal := v.(string)
+				rctx.URLParams.Add(k, strVal)
+			}
+
+			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
+			rw := httptest.NewRecorder()
+
+			storageMock := NewMockstorage(c)
+			tt.mockBehaviour(storageMock, tt.metric, tt.metricSlice, tt.param["name"].(string))
+			handler := NewHandler(storageMock, logger.NewLoggingVar())
+			handler.Safe(rw, r)
+
+			res := rw.Result()
+			res.Body.Close()
+			assert.Equal(t, tt.want.code, res.StatusCode)
+		})
+	}
+}
+
+func TestHandler_Get(t *testing.T) {
+	type mockBehaviour func(s *Mockstorage, metric entity.Metric, key string)
+	type want struct {
+		code int
+		url  string
+	}
+	tests := []struct {
+		name          string
+		mockBehaviour mockBehaviour
+		metric        entity.Metric
+		want          want
+		param         map[string]any
+	}{
+		{
+			name: "Test#1, correct test with counter metric",
+			metric: entity.Metric{
+				ID:    "PollCount",
+				MType: "counter",
+				Delta: 10,
+				Value: 0,
+			},
+			mockBehaviour: func(s *Mockstorage, metric entity.Metric, key string) {
+				s.EXPECT().GetMetric(key).Return(metric, nil)
+			},
+			want:  want{http.StatusOK, "/value/counter/PollCount"},
+			param: map[string]any{"value": "value", "type": "counter", "name": "PollCount"},
+		},
+		{
+			name: "Test#2, err to find metric",
+			metric: entity.Metric{
+				ID:    "PollCount",
+				MType: "counter",
+				Delta: 10,
+				Value: 0,
+			},
+			mockBehaviour: func(s *Mockstorage, metric entity.Metric, key string) {
+				s.EXPECT().GetMetric(key).Return(entity.Metric{}, errors.New("err to find metric"))
+			},
+			want:  want{http.StatusNotFound, "/value/counter/PollCount"},
+			param: map[string]any{"value": "value", "type": "counter", "name": "PollCount"},
+		},
+		{
+			name: "Test#3, unknown type",
+			metric: entity.Metric{
+				ID:    "PollCount",
+				MType: "counter",
+				Delta: 10,
+				Value: 0,
+			},
+			mockBehaviour: func(s *Mockstorage, metric entity.Metric, key string) {
+				s.EXPECT().GetMetric(key).Return(metric, nil)
+			},
+			want:  want{http.StatusNotFound, "/value/count/PollCount"},
+			param: map[string]any{"value": "value", "type": "count", "name": "PollCount"},
+		},
+		{
+			name: "Test#4, correct test with gauge metric",
+			metric: entity.Metric{
+				ID:    "Alloc",
+				MType: "gauge",
+				Delta: 0,
+				Value: 213,
+			},
+			mockBehaviour: func(s *Mockstorage, metric entity.Metric, key string) {
+				s.EXPECT().GetMetric(key).Return(metric, nil)
+			},
+			want:  want{http.StatusOK, "/value/gauge/Alloc"},
+			param: map[string]any{"value": "value", "type": "gauge", "name": "Alloc"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := gomock.NewController(t)
+			defer c.Finish()
+
+			testStorage := NewMockstorage(c)
+
+			r := httptest.NewRequest(http.MethodGet, tt.want.url, nil)
+			rctx := chi.NewRouteContext()
+			for k, v := range tt.param {
+				strVal := v.(string)
+				rctx.URLParams.Add(k, strVal)
+			}
+
+			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
+			rw := httptest.NewRecorder()
+			tt.mockBehaviour(testStorage, tt.metric, tt.param["name"].(string))
+			handler := NewHandler(testStorage, logger.NewLoggingVar())
+			handler.Get(rw, r)
+
+			res := rw.Result()
+			res.Body.Close()
+			assert.Equal(t, tt.want.code, res.StatusCode)
+
+		})
+	}
+}
+
+func TestHandler_GetAll(t *testing.T) {
+	type mockBehaviour func(s *Mockstorage, metricSlice []entity.Metric)
+	type want struct {
+		code int
+		url  string
+	}
+	tests := []struct {
+		name          string
+		metricSlice   []entity.Metric
+		mockBehaviour mockBehaviour
+		want          want
+	}{
+		{
+			name: "Test#1, correct test ",
+			metricSlice: []entity.Metric{
+				{ID: "PollCount", MType: "counter", Delta: 10, Value: 0},
+				{ID: "Alloc", MType: "gauge", Delta: 0, Value: 527},
+			},
+			mockBehaviour: func(s *Mockstorage, metricSlice []entity.Metric) {
+				s.EXPECT().GetAllMetric().Return(metricSlice, nil)
+			},
+			want: want{http.StatusOK, "/"},
+		},
+		{
+			name: "Test#2, err to get all metric",
+			metricSlice: []entity.Metric{
+				{ID: "PollCount", MType: "counter", Delta: 10, Value: 0},
+				{ID: "Alloc", MType: "gauge", Delta: 0, Value: 527},
+			},
+			mockBehaviour: func(s *Mockstorage, metricSlice []entity.Metric) {
+				s.EXPECT().GetAllMetric().Return(nil, errors.New("err to get"))
+			},
+			want: want{http.StatusBadRequest, "/"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := gomock.NewController(t)
+			defer c.Finish()
+
+			testStorage := NewMockstorage(c)
+
+			r := httptest.NewRequest(http.MethodGet, tt.want.url, nil)
+			rctx := chi.NewRouteContext()
+
+			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
+			rw := httptest.NewRecorder()
+			tt.mockBehaviour(testStorage, tt.metricSlice)
+			handler := NewHandler(testStorage, logger.NewLoggingVar())
+			handler.GetAll(rw, r)
+
+			res := rw.Result()
+			res.Body.Close()
+			assert.Equal(t, tt.want.code, res.StatusCode)
+
+		})
+	}
+}
+
+func TestHandler_SafeBatch(t *testing.T) {
+	type mockBehaviour func(s *Mockstorage, metricSlice []entity.Metric)
+	type want struct {
+		code int
+		url  string
+	}
+	tests := []struct {
+		name          string
+		mockBehaviour mockBehaviour
+		metricSlice   []entity.Metric
+		want          want
+		param         map[string]any
+	}{
+		{
+			name:        "Test#1, check if all correct ",
+			metricSlice: []entity.Metric{{ID: "PollCount", MType: "counter", Delta: 10, Value: 0}},
+			mockBehaviour: func(s *Mockstorage, metricSlice []entity.Metric) {
+				s.EXPECT().SetMetrics(metricSlice).Return(nil)
+			},
+			want:  want{http.StatusOK, "/updates"},
+			param: map[string]any{"update": "updates"},
+		},
+		{
+			name:        "Test#2, err to safe",
+			metricSlice: []entity.Metric{{ID: "PollCount", MType: "counter", Delta: 10, Value: 0}},
+			mockBehaviour: func(s *Mockstorage, metricSlice []entity.Metric) {
+				s.EXPECT().SetMetrics(metricSlice).Return(errors.New("error to safe"))
+			},
+			want:  want{http.StatusInternalServerError, "/updates"},
+			param: map[string]any{"update": "updates"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := gomock.NewController(t)
+			defer c.Finish()
+
+			body, err := json.Marshal(tt.metricSlice)
+			if err != nil {
+				fmt.Println("err to marshal")
+			}
+
+			r := httptest.NewRequest(http.MethodPost, tt.want.url,
+				bytes.NewBuffer(body))
+			rctx := chi.NewRouteContext()
+			for k, v := range tt.param {
+				strVal := v.(string)
+				rctx.URLParams.Add(k, strVal)
+			}
+
+			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
+			rw := httptest.NewRecorder()
+			r.Header.Set("Content-Type", "application/json")
+
+			storageMock := NewMockstorage(c)
+			tt.mockBehaviour(storageMock, tt.metricSlice)
+			handler := NewHandler(storageMock, logger.NewLoggingVar())
+			handler.SafeBatch(rw, r)
+
+			res := rw.Result()
+			res.Body.Close()
+			assert.Equal(t, tt.want.code, res.StatusCode)
+		})
+	}
+}
+
+func TestHandler_CheckConnection(t *testing.T) {
+	type mockBehaviour func(s *Mockstorage, ctx context.Context)
+	type want struct {
+		code int
+		url  string
+	}
+	tests := []struct {
+		name          string
+		mockBehaviour mockBehaviour
+		want          want
+		param         map[string]any
+	}{
+		{
+			name: "Test#1, check if all correct ",
+			mockBehaviour: func(s *Mockstorage, ctx context.Context) {
+				s.EXPECT().CheckPing(ctx).Return(nil)
+				//s.EXPECT().CheckPing(ctx).Return(errors.New("err to check")
+			},
+			want:  want{http.StatusOK, "/ping"},
+			param: map[string]any{"ping": "ping"},
+		},
+		{
+			name: "Test#1, check if all correct ",
+			mockBehaviour: func(s *Mockstorage, ctx context.Context) {
+				s.EXPECT().CheckPing(ctx).Return(errors.New("err to check"))
+			},
+			want:  want{http.StatusInternalServerError, "/ping"},
+			param: map[string]any{"ping": "ping"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := gomock.NewController(t)
+			defer c.Finish()
+
+			r := httptest.NewRequest(http.MethodGet, tt.want.url, nil)
+			rctx := chi.NewRouteContext()
+			for k, v := range tt.param {
+				strVal := v.(string)
+				rctx.URLParams.Add(k, strVal)
+			}
+
+			r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
+			rw := httptest.NewRecorder()
+
+			ctx, cancel := context.WithCancel(r.Context())
+			defer cancel()
+
+			storageMock := NewMockstorage(c)
+
+			tt.mockBehaviour(storageMock, ctx)
+			handler := NewHandler(storageMock, logger.NewLoggingVar())
+			handler.CheckConnection(rw, r)
+
+			res := rw.Result()
+			res.Body.Close()
+			assert.Equal(t, tt.want.code, res.StatusCode)
+		})
+	}
+}
