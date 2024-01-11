@@ -1,4 +1,4 @@
-package handlers
+package router
 
 import (
 	"context"
@@ -9,10 +9,10 @@ import (
 	"syscall"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/filestorage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/memstorage"
-	router2 "github.com/NikitaBarysh/metrics_and_alertinc/internal/router"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
 	"github.com/go-chi/chi/v5"
 )
@@ -50,9 +50,9 @@ func Example() {
 	signal.Notify(termSig, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 
 	//создаем handler
-	handler := NewHandler(rep, log)
+	handler := handlers.NewHandler(rep, log)
 	//создаем роутер
-	router := router2.NewRouter(handler)
+	router := NewRouter(handler)
 	chiRouter := chi.NewRouter()
 	// если ключ хеширование отсутствует, создаем
 	if cfg.Key != "" {
