@@ -1,8 +1,10 @@
+// Package service - содержит внутреннею логику приложения
 package service
 
 import (
 	"context"
 	"fmt"
+
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 )
 
@@ -10,6 +12,7 @@ type sender interface {
 	SendPostCompressJSON(ctx context.Context, url string, storage entity.Metric)
 }
 
+// SendMetric - подготовка для отправки метрик на сервер
 func (m *MetricAction) SendMetric(ctx context.Context, allMetric []entity.Metric, flagRunAddr string) error {
 	for _, value := range allMetric {
 		metricType := value.MType

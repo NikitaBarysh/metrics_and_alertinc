@@ -1,3 +1,4 @@
+// Package service - содержит внутреннею логику приложения
 package service
 
 import (
@@ -9,6 +10,7 @@ import (
 	"github.com/shirou/gopsutil/v3/mem"
 )
 
+// CollectMetric - собираем метрики из runtime и добавляем их в хранилище
 func (m *MetricAction) CollectMetric() {
 	memStats := runtime.MemStats{}
 	runtime.ReadMemStats(&memStats)
@@ -43,6 +45,7 @@ func (m *MetricAction) CollectMetric() {
 	m.storage.UpdateCounterMetric("PollCount", int64(1))
 }
 
+// CollectPsutilMetrics - собираем метрики из psutil и добавляем их в хранилище
 func (m *MetricAction) CollectPsutilMetrics() {
 	psutilMem, _ := mem.VirtualMemory()
 	psutilCPU, _ := cpu.Percent(time.Second*10, false)

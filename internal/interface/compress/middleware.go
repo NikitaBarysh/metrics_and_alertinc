@@ -1,3 +1,4 @@
+// Package compress - работает с сжатием данных
 package compress
 
 import (
@@ -87,6 +88,7 @@ func (c *compressReader) Close() error { // TODO
 	return c.zr.Close()
 }
 
+// GzipMiddleware - сжимает полученные данные от клиента
 func GzipMiddleware(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		ow := rw
@@ -95,7 +97,7 @@ func GzipMiddleware(h http.Handler) http.Handler {
 		if supportGzip {
 			cw := newCompressWriter(rw)
 			ow = cw
-			defer cw.Close() // TODO
+			defer cw.Close()
 		}
 		contentEncoding := r.Header.Get("Content-Encoding")
 		sendGzip := strings.Contains(contentEncoding, "gzip")

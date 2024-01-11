@@ -3,6 +3,7 @@ package migrations
 import (
 	"database/sql"
 	"fmt"
+
 	"github.com/pressly/goose"
 )
 

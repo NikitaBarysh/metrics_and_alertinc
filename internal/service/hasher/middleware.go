@@ -1,3 +1,4 @@
+// Package hasher - содержит  логику хеширования
 package hasher
 
 import (
@@ -37,6 +38,7 @@ func (s *signRW) WriteHeader(status int) {
 	s.rw.WriteHeader(status)
 }
 
+// Middleware - проверка подписей в обработчиках
 func Middleware(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		hash := r.Header.Get("HashSHA256")

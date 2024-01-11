@@ -1,12 +1,14 @@
+// Package service - содержит внутреннею логику приложения
 package service
 
 import (
 	"database/sql"
 	"errors"
-	"github.com/jackc/pgx/v5"
 	"net"
 	"net/url"
 	"time"
+
+	"github.com/jackc/pgx/v5"
 )
 
 var durationSleep = map[int]time.Duration{
@@ -15,6 +17,7 @@ var durationSleep = map[int]time.Duration{
 	3: 5 * time.Second,
 }
 
+// Retry - попытка сделать повторные запросы при ошибке
 func Retry(fn func() error, attempt int) {
 	err := fn()
 	var netErr net.Error

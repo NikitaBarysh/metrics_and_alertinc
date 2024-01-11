@@ -1,3 +1,4 @@
+// Package hasher - содержит  логику хеширования
 package hasher
 
 import (
@@ -16,6 +17,7 @@ func NewHasher(key []byte) *Hasher {
 	return &Hasher{key: key}
 }
 
+// NewSign - создаем подпись
 func (h *Hasher) NewSign(buff []byte) ([]byte, error) {
 	m := hmac.New(sha256.New, h.key)
 
@@ -26,6 +28,7 @@ func (h *Hasher) NewSign(buff []byte) ([]byte, error) {
 	return m.Sum(nil), nil
 }
 
+// CheckSign - проверка подписи
 func (h *Hasher) CheckSign(data []byte, sign []byte) error {
 	newSign, err := h.NewSign(data)
 	if err != nil {

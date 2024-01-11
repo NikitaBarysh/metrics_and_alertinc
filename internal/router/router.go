@@ -1,6 +1,8 @@
 package router
 
 import (
+	_ "net/http/pprof"
+
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/handlers"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"

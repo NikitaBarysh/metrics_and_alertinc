@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	_ "net/http/pprof"
 	"strconv"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"

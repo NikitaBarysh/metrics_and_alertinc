@@ -1,8 +1,9 @@
 package entity
 
 import (
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
 	"strconv"
+
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
 )
 
 type MType string

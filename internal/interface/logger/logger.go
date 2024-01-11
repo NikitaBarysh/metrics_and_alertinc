@@ -1,3 +1,4 @@
+// Package logger - логирует процессы
 package logger
 
 import (
@@ -29,6 +30,7 @@ func (rw *loggingResponseWriter) WriteHeader(statusCode int) {
 	rw.responseData.status = statusCode
 }
 
+// WithLogging - логирует информацию в обработчиках
 func WithLogging(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		start := time.Now()
