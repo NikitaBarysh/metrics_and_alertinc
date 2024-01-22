@@ -70,5 +70,5 @@ func main() {
 	}()
 
 	sig := <-termSig
-	fmt.Println("Server Graceful Shutdown", sig.String())
+	loggingVar.Log.Info("Server Graceful Shutdown", zap.String("-", sig.String()))
 }
