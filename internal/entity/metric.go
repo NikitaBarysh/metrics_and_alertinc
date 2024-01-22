@@ -1,8 +1,10 @@
+// Package entity - здесь структура на основе которой мы формируем метрики
 package entity
 
 import (
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
 	"strconv"
+
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
 )
 
 type MType string
@@ -12,6 +14,7 @@ const (
 	Counter MType = "counter"
 )
 
+// Metric - сущность метрики
 type Metric struct {
 	ID    string  // имя метрики
 	MType MType   // параметр, принимающий значение gauge или counter

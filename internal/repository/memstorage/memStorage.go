@@ -1,13 +1,16 @@
+// Package memstorage - работает с кешом
 package memstorage
 
 import (
 	"context"
+	_ "net/http/pprof"
+	"sync"
+	"time"
+
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/filestorage"
-	"sync"
-	"time"
 )
 
 type MemStorage struct {
@@ -49,6 +52,7 @@ func (m *MemStorage) syncData(ctx context.Context, interval uint64) {
 	}
 }
 
+// UpdateGaugeMetric - обновляем значение gauge метрики
 func (m *MemStorage) UpdateGaugeMetric(key string, value float64) {
 	m.mu.Lock()
 	m.MetricMap[key] = entity.Metric{ID: key, MType: entity.Gauge, Value: value}
@@ -56,6 +60,7 @@ func (m *MemStorage) UpdateGaugeMetric(key string, value float64) {
 
 }
 
+// UpdateCounterMetric - обновляем значение counter метрики
 func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
 	m.mu.Lock()
 	metricValue := m.MetricMap[key].Delta
@@ -64,6 +69,7 @@ func (m *MemStorage) UpdateCounterMetric(key string, value int64) {
 	m.mu.Unlock()
 }
 
+// GetMetric - получение определенной метрики
 func (m *MemStorage) GetMetric(key string) (entity.Metric, error) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -74,16 +80,18 @@ func (m *MemStorage) GetMetric(key string) (entity.Metric, error) {
 	return metricStruct, models.ErrNotFound
 }
 
+// GetAllMetric - получение всех метрик
 func (m *MemStorage) GetAllMetric() ([]entity.Metric, error) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
-	metricSlice := make([]entity.Metric, 0, len(m.MetricMap))
+	metricSlice := make([]entity.Metric, 0, len(m.MetricMap)) // len(m.MetricMap)
 	for _, metricValue := range m.MetricMap {
 		metricSlice = append(metricSlice, metricValue)
 	}
 	return metricSlice, nil
 }
 
+// SetMetrics - добавляем метрики
 func (m *MemStorage) SetMetrics(metric []entity.Metric) error {
 	for _, v := range metric {
 		switch v.MType {

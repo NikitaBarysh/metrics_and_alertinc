@@ -1,12 +1,14 @@
+// Package filestorage - работает с файлом
 package filestorage
 
 import (
 	"bufio"
 	"encoding/json"
 	"fmt"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"os"
 	"sync"
+
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 )
 
 type FileEngine struct {
@@ -20,6 +22,7 @@ func NewFileEngine(storePath string) (*FileEngine, error) {
 	}, nil
 }
 
+// SetMetrics - записывает метрику в файл
 func (f *FileEngine) SetMetrics(data map[string]entity.Metric) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
@@ -42,6 +45,7 @@ func (f *FileEngine) SetMetrics(data map[string]entity.Metric) error {
 	return nil
 }
 
+// GetAllMetric - достает все метрики из файла
 func (f *FileEngine) GetAllMetric() (map[string]entity.Metric, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()

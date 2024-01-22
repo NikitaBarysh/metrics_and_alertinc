@@ -1,12 +1,15 @@
+// Package service - содержит внутреннею логику приложения
 package service
 
 import (
 	"context"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"sync"
 	"time"
+
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 )
 
+// SendMetricsToServer - планировщик получение и отправки метрик
 func (m *MetricAction) SendMetricsToServer(ctx context.Context, reportInterval int64, flagRunAddr string, workers int) {
 	metricsCh := make(chan []entity.Metric, 1)
 	var wg sync.WaitGroup
@@ -35,6 +38,7 @@ func (m *MetricAction) SendMetricsToServer(ctx context.Context, reportInterval i
 	}
 }
 
+// CollectPsutil - планировщик сбора psutil метрик
 func (m *MetricAction) CollectPsutil(ctx context.Context, pollInterval int64) {
 	collectTicker := time.NewTicker(time.Second * time.Duration(pollInterval))
 	defer collectTicker.Stop()
@@ -48,6 +52,7 @@ func (m *MetricAction) CollectPsutil(ctx context.Context, pollInterval int64) {
 	}
 }
 
+// CollectRuntimeMetric - планировщик сбора runtime метрик
 func (m *MetricAction) CollectRuntimeMetric(ctx context.Context, pollInterval int64) {
 	collectTicker := time.NewTicker(time.Second * time.Duration(pollInterval))
 	defer collectTicker.Stop()
@@ -62,6 +67,7 @@ func (m *MetricAction) CollectRuntimeMetric(ctx context.Context, pollInterval in
 	}
 }
 
+// WorkerPoll - воркер, который отправляет метрики
 func (m *MetricAction) WorkerPoll(ctx context.Context, flagAddr string, ch <-chan []entity.Metric) {
 	for met := range ch {
 		m.SendMetric(ctx, met, flagAddr)

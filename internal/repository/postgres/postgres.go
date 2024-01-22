@@ -1,12 +1,14 @@
+// Package postgres - работает с базой
 package postgres
 
 import (
 	"context"
 	"database/sql"
 	"fmt"
+	"time"
+
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
-	"time"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 
@@ -39,6 +41,7 @@ func InitPostgres(cfg *server.Config) (*Postgres, error) {
 	return &Postgres{db: db}, nil
 }
 
+// SetMetrics - добавляем метрики в базу
 func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	defer cancel()
@@ -74,6 +77,7 @@ func (p *Postgres) SetMetrics(metric []entity.Metric) error {
 	return tx.Commit()
 }
 
+// GetMetric - получаем метрику из базы
 func (p *Postgres) GetMetric(key string) (entity.Metric, error) { // TODO
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
@@ -89,6 +93,7 @@ func (p *Postgres) GetMetric(key string) (entity.Metric, error) { // TODO
 	return metric, nil
 }
 
+// GetAllMetric - получаем все метрики из базы
 func (p *Postgres) GetAllMetric() ([]entity.Metric, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
@@ -118,6 +123,7 @@ func (p *Postgres) GetAllMetric() ([]entity.Metric, error) {
 	return metricSlice, nil
 }
 
+// CheckPing - проверяем соединение с базой
 func (p *Postgres) CheckPing(ctx context.Context) error {
 	err := p.db.PingContext(ctx)
 	if err != nil {

@@ -5,16 +5,18 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"net/http"
+	"strconv"
+
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
 	"github.com/go-chi/chi/v5"
 	"go.uber.org/zap"
-	"io"
-	"net/http"
-	"strconv"
-	"time"
 )
+
+//go:generate mockgen -source ${GOFILE} -destination mocks_test.go -package ${GOPACKAGE}
 
 type storage interface {
 	GetAllMetric() ([]entity.Metric, error)
@@ -54,9 +56,9 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 			http.Error(rw, "wrong counter type", http.StatusBadRequest)
 			return
 		}
-		delta, err := h.storage.GetMetric(metricName)
-		if err != nil || delta.ID == "" {
-			fmt.Println(fmt.Errorf("no metric PollCount yet: %w", err))
+		delta, errGet := h.storage.GetMetric(metricName)
+		if errGet != nil || delta.ID == "" {
+			h.logger.Error(fmt.Errorf("no metric PollCount yet: %w", err).Error())
 		}
 		delta.Delta += value
 		metric := entity.Metric{ID: metricName, MType: mType, Delta: value}
@@ -78,7 +80,7 @@ func (h *Handler) Safe(rw http.ResponseWriter, r *http.Request) {
 	}
 	err := h.storage.SetMetrics(metricSlice)
 	if err != nil {
-		fmt.Println(fmt.Errorf("handlers: safe: SetMetric: %w", err))
+		h.logger.Error(fmt.Errorf("handlers: safe: SetMetric: %w", err).Error())
 	}
 
 	rw.Header().Set("Content-Type", "text/plain; charset=utf-8")
@@ -131,7 +133,7 @@ func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 		rw.WriteHeader(http.StatusOK)
 		_, err := rw.Write([]byte(fmt.Sprintf("%v", metricValue)))
 		if err != nil {
-			fmt.Println(fmt.Errorf("handler: get: write gauge metric: %w", err))
+			h.logger.Error(fmt.Errorf("handler: get: write gauge metric: %w", err).Error())
 		}
 		return
 	case entity.Counter:
@@ -139,7 +141,7 @@ func (h *Handler) Get(rw http.ResponseWriter, r *http.Request) {
 		rw.WriteHeader(http.StatusOK)
 		_, err := rw.Write([]byte(fmt.Sprintf("%v", metricValue)))
 		if err != nil {
-			fmt.Println(fmt.Errorf("handler: get: write counter metric: %w", err))
+			h.logger.Error(fmt.Errorf("handler: get: write counter metric: %w", err).Error())
 		}
 		return
 	default:
@@ -167,7 +169,6 @@ func (h *Handler) GetAll(rw http.ResponseWriter, _ *http.Request) {
 func (h *Handler) GetJSON(rw http.ResponseWriter, r *http.Request) {
 	var req models.Metrics
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		fmt.Println("decoder: ", err)
 		h.logger.Log.Fatal("error decode getJSON", zap.Error(err))
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
@@ -235,11 +236,11 @@ func (h *Handler) SafeJSON(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) CheckConnection(rw http.ResponseWriter, r *http.Request) {
-	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
+	ctx, cancel := context.WithCancel(r.Context())
 	defer cancel()
 	if err := h.storage.CheckPing(ctx); err != nil {
 		rw.WriteHeader(http.StatusInternalServerError)
-		fmt.Println(fmt.Errorf("handlers: CheckConnection: %w", err))
+		h.logger.Error(fmt.Errorf("handlers: CheckConnection: %w", err).Error())
 		return
 	}
 

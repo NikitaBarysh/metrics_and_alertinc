@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"os/signal"
 	"syscall"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
+	"github.com/go-chi/chi/v5/middleware"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
@@ -28,7 +30,7 @@ func main() {
 		log.Fatalf("config err: %s\n", envErr)
 	}
 
-	cfg, configError := server.NewConfig(env) // сделал паттерн option, но не понял как реализовать на 56 строке
+	cfg, configError := server.NewConfig(env)
 	if configError != nil {
 		log.Fatalf("config err: %s\n", configError)
 	}
@@ -57,6 +59,7 @@ func main() {
 		hasher.Sign = hasher.NewHasher([]byte(cfg.Key))
 		chiRouter.Use(hasher.Middleware)
 	}
+	chiRouter.Mount("/debug", middleware.Profiler())
 	chiRouter.Mount("/", router.Register())
 	loggingVar.Log.Info("Running server", zap.String("address", cfg.RunAddr))
 	go func() {
@@ -67,5 +70,5 @@ func main() {
 	}()
 
 	sig := <-termSig
-	fmt.Println("Server Graceful Shutdown", sig.String())
+	loggingVar.Log.Info("Server Graceful Shutdown", zap.String("-", sig.String()))
 }

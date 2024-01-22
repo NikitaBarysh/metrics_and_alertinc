@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"fmt"
+
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/filestorage"
@@ -17,6 +18,7 @@ type Storage interface {
 	CheckPing(ctx context.Context) error
 }
 
+// New - выбираем куда будем складывать метрики и откуда получать
 func New(ctx context.Context, cfg *server.Config) (Storage, error) {
 	if cfg.DataBaseDSN != "" {
 		return postgres.InitPostgres(cfg)

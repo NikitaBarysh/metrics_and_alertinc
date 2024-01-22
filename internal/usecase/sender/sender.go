@@ -1,3 +1,4 @@
+// Package sender - Содержит бизнес логику
 package sender
 
 import (
@@ -5,11 +6,12 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"net/http"
+
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
-	"net/http"
 )
 
 type Sender struct {
@@ -22,6 +24,7 @@ func NewSender(hash *hasher.Hasher) *Sender {
 	}
 }
 
+// SendPostCompressJSON - отправка сжатых данных на сервер
 func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage entity.Metric) {
 	data, err := json.Marshal(storage)
 	if err != nil {

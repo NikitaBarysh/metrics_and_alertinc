@@ -1,3 +1,4 @@
+// Package compress - работает с сжатием данных
 package compress
 
 import (
@@ -6,6 +7,7 @@ import (
 	"fmt"
 )
 
+// Compress - сжимает данные от агента
 func Compress(data []byte) (*bytes.Buffer, error) {
 	var b bytes.Buffer
 
