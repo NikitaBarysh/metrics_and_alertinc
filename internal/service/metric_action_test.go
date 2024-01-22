@@ -1,5 +1,13 @@
 package service
 
+//
+//import (
+//	"testing"
+//
+//	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
+//	"github.com/stretchr/testify/assert"
+//)
+//
 //type senderMock struct {
 //	t   *testing.T
 //	url string
