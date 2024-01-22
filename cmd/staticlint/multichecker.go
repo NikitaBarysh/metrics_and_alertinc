@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/NikitaBarysh/metrics_and_alertinc/pkg/exitCheck"
+	"github.com/NikitaBarysh/metrics_and_alertinc/pkg/exitcheck"
 	"github.com/fatih/errwrap/errwrap"
 	"github.com/kisielk/errcheck/errcheck"
 	"golang.org/x/tools/go/analysis"
@@ -115,7 +115,7 @@ func main() {
 
 	checks = append(checks, errwrap.Analyzer)
 
-	checks = append(checks, exitCheck.CheckExitAnalyzer)
+	checks = append(checks, exitcheck.CheckExitAnalyzer)
 
 	multichecker.Main(checks...)
 }
