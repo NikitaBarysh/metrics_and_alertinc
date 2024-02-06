@@ -12,6 +12,7 @@ type Config struct {
 	LogLevel      string
 	StoreInterval uint64
 	StorePath     string
+	CryptoKey     string
 	Restore       bool
 	DataBaseDSN   string
 	Key           string
@@ -68,6 +69,7 @@ func NewConfig(option Environment, options ...Option) (*Config, error) {
 		StorePath:   option.storePath,
 		DataBaseDSN: option.dataBaseDSN,
 		Key:         option.key,
+		CryptoKey:   option.cryptoKey,
 	}
 
 	restore, err := strconv.ParseBool(option.restore)
@@ -98,6 +100,7 @@ type Environment struct {
 	restore       string
 	dataBaseDSN   string
 	key           string
+	cryptoKey     string
 }
 
 func NewServer() (Environment, error) {
@@ -109,6 +112,7 @@ func NewServer() (Environment, error) {
 	flag.StringVar(&env.restore, "r", "true", "restore")
 	flag.StringVar(&env.dataBaseDSN, "d", "", "data base DSN")
 	flag.StringVar(&env.key, "k", "", "sign key")
+	flag.StringVar(&env.cryptoKey, "crypto-key", "", "private crypto key")
 
 	flag.Parse()
 
@@ -138,6 +142,10 @@ func NewServer() (Environment, error) {
 
 	if key, ok := os.LookupEnv("KEY"); ok {
 		env.key = key
+	}
+
+	if cryptoKey, exist := os.LookupEnv("CRYPTO_KEY"); exist {
+		env.cryptoKey = cryptoKey
 	}
 
 	return env, nil

@@ -9,6 +9,7 @@ import (
 	"syscall"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/agent"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/encrypt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/memstorage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/usecase"
@@ -16,9 +17,9 @@ import (
 )
 
 var (
-	buildVersion string = "N/A"
-	buildDate    string = "N/A"
-	buildCommit  string = "N/A"
+	buildVersion = "N/A"
+	buildDate    = "N/A"
+	buildCommit  = "N/A"
 )
 
 func main() {
@@ -32,6 +33,12 @@ func main() {
 	}
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
+
+	if cfg.CryptoKey != `` {
+		if err := encrypt.InitEncryptor(cfg.CryptoKey); err != nil {
+			log.Fatalf("cannot create encryptor: %s\n", err)
+		}
+	}
 
 	termSignal := make(chan os.Signal, 1)
 	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
