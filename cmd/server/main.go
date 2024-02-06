@@ -10,6 +10,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/encrypt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
 	"github.com/go-chi/chi/v5/middleware"
 
@@ -25,9 +26,9 @@ import (
 )
 
 var (
-	buildVersion string = "N/A"
-	buildDate    string = "N/A"
-	buildCommit  string = "N/A"
+	buildVersion = "N/A"
+	buildDate    = "N/A"
+	buildCommit  = "N/A"
 )
 
 func main() {
@@ -69,6 +70,13 @@ func main() {
 		hasher.Sign = hasher.NewHasher([]byte(cfg.Key))
 		chiRouter.Use(hasher.Middleware)
 	}
+	if cfg.CryptoKey != "" {
+		if err := encrypt.InitializeDecryptor(cfg.CryptoKey); err != nil {
+			loggingVar.Error("err to create encryptor")
+		}
+		chiRouter.Use(encrypt.Middleware)
+	}
+
 	chiRouter.Mount("/debug", middleware.Profiler())
 	chiRouter.Mount("/", router.Register())
 	loggingVar.Log.Info("Running server", zap.String("address", cfg.RunAddr))

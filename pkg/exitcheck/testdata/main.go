@@ -9,7 +9,7 @@ func main() {
 	fmt.Println("start")
 	ex()
 
-	os.Exit(1)
+	//os.Exit(1)
 }
 
 func ex() {

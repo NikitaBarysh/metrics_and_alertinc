@@ -12,6 +12,7 @@ type Config struct {
 	PollInterval   int64
 	ReportInterval int64
 	Key            string
+	CryptoKey      string
 	Limit          int
 }
 
@@ -22,6 +23,7 @@ func NewAgent() (*Config, error) {
 	flag.Int64Var(&cfg.ReportInterval, "r", 10, "report interval")
 	flag.StringVar(&cfg.Key, "k", "", "sign key")
 	flag.IntVar(&cfg.Limit, "l", 8, "rate limit")
+	flag.StringVar(&cfg.CryptoKey, "crypto-key", "", "open crypto key")
 
 	flag.Parse()
 
@@ -48,6 +50,8 @@ func NewAgent() (*Config, error) {
 			cfg.Limit = value
 		}
 	}
+
+	cfg.CryptoKey = os.Getenv("CRYPTO_KEY")
 
 	if !strings.HasPrefix(cfg.URL, "http") &&
 		!strings.HasPrefix(cfg.URL, "https") && !strings.HasPrefix(cfg.URL, "localhost") {
