@@ -15,7 +15,7 @@ func Middleware(h http.Handler) http.Handler {
 
 			message, err := MetricsDecryptor.Decrypt(buf)
 			if err != nil {
-				fmt.Printf(fmt.Sprintf("cannot decrypt request body: %s", err))
+				fmt.Printf("cannot decrypt request body: %s", err)
 				w.WriteHeader(http.StatusBadRequest)
 				return
 			}
