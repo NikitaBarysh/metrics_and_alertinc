@@ -17,12 +17,12 @@ type Config struct {
 	Key            string
 	CryptoKey      string
 	Limit          int
-	ConfigJson     string
+	ConfigJSON     string
 }
 
-func (m *Config) formJson() error {
+func (m *Config) fromJSON() error {
 
-	data, err := os.ReadFile(m.ConfigJson)
+	data, err := os.ReadFile(m.ConfigJSON)
 	if err != nil {
 		return fmt.Errorf("cannot read json config: %w", err)
 	}
@@ -78,8 +78,8 @@ func NewAgent() (*Config, error) {
 	flag.StringVar(&cfg.Key, "k", "", "sign key")
 	flag.IntVar(&cfg.Limit, "l", 8, "rate limit")
 	flag.StringVar(&cfg.CryptoKey, "crypto-key", "", "open crypto key")
-	flag.StringVar(&cfg.ConfigJson, "c", "", "json config")
-	flag.StringVar(&cfg.ConfigJson, "config", "", "json config")
+	flag.StringVar(&cfg.ConfigJSON, "c", "", "json config")
+	flag.StringVar(&cfg.ConfigJSON, "config", "", "json config")
 
 	flag.Parse()
 
@@ -109,10 +109,10 @@ func NewAgent() (*Config, error) {
 
 	cfg.CryptoKey = os.Getenv("CRYPTO_KEY")
 
-	cfg.ConfigJson = os.Getenv("CONFIG")
+	cfg.ConfigJSON = os.Getenv("CONFIG")
 
-	if cfg.ConfigJson != "" {
-		err := cfg.formJson()
+	if cfg.ConfigJSON != "" {
+		err := cfg.fromJSON()
 		if err != nil {
 			return nil, fmt.Errorf("err get config from json: %w", err)
 		}

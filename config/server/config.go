@@ -18,7 +18,7 @@ type Config struct {
 	Restore       bool
 	DataBaseDSN   string
 	Key           string
-	ConfigJson    string
+	ConfigJSON    string
 }
 
 type Option func(c *Config)
@@ -87,8 +87,8 @@ func NewConfig(option Environment, options ...Option) (*Config, error) {
 	}
 	cfg.StoreInterval = uint64(duration)
 
-	if cfg.ConfigJson != "" {
-		err := cfg.formJson()
+	if cfg.ConfigJSON != "" {
+		err := cfg.fromJSON()
 		if err != nil {
 			return nil, fmt.Errorf("err to get config: %w", err)
 		}
@@ -102,9 +102,9 @@ func NewConfig(option Environment, options ...Option) (*Config, error) {
 
 }
 
-func (m *Config) formJson() error {
+func (m *Config) fromJSON() error {
 
-	data, err := os.ReadFile(m.ConfigJson)
+	data, err := os.ReadFile(m.ConfigJSON)
 	if err != nil {
 		return fmt.Errorf("cannot read json config: %w", err)
 	}
@@ -165,7 +165,7 @@ type Environment struct {
 	dataBaseDSN   string
 	key           string
 	cryptoKey     string
-	configJson    string
+	configJSON    string
 }
 
 func NewServer() (Environment, error) {
@@ -178,8 +178,8 @@ func NewServer() (Environment, error) {
 	flag.StringVar(&env.dataBaseDSN, "d", "", "data base DSN")
 	flag.StringVar(&env.key, "k", "", "sign key")
 	flag.StringVar(&env.cryptoKey, "crypto-key", "", "private crypto key")
-	flag.StringVar(&env.configJson, "c", "", "json config")
-	flag.StringVar(&env.configJson, "config", "", "json config")
+	flag.StringVar(&env.configJSON, "c", "", "json config")
+	flag.StringVar(&env.configJSON, "config", "", "json config")
 
 	flag.Parse()
 
@@ -216,7 +216,7 @@ func NewServer() (Environment, error) {
 	}
 
 	if config, ok := os.LookupEnv("CONFIG"); ok {
-		env.configJson = config
+		env.configJSON = config
 	}
 
 	return env, nil
