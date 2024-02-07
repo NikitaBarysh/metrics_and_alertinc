@@ -1,10 +1,13 @@
 package agent
 
 import (
+	"encoding/json"
 	"flag"
+	"fmt"
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type Config struct {
@@ -14,6 +17,57 @@ type Config struct {
 	Key            string
 	CryptoKey      string
 	Limit          int
+	ConfigJson     string
+}
+
+func (m *Config) formJson() error {
+
+	data, err := os.ReadFile(m.ConfigJson)
+	if err != nil {
+		return fmt.Errorf("cannot read json config: %w", err)
+	}
+
+	var settings map[string]interface{}
+
+	err = json.Unmarshal(data, &settings)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal json settings: %w", err)
+	}
+
+	for stype, value := range settings {
+		switch stype {
+		case "address":
+			if m.URL == `` {
+				m.URL = value.(string)
+			}
+		case "report_interval":
+			if m.ReportInterval == 0 {
+				duration, err := time.ParseDuration(value.(string))
+				if err != nil {
+					return fmt.Errorf("bad json param 'report_interval': %w", err)
+				}
+				m.ReportInterval = int64(duration.Seconds())
+			}
+		case "poll_interval":
+			if m.PollInterval == 0 {
+				duration, err := time.ParseDuration(value.(string))
+				if err != nil {
+					return fmt.Errorf("bad json param 'poll_interval': %w", err)
+				}
+				m.PollInterval = int64(duration.Seconds())
+			}
+		case "sign_key":
+			if m.Key == `` {
+				m.Key = value.(string)
+			}
+		case "crypto_key":
+			if m.CryptoKey == `` {
+				m.CryptoKey = value.(string)
+			}
+		}
+	}
+
+	return nil
 }
 
 func NewAgent() (*Config, error) {
@@ -24,6 +78,8 @@ func NewAgent() (*Config, error) {
 	flag.StringVar(&cfg.Key, "k", "", "sign key")
 	flag.IntVar(&cfg.Limit, "l", 8, "rate limit")
 	flag.StringVar(&cfg.CryptoKey, "crypto-key", "", "open crypto key")
+	flag.StringVar(&cfg.ConfigJson, "c", "", "json config")
+	flag.StringVar(&cfg.ConfigJson, "config", "", "json config")
 
 	flag.Parse()
 
@@ -52,6 +108,15 @@ func NewAgent() (*Config, error) {
 	}
 
 	cfg.CryptoKey = os.Getenv("CRYPTO_KEY")
+
+	cfg.ConfigJson = os.Getenv("CONFIG")
+
+	if cfg.ConfigJson != "" {
+		err := cfg.formJson()
+		if err != nil {
+			return nil, fmt.Errorf("err get config from json: %w", err)
+		}
+	}
 
 	if !strings.HasPrefix(cfg.URL, "http") &&
 		!strings.HasPrefix(cfg.URL, "https") && !strings.HasPrefix(cfg.URL, "localhost") {
