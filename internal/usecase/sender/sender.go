@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/encrypt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
@@ -35,14 +36,22 @@ func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage e
 	if err != nil {
 		panic(err)
 	}
+	buffer := buf.Bytes()
 
 	request, err := http.NewRequest(http.MethodPost, url, buf)
 	request = request.WithContext(ctx)
 	if err != nil {
 		panic(err)
 	}
+	if encrypt.MetricsEncryptor != nil {
+		encryptBuf, err := encrypt.MetricsEncryptor.Encrypt(buffer)
+		if err != nil {
+			fmt.Println("err to encrypt")
+		}
+		buffer = encryptBuf
+	}
 	if s.hash != nil {
-		hash, errSign := s.hash.NewSign(buf.Bytes())
+		hash, errSign := s.hash.NewSign(buffer)
 		if errSign != nil {
 			fmt.Println(fmt.Errorf("SendMetric: NewSign: %w", err))
 		}

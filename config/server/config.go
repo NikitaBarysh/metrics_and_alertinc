@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
@@ -8,13 +9,15 @@ import (
 )
 
 type Config struct {
-	RunAddr       string
+	RunAddr       string `json:"address"`
 	LogLevel      string
-	StoreInterval uint64
-	StorePath     string
-	Restore       bool
-	DataBaseDSN   string
-	Key           string
+	StoreInterval uint64 `json:"store_interval"`
+	StorePath     string `json:"store_file"`
+	CryptoKey     string `json:"crypto_key"`
+	Restore       bool   `json:"restore"`
+	DataBaseDSN   string `json:"database_dsn"`
+	Key           string `json:"sign_key"`
+	ConfigJSON    string
 }
 
 type Option func(c *Config)
@@ -68,6 +71,7 @@ func NewConfig(option Environment, options ...Option) (*Config, error) {
 		StorePath:   option.storePath,
 		DataBaseDSN: option.dataBaseDSN,
 		Key:         option.key,
+		CryptoKey:   option.cryptoKey,
 	}
 
 	restore, err := strconv.ParseBool(option.restore)
@@ -82,12 +86,35 @@ func NewConfig(option Environment, options ...Option) (*Config, error) {
 	}
 	cfg.StoreInterval = uint64(duration)
 
+	if cfg.ConfigJSON != "" {
+		err := cfg.fromJSON()
+		if err != nil {
+			return nil, fmt.Errorf("err to get config: %w", err)
+		}
+	}
+
 	for _, opt := range options {
 		opt(cfg)
 	}
 
 	return cfg, nil
 
+}
+
+func (m *Config) fromJSON() error {
+	var cfg Config
+
+	data, err := os.ReadFile(m.ConfigJSON)
+	if err != nil {
+		return fmt.Errorf("cannot read json config: %w", err)
+	}
+
+	err = json.Unmarshal(data, &cfg)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal json settings: %w", err)
+	}
+
+	return nil
 }
 
 type Environment struct {
@@ -98,6 +125,8 @@ type Environment struct {
 	restore       string
 	dataBaseDSN   string
 	key           string
+	cryptoKey     string
+	configJSON    string
 }
 
 func NewServer() (Environment, error) {
@@ -109,6 +138,9 @@ func NewServer() (Environment, error) {
 	flag.StringVar(&env.restore, "r", "true", "restore")
 	flag.StringVar(&env.dataBaseDSN, "d", "", "data base DSN")
 	flag.StringVar(&env.key, "k", "", "sign key")
+	flag.StringVar(&env.cryptoKey, "crypto-key", "", "private crypto key")
+	flag.StringVar(&env.configJSON, "c", "", "json config")
+	flag.StringVar(&env.configJSON, "config", "", "json config")
 
 	flag.Parse()
 
@@ -138,6 +170,14 @@ func NewServer() (Environment, error) {
 
 	if key, ok := os.LookupEnv("KEY"); ok {
 		env.key = key
+	}
+
+	if cryptoKey, exist := os.LookupEnv("CRYPTO_KEY"); exist {
+		env.cryptoKey = cryptoKey
+	}
+
+	if config, ok := os.LookupEnv("CONFIG"); ok {
+		env.configJSON = config
 	}
 
 	return env, nil
