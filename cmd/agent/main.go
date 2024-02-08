@@ -9,7 +9,6 @@ import (
 	"syscall"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/agent"
-	"github.com/NikitaBarysh/metrics_and_alertinc/internal/encrypt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/repository/memstorage"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/usecase"
@@ -33,12 +32,6 @@ func main() {
 	}
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-
-	if cfg.CryptoKey != `` {
-		if err := encrypt.InitEncryptor(cfg.CryptoKey); err != nil {
-			log.Fatalf("cannot create encryptor: %s\n", err)
-		}
-	}
 
 	termSignal := make(chan os.Signal, 1)
 	signal.Notify(termSignal, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)

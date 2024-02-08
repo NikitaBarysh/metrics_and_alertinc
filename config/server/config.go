@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-	"time"
 )
 
 type Config struct {
@@ -103,54 +102,16 @@ func NewConfig(option Environment, options ...Option) (*Config, error) {
 }
 
 func (m *Config) fromJSON() error {
+	var cfg Config
 
 	data, err := os.ReadFile(m.ConfigJSON)
 	if err != nil {
 		return fmt.Errorf("cannot read json config: %w", err)
 	}
 
-	var settings map[string]interface{}
-
-	err = json.Unmarshal(data, &settings)
+	err = json.Unmarshal(data, &cfg)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal json settings: %w", err)
-	}
-
-	for stype, value := range settings {
-		switch stype {
-		case "address":
-			if m.RunAddr == `` {
-				m.RunAddr = value.(string)
-			}
-		case "restore":
-			if !m.Restore {
-				m.Restore = value.(bool)
-			}
-		case "store_interval":
-			if m.StoreInterval == 0 {
-				duration, err := time.ParseDuration(value.(string))
-				if err != nil {
-					return fmt.Errorf("bad json param 'store_interval': %w", err)
-				}
-				m.StoreInterval = uint64(duration.Seconds())
-			}
-		case "store_file":
-			if m.StorePath == `` {
-				m.StorePath = value.(string)
-			}
-		case "database_dsn":
-			if m.DataBaseDSN == `` {
-				m.DataBaseDSN = value.(string)
-			}
-		case "sign_key":
-			if m.Key == `` {
-				m.Key = value.(string)
-			}
-		case "crypto_key":
-			if m.CryptoKey == `` {
-				m.CryptoKey = value.(string)
-			}
-		}
 	}
 
 	return nil

@@ -4,67 +4,37 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"strings"
-	"time"
+
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/encrypt"
 )
 
 type Config struct {
-	URL            string
-	PollInterval   int64
-	ReportInterval int64
-	Key            string
-	CryptoKey      string
+	URL            string `json:"address"`
+	PollInterval   int64  `json:"poll_interval"`
+	ReportInterval int64  `json:"report_interval"`
+	Key            string `json:"sign_key"`
+	CryptoKey      string `json:"crypto_key"`
 	Limit          int
 	ConfigJSON     string
 }
 
+func NewConfig() {}
+
 func (m *Config) fromJSON() error {
+	var cfg Config
 
 	data, err := os.ReadFile(m.ConfigJSON)
 	if err != nil {
 		return fmt.Errorf("cannot read json config: %w", err)
 	}
 
-	var settings map[string]interface{}
-
-	err = json.Unmarshal(data, &settings)
+	err = json.Unmarshal(data, &cfg)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal json settings: %w", err)
-	}
-
-	for stype, value := range settings {
-		switch stype {
-		case "address":
-			if m.URL == `` {
-				m.URL = value.(string)
-			}
-		case "report_interval":
-			if m.ReportInterval == 0 {
-				duration, err := time.ParseDuration(value.(string))
-				if err != nil {
-					return fmt.Errorf("bad json param 'report_interval': %w", err)
-				}
-				m.ReportInterval = int64(duration.Seconds())
-			}
-		case "poll_interval":
-			if m.PollInterval == 0 {
-				duration, err := time.ParseDuration(value.(string))
-				if err != nil {
-					return fmt.Errorf("bad json param 'poll_interval': %w", err)
-				}
-				m.PollInterval = int64(duration.Seconds())
-			}
-		case "sign_key":
-			if m.Key == `` {
-				m.Key = value.(string)
-			}
-		case "crypto_key":
-			if m.CryptoKey == `` {
-				m.CryptoKey = value.(string)
-			}
-		}
 	}
 
 	return nil
@@ -115,6 +85,12 @@ func NewAgent() (*Config, error) {
 		err := cfg.fromJSON()
 		if err != nil {
 			return nil, fmt.Errorf("err get config from json: %w", err)
+		}
+	}
+
+	if cfg.CryptoKey != `` {
+		if err := encrypt.InitEncryptor(cfg.CryptoKey); err != nil {
+			log.Fatalf("cannot create encryptor: %s\n", err)
 		}
 	}
 
