@@ -9,14 +9,14 @@ import (
 )
 
 type Config struct {
-	RunAddr       string
+	RunAddr       string `json:"address"`
 	LogLevel      string
-	StoreInterval uint64
-	StorePath     string
-	CryptoKey     string
-	Restore       bool
-	DataBaseDSN   string
-	Key           string
+	StoreInterval uint64 `json:"store_interval"`
+	StorePath     string `json:"store_file"`
+	CryptoKey     string `json:"crypto_key"`
+	Restore       bool   `json:"restore"`
+	DataBaseDSN   string `json:"database_dsn"`
+	Key           string `json:"sign_key"`
 	ConfigJSON    string
 }
 
