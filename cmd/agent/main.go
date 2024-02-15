@@ -16,9 +16,9 @@ import (
 )
 
 var (
-	buildVersion string = "N/A"
-	buildDate    string = "N/A"
-	buildCommit  string = "N/A"
+	buildVersion = "N/A"
+	buildDate    = "N/A"
+	buildCommit  = "N/A"
 )
 
 func main() {
@@ -47,8 +47,8 @@ func main() {
 
 	go newMetricAction.CollectRuntimeMetric(ctx, cfg.PollInterval)
 
-	go newMetricAction.SendMetricsToServer(ctx, cfg.ReportInterval, cfg.URL, cfg.Limit)
+	go newMetricAction.SendMetricsToServer(ctx, cfg.ReportInterval, cfg.URL, cfg.Limit, cfg.IP)
 
 	sig := <-termSignal
-	fmt.Println("Agent Graceful Shutdown", sig.String())
+	fmt.Println("Agent Graceful Shutdown ", sig.String())
 }

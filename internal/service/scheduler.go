@@ -10,7 +10,7 @@ import (
 )
 
 // SendMetricsToServer - планировщик получение и отправки метрик
-func (m *MetricAction) SendMetricsToServer(ctx context.Context, reportInterval int64, flagRunAddr string, workers int) {
+func (m *MetricAction) SendMetricsToServer(ctx context.Context, reportInterval int64, flagRunAddr string, workers int, ip string) {
 	metricsCh := make(chan []entity.Metric, 1)
 	var wg sync.WaitGroup
 	wg.Add(workers)
@@ -27,7 +27,7 @@ func (m *MetricAction) SendMetricsToServer(ctx context.Context, reportInterval i
 			for i := 0; i <= workers; i++ {
 				go func() {
 					defer wg.Done()
-					m.WorkerPoll(ctx, flagRunAddr, metricsCh)
+					m.WorkerPoll(ctx, flagRunAddr, metricsCh, ip)
 				}()
 			}
 			go func() {
@@ -68,8 +68,8 @@ func (m *MetricAction) CollectRuntimeMetric(ctx context.Context, pollInterval in
 }
 
 // WorkerPoll - воркер, который отправляет метрики
-func (m *MetricAction) WorkerPoll(ctx context.Context, flagAddr string, ch <-chan []entity.Metric) {
+func (m *MetricAction) WorkerPoll(ctx context.Context, flagAddr string, ch <-chan []entity.Metric, ip string) {
 	for met := range ch {
-		m.SendMetric(ctx, met, flagAddr)
+		m.SendMetric(ctx, met, flagAddr, ip)
 	}
 }
