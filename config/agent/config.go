@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net"
 	"os"
 	"strconv"
 	"strings"
@@ -20,6 +21,7 @@ type Config struct {
 	CryptoKey      string `json:"crypto_key"`
 	Limit          int
 	ConfigJSON     string
+	IP             string
 }
 
 func NewConfig() {}
@@ -98,6 +100,14 @@ func NewAgent() (*Config, error) {
 		!strings.HasPrefix(cfg.URL, "https") && !strings.HasPrefix(cfg.URL, "localhost") {
 		cfg.URL = "http://localhost" + cfg.URL
 	}
+
+	conn, err := net.Dial("udp", "127.0.0.1:8080")
+	if err != nil {
+		return nil, fmt.Errorf("Err to connect: %w ", err)
+	}
+	defer conn.Close()
+	localAddr := conn.LocalAddr().(*net.UDPAddr)
+	cfg.IP = localAddr.IP.String()
 
 	return cfg, nil
 }

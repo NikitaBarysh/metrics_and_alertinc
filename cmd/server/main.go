@@ -12,6 +12,7 @@ import (
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/encrypt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/usecase"
 	"github.com/go-chi/chi/v5/middleware"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
@@ -75,6 +76,12 @@ func main() {
 			loggingVar.Error("err to create encryptor")
 		}
 		chiRouter.Use(encrypt.Middleware)
+	}
+	if cfg.TrustedSubnet != "" {
+		if _, err := usecase.InitIPChecker(cfg.TrustedSubnet); err != nil {
+			loggingVar.Error("err to init trusted subnet")
+		}
+		chiRouter.Use(usecase.Middleware)
 	}
 
 	chiRouter.Mount("/debug", middleware.Profiler())

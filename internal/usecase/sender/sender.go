@@ -26,7 +26,7 @@ func NewSender(hash *hasher.Hasher) *Sender {
 }
 
 // SendPostCompressJSON - отправка сжатых данных на сервер
-func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage entity.Metric) {
+func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage entity.Metric, ip string) {
 	data, err := json.Marshal(storage)
 	if err != nil {
 		panic(err)
@@ -58,6 +58,7 @@ func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage e
 		request.Header.Set("HashSHA256", hex.EncodeToString(hash))
 	}
 	request.Header.Set(`Content-Type`, "application/json")
+	request.Header.Set("X-Real-IP", ip)
 	client := &http.Client{}
 	res, err := client.Do(request)
 	if err != nil {

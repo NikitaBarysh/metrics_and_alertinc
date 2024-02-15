@@ -18,6 +18,7 @@ type Config struct {
 	DataBaseDSN   string `json:"database_dsn"`
 	Key           string `json:"sign_key"`
 	ConfigJSON    string
+	TrustedSubnet string `json:"trusted_subnet"`
 }
 
 type Option func(c *Config)
@@ -127,6 +128,7 @@ type Environment struct {
 	key           string
 	cryptoKey     string
 	configJSON    string
+	trustedSubnet string
 }
 
 func NewServer() (Environment, error) {
@@ -141,6 +143,7 @@ func NewServer() (Environment, error) {
 	flag.StringVar(&env.cryptoKey, "crypto-key", "", "private crypto key")
 	flag.StringVar(&env.configJSON, "c", "", "json config")
 	flag.StringVar(&env.configJSON, "config", "", "json config")
+	flag.StringVar(&env.trustedSubnet, "t", "", "subnet")
 
 	flag.Parse()
 
@@ -178,6 +181,10 @@ func NewServer() (Environment, error) {
 
 	if config, ok := os.LookupEnv("CONFIG"); ok {
 		env.configJSON = config
+	}
+
+	if subnet, ok := os.LookupEnv("TRUSTED_SUBNET"); ok {
+		env.trustedSubnet = subnet
 	}
 
 	return env, nil
