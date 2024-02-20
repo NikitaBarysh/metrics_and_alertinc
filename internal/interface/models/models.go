@@ -3,6 +3,11 @@ package models
 
 import "errors"
 
+const (
+	Gauge   = "gauge"
+	Counter = "counter"
+)
+
 // Кастомные ошибки
 var (
 	ErrNotFound    = errors.New("not found metric")

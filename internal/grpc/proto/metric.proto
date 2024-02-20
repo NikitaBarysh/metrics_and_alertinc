@@ -1,0 +1,25 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+package grpc;
+option go_package = "./metricgrpc";
+
+enum MType {
+  Gauge = 0;
+  Counter = 1;
+}
+
+message Metric {
+  string ID = 1;
+  MType type = 2;
+  int64 Delta = 3;
+  double Value = 4;
+}
+
+message UpdateMetric{
+  repeated Metric metric = 1;
+}
+
+service SendMetric {
+  rpc Update(UpdateMetric) returns (google.protobuf.Empty);
+}

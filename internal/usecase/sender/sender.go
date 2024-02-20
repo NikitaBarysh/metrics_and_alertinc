@@ -8,10 +8,14 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/encrypt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/grpc"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
+	grpc2 "google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 )
 
 type Sender struct {
@@ -25,7 +29,7 @@ func NewSender(hash *hasher.Hasher) *Sender {
 }
 
 // SendPostCompressJSON - отправка сжатых данных на сервер
-func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage entity.Metric) {
+func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage entity.Metric, ip string) {
 	data, err := json.Marshal(storage)
 	if err != nil {
 		panic(err)
@@ -35,20 +39,29 @@ func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage e
 	if err != nil {
 		panic(err)
 	}
+	buffer := buf.Bytes()
 
 	request, err := http.NewRequest(http.MethodPost, url, buf)
 	request = request.WithContext(ctx)
 	if err != nil {
 		panic(err)
 	}
+	if encrypt.MetricsEncryptor != nil {
+		encryptBuf, err := encrypt.MetricsEncryptor.Encrypt(buffer)
+		if err != nil {
+			fmt.Println("err to encrypt")
+		}
+		buffer = encryptBuf
+	}
 	if s.hash != nil {
-		hash, errSign := s.hash.NewSign(buf.Bytes())
+		hash, errSign := s.hash.NewSign(buffer)
 		if errSign != nil {
 			fmt.Println(fmt.Errorf("SendMetric: NewSign: %w", err))
 		}
 		request.Header.Set("HashSHA256", hex.EncodeToString(hash))
 	}
 	request.Header.Set(`Content-Type`, "application/json")
+	request.Header.Set("X-Real-IP", ip)
 	client := &http.Client{}
 	res, err := client.Do(request)
 	if err != nil {
@@ -73,5 +86,33 @@ func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage e
 	if errBody != nil {
 		fmt.Println(fmt.Errorf("usecase: sender: sendPostJSON: close Body: %w", err))
 		return
+	}
+}
+
+func (s *Sender) SendGRPC(metrics []entity.Metric, ip string, conn grpc2.ClientConnInterface) {
+	c := grpc.NewSendMetricClient(conn)
+	grpcMetricSlice := make([]*grpc.Metric, 0, len(metrics))
+
+	for _, metric := range metrics {
+		grpcMetric := &grpc.Metric{
+			ID: metric.ID,
+		}
+		switch metric.MType {
+		case entity.Gauge:
+			grpcMetric.Type = grpc.MType_Gauge
+			grpcMetric.Value = metric.Value
+		case entity.Counter:
+			grpcMetric.Type = grpc.MType_Counter
+			grpcMetric.Delta = metric.Delta
+		}
+		grpcMetricSlice = append(grpcMetricSlice, grpcMetric)
+	}
+
+	md := metadata.New(map[string]string{"X-Real-IP": ip})
+	ctx := metadata.NewOutgoingContext(context.Background(), md)
+
+	_, err := c.Update(ctx, &grpc.UpdateMetric{Metric: grpcMetricSlice})
+	if err != nil {
+		fmt.Println("err to send metrics to grpc server: ", err)
 	}
 }

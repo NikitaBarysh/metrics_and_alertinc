@@ -16,9 +16,9 @@ import (
 )
 
 var (
-	buildVersion string = "N/A"
-	buildDate    string = "N/A"
-	buildCommit  string = "N/A"
+	buildVersion = "N/A"
+	buildDate    = "N/A"
+	buildCommit  = "N/A"
 )
 
 func main() {
@@ -41,14 +41,14 @@ func main() {
 	storage := memstorage.NewAgentStorage()
 
 	send := sender.NewSender(hash)
-	newMetricAction := service.NewMetricAction(storage, send)
+	newMetricAction := service.NewMetricAction(storage, send, cfg)
 
-	go newMetricAction.CollectPsutil(ctx, cfg.PollInterval)
+	go newMetricAction.CollectPsutil(ctx)
 
-	go newMetricAction.CollectRuntimeMetric(ctx, cfg.PollInterval)
+	go newMetricAction.CollectRuntimeMetric(ctx)
 
-	go newMetricAction.SendMetricsToServer(ctx, cfg.ReportInterval, cfg.URL, cfg.Limit)
+	go newMetricAction.SendMetricsToServer(ctx)
 
 	sig := <-termSignal
-	fmt.Println("Agent Graceful Shutdown", sig.String())
+	fmt.Println("Agent Graceful Shutdown ", sig.String())
 }

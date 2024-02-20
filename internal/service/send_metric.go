@@ -6,24 +6,37 @@ import (
 	"fmt"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 type sender interface {
-	SendPostCompressJSON(ctx context.Context, url string, storage entity.Metric)
+	SendPostCompressJSON(ctx context.Context, url string, storage entity.Metric, ip string)
+	SendGRPC(metrics []entity.Metric, ip string, conn grpc.ClientConnInterface)
 }
 
 // SendMetric - подготовка для отправки метрик на сервер
-func (m *MetricAction) SendMetric(ctx context.Context, allMetric []entity.Metric, flagRunAddr string) error {
-	for _, value := range allMetric {
-		metricType := value.MType
-		switch metricType {
-		case entity.Gauge:
-			url := fmt.Sprintf("http://%s/update/%s/%s/%.2f", flagRunAddr, value.MType, value.ID, value.Value)
-			m.sender.SendPostCompressJSON(ctx, url, value)
-		case entity.Counter:
-			url := fmt.Sprintf("http://%s/update/%s/%s/%d", flagRunAddr, value.MType, value.ID, value.Delta)
-			m.sender.SendPostCompressJSON(ctx, url, value)
+func (m *MetricAction) SendMetric(ctx context.Context, allMetric []entity.Metric) error {
+	if m.cfg.ServiceType == "http" {
+		for _, value := range allMetric {
+			metricType := value.MType
+			switch metricType {
+			case entity.Gauge:
+				url := fmt.Sprintf("http://%s/update/%s/%s/%.2f", m.cfg.URL, value.MType, value.ID, value.Value)
+				m.sender.SendPostCompressJSON(ctx, url, value, m.cfg.IP)
+			case entity.Counter:
+				url := fmt.Sprintf("http://%s/update/%s/%s/%d", m.cfg.URL, value.MType, value.ID, value.Delta)
+				m.sender.SendPostCompressJSON(ctx, url, value, m.cfg.IP)
+			}
 		}
+	} else if m.cfg.ServiceType == "grpc" {
+		conn, err := grpc.Dial(m.cfg.URL, grpc.WithTransportCredentials(insecure.NewCredentials()))
+		if err != nil {
+			return fmt.Errorf("err to dial grpc: %w", err)
+		}
+
+		m.sender.SendGRPC(allMetric, m.cfg.IP, conn)
 	}
+
 	return nil
 }
