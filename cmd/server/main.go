@@ -103,10 +103,10 @@ func main() {
 		grpc2.RegisterSendMetricServer(s, &service)
 		listen, err := net.Listen("tcp", cfg.RunAddr)
 		if err != nil {
-			log.Fatalf("err to start grpc server: %w", err)
+			log.Fatal("err to listen grpc server: %w", err)
 		}
 		if err = s.Serve(listen); err != nil {
-			panic(err)
+			log.Fatal("err to start grpc server: %w", err)
 		}
 
 	}
