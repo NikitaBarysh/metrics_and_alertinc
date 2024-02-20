@@ -106,7 +106,7 @@ func main() {
 			log.Fatalf("err to start grpc server: %w", err)
 		}
 		if err = s.Serve(listen); err != nil {
-			log.Fatal("err to listen grpc: %w", err)
+			panic(err)
 		}
 
 	}
