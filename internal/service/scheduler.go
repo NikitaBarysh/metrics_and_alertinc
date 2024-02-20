@@ -6,17 +6,16 @@ import (
 	"sync"
 	"time"
 
-	"github.com/NikitaBarysh/metrics_and_alertinc/config/agent"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 )
 
 // SendMetricsToServer - планировщик получение и отправки метрик
-func (m *MetricAction) SendMetricsToServer(ctx context.Context, cfg *agent.Config) {
+func (m *MetricAction) SendMetricsToServer(ctx context.Context) {
 	metricsCh := make(chan []entity.Metric, 1)
 	var wg sync.WaitGroup
-	wg.Add(cfg.Limit)
+	wg.Add(m.cfg.Limit)
 
-	sendTicker := time.NewTicker(time.Second * time.Duration(cfg.ReportInterval))
+	sendTicker := time.NewTicker(time.Second * time.Duration(m.cfg.ReportInterval))
 	defer sendTicker.Stop()
 	for {
 		select {
@@ -25,7 +24,7 @@ func (m *MetricAction) SendMetricsToServer(ctx context.Context, cfg *agent.Confi
 		case <-sendTicker.C:
 			metric, _ := m.storage.GetAllMetric()
 			metricsCh <- metric
-			for i := 0; i <= cfg.Limit; i++ {
+			for i := 0; i <= m.cfg.Limit; i++ {
 				go func() {
 					defer wg.Done()
 					m.WorkerPoll(ctx, metricsCh)
