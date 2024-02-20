@@ -19,6 +19,7 @@ type Config struct {
 	Key           string `json:"sign_key"`
 	ConfigJSON    string
 	TrustedSubnet string `json:"trusted_subnet"`
+	ServerType    string `json:"server_type"`
 }
 
 type Option func(c *Config)

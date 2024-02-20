@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	_ "net/http/pprof"
 	"os"
@@ -11,9 +12,11 @@ import (
 	"syscall"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/encrypt"
+	grpc2 "github.com/NikitaBarysh/metrics_and_alertinc/internal/grpc"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/usecase"
 	"github.com/go-chi/chi/v5/middleware"
+	"google.golang.org/grpc"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/config/server"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/logger"
@@ -87,12 +90,26 @@ func main() {
 	chiRouter.Mount("/debug", middleware.Profiler())
 	chiRouter.Mount("/", router.Register())
 	loggingVar.Log.Info("Running server", zap.String("address", cfg.RunAddr))
-	go func() {
-		err = http.ListenAndServe(cfg.RunAddr, chiRouter)
+	if cfg.ServerType == "http" {
+		go func() {
+			err = http.ListenAndServe(cfg.RunAddr, chiRouter)
+			if err != nil {
+				panic(err)
+			}
+		}()
+	} else if cfg.ServerType == "grpc" {
+		s := grpc.NewServer()
+		service := grpc2.NewService(projectStorage)
+		grpc2.RegisterSendMetricServer(s, &service)
+		listen, err := net.Listen("tcp", cfg.RunAddr)
 		if err != nil {
-			panic(err)
+			log.Fatalf("err to start grpc server: %w", err)
 		}
-	}()
+		if err = s.Serve(listen); err != nil {
+			log.Fatal("err to listen grpc: %w", err)
+		}
+
+	}
 
 	sig := <-termSig
 	loggingVar.Log.Info("Server Graceful Shutdown", zap.String("-", sig.String()))

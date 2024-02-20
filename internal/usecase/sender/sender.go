@@ -10,9 +10,11 @@ import (
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/encrypt"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
+	"github.com/NikitaBarysh/metrics_and_alertinc/internal/grpc"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
+	"google.golang.org/grpc/metadata"
 )
 
 type Sender struct {
@@ -83,5 +85,32 @@ func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage e
 	if errBody != nil {
 		fmt.Println(fmt.Errorf("usecase: sender: sendPostJSON: close Body: %w", err))
 		return
+	}
+}
+
+func (s *Sender) SendGRPC(metrics []entity.Metric, ip string, grpcClient grpc.SendMetricClient) {
+	grpcMetricSlice := make([]*grpc.Metric, 0, len(metrics))
+
+	for _, metric := range metrics {
+		grpcMetric := &grpc.Metric{
+			ID: metric.ID,
+		}
+		switch metric.MType {
+		case entity.Gauge:
+			grpcMetric.Type = grpc.MType_Gauge
+			grpcMetric.Value = metric.Value
+		case entity.Counter:
+			grpcMetric.Type = grpc.MType_Counter
+			grpcMetric.Delta = metric.Delta
+		}
+		grpcMetricSlice = append(grpcMetricSlice, grpcMetric)
+	}
+
+	md := metadata.New(map[string]string{"X-Real-IP": ip})
+	ctx := metadata.NewOutgoingContext(context.Background(), md)
+
+	_, err := grpcClient.Update(ctx, &grpc.UpdateMetric{Metric: grpcMetricSlice})
+	if err != nil {
+		fmt.Println("err to send metrics to grpc server: ", err)
 	}
 }

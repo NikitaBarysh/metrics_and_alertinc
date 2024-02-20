@@ -22,9 +22,8 @@ type Config struct {
 	Limit          int
 	ConfigJSON     string
 	IP             string
+	ServiceType    string `json:"service_type"`
 }
-
-func NewConfig() {}
 
 func (m *Config) fromJSON() error {
 	var cfg Config

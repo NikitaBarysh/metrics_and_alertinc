@@ -6,16 +6,17 @@ import (
 	"sync"
 	"time"
 
+	"github.com/NikitaBarysh/metrics_and_alertinc/config/agent"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
 )
 
 // SendMetricsToServer - планировщик получение и отправки метрик
-func (m *MetricAction) SendMetricsToServer(ctx context.Context, reportInterval int64, flagRunAddr string, workers int, ip string) {
+func (m *MetricAction) SendMetricsToServer(ctx context.Context, cfg *agent.Config) {
 	metricsCh := make(chan []entity.Metric, 1)
 	var wg sync.WaitGroup
-	wg.Add(workers)
+	wg.Add(cfg.Limit)
 
-	sendTicker := time.NewTicker(time.Second * time.Duration(reportInterval))
+	sendTicker := time.NewTicker(time.Second * time.Duration(cfg.ReportInterval))
 	defer sendTicker.Stop()
 	for {
 		select {
@@ -24,10 +25,10 @@ func (m *MetricAction) SendMetricsToServer(ctx context.Context, reportInterval i
 		case <-sendTicker.C:
 			metric, _ := m.storage.GetAllMetric()
 			metricsCh <- metric
-			for i := 0; i <= workers; i++ {
+			for i := 0; i <= cfg.Limit; i++ {
 				go func() {
 					defer wg.Done()
-					m.WorkerPoll(ctx, flagRunAddr, metricsCh, ip)
+					m.WorkerPoll(ctx, metricsCh)
 				}()
 			}
 			go func() {
@@ -39,8 +40,8 @@ func (m *MetricAction) SendMetricsToServer(ctx context.Context, reportInterval i
 }
 
 // CollectPsutil - планировщик сбора psutil метрик
-func (m *MetricAction) CollectPsutil(ctx context.Context, pollInterval int64) {
-	collectTicker := time.NewTicker(time.Second * time.Duration(pollInterval))
+func (m *MetricAction) CollectPsutil(ctx context.Context) {
+	collectTicker := time.NewTicker(time.Second * time.Duration(m.cfg.PollInterval))
 	defer collectTicker.Stop()
 	for {
 		select {
@@ -53,8 +54,8 @@ func (m *MetricAction) CollectPsutil(ctx context.Context, pollInterval int64) {
 }
 
 // CollectRuntimeMetric - планировщик сбора runtime метрик
-func (m *MetricAction) CollectRuntimeMetric(ctx context.Context, pollInterval int64) {
-	collectTicker := time.NewTicker(time.Second * time.Duration(pollInterval))
+func (m *MetricAction) CollectRuntimeMetric(ctx context.Context) {
+	collectTicker := time.NewTicker(time.Second * time.Duration(m.cfg.PollInterval))
 	defer collectTicker.Stop()
 
 	for {
@@ -68,8 +69,8 @@ func (m *MetricAction) CollectRuntimeMetric(ctx context.Context, pollInterval in
 }
 
 // WorkerPoll - воркер, который отправляет метрики
-func (m *MetricAction) WorkerPoll(ctx context.Context, flagAddr string, ch <-chan []entity.Metric, ip string) {
+func (m *MetricAction) WorkerPoll(ctx context.Context, ch <-chan []entity.Metric) {
 	for met := range ch {
-		m.SendMetric(ctx, met, flagAddr, ip)
+		m.SendMetric(ctx, met)
 	}
 }

@@ -2,8 +2,6 @@
 package entity
 
 import (
-	"strconv"
-
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/models"
 )
 
@@ -22,27 +20,19 @@ type Metric struct {
 	Value float64 // значение метрики в случае передачи gauge
 }
 
-func NewMetric(id, value string, mType MType) (*Metric, error) {
+func (m *Metric) SetMetric(id string, mType MType, delta int64, value float64) (*Metric, error) {
 	switch mType {
 	case Gauge:
-		val, err := strconv.ParseFloat(value, 64)
-		if err != nil {
-			return nil, models.ErrWrongValue
-		}
 		return &Metric{
 			ID:    id,
 			MType: mType,
-			Value: val,
+			Value: value,
 		}, nil
 	case Counter:
-		val, err := strconv.ParseInt(value, 10, 64)
-		if err != nil {
-			return nil, models.ErrWrongValue
-		}
 		return &Metric{
 			ID:    id,
 			MType: mType,
-			Delta: val,
+			Delta: delta,
 		}, nil
 	}
 	return nil, models.ErrUnknownType
