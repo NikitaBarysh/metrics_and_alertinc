@@ -47,7 +47,7 @@ func main() {
 
 	go newMetricAction.CollectRuntimeMetric(ctx)
 
-	go newMetricAction.SendMetricsToServer(ctx, cfg)
+	go newMetricAction.SendMetricsToServer(ctx)
 
 	sig := <-termSignal
 	fmt.Println("Agent Graceful Shutdown ", sig.String())

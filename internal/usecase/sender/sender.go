@@ -14,6 +14,7 @@ import (
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/interface/compress"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service"
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/service/hasher"
+	grpc2 "google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )
 
@@ -88,7 +89,8 @@ func (s *Sender) SendPostCompressJSON(ctx context.Context, url string, storage e
 	}
 }
 
-func (s *Sender) SendGRPC(metrics []entity.Metric, ip string, grpcClient grpc.SendMetricClient) {
+func (s *Sender) SendGRPC(metrics []entity.Metric, ip string, conn grpc2.ClientConnInterface) {
+	c := grpc.NewSendMetricClient(conn)
 	grpcMetricSlice := make([]*grpc.Metric, 0, len(metrics))
 
 	for _, metric := range metrics {
@@ -109,7 +111,7 @@ func (s *Sender) SendGRPC(metrics []entity.Metric, ip string, grpcClient grpc.Se
 	md := metadata.New(map[string]string{"X-Real-IP": ip})
 	ctx := metadata.NewOutgoingContext(context.Background(), md)
 
-	_, err := grpcClient.Update(ctx, &grpc.UpdateMetric{Metric: grpcMetricSlice})
+	_, err := c.Update(ctx, &grpc.UpdateMetric{Metric: grpcMetricSlice})
 	if err != nil {
 		fmt.Println("err to send metrics to grpc server: ", err)
 	}

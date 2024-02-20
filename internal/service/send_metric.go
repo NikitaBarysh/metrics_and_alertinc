@@ -6,14 +6,13 @@ import (
 	"fmt"
 
 	"github.com/NikitaBarysh/metrics_and_alertinc/internal/entity"
-	grpc2 "github.com/NikitaBarysh/metrics_and_alertinc/internal/grpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
 
 type sender interface {
 	SendPostCompressJSON(ctx context.Context, url string, storage entity.Metric, ip string)
-	SendGRPC(metrics []entity.Metric, ip string, grpcClient grpc2.SendMetricClient)
+	SendGRPC(metrics []entity.Metric, ip string, conn grpc.ClientConnInterface)
 }
 
 // SendMetric - подготовка для отправки метрик на сервер
@@ -35,9 +34,8 @@ func (m *MetricAction) SendMetric(ctx context.Context, allMetric []entity.Metric
 		if err != nil {
 			return fmt.Errorf("err to dial grpc: %w", err)
 		}
-		c := grpc2.NewSendMetricClient(conn)
 
-		m.sender.SendGRPC(allMetric, m.cfg.IP, c)
+		m.sender.SendGRPC(allMetric, m.cfg.IP, conn)
 	}
 
 	return nil
