@@ -73,9 +73,9 @@ type Metric struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ID    string `protobuf:"bytes,1,opt,name=ID,proto3" json:"ID,omitempty"`
-	Type  MType  `protobuf:"varint,2,opt,name=type,proto3,enum=grpc.MType" json:"type,omitempty"`
-	Delta int64  `protobuf:"varint,3,opt,name=Delta,proto3" json:"Delta,omitempty"`
+	ID    string  `protobuf:"bytes,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	Type  MType   `protobuf:"varint,2,opt,name=type,proto3,enum=grpc.MType" json:"type,omitempty"`
+	Delta int64   `protobuf:"varint,3,opt,name=Delta,proto3" json:"Delta,omitempty"`
 	Value float64 `protobuf:"fixed64,4,opt,name=Value,proto3" json:"Value,omitempty"`
 }
 
